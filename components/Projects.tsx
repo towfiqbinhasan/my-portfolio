@@ -248,10 +248,10 @@ const projects: Project[] = [
     live: "#",
     github:
       "https://github.com/towfiqbinhasan/Adaptive-Traffic-Control-System-for-Lane-Reduction-DLC-Project-EEE-",
-   docs: [
-    { label: "Proposal", url: "/docs/eee2-1.pdf" },
-    { label: "Report", url: "/docs/eee2-2.pdf" },
-  ],
+  doc: [
+  { label: "Proposal", url: "/docs/eee2-1.pdf" },
+  { label: "Report", url: "/docs/eee2-2.pdf" },
+],
       images: [
       "/projects/eee2-1.jpg",
        "/projects/eee2-2.jpg",
@@ -269,7 +269,7 @@ const projects: Project[] = [
     live: "#",
     github:
       "https://github.com/towfiqbinhasan/An-IoT-Based-Robotic-Rover-with-ESP32-CAM-Micro-processor-project-EEE",
-   docs: [
+   doc: [
     { label: "Proposal", url: "/docs/eee3-1.pdf" },
     { label: "Report", url: "/docs/eee3-2.pdf" },
   ],
