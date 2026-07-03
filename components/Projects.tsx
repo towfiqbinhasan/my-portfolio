@@ -388,7 +388,7 @@ function ProjectCard({
         >
           <FiGithub /> Code
         </a>
-{project.docs && project.docs.map((d) => (
+{project.doc && project.doc.map((d) => (
   
   <a  key={d.url}
     href={d.url}
