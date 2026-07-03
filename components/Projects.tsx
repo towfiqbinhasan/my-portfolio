@@ -180,7 +180,7 @@ const projects: Project[] = [
     live: "#",
     github:
       "https://github.com/towfiqbinhasan/Pharmacy-Managment-sysment-project-in-C-",
-    doc: { label: "Report", url: "/docs/cse8-1.pdf" },
+    doc: [{ label: "Report", url: "/docs/cse8-1.pdf" }],
       images: [
       "/projects/cse8-1.jpg",
       "/projects/cse8-2.jpg",
