@@ -164,7 +164,7 @@ const projects: Project[] = [
     live: "#",
     github:
       "https://github.com/towfiqbinhasan/Software-Engineering-Project",
-  doc: { label: "Report", url: "/docs/cse7-1.pdf" },
+ doc: [{ label: "Report", url: "/docs/cse7-1.pdf" }],
       images: [
       "/projects/cse7-1.gif",
       
