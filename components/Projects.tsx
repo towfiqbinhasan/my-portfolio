@@ -13,6 +13,7 @@ type Project = {
   github: string;
    doc?: { label: string; url: string }[];
   images: string[];
+  video?: string;
   field: "CSE" | "EEE";
 };
 
@@ -214,6 +215,44 @@ const projects: Project[] = [
     ],
     field: "CSE",
   },
+
+
+
+{
+    title: "Affective Desktop Companion Robot with Temporal Filtering.",
+    desc: "A 3D-printed 4-DOF robotic desktop companion that reads facial expressions via computer vision and expresses stabilized emotional states through movement and color.",
+    details:
+      "This project builds a desktop companion robot that senses user cognitive states (focused, stressed, happy, drowsy, distracted) using MediaPipe Face Mesh and a Random Forest classifier trained on a 17-feature vector including PERCLOS and gaze variance. To prevent 'behavioral jitter' — erratic movements from noisy frame-by-frame predictions — the system applies a two-stage temporal filter: an 85% supermajority-vote buffer followed by state-specific hysteresis timers, before actuating a custom 3D-printed 4-DOF robotic arm with WS2812B RGB feedback. The filtering approach achieved a 99.4% Jitter Mitigation Rate while keeping 100% Legitimate State Recognition Rate, and participant testing showed the filtered robot was rated significantly calmer and more trustworthy than an unfiltered baseline. This work was published as a research paper at ICCA 2026.",
+    tech: ["Python", "MediaPipe", "Random Forest", "Arduino", "3D Printing", "Robotics"],
+    live: "#",
+    github:
+      "#",
+    doc: [{ label: "Poster", url: "/docs/hci-poster.pdf" }],
+      images: [
+      "/projects/cse10-1.jpg",
+      "/projects/cse10-2.jpg",
+      "/projects/cse10-3.jpg",
+      "/projects/cse10-4.jpg",
+      "/projects/cse10-5.jpg",
+      "/projects/cse10-6.jpg",
+      "/projects/cse10-7.jpg",
+      "/projects/cse10-8.jpg",
+      "/projects/cse10-9.jpg",
+      "/projects/cse10-10.jpg",
+      "/projects/cse10-11.jpg",
+      "/projects/cse10-12.jpg",
+      "/projects/cse10-13.jpg",
+      "/projects/cse10-14.jpg",
+      "/projects/cse10-15.jpg",
+    
+    ],
+    video: "/projects/robot1-video.mp4",
+    field: "CSE",
+  },
+
+
+
+
 
 
    {
@@ -476,7 +515,7 @@ function ProjectModal({
                 <FiChevronRight />
               </button>
 
-              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+   <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
                 {project.images.map((_, i) => (
                   <button
                     key={i}
@@ -492,6 +531,15 @@ function ProjectModal({
             </>
           )}
         </div>
+
+        {project.video && (
+          <div className="relative w-full bg-black/60 border-t border-white/10">
+            <video controls className="w-full max-h-96" poster={project.images[0]}>
+              <source src={project.video} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        )}
 
         <div className="p-6 md:p-8">
           <h3 className="text-2xl font-semibold mb-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
