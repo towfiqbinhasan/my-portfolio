@@ -89,7 +89,7 @@ export default function Hero() {
         transition={{ duration: 0.6, delay: 0.2 }}
         className="relative text-5xl md:text-7xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent"
       >
-        Md. Towfiq Bin Hasan
+        Md. Towfiq Bin 
       </motion.h1>
 
       <motion.p
