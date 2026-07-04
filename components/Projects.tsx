@@ -339,17 +339,17 @@ function ProjectCard({
       onClick={onClick}
       className="cursor-pointer bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-purple-400 transition group"
     >
-      <div className="relative w-full h-40 rounded-lg mb-4 overflow-hidden bg-gradient-to-br from-purple-600/30 to-pink-600/30">
-        {project.images[0] && (
-          <Image
-            src={project.images[0]}
-            alt={project.title}
-            fill
-            sizes="400px"
-            className="object-cover group-hover:scale-105 transition duration-500"
-          />
-        )}
-      </div>
+      <div className="relative w-full h-40 rounded-lg mb-4 overflow-hidden bg-black/40">
+  {project.images[0] && (
+    <Image
+      src={project.images[0]}
+      alt={project.title}
+      fill
+      sizes="400px"
+      className="object-contain group-hover:scale-105 transition duration-500"
+    />
+  )}
+</div>
       <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
       <p className="text-gray-400 text-sm mb-4">{project.desc}</p>
       <div className="flex gap-2 flex-wrap mb-4">
@@ -441,25 +441,25 @@ function ProjectModal({
           <FiX />
         </button>
 
-        <div className="relative w-full h-72 md:h-96 bg-black/40">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={current}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              className="absolute inset-0"
-            >
-              <Image
-                src={project.images[current]}
-                alt={project.title}
-                fill
-                sizes="672px"
-                className="object-cover"
-              />
-            </motion.div>
-          </AnimatePresence>
+       <div className="relative w-full h-72 md:h-96 bg-black/40">
+  <AnimatePresence mode="wait">
+    <motion.div
+      key={current}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4 }}
+      className="absolute inset-0"
+    >
+      <Image
+        src={project.images[current]}
+        alt={project.title}
+        fill
+        sizes="672px"
+        className="object-contain"
+      />
+    </motion.div>
+  </AnimatePresence>
 
           {project.images.length > 1 && (
             <>
