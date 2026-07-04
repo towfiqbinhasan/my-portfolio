@@ -49,14 +49,53 @@ const conferencePapers: ConferencePaper[] = [
     conferenceWebsite: "https://qpain.org/",
     poster: "/research/poster1.jpg",
   },
+    {
+    title: "Analysis of Soil Salinity and Earth Metal Concentrations Along River Distance Gradients in the Sundarbans",
+    conferenceName: "24th International Mathematical Conference (24IMC)",
+    year: "2025",
+    details:
+      "This study analyzes 110 sample plots across the Sundarbans mangrove forest to understand how distance from the riverbank shapes soil chemistry. Salinity is highest near the river due to frequent tidal flooding and drops significantly further inland, while key nutrients like Ammonium, Phosphorus, and Potassium are also concentrated near the riverbanks, creating a salinity-fertility trade-off. Soil pH is slightly more alkaline near the river and more acidic further inland. Metal analysis reveals Zinc concentrations rise near the river (carried by tidal water), while Iron increases further inland, originating from the soil's parent rock rather than tidal deposition. These findings help conservationists select appropriate mangrove species for reforestation based on proximity to water, especially as rising sea levels threaten to push salinity further into the forest's low-salt 'refuge' zones.",
+    certificate: "/research/cert2.jpg",
+    eventImages: ["/research/event2-1.jpg", "/research/event2-2.jpg","/research/event2-3.jpg","/research/event2-4.jpg"],
+    pdf: "/research/paper2.pdf",
+    paperLink: "#",
+    conferenceWebsite: "https://24imc.cumathbms.org/",
+    poster: "/research/poster2.pdf",
+  },
+   {
+    title: "Comparative Analysis of Classification Techniques in Data Mining: K-Nearest Neighbors, Naive Bayes, and Decision Trees Based Approach",
+    conferenceName: "24th International Mathematical Conference (24IMC)",
+    year: "2025",
+    details:
+      "This study compares three classification techniques — K-Nearest Neighbors (KNN), Naive Bayes (NB), and Decision Trees (DT) — for predicting heart disease using records from 303 patients across 14 clinical features including age, blood pressure, and cholesterol. KNN emerged as the overall best performer, achieving the highest accuracy and 100% Recall, meaning it caught every actual heart disease case in testing. Naive Bayes excelled at minimizing false positives, avoiding mislabeling healthy patients as sick, while Decision Trees, though the least accurate, remained valuable for their interpretability, offering clear if-then rules that are easy for doctors to trust and understand. The findings suggest no single 'best' method exists — the right choice depends on whether missing a diagnosis or maintaining interpretability matters more.",
+    certificate: "/research/cert3.jpg",
+    eventImages: ["/research/event2-1.jpg", "/research/event2-2.jpg","/research/event2-3.jpg"],
+    pdf: "/research/paper3.pdf",
+    paperLink: "#",
+    conferenceWebsite: "https://24imc.cumathbms.org/",
+    poster: "/research/poster3.pdf",
+  },
+   {
+    title: "Monthly Hospital Admissions and Mortality Trends at Kurmitola General Hospital",
+    conferenceName: "National Biomedical, Health & Research Conference (NBHRC 2025)",
+    year: "2025",
+    details:
+      "This study analyzes a full year of hospital data from Kurmitola General Hospital in Dhaka to uncover seasonal patterns in patient admissions and mortality. January to April proved the quietest period, with only 8 to 58 admissions per month and zero recorded deaths, before admissions began rising sharply from May, peaking dramatically in October with over 470 cases. Mortality also ticked upward during the busiest months, reaching its highest point in November with 7 deaths. The findings point to a clear seasonal surge, likely tied to the winter season, that strains hospital staff and resources late in the year. The study recommends proactive planning — allocating more beds, staff, and medicine ahead of the October-November peak — to better manage patient surges and improve care during high-demand periods.",
+    certificate: "/research/cert4.jpg",
+    eventImages: ["/research/event4-1.jpg", "/research/event4-2.jpg","/research/event4-3.jpg","/research/event4-4.jpg","/research/event4-5.jpg","/research/event4-6.jpg"],
+    pdf: "#",
+    paperLink: "#",
+    conferenceWebsite: "https://www.dmcrac.org/nbhrc25/",
+    poster: "/research/poster4.pdf",
+  },
 ];
 
 const journalPapers: JournalPaper[] = [
   {
-    title: "Your Journal Paper Title Here",
-    journalName: "Journal Name",
-    year: "2025",
-    details: "এই পেপারের সংক্ষিপ্ত বিবরণ লিখো।",
+    title: "Paper Working in progress",
+    journalName: "working in progress",
+    year: "",
+    details: "The paper is currently being prepared for submission to a peer-reviewed journal. It builds on my previous conference research and aims to provide a more comprehensive analysis of the findings, incorporating additional data and advanced statistical methods. The goal is to contribute meaningful insights to the academic community and advance knowledge in the field.",
     link: "#",
   },
 ];
