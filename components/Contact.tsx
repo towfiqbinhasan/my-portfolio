@@ -12,12 +12,12 @@ const socials = [
   {
     icon: FaWhatsapp,
     label: "01533xxxxxxxxx",
-    href: "https://wa.me/8801533xxxxxxx",
+    href: "https://wa.me/qr/IHA6ZSEDQZ57M1",
     color: "text-green-400",
   },
   {
     icon: FaGithub,
-    label: "towfiqbinhasan",
+    label: "towfiqbinhxxxx",
     href: "https://github.com/towfiqbinhasan",
     color: "text-gray-300",
   },
