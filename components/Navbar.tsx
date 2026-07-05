@@ -11,6 +11,7 @@ const links = [
   { name: "Skills", path: "/skills" },
   { name: "Projects", path: "/projects" },
   { name: "Research", path: "/research" },
+  { name: "Certificate", path: "/certificate" },
   { name: "Gadgets", path: "/gadgets" },
   { name: "Photography", path: "/photography" },
   { name: "Contact", path: "/contact" },
