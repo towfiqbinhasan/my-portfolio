@@ -1,13 +1,19 @@
 "use client";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useAnimationFrame,
+} from "framer-motion";
 import Image from "next/image";
 import { FiX } from "react-icons/fi";
 
 const highlights = [
   {
-    src: "/highlights/highlight1.jpeg", 
-    caption: "Thrilled to have presented my research at the 2026 IEEE 2nd International Conference on Quantum Photonics, Artificial Intelligence and Networking (QPAIN 2026)!",
+    src: "/highlights/highlight1.jpeg",
+    caption:
+      "Thrilled to have presented my research at the 2026 IEEE 2nd International Conference on Quantum Photonics, Artificial Intelligence and Networking (QPAIN 2026)!",
     details:
       "I am pleased to share that I successfully participated in the 2026 IEEE 2nd International Conference on Quantum Photonics, Artificial Intelligence and Networking (QPAIN 2026), organized by the IEEE Photonics Society Bangladesh Chapter. It was an enriching experience to engage with scholars, and the paper was presented at the IT Business Incubator, Chittagong University of Engineering and Technology (CUET), Chattogram, Bangladesh.",
   },
@@ -31,7 +37,7 @@ const highlights = [
   },
 ];
 
-const loopItems = [...highlights, ...highlights];
+const loopItems = [...highlights, ...highlights, ...highlights];
 
 type HighlightItem = {
   src: string;
@@ -39,8 +45,30 @@ type HighlightItem = {
   details: string;
 };
 
+const CARD_WIDTH = 340;
+const GAP = 24;
+const ITEM_SPAN = CARD_WIDTH + GAP;
+const LOOP_WIDTH = ITEM_SPAN * highlights.length;
+
+// Wraps any position back into the safe [-LOOP_WIDTH, 0] range,
+// always by an exact multiple of LOOP_WIDTH so the swap is invisible.
+function wrapPosition(value: number) {
+  let v = value % LOOP_WIDTH;
+  if (v > 0) v -= LOOP_WIDTH;
+  return v;
+}
+
 export default function Highlights() {
   const [selected, setSelected] = useState<HighlightItem | null>(null);
+  const isInteracting = useRef(false);
+  const x = useMotionValue(0);
+
+  // Continuous right-to-left auto-scroll, pauses while the user drags
+  useAnimationFrame((_, delta) => {
+    if (isInteracting.current) return;
+    const next = wrapPosition(x.get() - (delta / 1000) * 40);
+    x.set(next);
+  });
 
   return (
     <section className="py-20 px-6 overflow-hidden">
@@ -59,23 +87,42 @@ export default function Highlights() {
         <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-[#0a0a0f] to-transparent z-10 pointer-events-none" />
 
         <motion.div
-          className="flex gap-6"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="flex gap-6 cursor-grab active:cursor-grabbing"
+          style={{ x }}
+          drag="x"
+          dragConstraints={{ left: -Infinity, right: Infinity }}
+          dragElastic={0.05}
+          onPointerDown={() => {
+            isInteracting.current = true;
+          }}
+          onDrag={() => {
+            // Wrap continuously during drag so it never runs out of items,
+            // whether the user drags left-to-right or right-to-left.
+            x.set(wrapPosition(x.get()));
+          }}
+          onDragEnd={() => {
+            x.set(wrapPosition(x.get()));
+            isInteracting.current = false;
+          }}
+          onPointerUp={() => {
+            isInteracting.current = false;
+          }}
         >
           {loopItems.map((item, i) => (
             <button
               key={i}
               onClick={() => setSelected(item)}
-              className="min-w-[280px] md:min-w-[340px] bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-purple-400 transition text-left cursor-pointer"
+              className="min-w-[280px] md:min-w-[340px] bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-purple-400 transition text-left select-none"
+              draggable={false}
             >
-              <div className="relative w-full h-64">
+              <div className="relative w-full h-64 pointer-events-none">
                 <Image
                   src={item.src}
                   alt={item.caption}
                   fill
                   sizes="340px"
                   className="object-cover"
+                  draggable={false}
                 />
               </div>
               <p className="text-center text-sm text-gray-300 py-4 px-3">

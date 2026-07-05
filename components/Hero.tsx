@@ -106,10 +106,16 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.6 }}
-        className="relative flex gap-6 mt-8"
+        className="relative flex flex-wrap justify-center gap-4 mt-8"
       >
         <Link href="/projects" className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full font-medium hover:opacity-90 transition">
           View Projects
+        </Link>
+        <Link href="/research" className="px-6 py-3 border border-white/20 rounded-full font-medium hover:bg-white/10 transition">
+          View Research Paper
+        </Link>
+        <Link href="/certificate" className="px-6 py-3 border border-white/20 rounded-full font-medium hover:bg-white/10 transition">
+          View Certificates
         </Link>
         <Link href="/contact" className="px-6 py-3 border border-white/20 rounded-full font-medium hover:bg-white/10 transition">
           Contact Me
@@ -117,13 +123,11 @@ export default function Hero() {
       </motion.div>
 
       <div className="relative flex gap-6 mt-10 text-2xl text-gray-400">
-        <div className="relative flex gap-6 mt-10 text-2xl text-gray-400">
-  <a href="https://github.com/towfiqbinhasan" target="_blank" className="hover:text-purple-400 transition"><FaGithub /></a>
-  <a href="https://www.linkedin.com/in/md-towfiq-bin-hasan-531ba5265/" target="_blank" className="hover:text-purple-400 transition"><FaLinkedin /></a>
-  <a href="https://www.facebook.com/share/18Zth7mnQQ/" target="_blank" className="hover:text-purple-400 transition"><FaFacebook /></a>
-  <a href="mailto:towfiqbinhasan@gmail.com" className="hover:text-purple-400 transition"><FiMail /></a>
-  <a href="https://wa.me/qr/IHA6ZSEDQZ57M1" target="_blank" className="hover:text-purple-400 transition"><FaWhatsapp /></a>
-</div>
+        <a href="https://github.com/towfiqbinhasan" target="_blank" className="hover:text-purple-400 transition"><FaGithub /></a>
+        <a href="https://www.linkedin.com/in/md-towfiq-bin-hasan-531ba5265/" target="_blank" className="hover:text-purple-400 transition"><FaLinkedin /></a>
+        <a href="https://www.facebook.com/share/18Zth7mnQQ/" target="_blank" className="hover:text-purple-400 transition"><FaFacebook /></a>
+        <a href="mailto:towfiqbinhasan@gmail.com" className="hover:text-purple-400 transition"><FiMail /></a>
+        <a href="https://wa.me/qr/IHA6ZSEDQZ57M1" target="_blank" className="hover:text-purple-400 transition"><FaWhatsapp /></a>
       </div>
     </section>
   );
