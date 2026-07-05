@@ -7,7 +7,9 @@ import {
   FiSend,
 } from "react-icons/fi";
 import { FaWhatsapp, FaGithub, FaLinkedin, FaFacebook } from "react-icons/fa";
-
+import {
+  FiGlobe,
+} from "react-icons/fi";
 const socials = [
   {
     icon: FaWhatsapp,
@@ -32,6 +34,12 @@ const socials = [
     label: "MD Towfiq Bin Hasan",
     href: "https://www.facebook.com/share/18Zth7mnQQ/",
     color: "text-blue-500",
+  },
+  {
+    icon: FiGlobe,
+    label: "Old Portfolio (Google Sites)",
+    href: "https://sites.google.com/view/mdtowfiqbinhasanportfolio/home",
+    color: "text-purple-400",
   },
 ];
 
