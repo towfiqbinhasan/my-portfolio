@@ -117,6 +117,9 @@ export default function Hero() {
         <Link href="/certificate" className="px-6 py-3 border border-white/20 rounded-full font-medium hover:bg-white/10 transition">
           View Certificates
         </Link>
+        <Link href="/cv" className="px-6 py-3 border border-white/20 rounded-full font-medium hover:bg-white/10 transition">
+    Download My CV
+  </Link>
         <Link href="/contact" className="px-6 py-3 border border-white/20 rounded-full font-medium hover:bg-white/10 transition">
           Contact Me
         </Link>
