@@ -4,6 +4,36 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { FiExternalLink, FiGithub, FiX, FiChevronLeft, FiChevronRight, FiFileText } from "react-icons/fi";
+
+type Category =
+  | "Web Tech"
+  | "JAVA"
+  | "C#"
+  | "Data Base"
+  | "HCI"
+  | "Computer Graphics"
+  | "Data Science"
+  | "IEC"
+  | "Device"
+  | "DLC"
+  | "Micro"
+  | "Software Engineering";
+
+const categoryList: Category[] = [
+  "Web Tech",
+  "JAVA",
+  "C#",
+  "Data Base",
+  "HCI",
+  "Computer Graphics",
+  "Data Science",
+  "IEC",
+  "Device",
+  "DLC",
+  "Micro",
+  "Software Engineering",
+];
+
 type Project = {
   title: string;
   desc: string;
@@ -11,10 +41,11 @@ type Project = {
   tech: string[];
   live: string;
   github: string;
-   doc?: { label: string; url: string }[];
+  doc?: { label: string; url: string }[];
   images: string[];
   video?: string;
   field: "CSE" | "EEE";
+  categories: Category[];
 };
 
 const projects: Project[] = [
@@ -47,6 +78,7 @@ const projects: Project[] = [
       "/projects/cse1-18.jpg",
     ],
     field: "CSE",
+    categories: ["Web Tech"],
   },
   {
     title: "PetAdopt — Pet Adoption Platform",
@@ -79,6 +111,7 @@ const projects: Project[] = [
       "/projects/cse2-20.jpg",
     ],
     field: "CSE",
+    categories: ["Web Tech"],
   },
   {
     title: "Pet Care Management System",
@@ -101,16 +134,16 @@ const projects: Project[] = [
       "/projects/cse3-9.jpg",
     ],
     field: "CSE",
+    categories: ["Web Tech"],
   },
-{
+  {
     title: "Movie Ticket Management System",
     desc: "A Java-based desktop application for browsing movies, booking tickets, and simulating online payments.",
     details:
       "Movie Ticket Management System is a Java project built entirely in Notepad++ during my 2nd semester. It features user authentication with login and registration (name, email, age, password), a dashboard displaying all currently available movies, and a booking flow where users select a movie and showtime. To simulate a real-world experience, I added a payment section supporting Card and bKash. Building this without a heavy IDE helped me understand data flow from registration to dashboard and sharpened my attention to syntax. Future plans include adding a database for persistent storage and a more advanced GUI.",
-    tech: ["JAVA","with using notepad++"],
+    tech: ["JAVA", "with using notepad++"],
     live: "#",
-    github:
-      "https://github.com/towfiqbinhasan/Java-Project-",
+    github: "https://github.com/towfiqbinhasan/Java-Project-",
     images: [
       "/projects/cse4-1.jpg",
       "/projects/cse4-2.jpg",
@@ -122,16 +155,16 @@ const projects: Project[] = [
       "/projects/cse4-8.jpg",
     ],
     field: "CSE",
+    categories: ["JAVA"],
   },
-{
+  {
     title: "A Journey from Saint Martin to Singapore",
     desc: "A multi-scene 2D OpenGL animation depicting a ship's journey, with dynamic weather, day-night cycles, and interactive controls.",
     details:
       "A Journey from Saint Martin to Singapore is a 7th-semester Computer Graphics team project featuring 5 interactive scenes built entirely with OpenGL primitives — from cargo ships and bridges to windmills, palm trees, and a sea-side resort. Users control the world in real time: pressing 'R' triggers a particle-based rain system with sound effects, clouds drift and windmill blades rotate using glutTimerFunc, and number keys 1-5 switch between scenes. Mouse clicks start the ship's engine or change the time of day, while integrated Windows Multimedia sounds bring waves, ship horns, and a helicopter to life. Built in C++ with OpenGL/GLUT in Code::Blocks, applying transformations, gluOrtho2D coordinate systems, and color buffering.",
-    tech: ["C++","with using codeblocks"," OpenGL/GLUT"],
+    tech: ["C++", "with using codeblocks", " OpenGL/GLUT"],
     live: "#",
-    github:
-      "https://github.com/towfiqbinhasan/Computer-graphics-in-C-",
+    github: "https://github.com/towfiqbinhasan/Computer-graphics-in-C-",
     images: [
       "/projects/cse5-1.jpg",
       "/projects/cse5-2.jpg",
@@ -140,37 +173,34 @@ const projects: Project[] = [
       "/projects/cse5-5.jpg",
     ],
     field: "CSE",
+    categories: ["Computer Graphics"],
   },
-{
-    title: "Data Analysis Project: (Diamonds, Bank Marketing, and Dengue Prediction) with R language ",
+  {
+    title:
+      "Data Analysis Project: (Diamonds, Bank Marketing, and Dengue Prediction) with R language ",
     desc: "A data science project applying Clustering, Classification, and Regression techniques on three real-world datasets using R.",
     details:
       "This R-based data science project explores three major machine learning techniques across three datasets. First, K-Means Clustering groups diamonds by carat, price, depth, and table, using the Elbow and Silhouette methods to determine the optimal number of clusters. Second, a Decision Tree model predicts whether a customer will subscribe to a bank term deposit, with data cleaned via log transformation and unknown-value handling — revealing call duration and balance as the strongest predictors. Third, Logistic Regression estimates Dengue risk as a probability score based on blood parameters like Hemoglobin, RBC, and Platelet count, including a custom 'Low Platelet Flag' feature, with model accuracy validated using RMSE and R-Squared.",
-    tech: ["R-lanuage","R-Squared","RMSE"],
+    tech: ["R-lanuage", "R-Squared", "RMSE"],
     live: "#",
     github:
       "https://github.com/towfiqbinhasan/Data-Analysis-Project-Diamonds-Bank-Marketing-and-Dengue-Prediction-Data-Science-Project-",
-    images: [
-      "/projects/cse6-1.jpg",
-      
-    ],
+    images: ["/projects/cse6-1.jpg"],
     field: "CSE",
+    categories: ["Data Science"],
   },
-{
+  {
     title: "Railway Anti-Collision System (Bangladesh)",
     desc: "An AI and GPS-driven software engineering project designed to prevent train collisions and track tampering in Bangladesh Railways.",
     details:
       "Railway Anti-Collision System is a Software Engineering project addressing Bangladesh Railway's reliance on manual, oral communication — a major cause of track congestion, collisions, and derailments from tampered fish plates. The proposed system uses AI and GPS tracking to trigger automatic braking when two trains approach the same track, gives dispatchers real-time GPS visibility of every train, uses power relays to detect fish plate tampering and alert the control room, and lets station masters and engineers check gate crossings and track status from mobile or desktop apps. The project focuses on requirement analysis, risk assessment, and system design to replace manual switches with AI-supported infrastructure for safer rail travel.",
     tech: ["Software Engineering", "AI", "GPS Tracking", "System Design"],
     live: "#",
-    github:
-      "https://github.com/towfiqbinhasan/Software-Engineering-Project",
- doc: [{ label: "Report", url: "/docs/cse7-1.pdf" }],
-      images: [
-      "/projects/cse7-1.gif",
-      
-    ],
+    github: "https://github.com/towfiqbinhasan/Software-Engineering-Project",
+    doc: [{ label: "Report", url: "/docs/cse7-1.pdf" }],
+    images: ["/projects/cse7-1.gif"],
     field: "CSE",
+    categories: ["Software Engineering"],
   },
   {
     title: "Pharmacy Management System",
@@ -182,7 +212,7 @@ const projects: Project[] = [
     github:
       "https://github.com/towfiqbinhasan/Pharmacy-Managment-sysment-project-in-C-",
     doc: [{ label: "Report", url: "/docs/cse8-1.pdf" }],
-      images: [
+    images: [
       "/projects/cse8-1.jpg",
       "/projects/cse8-2.jpg",
       "/projects/cse8-3.jpg",
@@ -198,6 +228,7 @@ const projects: Project[] = [
       "/projects/cse8-14.jpg",
     ],
     field: "CSE",
+    categories: ["C#", "Data Base"],
   },
   {
     title: "Online Bookstore Management System",
@@ -206,29 +237,22 @@ const projects: Project[] = [
       "Online Bookstore Management System is a 4th-semester Introduction to Database team project built with Oracle 10g. The design started with an ER Diagram connecting Customers, Books, Authors, and Orders, followed by normalization through 1NF, 2NF, and 3NF to organize data into 10 clean tables including Books, Customers, Payments, and Address. The implementation covers table creation with SQL, sample data insertion, and a range of queries from simple SELECTs to complex Inner and Outer Joins, plus custom Views like 'Book Order Details' for quick manager access. This project deepened our understanding of how a well-structured database powers real-world business systems.",
     tech: ["Oracle 10g", "SQL", "Database Design", "Normalization"],
     live: "#",
-    github:
-      "https://github.com/towfiqbinhasan/DataBase-Project-",
+    github: "https://github.com/towfiqbinhasan/DataBase-Project-",
     doc: [{ label: "Report", url: "/docs/cse9-1.pdf" }],
-      images: [
-      "/projects/cse9-1.gif",
-    
-    ],
+    images: ["/projects/cse9-1.gif"],
     field: "CSE",
+    categories: ["Data Base"],
   },
-
-
-
-{
+  {
     title: "Affective Desktop Companion Robot with Temporal Filtering.",
     desc: "A 3D-printed 4-DOF robotic desktop companion that reads facial expressions via computer vision and expresses stabilized emotional states through movement and color.",
     details:
       "This project builds a desktop companion robot that senses user cognitive states (focused, stressed, happy, drowsy, distracted) using MediaPipe Face Mesh and a Random Forest classifier trained on a 17-feature vector including PERCLOS and gaze variance. To prevent 'behavioral jitter' — erratic movements from noisy frame-by-frame predictions — the system applies a two-stage temporal filter: an 85% supermajority-vote buffer followed by state-specific hysteresis timers, before actuating a custom 3D-printed 4-DOF robotic arm with WS2812B RGB feedback. The filtering approach achieved a 99.4% Jitter Mitigation Rate while keeping 100% Legitimate State Recognition Rate, and participant testing showed the filtered robot was rated significantly calmer and more trustworthy than an unfiltered baseline. This work was published as a research paper at ICCA 2026.",
     tech: ["Python", "MediaPipe", "Random Forest", "Arduino", "3D Printing", "Robotics"],
     live: "#",
-    github:
-      "#",
+    github: "#",
     doc: [{ label: "Poster", url: "/docs/hci-poster.pdf" }],
-      images: [
+    images: [
       "/projects/cse10-1.jpg",
       "/projects/cse10-2.jpg",
       "/projects/cse10-3.jpg",
@@ -244,41 +268,32 @@ const projects: Project[] = [
       "/projects/cse10-13.jpg",
       "/projects/cse10-14.jpg",
       "/projects/cse10-15.jpg",
-    
     ],
     video: "/projects/robot1-video.mp4",
     field: "CSE",
+    categories: ["HCI", "Micro", "Device"],
   },
-
-
-
-
-
-
-   {
+  {
     title: "Automatic Plant Watering System",
     desc: "An Arduino-based system that monitors soil moisture and automatically waters plants when needed.",
     details:
       "Automatic Plant Watering System is a 4-member EEE team project (Section N, Group 03, supervised by Dr. Shuvra Mondal) that solves the everyday problem of under- or over-watering plants. Built with an Arduino Uno as the controller, a soil moisture sensor connected to pin 6, and a 5V relay module on pin 3 acting as a switch for the water pump, the system continuously monitors soil wetness. When the soil gets too dry, the sensor signals the Arduino, which activates the relay to turn on the pump — watering the plant until enough moisture is detected, then automatically shutting off to conserve water.",
     tech: ["Arduino Uno", "Soil Moisture Sensor", "Relay Module", "C++"],
     live: "#",
-    github:
-      "https://github.com/towfiqbinhasan/Electronic-Device-Project-EEE-",
+    github: "https://github.com/towfiqbinhasan/Electronic-Device-Project-EEE-",
     doc: [{ label: "Report", url: "/docs/eee1-1.pdf" }],
-      images: [
+    images: [
       "/projects/eee1-1.jpg",
-       "/projects/eee1-2.jpg",
-        "/projects/eee1-3.jpg",
-         "/projects/eee1-4.jpg",
-          "/projects/eee1-5.jpg",
-           "/projects/eee1-6.jpg",
-            
-    
+      "/projects/eee1-2.jpg",
+      "/projects/eee1-3.jpg",
+      "/projects/eee1-4.jpg",
+      "/projects/eee1-5.jpg",
+      "/projects/eee1-6.jpg",
     ],
     field: "EEE",
+    categories: ["Device", "Micro"],
   },
- 
-{
+  {
     title: "Adaptive Traffic Control System for Lane Reduction",
     desc: "A low-cost digital logic circuit that sequences traffic lights to safely merge multiple lanes into one during roadwork.",
     details:
@@ -287,19 +302,15 @@ const projects: Project[] = [
     live: "#",
     github:
       "https://github.com/towfiqbinhasan/Adaptive-Traffic-Control-System-for-Lane-Reduction-DLC-Project-EEE-",
-  doc: [
-  { label: "Proposal", url: "/docs/eee2-1.pdf" },
-  { label: "Report", url: "/docs/eee2-2.pdf" },
-],
-      images: [
-      "/projects/eee2-1.jpg",
-       "/projects/eee2-2.jpg",
-        "/projects/eee2-3.jpg",
-        
+    doc: [
+      { label: "Proposal", url: "/docs/eee2-1.pdf" },
+      { label: "Report", url: "/docs/eee2-2.pdf" },
     ],
+    images: ["/projects/eee2-1.jpg", "/projects/eee2-2.jpg", "/projects/eee2-3.jpg"],
     field: "EEE",
+    categories: ["DLC"],
   },
-{
+  {
     title: "DisasterX — IoT-Based Robotic Rover with ESP32-CAM",
     desc: "An Arduino-powered rescue rover with live video streaming and a robotic arm, built for search-and-rescue in hazardous zones.",
     details:
@@ -308,26 +319,15 @@ const projects: Project[] = [
     live: "#",
     github:
       "https://github.com/towfiqbinhasan/An-IoT-Based-Robotic-Rover-with-ESP32-CAM-Micro-processor-project-EEE",
-   doc: [
-    { label: "Proposal", url: "/docs/eee3-1.pdf" },
-    { label: "Report", url: "/docs/eee3-2.pdf" },
-  ],
-      images: [
-      "/projects/eee4-1.jpg",
-       "/projects/eee4-2.jpg",
-     
-        
+    doc: [
+      { label: "Proposal", url: "/docs/eee3-1.pdf" },
+      { label: "Report", url: "/docs/eee3-2.pdf" },
     ],
+    images: ["/projects/eee4-1.jpg", "/projects/eee4-2.jpg"],
     field: "EEE",
+    categories: ["Micro", "Device"],
   },
-
-
-
-
-
-
-
-{
+  {
     title: "Cricket Field with Lighting System",
     desc: "A miniature model cricket field built with a functional LED lighting circuit, applying basic electrical circuit theory.",
     details:
@@ -336,22 +336,10 @@ const projects: Project[] = [
     live: "#",
     github:
       "https://github.com/towfiqbinhasan/Constructing-a-Cricket-Field-with-Lighting-System",
-    
-      images: [
-      "/projects/eee3-1.jpg",
-       "/projects/eee3-2.jpg",
-       
-        
-    ],
+    images: ["/projects/eee3-1.jpg", "/projects/eee3-2.jpg"],
     field: "EEE",
+    categories: ["IEC"],
   },
-
-
-
-
-
-
-
 ];
 
 function showNotDeployedToast() {
@@ -376,19 +364,19 @@ function ProjectCard({
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       onClick={onClick}
-      className="cursor-pointer bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-purple-400 transition group"
+      className="relative cursor-pointer bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-purple-400 transition-all duration-300 group"
     >
       <div className="relative w-full h-40 rounded-lg mb-4 overflow-hidden bg-black/40">
-  {project.images[0] && (
-    <Image
-      src={project.images[0]}
-      alt={project.title}
-      fill
-      sizes="400px"
-      className="object-contain group-hover:scale-105 transition duration-500"
-    />
-  )}
-</div>
+        {project.images[0] && (
+          <Image
+            src={project.images[0]}
+            alt={project.title}
+            fill
+            sizes="400px"
+            className="object-contain group-hover:scale-105 transition duration-500"
+          />
+        )}
+      </div>
       <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
       <p className="text-gray-400 text-sm mb-4">{project.desc}</p>
       <div className="flex gap-2 flex-wrap mb-4">
@@ -400,8 +388,8 @@ function ProjectCard({
       </div>
       <div className="flex gap-4">
         {project.live !== "#" ? (
-          
-           <a href={project.live}
+          <a
+            href={project.live}
             onClick={(e) => e.stopPropagation()}
             target="_blank"
             className="flex items-center gap-1 text-sm hover:text-purple-400"
@@ -419,27 +407,27 @@ function ProjectCard({
             <FiExternalLink /> Live
           </span>
         )}
-        
-        <a  href={project.github}
+
+        <a
+          href={project.github}
           onClick={(e) => e.stopPropagation()}
           target="_blank"
           className="flex items-center gap-1 text-sm hover:text-purple-400"
         >
           <FiGithub /> Code
         </a>
-{project.doc && project.doc.map((d) => (
-  
-  <a  key={d.url}
-    href={d.url}
-    onClick={(e) => e.stopPropagation()}
-    target="_blank"
-    className="flex items-center gap-1 text-sm hover:text-purple-400"
-  >
-    <FiFileText /> {d.label}
-  </a>
-))}
-
-
+        {project.doc &&
+          project.doc.map((d) => (
+            <a
+              key={d.url}
+              href={d.url}
+              onClick={(e) => e.stopPropagation()}
+              target="_blank"
+              className="flex items-center gap-1 text-sm hover:text-purple-400"
+            >
+              <FiFileText /> {d.label}
+            </a>
+          ))}
       </div>
     </motion.div>
   );
@@ -480,25 +468,25 @@ function ProjectModal({
           <FiX />
         </button>
 
-       <div className="relative w-full h-72 md:h-96 bg-black/40">
-  <AnimatePresence mode="wait">
-    <motion.div
-      key={current}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
-      className="absolute inset-0"
-    >
-      <Image
-        src={project.images[current]}
-        alt={project.title}
-        fill
-        sizes="672px"
-        className="object-contain"
-      />
-    </motion.div>
-  </AnimatePresence>
+        <div className="relative w-full h-72 md:h-96 bg-black/40">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={current}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={project.images[current]}
+                alt={project.title}
+                fill
+                sizes="672px"
+                className="object-contain"
+              />
+            </motion.div>
+          </AnimatePresence>
 
           {project.images.length > 1 && (
             <>
@@ -515,7 +503,7 @@ function ProjectModal({
                 <FiChevronRight />
               </button>
 
-   <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
                 {project.images.map((_, i) => (
                   <button
                     key={i}
@@ -558,10 +546,10 @@ function ProjectModal({
             {project.details}
           </p>
 
-          <div className="flex gap-4">
+          <div className="flex gap-4 flex-wrap">
             {project.live !== "#" ? (
-              
-               <a href={project.live}
+              <a
+                href={project.live}
                 target="_blank"
                 className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 transition"
               >
@@ -575,23 +563,25 @@ function ProjectModal({
                 <FiExternalLink /> Not Deployed
               </span>
             )}
-            
-           <a   href={project.github}
+
+            <a
+              href={project.github}
               target="_blank"
               className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 hover:bg-white/10 transition"
             >
               <FiGithub /> View Code
             </a>
-          {project.doc && project.doc.map((d) => (
-  
-    <a key={d.url}
-    href={d.url}
-    target="_blank"
-    className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 hover:bg-white/10 transition"
-  >
-    <FiFileText /> {d.label}
-  </a>
-))}
+            {project.doc &&
+              project.doc.map((d) => (
+                <a
+                  key={d.url}
+                  href={d.url}
+                  target="_blank"
+                  className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 hover:bg-white/10 transition"
+                >
+                  <FiFileText /> {d.label}
+                </a>
+              ))}
           </div>
         </div>
       </motion.div>
@@ -601,8 +591,18 @@ function ProjectModal({
 
 export default function Projects() {
   const [selected, setSelected] = useState<Project | null>(null);
-  const cseProjects = projects.filter((p) => p.field === "CSE");
-  const eeeProjects = projects.filter((p) => p.field === "EEE");
+  const [activeCategory, setActiveCategory] = useState<Category | null>(null);
+
+  const filteredProjects = activeCategory
+    ? projects.filter((p) => p.categories.includes(activeCategory))
+    : projects;
+
+  const cseProjects = filteredProjects.filter((p) => p.field === "CSE");
+  const eeeProjects = filteredProjects.filter((p) => p.field === "EEE");
+
+  const toggleCategory = (cat: Category) => {
+    setActiveCategory((prev) => (prev === cat ? null : cat));
+  };
 
   return (
     <section className="py-24 px-6 max-w-6xl mx-auto">
@@ -615,7 +615,7 @@ export default function Projects() {
       >
         My Projects <span className="text-purple-400">Summary</span>
       </motion.h1>
-      <p className="text-gray-400 text-center mb-16 max-w-xl mx-auto">
+      <p className="text-gray-400 text-center mb-8 max-w-xl mx-auto">
         Since my second semester of university, I have been actively developing a diverse range of projects across
         both Computer Science (CS) and Electrical and Electronic Engineering (EEE). My journey began with
         foundational software development using Java in Notepad++ and advanced into computer graphics using C++.
@@ -628,29 +628,59 @@ export default function Projects() {
         below.
       </p>
 
-      <div className="mb-20">
-        <h2 className="text-2xl font-bold mb-8 flex items-center gap-3">
-          <span className="w-2 h-8 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full" />
-          CSE <span className="text-purple-400">Projects</span>
-        </h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {cseProjects.map((p, i) => (
-            <ProjectCard key={p.title} project={p} index={i} onClick={() => setSelected(p)} />
-          ))}
-        </div>
+      {/* Category filter buttons */}
+      <div className="flex flex-wrap justify-center gap-2.5 mb-20">
+        {categoryList.map((cat) => {
+          const active = activeCategory === cat;
+          return (
+            <button
+              key={cat}
+              onClick={() => toggleCategory(cat)}
+              className={`text-sm px-4 py-2 rounded-full border transition-all duration-200 ${
+                active
+                  ? "bg-gradient-to-r from-purple-500 to-pink-500 border-transparent text-white shadow-[0_0_15px_-2px_rgba(168,85,247,0.6)]"
+                  : "border-white/15 text-gray-300 hover:border-purple-400 hover:text-purple-300"
+              }`}
+            >
+              {cat}
+            </button>
+          );
+        })}
       </div>
 
-      <div>
-        <h2 className="text-2xl font-bold mb-8 flex items-center gap-3">
-          <span className="w-2 h-8 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full" />
-          EEE <span className="text-purple-400">Projects</span>
-        </h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {eeeProjects.map((p, i) => (
-            <ProjectCard key={p.title} project={p} index={i} onClick={() => setSelected(p)} />
-          ))}
+      {cseProjects.length > 0 && (
+        <div className="mb-20">
+          <h2 className="text-2xl font-bold mb-8 flex items-center gap-3">
+            <span className="w-2 h-8 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full" />
+            CSE <span className="text-purple-400">Projects</span>
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {cseProjects.map((p, i) => (
+              <ProjectCard key={p.title} project={p} index={i} onClick={() => setSelected(p)} />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
+
+      {eeeProjects.length > 0 && (
+        <div>
+          <h2 className="text-2xl font-bold mb-8 flex items-center gap-3">
+            <span className="w-2 h-8 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full" />
+            EEE <span className="text-purple-400">Projects</span>
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {eeeProjects.map((p, i) => (
+              <ProjectCard key={p.title} project={p} index={i} onClick={() => setSelected(p)} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {filteredProjects.length === 0 && (
+        <p className="text-center text-gray-500 py-16">
+          No projects found for this category.
+        </p>
+      )}
 
       <AnimatePresence>
         {selected && <ProjectModal project={selected} onClose={() => setSelected(null)} />}
