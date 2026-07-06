@@ -80,7 +80,7 @@ export default function Hero() {
         transition={{ duration: 0.6 }}
         className="relative text-purple-400 mb-4"
       >
-        Hello, I'm
+        Hello, I'
       </motion.p>
 
       <motion.h1
