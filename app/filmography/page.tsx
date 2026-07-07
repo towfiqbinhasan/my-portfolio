@@ -141,7 +141,7 @@ export default function FilmographyPage() {
 
                 {selected.videoLink !== "#" ? (
                   
-                    href={selected.videoLink}
+               <a     href={selected.videoLink}
                     target="_blank"
                     className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 transition"
                   >
@@ -157,6 +157,7 @@ export default function FilmographyPage() {
                 )}
               </div>
             </motion.div>
+            
           </motion.div>
         )}
       </AnimatePresence>
