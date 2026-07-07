@@ -111,6 +111,9 @@ export default function Hero() {
         <Link href="/projects" className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full font-medium hover:opacity-90 transition">
           View Projects
         </Link>
+        <Link href="/experience" className="px-6 py-3 border border-white/20 rounded-full font-medium hover:bg-white/10 transition">
+          View Experience
+        </Link>
         <Link href="/research" className="px-6 py-3 border border-white/20 rounded-full font-medium hover:bg-white/10 transition">
           View Research Paper
         </Link>

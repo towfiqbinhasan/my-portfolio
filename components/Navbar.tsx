@@ -9,10 +9,11 @@ const links = [
   { name: "Home", path: "/" },
   { name: "Qualification", path: "/qualification" },
   { name: "Skills", path: "/skills" },
+  { name: "Experience", path: "/experience" },
   { name: "Projects", path: "/projects" },
   { name: "Research", path: "/research" },
   { name: "Certificate", path: "/certificate" },
-   { name: "CV", path: "/cv" },
+  { name: "CV", path: "/cv" },
   { name: "Gadgets", path: "/gadgets" },
   { name: "Photography", path: "/photography" },
   { name: "Contact", path: "/contact" },
@@ -24,29 +25,30 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-black/30 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/20">
-      <div className="max-w-6xl mx-auto flex justify-between items-center px-6 py-4">
+      <div className="max-w-7xl mx-auto flex items-center gap-3 px-4 sm:px-6 py-4">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center font-bold text-sm shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform">
+        <Link
+          href="/"
+          className="flex items-center gap-2 group flex-shrink-0 whitespace-nowrap"
+        >
+          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center font-bold text-sm shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform flex-shrink-0">
             TH
           </div>
-          <span className="text-lg font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent hidden sm:block">
+          <span className="text-base lg:text-lg font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent hidden sm:inline-block whitespace-nowrap">
             Towfiq Bin Hasan
           </span>
         </Link>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-1 text-sm">
+        <div className="hidden md:flex items-center gap-0.5 lg:gap-1 text-sm ml-auto overflow-x-auto no-scrollbar">
           {links.map((link) => {
             const isActive = pathname === link.path;
             return (
               <Link
                 key={link.name}
                 href={link.path}
-                className={`relative px-4 py-2 rounded-full transition ${
-                  isActive
-                    ? "text-white"
-                    : "text-gray-400 hover:text-white"
+                className={`relative px-2.5 lg:px-4 py-2 rounded-full transition whitespace-nowrap ${
+                  isActive ? "text-white" : "text-gray-400 hover:text-white"
                 }`}
               >
                 {isActive && (
@@ -64,7 +66,7 @@ export default function Navbar() {
 
         {/* Mobile Toggle Button */}
         <button
-          className="md:hidden relative w-10 h-10 flex items-center justify-center text-2xl rounded-full hover:bg-white/10 transition"
+          className="md:hidden ml-auto relative w-10 h-10 flex items-center justify-center text-2xl rounded-full hover:bg-white/10 transition flex-shrink-0"
           onClick={() => setOpen(!open)}
         >
           <AnimatePresence mode="wait">
