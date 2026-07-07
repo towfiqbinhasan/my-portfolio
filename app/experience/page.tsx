@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import toast from "react-hot-toast";
 import {
   FiX,
   FiExternalLink,
   FiCalendar,
   FiMapPin,
-  FiFileText,
   FiBriefcase,
   FiSend,
   FiLock,
@@ -21,6 +21,7 @@ type Experience = {
   duration: string;
   location: string;
   mode: string;
+  logo?: string;
   logoText: string;
   logoBg: string;
   description: string;
@@ -37,6 +38,7 @@ const experiences: Experience[] = [
     duration: "May 2026 - Present · 3 mos",
     location: "Dhaka, Bangladesh",
     mode: "On-site",
+    logo: "/experience/tizaara.jpg",
     logoText: "TI",
     logoBg: "from-orange-500 to-amber-500",
     description:
@@ -52,6 +54,7 @@ const experiences: Experience[] = [
     duration: "Apr 2026 - Present · 4 mos",
     location: "Ramadevi, Kanpur, UP, India (208007)",
     mode: "Remote",
+    logo: "/experience/hex.jpg",
     logoText: "HS",
     logoBg: "from-cyan-500 to-blue-600",
     description:
@@ -67,6 +70,7 @@ const experiences: Experience[] = [
     duration: "Apr 2026 - Present · 4 mos",
     location: "Itanagar, Arunachal Pradesh, India",
     mode: "Remote",
+    logo: "/experience/sys.jpg",
     logoText: "S",
     logoBg: "from-blue-500 to-indigo-600",
     description:
@@ -82,6 +86,7 @@ const experiences: Experience[] = [
     duration: "Apr 2026 - May 2026 · 2 mos",
     location: "Itanagar, Arunachal Pradesh, India",
     mode: "Remote",
+    logo: "/experience/code.jpg",
     logoText: "CA",
     logoBg: "from-indigo-600 to-blue-700",
     description:
@@ -97,6 +102,7 @@ const experiences: Experience[] = [
     duration: "Jan 2025 - Present · 1 yr 7 mos",
     location: "Dhaka, Bangladesh",
     mode: "",
+    logo: "/experience/care.jpg",
     logoText: "CT",
     logoBg: "from-blue-600 to-sky-500",
     description:
@@ -111,6 +117,7 @@ const experiences: Experience[] = [
     duration: "Jan 2023 - Jan 2024 · 1 yr 1 mo",
     location: "Dhaka, Bangladesh",
     mode: "On-site",
+    logo: "/experience/10min.jpg",
     logoText: "10",
     logoBg: "from-red-600 to-neutral-900",
     description:
@@ -125,6 +132,7 @@ const experiences: Experience[] = [
     duration: "Jan 2023 - Feb 2024 · 1 yr 2 mos",
     location: "Dhaka, Bangladesh",
     mode: "",
+    logo: "/experience/ud.jpg",
     logoText: "U",
     logoBg: "from-fuchsia-600 to-purple-700",
     description:
@@ -132,6 +140,41 @@ const experiences: Experience[] = [
     skills: ["Physics Teacher", "Mathematics Teacher", "Academic Support"],
   },
 ];
+
+function CompanyLogo({
+  exp,
+  size = "md",
+}: {
+  exp: Experience;
+  size?: "md" | "lg";
+}) {
+  const dims = size === "lg" ? "w-14 h-14 rounded-2xl text-lg" : "w-11 h-11 rounded-xl text-sm";
+  const imgSize = size === "lg" ? 56 : 44;
+
+  if (exp.logo) {
+    return (
+      <div
+        className={`relative ${dims} flex-shrink-0 overflow-hidden bg-white/10 border border-white/10 shadow-lg group-hover:scale-105 transition-transform duration-300`}
+      >
+        <Image
+          src={exp.logo}
+          alt={`${exp.company} logo`}
+          fill
+          sizes={`${imgSize}px`}
+          className="object-contain p-1.5"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className={`${dims} bg-gradient-to-br ${exp.logoBg} flex items-center justify-center flex-shrink-0 shadow-lg text-white font-bold group-hover:scale-105 transition-transform duration-300`}
+    >
+      {exp.logoText}
+    </div>
+  );
+}
 
 type RequestTarget = { company: string; fileKey: string; label: string };
 
@@ -314,11 +357,7 @@ function ExperienceModal({
 
         <div className="p-6 md:p-8 border-b border-white/10 flex-shrink-0">
           <div className="flex items-start gap-4">
-            <div
-              className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${exp.logoBg} flex items-center justify-center flex-shrink-0 shadow-lg text-white font-bold text-lg`}
-            >
-              {exp.logoText}
-            </div>
+            <CompanyLogo exp={exp} size="lg" />
             <div className="min-w-0">
               <h3 className="text-xl md:text-2xl font-semibold mb-1 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                 {exp.role}
@@ -442,11 +481,7 @@ export default function ExperiencePage() {
                   }
                 >
                   <div className="flex items-start gap-3 mb-3">
-                    <div
-                      className={`w-11 h-11 rounded-xl bg-gradient-to-br ${exp.logoBg} flex items-center justify-center flex-shrink-0 shadow-lg text-white font-bold text-sm group-hover:scale-105 transition-transform duration-300`}
-                    >
-                      {exp.logoText}
-                    </div>
+                    <CompanyLogo exp={exp} size="md" />
                     <div className="min-w-0">
                       <h3 className="text-base sm:text-lg font-semibold leading-snug">{exp.role}</h3>
                       <a
