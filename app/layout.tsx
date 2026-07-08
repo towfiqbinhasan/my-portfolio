@@ -1,6 +1,7 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PageLoader from "@/components/PageLoader";
 import { Toaster } from "react-hot-toast";
 export const metadata = {
   title: "Your Name | Portfolio",
@@ -15,6 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+       <PageLoader /> 
   <Navbar />
   <Toaster
     position="top-center"

@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import {
   FiMenu,
   FiX,
@@ -30,8 +31,8 @@ const primaryLinks = [
 const moreLinks = [
   
   { name: "Gadgets", path: "/gadgets", icon: FiCpu },
-  { name: "Photography", path: "/photography", icon: FiCamera },
   { name: "Tour", path: "/tour", icon: FiMap },
+  { name: "Photography", path: "/photography", icon: FiCamera },
   { name: "Filmography", path: "/filmography", icon: FiFilm },
   { name: "Activity", path: "/activity", icon: FiUsers },
 ];
@@ -45,8 +46,8 @@ const allLinks = [
   { name: "Certificate", path: "/certificate" },
   { name: "CV", path: "/cv" },
   { name: "Gadgets", path: "/gadgets" },
+    { name: "Tour", path: "/tour" },
   { name: "Photography", path: "/photography" },
-  { name: "Tour", path: "/tour" },
   { name: "Filmography", path: "/filmography" },
   { name: "Activity", path: "/activity" },
   { name: "Contact", path: "/contact" },
@@ -63,16 +64,21 @@ export default function Navbar() {
     <nav className="fixed top-0 w-full z-50 bg-black/30 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/20">
       <div className="max-w-7xl mx-auto flex items-center gap-3 px-4 sm:px-6 py-4">
         <Link
-          href="/"
-          className="flex items-center gap-2 group flex-shrink-0 whitespace-nowrap"
-        >
-          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center font-bold text-sm shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform flex-shrink-0">
-            TH
-          </div>
-          <span className="text-base lg:text-lg font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent hidden sm:inline-block whitespace-nowrap">
-            Towfiq Bin Hasan
-          </span>
-        </Link>
+  href="/"
+  className="flex items-center gap-2 group flex-shrink-0 whitespace-nowrap"
+>
+  <div className="relative w-9 h-9 rounded-full overflow-hidden shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform flex-shrink-0">
+    <Image
+      src="/logo.png"
+      alt="Towfiq Bin Hasan Logo"
+      fill
+      className="object-cover"
+    />
+  </div>
+  <span className="text-base lg:text-lg font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent hidden sm:inline-block whitespace-nowrap">
+    Towfiq Bin Hasan
+  </span>
+</Link>
 
         <div className="hidden md:flex items-center gap-1 text-sm ml-auto relative">
           {primaryLinks.map((link) => {
