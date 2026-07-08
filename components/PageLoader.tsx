@@ -54,7 +54,7 @@ export default function PageLoader() {
               transition={{ duration: 1.5, repeat: Infinity }}
               className="text-sm text-gray-400 tracking-wide"
             >
-              Loading...
+              
             </motion.p>
           </motion.div>
         </motion.div>
