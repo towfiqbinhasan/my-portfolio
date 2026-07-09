@@ -4,8 +4,8 @@ import Footer from "@/components/Footer";
 import PageLoader from "@/components/PageLoader";
 import { Toaster } from "react-hot-toast";
 export const metadata = {
-  title: "Your Name | Portfolio",
-  description: "CS Student Portfolio",
+  title: "Towfiq Bin Hasan | Portfolio",
+  description: "CSE Student Portfolio - Web Developer, Researcher, and Content Creator",
 };
 
 export default function RootLayout({
