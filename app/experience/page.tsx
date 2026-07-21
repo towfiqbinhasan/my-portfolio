@@ -124,7 +124,7 @@ const experiences: Experience[] = [
     description:
       "Completed a Full Stack Web Developer internship at CodeAlpha, a remote internship program offering hands-on experience with real projects. The role focused on applying full-stack development skills and knowledge gained during the internship to practical assignments, working independently within a structured remote internship framework.",
     skills: ["Full-Stack Development", "JavaScript", "Web Development", "Remote Collaboration"],
-    offerLetter: { label: "Internship Offer Letter", fileKey: "codealpha-offer.pdf" },
+    offerLetter: { label: "Internship Offer Letter", fileKey: "codealpha-offerfull.pdf" },
   },
   {
     role: "Private Tutor",
