@@ -89,7 +89,16 @@ const certificates: Certificate[] = [
     skills: ["AI-Powered Communication", "Effective Messaging", "AI Tools"],
     description:
       "Completed a certification program on using AI to enhance communication, covering how to craft clear, effective messages and apply AI tools to improve everyday communication practices.",
-  },
+  },{
+  title: "Build ATS-Winning CV",
+  issuer: "Grameenphone Academy",
+  issuerLink: "https://www.grameenphone.com",
+  date: "2026-07-20",
+  image: "/certificate/cert12.jpg",
+  skills: ["Resume Writing", "ATS Optimization", "Career Development"],
+  description:
+    "Completed a certification program on building an ATS-winning CV, covering how to structure and optimize a resume to pass Applicant Tracking Systems while remaining compelling to human recruiters — an essential skill for effective job applications.",
+},
   {
     title: "A Machine Learning Approach for Quantifying Sea-Level Rise: A Conservative Baseline Forecast through 2030 using Prophet Architecture",
     issuer: "IEEE Photonics Society Bangladesh Chapter",
