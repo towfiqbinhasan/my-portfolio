@@ -480,7 +480,7 @@ export default function ExperiencePage() {
         My <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Experience</span>
       </motion.h1>
       <p className="text-gray-400 text-center mb-16 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
-        A timeline of the roles, internships, and teaching positions that have shaped my professional journey — from
+        A timeline of the roles, internships, and teaching positions that have shaped my professional journey from
         full-stack development internships to hands-on software engineering and academic mentoring. Internship offer
         letters are available on request for verification purposes.
       </p>
