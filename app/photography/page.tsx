@@ -27,7 +27,7 @@ export default function Photography() {
         ))}
       </div>
       <p className="text-gray-500 text-sm text-center mt-6">
-        নিজের ছবি public/photos/ ফোল্ডারে রেখে img ট্যাগ যোগ করো
+         public/photos/ 
       </p>
     </section>
   );

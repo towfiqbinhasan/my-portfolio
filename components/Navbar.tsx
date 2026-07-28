@@ -40,6 +40,7 @@ const moreLinks = [
 const allLinks = [
   { name: "Home", path: "/" },
   { name: "Qualification", path: "/qualification" },
+   { name: "Experience", path: "/experience" },
   { name: "Skills", path: "/skills" },
   { name: "Projects", path: "/projects" },
   { name: "Research", path: "/research" },

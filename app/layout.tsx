@@ -2,6 +2,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageLoader from "@/components/PageLoader";
+import ChatBot from "@/components/ChatBot";
 import { Toaster } from "react-hot-toast";
 export const metadata = {
   title: "Towfiq Bin Hasan",
@@ -17,6 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
        <PageLoader /> 
+       <ChatBot />
   <Navbar />
   <Toaster
     position="top-center"
