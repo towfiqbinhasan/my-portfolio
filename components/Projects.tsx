@@ -388,8 +388,8 @@ function ProjectCard({
       </div>
       <div className="flex gap-4">
         {project.live !== "#" ? (
-          <a
-            href={project.live}
+          
+           <a href={project.live}
             onClick={(e) => e.stopPropagation()}
             target="_blank"
             className="flex items-center gap-1 text-sm hover:text-purple-400"
@@ -408,8 +408,8 @@ function ProjectCard({
           </span>
         )}
 
-        <a
-          href={project.github}
+        
+       <a   href={project.github}
           onClick={(e) => e.stopPropagation()}
           target="_blank"
           className="flex items-center gap-1 text-sm hover:text-purple-400"
@@ -418,9 +418,9 @@ function ProjectCard({
         </a>
         {project.doc &&
           project.doc.map((d) => (
-            <a
-              key={d.url}
-              href={d.url}
+            
+             <a key={d.url}
+             href={d.url}
               onClick={(e) => e.stopPropagation()}
               target="_blank"
               className="flex items-center gap-1 text-sm hover:text-purple-400"
@@ -429,6 +429,16 @@ function ProjectCard({
             </a>
           ))}
       </div>
+
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onClick();
+        }}
+        className="mt-4 w-full text-center text-sm px-4 py-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 transition font-medium"
+      >
+        View Details
+      </button>
     </motion.div>
   );
 }
@@ -548,8 +558,8 @@ function ProjectModal({
 
           <div className="flex gap-4 flex-wrap">
             {project.live !== "#" ? (
-              <a
-                href={project.live}
+              
+               <a href={project.live}
                 target="_blank"
                 className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 transition"
               >
@@ -564,8 +574,8 @@ function ProjectModal({
               </span>
             )}
 
-            <a
-              href={project.github}
+            
+              <a href={project.github}
               target="_blank"
               className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 hover:bg-white/10 transition"
             >
@@ -573,8 +583,8 @@ function ProjectModal({
             </a>
             {project.doc &&
               project.doc.map((d) => (
-                <a
-                  key={d.url}
+                
+                <a  key={d.url}
                   href={d.url}
                   target="_blank"
                   className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 hover:bg-white/10 transition"
@@ -628,7 +638,6 @@ export default function Projects() {
         below.
       </p>
 
-      {/* Category filter buttons */}
       <div className="flex flex-wrap justify-center gap-2.5 mb-20">
         {categoryList.map((cat) => {
           const active = activeCategory === cat;
@@ -636,11 +645,11 @@ export default function Projects() {
             <button
               key={cat}
               onClick={() => toggleCategory(cat)}
-              className={`text-sm px-4 py-2 rounded-full border transition-all duration-200 ${
+              className={
                 active
-                  ? "bg-gradient-to-r from-purple-500 to-pink-500 border-transparent text-white shadow-[0_0_15px_-2px_rgba(168,85,247,0.6)]"
-                  : "border-white/15 text-gray-300 hover:border-purple-400 hover:text-purple-300"
-              }`}
+                  ? "text-sm px-4 py-2 rounded-full border transition-all duration-200 bg-gradient-to-r from-purple-500 to-pink-500 border-transparent text-white shadow-[0_0_15px_-2px_rgba(168,85,247,0.6)]"
+                  : "text-sm px-4 py-2 rounded-full border transition-all duration-200 border-white/15 text-gray-300 hover:border-purple-400 hover:text-purple-300"
+              }
             >
               {cat}
             </button>

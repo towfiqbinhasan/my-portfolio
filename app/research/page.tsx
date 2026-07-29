@@ -12,6 +12,7 @@ import {
   FiAward,
   FiGlobe,
   FiImage,
+  FiEye,
 } from "react-icons/fi";
 
 type ConferencePaper = {
@@ -127,28 +128,40 @@ function ConferenceCard({
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       onClick={onClick}
-      className="cursor-pointer bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-purple-400 transition group"
+      className="cursor-pointer bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-purple-400 transition group flex flex-col"
     >
-      <div className="relative w-full h-48 overflow-hidden">
+      {/* Certificate preview — full image visible, no cropping */}
+      <div className="relative w-full h-52 overflow-hidden bg-black/40">
         <Image
           src={paper.certificate}
           alt={paper.title}
           fill
           sizes="400px"
-          className="object-cover group-hover:scale-105 transition duration-500"
+          className="object-contain group-hover:scale-105 transition duration-500 p-2"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/70 via-transparent to-transparent pointer-events-none" />
         <span className="absolute top-3 left-3 flex items-center gap-1 text-xs bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full text-purple-300">
           <FiAward /> Certificate
         </span>
       </div>
 
-      <div className="p-6">
+      <div className="p-6 flex flex-col flex-1">
         <p className="text-purple-300 text-xs mb-2">
           {paper.conferenceName}, {paper.year}
         </p>
         <h3 className="text-lg font-semibold mb-3 leading-snug">{paper.title}</h3>
-        <p className="text-gray-400 text-sm line-clamp-2">{paper.details}</p>
+        <p className="text-gray-400 text-sm line-clamp-2 mb-5">{paper.details}</p>
+
+        {/* View Details button */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick();
+          }}
+          className="mt-auto inline-flex items-center justify-center gap-2 text-sm font-medium px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 hover:scale-[1.02] transition self-start"
+        >
+          <FiEye /> View Details
+        </button>
       </div>
     </motion.div>
   );
