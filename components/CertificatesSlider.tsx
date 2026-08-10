@@ -20,7 +20,7 @@ type Certificate = {
   description: string;
 };
 
-const certificates: Certificate[] = certificatesData;
+const certificates: Certificate[] = certificatesData as Certificate[];
 
 const loopItems = [...certificates, ...certificates, ...certificates];
 
@@ -150,8 +150,9 @@ export default function CertificatesSlider() {
                   <FiAward className="text-purple-400 text-2xl mt-1 flex-shrink-0" />
                   <div>
                     <h3 className="text-xl font-semibold mb-1">{selected.title}</h3>
+
                     
-                   <a   href={selected.issuerLink}
+                     <a href={selected.issuerLink}
                       target="_blank"
                       className="text-purple-300 text-sm hover:text-purple-200 inline-flex items-center gap-1"
                     >
@@ -168,14 +169,15 @@ export default function CertificatesSlider() {
                 </p>
 
                 <div className="flex gap-2 flex-wrap">
-                  {selected.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="text-xs bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full"
-                    >
-                      {skill}
-                    </span>
-                  ))}
+                  {Array.isArray(selected.skills) &&
+                    selected.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="text-xs bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full"
+                      >
+                        {skill}
+                      </span>
+                    ))}
                 </div>
               </div>
             </motion.div>
