@@ -8,42 +8,17 @@ import {
 } from "framer-motion";
 import Image from "next/image";
 import { FiX } from "react-icons/fi";
-
-const highlights = [
-  {
-    src: "/highlights/highlight1.jpeg",
-    caption:
-      "Thrilled to have presented my research at the 2026 IEEE 2nd International Conference on Quantum Photonics, Artificial Intelligence and Networking (QPAIN 2026)!",
-    details:
-      "I am pleased to share that I successfully participated in the 2026 IEEE 2nd International Conference on Quantum Photonics, Artificial Intelligence and Networking (QPAIN 2026), organized by the IEEE Photonics Society Bangladesh Chapter. It was an enriching experience to engage with scholars, and the paper was presented at the IT Business Incubator, Chittagong University of Engineering and Technology (CUET), Chattogram, Bangladesh.",
-  },
-  {
-    src: "/highlights/highlight2.jpeg",
-    caption: "Thrilled to have presented my research at the 24th International Mathematics Conference!",
-    details:
-      "I am pleased to share that I successfully participated in the 24th International Mathematics Conference, organized by the Department of Mathematics, University of Chittagong. It was an enriching experience to engage with scholars and present my work on",
-  },
-  {
-    src: "/highlights/highlight3.jpeg",
-    caption: "Research Poster Presentation at National BioMed Health ResearchCon (NBHRC) 2025",
-    details:
-      "Successfully presented a research poster titled 'Monthly Trends in Hospital Admissions and Mortality: A Disease-Wise Analysis at Kurmitola General Hospital' at the National BioMed Health ResearchCon 2025. The study focused on analyzing healthcare data and disease patterns to improve hospital management and patient outcomes. The event was held at Dhaka Medical College, providing a platform to engage with the medical research community.",
-  },
-  {
-    src: "/highlights/highlight4.jpeg",
-    caption: "Proud to have been a part of the International Bioscience Conference and Carnival 2025!",
-    details:
-      "Successfully completed another milestone at the International Bioscience Conference (ICBC) 2025, held at Rangamati Science and Technology University. It was an incredible experience engaging with global experts and discussing innovations in biosafety and biotechnology. Onwards and upwards!",
-  },
-];
-
-const loopItems = [...highlights, ...highlights, ...highlights];
+import highlightsData from "@/data/highlighter.json";
 
 type HighlightItem = {
-  src: string;
+  image: string;
   caption: string;
   details: string;
 };
+
+const highlights: HighlightItem[] = highlightsData as HighlightItem[];
+
+const loopItems = [...highlights, ...highlights, ...highlights];
 
 const CARD_WIDTH = 340;
 const GAP = 24;
@@ -117,7 +92,7 @@ export default function Highlights() {
             >
               <div className="relative w-full h-64 pointer-events-none">
                 <Image
-                  src={item.src}
+                  src={item.image}
                   alt={item.caption}
                   fill
                   sizes="340px"
@@ -160,7 +135,7 @@ export default function Highlights() {
 
               <div className="relative w-full h-72 md:h-96">
                 <Image
-                  src={selected.src}
+                  src={selected.image}
                   alt={selected.caption}
                   fill
                   sizes="672px"
