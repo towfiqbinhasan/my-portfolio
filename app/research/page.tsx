@@ -14,18 +14,20 @@ import {
   FiImage,
   FiEye,
 } from "react-icons/fi";
+import conferenceData from "@/data/conference.json";
+import journalData from "@/data/journal.json";
 
 type ConferencePaper = {
   title: string;
   conferenceName: string;
   year: string;
   details: string;
-  certificate: string;
-  eventImages: string[];
-  pdf: string;
+  certificateImage: string;
+  eventImage: string | string[];
+  paperPdf: string;
   paperLink: string;
   conferenceWebsite: string;
-  poster: string;
+  posterImage: string;
 };
 
 type JournalPaper = {
@@ -36,70 +38,15 @@ type JournalPaper = {
   link: string;
 };
 
-const conferencePapers: ConferencePaper[] = [
-  {
-    title: "A Machine Learning Approach for Quantifying Sea-Level Rise: A Conservative Baseline Forecast through 2030 using Prophet Architecture.",
-    conferenceName: "IEEE QPAIN Conference",
-    year: "2026",
-    details:
-      "This research develops a 'Conservative Baseline' forecast for sea-level rise using 32 years (1993-2025) of NASA satellite altimetry data and Facebook's Prophet machine learning architecture to model long-term trends beyond seasonal noise. The model predicts a 9.59mm sea-level rise by 2030, at a conservative rate of ~1.9mm/year — notably lower than the IPCC AR6 accelerated scenarios (3.5-4.5mm/year) — offering a practical 'safe lower bound' for coastal infrastructure planning. Applied to Bangladesh, the study identifies Satkhira as extreme risk due to low elevation and saltwater intrusion, with Khulna and Bagerhat facing high flood risk and threats to the Sundarbans mangrove forest. The findings recommend engineers use the 1.9mm/year rate as a minimum standard when designing or reinforcing coastal polders.",
-    certificate: "/research/cert1.jpg",
-    eventImages: ["/research/event1-1.jpg", "/research/event1-2.jpg","/research/event1-3.jpg","/research/event1-4.jpg","/research/event1-5.jpg","/research/event1-6.jpg","/research/event1-7.jpg","/research/event1-8.jpg","/research/event1-9.jpg","/research/event1-10.jpg","/research/event1-11.jpg"],
-    pdf: "/research/paper1.pdf",
-    paperLink: "https://ieeexplore.ieee.org/document/11546265",
-    conferenceWebsite: "https://qpain.org/",
-    poster: "/research/poster1.jpg",
-  },
-    {
-    title: "Analysis of Soil Salinity and Earth Metal Concentrations Along River Distance Gradients in the Sundarbans",
-    conferenceName: "24th International Mathematical Conference (24IMC)",
-    year: "2025",
-    details:
-      "This study analyzes 110 sample plots across the Sundarbans mangrove forest to understand how distance from the riverbank shapes soil chemistry. Salinity is highest near the river due to frequent tidal flooding and drops significantly further inland, while key nutrients like Ammonium, Phosphorus, and Potassium are also concentrated near the riverbanks, creating a salinity-fertility trade-off. Soil pH is slightly more alkaline near the river and more acidic further inland. Metal analysis reveals Zinc concentrations rise near the river (carried by tidal water), while Iron increases further inland, originating from the soil's parent rock rather than tidal deposition. These findings help conservationists select appropriate mangrove species for reforestation based on proximity to water, especially as rising sea levels threaten to push salinity further into the forest's low-salt 'refuge' zones.",
-    certificate: "/research/cert2.jpg",
-    eventImages: ["/research/event2-1.jpg", "/research/event2-2.jpg","/research/event2-3.jpg","/research/event2-4.jpg"],
-    pdf: "/research/paper2.pdf",
-    paperLink: "#",
-    conferenceWebsite: "https://24imc.cumathbms.org/",
-    poster: "/research/poster2.pdf",
-  },
-   {
-    title: "Comparative Analysis of Classification Techniques in Data Mining: K-Nearest Neighbors, Naive Bayes, and Decision Trees Based Approach",
-    conferenceName: "24th International Mathematical Conference (24IMC)",
-    year: "2025",
-    details:
-      "This study compares three classification techniques — K-Nearest Neighbors (KNN), Naive Bayes (NB), and Decision Trees (DT) — for predicting heart disease using records from 303 patients across 14 clinical features including age, blood pressure, and cholesterol. KNN emerged as the overall best performer, achieving the highest accuracy and 100% Recall, meaning it caught every actual heart disease case in testing. Naive Bayes excelled at minimizing false positives, avoiding mislabeling healthy patients as sick, while Decision Trees, though the least accurate, remained valuable for their interpretability, offering clear if-then rules that are easy for doctors to trust and understand. The findings suggest no single 'best' method exists — the right choice depends on whether missing a diagnosis or maintaining interpretability matters more.",
-    certificate: "/research/cert3.jpg",
-    eventImages: ["/research/event2-1.jpg", "/research/event2-2.jpg","/research/event2-3.jpg"],
-    pdf: "/research/paper3.pdf",
-    paperLink: "#",
-    conferenceWebsite: "https://24imc.cumathbms.org/",
-    poster: "/research/poster3.pdf",
-  },
-   {
-    title: "Monthly Hospital Admissions and Mortality Trends at Kurmitola General Hospital",
-    conferenceName: "National Biomedical, Health & Research Conference (NBHRC 2025)",
-    year: "2025",
-    details:
-      "This study analyzes a full year of hospital data from Kurmitola General Hospital in Dhaka to uncover seasonal patterns in patient admissions and mortality. January to April proved the quietest period, with only 8 to 58 admissions per month and zero recorded deaths, before admissions began rising sharply from May, peaking dramatically in October with over 470 cases. Mortality also ticked upward during the busiest months, reaching its highest point in November with 7 deaths. The findings point to a clear seasonal surge, likely tied to the winter season, that strains hospital staff and resources late in the year. The study recommends proactive planning — allocating more beds, staff, and medicine ahead of the October-November peak — to better manage patient surges and improve care during high-demand periods.",
-    certificate: "/research/cert4.jpg",
-    eventImages: ["/research/event4-1.jpg", "/research/event4-2.jpg","/research/event4-3.jpg","/research/event4-4.jpg","/research/event4-5.jpg","/research/event4-6.jpg"],
-    pdf: "#",
-    paperLink: "#",
-    conferenceWebsite: "https://www.dmcrac.org/nbhrc25/",
-    poster: "/research/poster4.pdf",
-  },
-];
+const conferencePapers: ConferencePaper[] = conferenceData as ConferencePaper[];
+const journalPapers: JournalPaper[] = journalData as JournalPaper[];
 
-const journalPapers: JournalPaper[] = [
-  {
-    title: "Paper Working in progress",
-    journalName: "working in progress",
-    year: "",
-    details: "The paper is currently being prepared for submission to a peer-reviewed journal. It builds on my previous conference research and aims to provide a more comprehensive analysis of the findings, incorporating additional data and advanced statistical methods. The goal is to contribute meaningful insights to the academic community and advance knowledge in the field.",
-    link: "#",
-  },
-];
+// Normalize eventImage to always be an array (mobile app may send a single string)
+function getEventImages(paper: ConferencePaper): string[] {
+  if (!paper.eventImage) return [];
+  return Array.isArray(paper.eventImage) ? paper.eventImage : [paper.eventImage];
+}
+
 function showNotPublishedToast() {
   toast("This paper has not been published online yet.", {
     icon: "📄",
@@ -133,7 +80,7 @@ function ConferenceCard({
       {/* Certificate preview — full image visible, no cropping */}
       <div className="relative w-full h-52 overflow-hidden bg-black/40">
         <Image
-          src={paper.certificate}
+          src={paper.certificateImage}
           alt={paper.title}
           fill
           sizes="400px"
@@ -175,10 +122,11 @@ function ConferenceModal({
   onClose: () => void;
 }) {
   const [current, setCurrent] = useState(0);
+  const eventImages = getEventImages(paper);
 
-  const next = () => setCurrent((c) => (c + 1) % paper.eventImages.length);
+  const next = () => setCurrent((c) => (c + 1) % eventImages.length);
   const prev = () =>
-    setCurrent((c) => (c - 1 + paper.eventImages.length) % paper.eventImages.length);
+    setCurrent((c) => (c - 1 + eventImages.length) % eventImages.length);
 
   return (
     <motion.div
@@ -206,7 +154,7 @@ function ConferenceModal({
         {/* Static Certificate */}
         <div className="relative w-full h-64 md:h-80 bg-black/40">
           <Image
-            src={paper.certificate}
+            src={paper.certificateImage}
             alt="Certificate"
             fill
             sizes="672px"
@@ -218,28 +166,28 @@ function ConferenceModal({
         </div>
 
         {/* Event Slideshow */}
-{paper.eventImages.length > 0 && (
-  <div className="relative w-full h-72 md:h-96 bg-black/60 border-t border-white/10">
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={current}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.4 }}
-        className="absolute inset-0"
-      >
-        <Image
-          src={paper.eventImages[current]}
-          alt="Event"
-          fill
-          sizes="672px"
-          className="object-contain"
-        />
-      </motion.div>
-    </AnimatePresence>
+        {eventImages.length > 0 && (
+          <div className="relative w-full h-72 md:h-96 bg-black/60 border-t border-white/10">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={current}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4 }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src={eventImages[current]}
+                  alt="Event"
+                  fill
+                  sizes="672px"
+                  className="object-contain"
+                />
+              </motion.div>
+            </AnimatePresence>
 
-            {paper.eventImages.length > 1 && (
+            {eventImages.length > 1 && (
               <>
                 <button
                   onClick={prev}
@@ -254,7 +202,7 @@ function ConferenceModal({
                   <FiChevronRight />
                 </button>
                 <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-                  {paper.eventImages.map((_, i) => (
+                  {eventImages.map((_, i) => (
                     <button
                       key={i}
                       onClick={() => setCurrent(i)}
@@ -285,56 +233,61 @@ function ConferenceModal({
             {paper.details}
           </p>
 
-        <div className="flex gap-4 flex-wrap">
-  {paper.pdf !== "#" ? (
-    
-   <a   href={paper.pdf}
-      target="_blank"
-      className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 transition"
-    >
-      <FiFileText /> View Paper
-    </a>
-  ) : (
-    <span
-      onClick={showNoPdfToast}
-      className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 text-gray-500 cursor-pointer hover:bg-white/5"
-    >
-      <FiFileText /> View Paper
-    </span>
-  )}
+          <div className="flex gap-4 flex-wrap">
+            {paper.paperPdf && paper.paperPdf !== "#" ? (
+              
+            <a    href={paper.paperPdf}
+                target="_blank"
+                className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 transition"
+              >
+                <FiFileText /> View Paper
+              </a>
+            ) : (
+              <span
+                onClick={showNoPdfToast}
+                className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 text-gray-500 cursor-pointer hover:bg-white/5"
+              >
+                <FiFileText /> View Paper
+              </span>
+            )}
 
-  {paper.paperLink !== "#" ? (
-    
-    <a  href={paper.paperLink}
-      target="_blank"
-      className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 hover:bg-white/10 transition"
-    >
-      <FiExternalLink /> View Paper Online
-    </a>
-  ) : (
-    <span
-      onClick={showNotPublishedToast}
-      className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 text-gray-500 cursor-pointer hover:bg-white/5"
-    >
-      <FiExternalLink /> View Paper Online
-    </span>
-  )}
+            {paper.paperLink && paper.paperLink !== "#" ? (
+              
+           <a     href={paper.paperLink}
+                target="_blank"
+                className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 hover:bg-white/10 transition"
+              >
+                <FiExternalLink /> View Paper Online
+              </a>
+            ) : (
+              <span
+                onClick={showNotPublishedToast}
+                className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 text-gray-500 cursor-pointer hover:bg-white/5"
+              >
+                <FiExternalLink /> View Paper Online
+              </span>
+            )}
 
-  
-   <a href={paper.conferenceWebsite}
-    target="_blank"
-    className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 hover:bg-white/10 transition"
-  >
-    <FiGlobe /> Conference Website
-  </a>
+            {paper.conferenceWebsite && (
+              
+             <a   href={paper.conferenceWebsite}
+                target="_blank"
+                className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 hover:bg-white/10 transition"
+              >
+                <FiGlobe /> Conference Website
+              </a>
+            )}
 
-   <a href={paper.poster}
-    target="_blank"
-    className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 hover:bg-white/10 transition"
-  >
-    <FiImage /> View Poster
-  </a>
-</div>
+            {paper.posterImage && (
+              
+          <a      href={paper.posterImage}
+                target="_blank"
+                className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 hover:bg-white/10 transition"
+              >
+                <FiImage /> View Poster
+              </a>
+            )}
+          </div>
         </div>
       </motion.div>
     </motion.div>
@@ -355,7 +308,7 @@ export default function Research() {
         Research <span className="text-purple-400">Papers</span>
       </motion.h1>
       <p className="text-gray-400 text-center mb-16 max-w-2xl mx-auto">
-       I have a diverse research background covering Machine Learning, Environmental Science, and Public Health. My completed works include a comparative study of data mining techniques for heart disease classification, an analysis of soil salinity in the Sundarbans to track climate change impacts, and a study on hospital admission trends at Kurmitola General Hospital to improve resource management. Building on this foundation, I am currently very active in my university research life. I am working on several new conference papers and a comprehensive journal publication, focusing on more advanced data science topics and larger datasets. My goal is to continue expanding my research portfolio through ongoing university projects and contribute meaningful findings to the global academic community. 
+        I have a diverse research background covering Machine Learning, Environmental Science, and Public Health. My completed works include a comparative study of data mining techniques for heart disease classification, an analysis of soil salinity in the Sundarbans to track climate change impacts, and a study on hospital admission trends at Kurmitola General Hospital to improve resource management. Building on this foundation, I am currently very active in my university research life. I am working on several new conference papers and a comprehensive journal publication, focusing on more advanced data science topics and larger datasets. My goal is to continue expanding my research portfolio through ongoing university projects and contribute meaningful findings to the global academic community.
       </p>
 
       {/* Conference Papers */}
@@ -367,7 +320,7 @@ export default function Research() {
         <div className="grid md:grid-cols-2 gap-6">
           {conferencePapers.map((p, i) => (
             <ConferenceCard
-              key={p.title}
+              key={p.title + i}
               paper={p}
               index={i}
               onClick={() => setSelected(p)}
@@ -385,7 +338,7 @@ export default function Research() {
         <div className="space-y-6">
           {journalPapers.map((p, i) => (
             <motion.div
-              key={p.title}
+              key={p.title + i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -400,8 +353,9 @@ export default function Research() {
                   </p>
                   <h3 className="text-lg font-semibold mb-2">{p.title}</h3>
                   <p className="text-gray-400 text-sm mb-3">{p.details}</p>
+
                   
-                  <a  href={p.link}
+              <a      href={p.link}
                     target="_blank"
                     className="inline-flex items-center gap-1 text-sm hover:text-purple-400"
                   >

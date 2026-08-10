@@ -1,1 +1,50 @@
-[]
+[
+  {
+    "title": "A Machine Learning Approach for Quantifying Sea-Level Rise: A Conservative Baseline Forecast through 2030 using Prophet Architecture.",
+    "conferenceName": "IEEE QPAIN Conference",
+    "year": "2026",
+    "details": "This research develops a 'Conservative Baseline' forecast for sea-level rise using 32 years (1993-2025) of NASA satellite altimetry data and Facebook's Prophet machine learning architecture to model long-term trends beyond seasonal noise. The model predicts a 9.59mm sea-level rise by 2030, at a conservative rate of ~1.9mm/year — notably lower than the IPCC AR6 accelerated scenarios (3.5-4.5mm/year) — offering a practical 'safe lower bound' for coastal infrastructure planning. Applied to Bangladesh, the study identifies Satkhira as extreme risk due to low elevation and saltwater intrusion, with Khulna and Bagerhat facing high flood risk and threats to the Sundarbans mangrove forest. The findings recommend engineers use the 1.9mm/year rate as a minimum standard when designing or reinforcing coastal polders.",
+    "certificateImage": "/research/cert1.jpg",
+    "eventImage": ["/research/event1-1.jpg", "/research/event1-2.jpg", "/research/event1-3.jpg", "/research/event1-4.jpg", "/research/event1-5.jpg", "/research/event1-6.jpg", "/research/event1-7.jpg", "/research/event1-8.jpg", "/research/event1-9.jpg", "/research/event1-10.jpg", "/research/event1-11.jpg"],
+    "paperPdf": "/research/paper1.pdf",
+    "paperLink": "https://ieeexplore.ieee.org/document/11546265",
+    "conferenceWebsite": "https://qpain.org/",
+    "posterImage": "/research/poster1.jpg"
+  },
+  {
+    "title": "Analysis of Soil Salinity and Earth Metal Concentrations Along River Distance Gradients in the Sundarbans",
+    "conferenceName": "24th International Mathematical Conference (24IMC)",
+    "year": "2025",
+    "details": "This study analyzes 110 sample plots across the Sundarbans mangrove forest to understand how distance from the riverbank shapes soil chemistry. Salinity is highest near the river due to frequent tidal flooding and drops significantly further inland, while key nutrients like Ammonium, Phosphorus, and Potassium are also concentrated near the riverbanks, creating a salinity-fertility trade-off. Soil pH is slightly more alkaline near the river and more acidic further inland. Metal analysis reveals Zinc concentrations rise near the river (carried by tidal water), while Iron increases further inland, originating from the soil's parent rock rather than tidal deposition. These findings help conservationists select appropriate mangrove species for reforestation based on proximity to water, especially as rising sea levels threaten to push salinity further into the forest's low-salt 'refuge' zones.",
+    "certificateImage": "/research/cert2.jpg",
+    "eventImage": ["/research/event2-1.jpg", "/research/event2-2.jpg", "/research/event2-3.jpg", "/research/event2-4.jpg"],
+    "paperPdf": "/research/paper2.pdf",
+    "paperLink": "#",
+    "conferenceWebsite": "https://24imc.cumathbms.org/",
+    "posterImage": "/research/poster2.pdf"
+  },
+  {
+    "title": "Comparative Analysis of Classification Techniques in Data Mining: K-Nearest Neighbors, Naive Bayes, and Decision Trees Based Approach",
+    "conferenceName": "24th International Mathematical Conference (24IMC)",
+    "year": "2025",
+    "details": "This study compares three classification techniques — K-Nearest Neighbors (KNN), Naive Bayes (NB), and Decision Trees (DT) — for predicting heart disease using records from 303 patients across 14 clinical features including age, blood pressure, and cholesterol. KNN emerged as the overall best performer, achieving the highest accuracy and 100% Recall, meaning it caught every actual heart disease case in testing. Naive Bayes excelled at minimizing false positives, avoiding mislabeling healthy patients as sick, while Decision Trees, though the least accurate, remained valuable for their interpretability, offering clear if-then rules that are easy for doctors to trust and understand. The findings suggest no single 'best' method exists — the right choice depends on whether missing a diagnosis or maintaining interpretability matters more.",
+    "certificateImage": "/research/cert3.jpg",
+    "eventImage": ["/research/event2-1.jpg", "/research/event2-2.jpg", "/research/event2-3.jpg"],
+    "paperPdf": "/research/paper3.pdf",
+    "paperLink": "#",
+    "conferenceWebsite": "https://24imc.cumathbms.org/",
+    "posterImage": "/research/poster3.pdf"
+  },
+  {
+    "title": "Monthly Hospital Admissions and Mortality Trends at Kurmitola General Hospital",
+    "conferenceName": "National Biomedical, Health & Research Conference (NBHRC 2025)",
+    "year": "2025",
+    "details": "This study analyzes a full year of hospital data from Kurmitola General Hospital in Dhaka to uncover seasonal patterns in patient admissions and mortality. January to April proved the quietest period, with only 8 to 58 admissions per month and zero recorded deaths, before admissions began rising sharply from May, peaking dramatically in October with over 470 cases. Mortality also ticked upward during the busiest months, reaching its highest point in November with 7 deaths. The findings point to a clear seasonal surge, likely tied to the winter season, that strains hospital staff and resources late in the year. The study recommends proactive planning — allocating more beds, staff, and medicine ahead of the October-November peak — to better manage patient surges and improve care during high-demand periods.",
+    "certificateImage": "/research/cert4.jpg",
+    "eventImage": ["/research/event4-1.jpg", "/research/event4-2.jpg", "/research/event4-3.jpg", "/research/event4-4.jpg", "/research/event4-5.jpg", "/research/event4-6.jpg"],
+    "paperPdf": "#",
+    "paperLink": "#",
+    "conferenceWebsite": "https://www.dmcrac.org/nbhrc25/",
+    "posterImage": "/research/poster4.pdf"
+  }
+]
