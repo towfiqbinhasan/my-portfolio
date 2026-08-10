@@ -86,6 +86,17 @@ export async function POST(req: NextRequest) {
     const entryId = Date.now().toString();
     const finalEntry: any = { id: entryId, ...fields };
 
+    // Convert comma-separated text fields into proper arrays
+    const arrayFields = ['skills', 'tech', 'categories'];
+    for (const key of arrayFields) {
+      if (typeof finalEntry[key] === 'string') {
+        finalEntry[key] = finalEntry[key]
+          .split(',')
+          .map((item: string) => item.trim())
+          .filter((item: string) => item.length > 0);
+      }
+    }
+
     // Upload any images/PDFs to GitHub first, then store their path in finalEntry
     if (files && Array.isArray(files)) {
       for (const file of files) {
