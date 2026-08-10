@@ -12,6 +12,7 @@ import {
   FiSend,
   FiLock,
 } from "react-icons/fi";
+import experienceData from "@/data/experience.json";
 
 type Experience = {
   role: string;
@@ -29,149 +30,7 @@ type Experience = {
   offerLetter?: { label: string; fileKey: string };
 };
 
-const experiences: Experience[] = [
-  {
-    role: "Software Engineer Intern",
-    company: "Tizaraa IT",
-    companyLink: "https://tizaraa.com",
-   employmentType: "Internship · On-site",
-    duration: "02 May 2026 - Present · 3 months",
-    location: "Dhaka, Bangladesh",
-    mode: "On-site",
-    logo: "/experience/tizaara.jpg",
-    logoText: "TI",
-    logoBg: "from-orange-500 to-amber-500",
-    description:
-      "Working as a Software Engineer Intern at Tizaraa IT, contributing to real-world software development tasks on-site in Dhaka. Involved in building and maintaining features across the product, collaborating closely with the engineering team, and applying software engineering best practices in a full-time, in-office environment.",
-    skills: ["Software Development", "Full-Stack Engineering", "Team Collaboration", "Problem Solving"],
-    offerLetter: { label: "Internship Offer Letter", fileKey: "tizaraa-offer.pdf" },
-  },
-  {
-  role: "Web Development Intern",
-  company: "Codveda Technologies",
-  companyLink: "https://www.codveda.com",
-  employmentType: "Internship · Remote",
-  duration: "07 july 2026 - Present · 1 month",
-  location: "Ashta Road, Manora, Chandrapur, India",
-  mode: "Remote",
-  logo: "/experience/codveda.jpg",
-  logoText: "CV",
-  logoBg: "from-blue-500 to-indigo-600",
-  description:
-    "Selected as a Web Development Intern at Codveda Technologies for exceptional qualifications, strong technical skills, and enthusiasm for web development. The role involves immersing in the dynamic world of web development and digital innovation, participating in projects requiring expertise in web design, development, and implementation, and contributing to creating and enhancing web applications that are functional, user-friendly, and visually appealing.",
-  skills: ["Web Development", "HTML/CSS", "JavaScript", "UI/UX Implementation"],
-  offerLetter: { label: "Internship Offer Letter", fileKey: "codveda-offer.pdf" },
-},
-{
-  role: "Data Science Intern",
-  company: "CodeAlpha",
-  companyLink: "https://www.codealpha.tech",
-  employmentType: "Internship · Remote",
-  duration: "01 May 2026 - 30 May 2026 · 1 month",
-  location: "Lucknow, U.P, India",
-  mode: "Remote",
-  logo: "/experience/code.jpg",
-  logoText: "CA",
-  logoBg: "from-pink-500 to-rose-600",
-  description:
-    "Completed a Data Science Internship at CodeAlpha from 1st May 2026 to 30th May 2026, focused on learning new skills with a deeper understanding of concepts through hands-on application of gained knowledge. The internship emphasized orientation, practical skill-building, and fulfilling assigned work responsibly and effectively — equipping for future data science projects.",
-  skills: ["Data Science", "Python", "Data Analysis", "Machine Learning"],
-  offerLetter: { label: "Internship Offer Letter", fileKey: "codealpha-offer.pdf" },
-},
-  {
-    role: "Back End Developer",
-    company: "HexSoftwares",
-    companyLink: "https://hexsoftwares.tech",
-    employmentType: "Internship · Remote",
-    duration: "01 Apr 2026 - 30 Apr 2026· 1 month",
-    location: "Ramadevi, Kanpur, UP, India (208007)",
-    mode: "Remote",
-    logo: "/experience/hex.jpg",
-    logoText: "HS",
-    logoBg: "from-cyan-500 to-blue-600",
-    description:
-      "Completed a remote Back End Developer Internship at HexSoftwares, focusing on server-side application logic, API development, and database integration. The internship involved applying core backend concepts under real project constraints, with knowledge assessments and structured project deliverables throughout the program.",
-    skills: ["Node.js", "REST APIs", "Databases", "Backend Architecture"],
-    offerLetter: { label: "Internship Offer Letter", fileKey: "hexsoftwares-offer.pdf" },
-  },
-  {
-    role: "Full Stack Engineer",
-    company: "Syntecxhub",
-    companyLink: "https://syntecxhub.com",
-    employmentType: "Internship · Remote",
-    duration: "01 Apr 2026 - 30 Apr 2026 · 1 month",
-    location: "Itanagar, Arunachal Pradesh, India",
-    mode: "Remote",
-    logo: "/experience/sys.jpg",
-    logoText: "S",
-    logoBg: "from-blue-500 to-indigo-600",
-    description:
-      "Serving as a Full Stack Web Developer Intern at Syntecxhub, working remotely on end-to-end web development tasks spanning both frontend and backend. Responsibilities include building functional web features, following professional development workflows, and delivering work aligned with internship program terms and conditions.",
-    skills: ["Full-Stack Development", "React", "Node.js", "API Integration"],
-    offerLetter: { label: "Internship Offer Letter", fileKey: "syntecxhub-offer.pdf" },
-  },
-  {
-    role: "Full Stack Engineer Intern",
-    company: "CodeAlpha",
-    companyLink: "https://www.codealpha.tech",
-    employmentType:"Internship · Remote",
-    duration: "01 Apr 2026 - 30 Apr 2026 · 1 months",
-    location: "Itanagar, Arunachal Pradesh, India",
-    mode: "Remote",
-    logo: "/experience/code.jpg",
-    logoText: "CA",
-    logoBg: "from-indigo-600 to-blue-700",
-    description:
-      "Completed a Full Stack Web Developer internship at CodeAlpha, a remote internship program offering hands-on experience with real projects. The role focused on applying full-stack development skills and knowledge gained during the internship to practical assignments, working independently within a structured remote internship framework.",
-    skills: ["Full-Stack Development", "JavaScript", "Web Development", "Remote Collaboration"],
-    offerLetter: { label: "Internship Offer Letter", fileKey: "codealpha-offerfull.pdf" },
-  },
-  {
-    role: "Private Tutor",
-    company: "Caretutors Technologies Ltd.",
-    companyLink: "https://caretutors.com",
-    employmentType: "Part-time · On-site",
-    duration: "Jan 2025 - Present · 1 yr 7 months",
-    location: "Dhaka, Bangladesh",
-    mode: "",
-    logo: "/experience/care.jpg",
-    logoText: "CT",
-    logoBg: "from-blue-600 to-sky-500",
-    description:
-      "Working as a Private Tutor through Caretutors Technologies Ltd., providing subject-specific academic guidance to students in Dhaka. The role involves preparing lesson plans, explaining core concepts clearly, and tracking student progress on a consistent, ongoing basis.",
-    skills: ["Teaching", "Mentoring", "Curriculum Planning", "Communication"],
-  },
-  {
-    role: "Course Instructor",
-    company: "10 Minute School",
-    companyLink: "https://10minuteschool.com",
-    employmentType: "Part-time · Remote",
-    duration: "Jan 2023 - Jan 2024 · 1 yr 1 month",
-    location: "Dhaka, Bangladesh",
-    mode: "On-site",
-    logo: "/experience/10min.jpg",
-    logoText: "10",
-    logoBg: "from-red-600 to-neutral-900",
-    description:
-      "Worked as a Course Instructor at 10 Minute School, Bangladesh's leading online learning platform, delivering structured lessons on-site in Dhaka. Responsible for preparing course content, teaching concepts clearly to students, and contributing to the platform's academic quality standards.",
-    skills: ["Teaching", "Content Delivery", "Curriculum Development"],
-  },
-  {
-    role: "Assistant of Physics Teacher",
-    company: "UDVASH-উদ্ভাস",
-    companyLink: "https://udvash.com",
-    employmentType: "Part-time · On-site",
-    duration: "Jan 2023 - Feb 2024 · 1 yr 2 months",
-    location: "Dhaka, Bangladesh",
-    mode: "",
-    logo: "/experience/ud.jpg",
-    logoText: "U",
-    logoBg: "from-fuchsia-600 to-purple-700",
-    description:
-      "Assisted senior faculty as a Physics and Mathematics teacher at UDVASH, one of Bangladesh's premier admission and academic coaching centers. Supported lesson preparation, doubt-clearing sessions, and helped students strengthen their conceptual understanding of Physics and Mathematics.",
-    skills: ["Physics Teacher", "Mathematics Teacher", "Academic Support"],
-  },
-];
+const experiences: Experience[] = experienceData as Experience[];
 
 function CompanyLogo({
   exp,
@@ -394,8 +253,8 @@ function ExperienceModal({
               <h3 className="text-xl md:text-2xl font-semibold mb-1 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                 {exp.role}
               </h3>
-              <a
-                href={exp.companyLink}
+              
+             <a   href={exp.companyLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-purple-300 text-sm hover:text-purple-200 hover:underline underline-offset-2 transition-colors"
@@ -435,8 +294,8 @@ function ExperienceModal({
           </div>
 
           <div className="flex flex-wrap gap-3 pt-2">
-            <a
-              href={exp.companyLink}
+            
+            <a  href={exp.companyLink}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 transition"
@@ -516,8 +375,8 @@ export default function ExperiencePage() {
                     <CompanyLogo exp={exp} size="md" />
                     <div className="min-w-0">
                       <h3 className="text-base sm:text-lg font-semibold leading-snug">{exp.role}</h3>
-                      <a
-                        href={exp.companyLink}
+                      
+                     <a   href={exp.companyLink}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
