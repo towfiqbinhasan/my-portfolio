@@ -50,7 +50,7 @@ async function putFile(path: string, base64Content: string, message: string) {
   return res.json();
 }
 
-// Read an existing JSON array file and append a new entry to it
+// Read an existing JSON array file and add a new entry to the top of it
 async function appendToJsonFile(path: string, newEntry: any) {
   let existing: any[] = [];
   const sha = await getFileSha(path);
@@ -65,7 +65,7 @@ async function appendToJsonFile(path: string, newEntry: any) {
     existing = JSON.parse(decoded);
   }
 
-  existing.push(newEntry);
+  existing.unshift(newEntry);
   const updatedBase64 = Buffer.from(JSON.stringify(existing, null, 2)).toString('base64');
   await putFile(path, updatedBase64, `Add new ${path} entry via mobile app`);
 }
@@ -108,7 +108,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Append the entry to the category's JSON data file
+    // Add the entry to the top of the category's JSON data file
     const dataPath = `data/${category}.json`;
     await appendToJsonFile(dataPath, finalEntry);
 
