@@ -1,5 +1,24 @@
 [
   {
+    "id": "1787847897735",
+    "title": "Complete Web Development Course With Programming Hero",
+    "issuer": "Programming Hero",
+    "issuerLink": "https://www.programming-hero.com/",
+    "date": "2026-08-01",
+    "skills": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "React.js",
+      "Next.js",
+      "Node.js",
+      "Express.js",
+      "MongoDB."
+    ],
+    "description": "Awarded Certificate of Completion with Excellence for successfully completing the Complete Web Development Course with Programming Hero (Batch-13), conducted from 01 January 2026 to 01 August 2026. Demonstrated proficiency in full-stack web development along with AI-powered development practices and professional web engineering readiness.",
+    "image": "/uploads/certificate/1787847897735-1000097114.jpg"
+  },
+  {
     "id": "1786626340627",
     "title": "A TinyML IoT Intrusion Detection System with Human-Readable XAI and Lightweight Drift Monitoring for MCUs",
     "issuer": "IEEE Bangladesh Section / 5th IEEE International Conference on Signal Processing, Information, Communication and Systems (SPICSCON 2026)",
