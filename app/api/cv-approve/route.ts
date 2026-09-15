@@ -54,6 +54,7 @@ export async function GET(req: NextRequest) {
     await resend.emails.send({
       from: "Towfiq Bin Hasan <noreply@towfiqbinhasan.com>",
       to: request.email,
+      replyTo: "towfiqbinhasan@gmail.com",
       subject: "Your CV request has been approved",
       html: `
         <div style="font-family: sans-serif; max-width: 500px;">
@@ -64,6 +65,7 @@ export async function GET(req: NextRequest) {
           <p style="margin-top:24px;color:#888;">Thank you for your interest!</p>
         </div>
       `,
+      text: `Hi ${request.name},\n\nYour request for the ${request.category} CV has been approved.\n\nDownload it here (link valid for 24 hours): ${signedUrlData.signedUrl}\n\nThank you for your interest!`,
     });
 
     return new NextResponse(

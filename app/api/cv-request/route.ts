@@ -49,6 +49,7 @@ export async function POST(req: NextRequest) {
     await resend.emails.send({
       from: "CV Requests <noreply@towfiqbinhasan.com>",
       to: process.env.ADMIN_EMAIL!,
+      replyTo: email,
       subject: `New CV Request: ${category}`,
       html: `
         <div style="font-family: sans-serif; max-width: 500px;">
@@ -64,6 +65,7 @@ export async function POST(req: NextRequest) {
           </div>
         </div>
       `,
+      text: `New CV Download Request\n\nCategory: ${category}\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nReason: ${reason}\n\nApprove: ${approveUrl}\nReject: ${rejectUrl}`,
     });
 
     return NextResponse.json({ success: true });
