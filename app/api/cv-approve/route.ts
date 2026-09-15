@@ -52,7 +52,7 @@ export async function GET(req: NextRequest) {
       .eq("id", id);
 
     await resend.emails.send({
-      from: "Towfiq Bin Hasan <onboarding@resend.dev>",
+      from: "Towfiq Bin Hasan <noreply@towfiqbinhasan.com>",
       to: request.email,
       subject: "Your CV request has been approved",
       html: `

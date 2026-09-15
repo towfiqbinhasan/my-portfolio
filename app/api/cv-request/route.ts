@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
     const rejectUrl = `${siteUrl}/api/cv-approve?id=${data.id}&token=${actionToken}&action=reject`;
 
     await resend.emails.send({
-      from: "CV Requests <onboarding@resend.dev>",
+      from: "CV Requests <noreply@towfiqbinhasan.com>",
       to: process.env.ADMIN_EMAIL!,
       subject: `New CV Request: ${category}`,
       html: `

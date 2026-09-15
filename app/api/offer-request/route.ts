@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
     const rejectUrl = `${siteUrl}/api/offer-approve?id=${data.id}&token=${actionToken}&action=reject`;
 
     await resend.emails.send({
-      from: "Offer Letter Requests <onboarding@resend.dev>",
+      from: "Offer Letter Requests <noreply@towfiqbinhasan.com>",
       to: process.env.ADMIN_EMAIL!,
       subject: `New Offer Letter Request: ${company}`,
       html: `
