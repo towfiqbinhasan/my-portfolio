@@ -1,5 +1,18 @@
 [
   {
+  "title": "A TinyML IoT Intrusion Detection System with Human-Readable XAI and Lightweight Drift Monitoring for MCUs",
+  "conferenceName": "5th IEEE International Conference on Signal Processing, Information, Communication and Systems (SPICSCON 2026)",
+  "year": "2026",
+  "details": "This paper presents a TinyML-based IoT Intrusion Detection System designed to run directly on resource-constrained microcontrollers (MCUs). The system combines lightweight machine learning models with human-readable Explainable AI (XAI) techniques, allowing security decisions to be interpreted by non-expert users rather than treated as black-box outputs. A lightweight drift monitoring mechanism is also integrated to detect when the deployed model's performance degrades due to changing network conditions, enabling timely retraining or alerts. The work addresses the growing need for on-device, low-power security solutions for IoT ecosystems where cloud-based intrusion detection is impractical due to latency, bandwidth, or privacy constraints.",
+  "certificateImage": "/research/cert5.jpg",
+  "eventImage": ["/research/event5-1.jpg", "/research/event5-2.jpg"],
+  "paperPdf": "/research/paper5.pdf",
+  "paperLink": "#",
+  "conferenceWebsite": "https://spicscon.org/2026/",
+  "posterImage": "/research/poster5.pdf"
+},
+
+  {
     "title": "A Machine Learning Approach for Quantifying Sea-Level Rise: A Conservative Baseline Forecast through 2030 using Prophet Architecture.",
     "conferenceName": "IEEE QPAIN Conference",
     "year": "2026",
