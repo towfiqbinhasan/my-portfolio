@@ -1,15 +1,19 @@
 "use client";
 import { useState } from "react";
-import { motion } from "framer-motion";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 import {
   FiMail,
   FiSend,
+  FiUser,
+  FiPhone,
+  FiMessageSquare,
 } from "react-icons/fi";
 import { FaWhatsapp, FaGithub, FaLinkedin, FaFacebook } from "react-icons/fa";
 import {
   FiGlobe,
 } from "react-icons/fi";
+import { PageBackdrop, PageHeader, GlowCard } from "@/components/PageShell";
 const socials = [
   {
     icon: FaWhatsapp,
@@ -43,6 +47,12 @@ const socials = [
   },
 ];
 
+const fieldClass =
+  "field-input w-full rounded-xl border border-white/10 bg-white/[0.04] py-3 pl-11 pr-4 text-sm text-white placeholder:text-gray-500 focus:border-purple-400/60 focus:bg-white/[0.06] focus:outline-none focus:shadow-[0_0_0_3px_rgba(168,85,247,0.12)]";
+const labelClass = "field-label mb-2 block text-sm text-gray-400";
+const fieldIconClass =
+  "field-icon pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-500";
+
 export default function Contact() {
   const [loading, setLoading] = useState(false);
 
@@ -68,7 +78,7 @@ export default function Contact() {
       } else {
         toast.error("Something went wrong. Please try again.");
       }
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
@@ -76,42 +86,44 @@ export default function Contact() {
   }
 
   return (
-    <section className="py-16 px-6 max-w-6xl mx-auto">
-      <motion.h1
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-4xl md:text-5xl font-bold mb-4 text-center"
-      >
-        Get In <span className="text-purple-400">Touch</span>
-      </motion.h1>
-      <p className="text-gray-400 text-center mb-16 max-w-xl mx-auto">
-        Want to collaborate on a project or just say hi? Send a message using the form below, or reach out directly through social media.
-      </p>
+    <section className="relative px-4 sm:px-6 py-12 sm:py-16 max-w-6xl mx-auto">
+      <PageBackdrop />
 
-      <div className="grid md:grid-cols-2 gap-8">
+      <PageHeader
+        eyebrow="Say hello"
+        title="Get In"
+        accent="Touch"
+        description={
+          <p>
+            Want to collaborate on a project or just say hi? Send a message using the form below, or reach out directly through social media.
+          </p>
+        }
+      />
+
+      <div className="grid gap-5 md:grid-cols-2">
         {/* Left: Info + Socials */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="bg-white/5 border border-white/10 rounded-2xl p-8 flex flex-col justify-between"
-        >
-          <div>
-            <p className="text-2xl font-semibold mb-2">
-              I'm always in this spot.
+        <GlowCard lift={false} className="flex flex-col justify-between p-6 sm:p-8">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-purple-600/20 blur-3xl"
+          />
+
+          <div className="relative">
+            <p className="text-xl font-semibold xs:text-2xl">
+              I&apos;m always in this spot.
             </p>
-            <p className="text-gray-400 text-sm mb-10">
+            <p className="mt-2 mb-8 text-sm text-gray-400 sm:mb-10">
               📖 Feedback is fuel for growth.
             </p>
 
             <a
               href="mailto:towfiqbinhasan@gmail.com"
-              className="flex items-center gap-3 bg-black/30 border border-white/10 rounded-xl px-5 py-4 mb-8 hover:border-purple-400 transition group"
+              className="group mb-8 flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-4 transition duration-300 hover:-translate-y-0.5 hover:border-purple-400/60 hover:bg-purple-500/10 sm:px-5"
             >
-              <FiMail className="text-purple-400 text-xl" />
-              <span className="text-gray-200 group-hover:text-white transition">
+              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-white/5 text-lg text-purple-400 ring-1 ring-white/10 transition group-hover:bg-purple-500/20">
+                <FiMail />
+              </span>
+              <span className="min-w-0 break-all text-sm text-gray-200 transition group-hover:text-white sm:text-base">
                 towfiqbinhasan@gmail.com
               </span>
             </a>
@@ -124,10 +136,12 @@ export default function Contact() {
                     key={s.label + s.href}
                     href={s.href}
                     target="_blank"
-                    className="flex items-center gap-4 bg-black/30 border border-white/10 rounded-xl px-5 py-4 hover:border-purple-400 transition group"
+                    className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3.5 transition duration-300 hover:-translate-y-0.5 hover:border-purple-400/60 hover:bg-white/[0.07] sm:gap-4 sm:px-5 sm:py-4"
                   >
-                    <Icon className={`text-2xl ${s.color}`} />
-                    <span className="text-gray-300 group-hover:text-white transition text-sm">
+                    <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10 transition group-hover:bg-purple-500/20">
+                      <Icon className={`text-xl ${s.color}`} />
+                    </span>
+                    <span className="min-w-0 break-words text-sm text-gray-300 transition group-hover:text-white">
                       {s.label}
                     </span>
                   </a>
@@ -136,85 +150,132 @@ export default function Contact() {
             </div>
           </div>
 
-          <p className="text-gray-600 text-xs mt-10 text-center">
+          <p className="relative mt-10 text-center text-xs text-gray-600">
             Portfolio created by Google Sides
           </p>
-        </motion.div>
+        </GlowCard>
 
         {/* Right: Feedback Form */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="bg-white/5 border border-white/10 rounded-2xl p-8"
-        >
-          <h2 className="text-xl font-semibold mb-6">Send a Feedback</h2>
+        <GlowCard delay={0.12} lift={false} className="p-6 sm:p-8">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -left-24 -bottom-24 h-52 w-52 rounded-full bg-pink-600/15 blur-3xl"
+          />
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="text-sm text-gray-400 mb-1 block">Name</label>
-              <input
-                type="text"
-                name="name"
-                required
-                placeholder="Your name"
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-purple-400 transition"
-              />
-            </div>
+          <div className="relative">
+            <h2 className="text-xl font-semibold">Send a Feedback</h2>
+            <div
+              aria-hidden
+              className="mt-4 mb-6 h-px w-full bg-gradient-to-r from-purple-400/50 via-white/10 to-transparent"
+            />
 
-            <div>
-              <label className="text-sm text-gray-400 mb-1 block">Email</label>
-              <input
-                type="email"
-                name="email"
-                required
-                placeholder="you@example.com"
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-purple-400 transition"
-              />
-            </div>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+                className="field-group"
+              >
+                <label className={labelClass}>Name</label>
+                <div className="relative">
+                  <FiUser className={fieldIconClass} />
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    placeholder="Your name"
+                    className={fieldClass}
+                  />
+                </div>
+              </motion.div>
 
-            <div>
-              <label className="text-sm text-gray-400 mb-1 block">
-                Phone Number
-              </label>
-              <input
-                type="tel"
-                name="phone"
-                required
-                placeholder="+880 1XXXXXXXXX"
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-purple-400 transition"
-              />
-            </div>
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+                className="field-group"
+              >
+                <label className={labelClass}>Email</label>
+                <div className="relative">
+                  <FiMail className={fieldIconClass} />
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    placeholder="you@example.com"
+                    className={fieldClass}
+                  />
+                </div>
+              </motion.div>
 
-            <div>
-              <label className="text-sm text-gray-400 mb-1 block">
-                Comment
-              </label>
-              <textarea
-                name="message"
-                required
-                rows={4}
-                placeholder="Write your message..."
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-purple-400 transition resize-none"
-              />
-            </div>
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.19, ease: [0.22, 1, 0.36, 1] }}
+                className="field-group"
+              >
+                <label className={labelClass}>
+                  Phone Number
+                </label>
+                <div className="relative">
+                  <FiPhone className={fieldIconClass} />
+                  <input
+                    type="tel"
+                    name="phone"
+                    required
+                    placeholder="+880 1XXXXXXXXX"
+                    className={fieldClass}
+                  />
+                </div>
+              </motion.div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 transition rounded-lg px-6 py-3 font-medium disabled:opacity-50"
-            >
-              {loading ? (
-                "Sending..."
-              ) : (
-                <>
-                  <FiSend /> Send Message
-                </>
-              )}
-            </button>
-          </form>
-        </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.26, ease: [0.22, 1, 0.36, 1] }}
+                className="field-group"
+              >
+                <label className={labelClass}>
+                  Comment
+                </label>
+                <div className="relative">
+                  <FiMessageSquare className="field-icon pointer-events-none absolute left-4 top-4 text-gray-500" />
+                  <textarea
+                    name="message"
+                    required
+                    rows={4}
+                    placeholder="Write your message..."
+                    className={`${fieldClass} resize-none`}
+                  />
+                </div>
+              </motion.div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="btn-press btn-shine mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/45 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {loading ? (
+                  <span className="relative flex items-center gap-2">
+                    <span
+                      aria-hidden
+                      className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white"
+                    />
+                    Sending...
+                  </span>
+                ) : (
+                  <span className="relative flex items-center gap-2">
+                    <FiSend /> Send Message
+                  </span>
+                )}
+              </button>
+            </form>
+          </div>
+        </GlowCard>
       </div>
     </section>
   );

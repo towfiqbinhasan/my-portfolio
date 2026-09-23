@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FiX,
@@ -31,6 +31,8 @@ import {
   TbBrandOffice,
 } from "react-icons/tb";
 import type { IconType } from "react-icons";
+import { PageBackdrop, PageHeader, GlowCard, ease } from "@/components/PageShell";
+import { lightboxItem } from "@/components/Carousel";
 
 type Section = { heading: string; text: string };
 
@@ -520,136 +522,172 @@ const tools: Skill[] = [
 function SkillCard({ skill, index, onClick }: { skill: Skill; index: number; onClick: () => void }) {
   const Icon = skill.icon;
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.05 }}
-      className="relative bg-white/[0.04] border border-white/10 rounded-2xl p-6 hover:border-purple-400/60 hover:bg-white/[0.06] transition-all duration-300 group flex flex-col h-full overflow-hidden"
-    >
-      <div
-        className={`absolute -top-10 -right-10 w-32 h-32 rounded-full bg-gradient-to-br ${skill.iconBg} opacity-0 group-hover:opacity-10 blur-2xl transition-opacity duration-500`}
+    <GlowCard delay={index * 0.08} className="h-full">
+      <span
+        aria-hidden
+        className={`absolute -top-12 -right-12 w-36 h-36 rounded-full bg-gradient-to-br ${skill.iconBg} opacity-0 group-hover:opacity-20 blur-3xl transition-opacity duration-500`}
       />
+      <span aria-hidden className="carousel-sheen pointer-events-none absolute inset-0" />
 
-      <div className="flex items-start justify-between mb-4 relative z-10">
-        <div
-          className={`w-12 h-12 rounded-xl bg-gradient-to-br ${skill.iconBg} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300`}
-        >
-          <Icon className="text-white text-xl" />
-        </div>
-        <a
-          href={skill.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          title={`Visit official ${skill.title} website`}
-          className="w-8 h-8 rounded-full flex items-center justify-center border border-white/10 text-gray-400 hover:text-purple-300 hover:border-purple-400 hover:bg-purple-400/10 transition"
-        >
-          <FiExternalLink className="text-sm" />
-        </a>
-      </div>
-
-      <h3 className="text-lg font-semibold mb-2 leading-snug relative z-10">{skill.title}</h3>
-      <p className="text-gray-400 text-sm mb-4 leading-relaxed flex-1 relative z-10">{skill.tagline}</p>
-
-      <div className="flex flex-wrap gap-1.5 mb-5 relative z-10">
-        {skill.tags.slice(0, 3).map((t) => (
-          <span
-            key={t}
-            className="text-[11px] px-2 py-1 rounded-full bg-purple-400/10 text-purple-300 border border-purple-400/20"
+      <div className="relative flex h-full flex-col p-5 sm:p-6">
+        <div className="flex items-start justify-between gap-3 mb-4">
+          <div
+            className={`w-12 h-12 rounded-xl bg-gradient-to-br ${skill.iconBg} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300`}
           >
-            {t}
-          </span>
-        ))}
-        {skill.tags.length > 3 && (
-          <span className="text-[11px] px-2 py-1 rounded-full bg-white/5 text-gray-500 border border-white/10">
-            +{skill.tags.length - 3}
-          </span>
-        )}
-      </div>
+            <Icon className="text-white text-xl" />
+          </div>
+          <a
+            href={skill.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            title={`Visit official ${skill.title} website`}
+            className="btn-press group/link w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center border border-white/10 text-gray-400 hover:text-purple-300 hover:border-purple-400 hover:bg-purple-400/10"
+          >
+            <FiExternalLink className="text-sm transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
+          </a>
+        </div>
 
-      <button
-        onClick={onClick}
-        className="relative z-10 mt-auto inline-flex items-center gap-1.5 text-sm font-medium text-purple-300 hover:text-white hover:gap-2.5 transition-all duration-300"
-      >
-        Read the story
-        <span className="transition-transform group-hover:translate-x-1">→</span>
-      </button>
-    </motion.div>
+        <h3 className="text-base sm:text-lg font-semibold mb-2 leading-snug text-white">{skill.title}</h3>
+        <p className="text-gray-400 text-xs sm:text-sm mb-4 leading-relaxed flex-1">{skill.tagline}</p>
+
+        <div className="flex flex-wrap gap-1.5 mb-5">
+          {skill.tags.slice(0, 3).map((t) => (
+            <span
+              key={t}
+              className="text-[11px] px-2 py-1 rounded-full bg-purple-400/10 text-purple-300 border border-purple-400/20"
+            >
+              {t}
+            </span>
+          ))}
+          {skill.tags.length > 3 && (
+            <span className="text-[11px] px-2 py-1 rounded-full bg-white/5 text-gray-500 border border-white/10">
+              +{skill.tags.length - 3}
+            </span>
+          )}
+        </div>
+
+        <button
+          onClick={onClick}
+          className="btn-press mt-auto inline-flex w-fit items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs sm:text-sm font-medium text-purple-300 hover:border-purple-400/60 hover:bg-purple-500/15 hover:text-white"
+        >
+          Read the story
+          <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+        </button>
+      </div>
+    </GlowCard>
   );
 }
 
 function SkillModal({ skill, onClose }: { skill: Skill; onClose: () => void }) {
   const Icon = skill.icon;
+
+  // Escape to close and the page scroll locked while the modal is open.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [onClose]);
+
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+      animate={{ opacity: 1, backdropFilter: "blur(8px)" }}
+      exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+      transition={{ duration: 0.35, ease }}
       onClick={onClose}
-      className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-sm flex items-center justify-center px-4 sm:px-6 py-10 overflow-y-auto"
+      className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-black/80 px-3 py-6 sm:px-6 sm:py-10"
     >
       <motion.div
-        initial={{ opacity: 0, scale: 0.92, y: 20 }}
+        initial={{ opacity: 0, scale: 0.94, y: 24 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.92, y: 20 }}
-        transition={{ duration: 0.3 }}
+        exit={{ opacity: 0, scale: 0.96, y: 16, transition: { duration: 0.22, ease: "easeIn" } }}
+        transition={{ type: "spring", stiffness: 260, damping: 26 }}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-2xl bg-[#111117] border border-white/10 rounded-2xl overflow-hidden my-auto max-h-[85vh] flex flex-col"
+        className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#0e0e14] shadow-2xl shadow-black/70 sm:rounded-3xl"
       >
         <button
           onClick={onClose}
           aria-label="Close"
-          className="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center bg-black/50 hover:bg-purple-500/60 rounded-full text-xl transition"
+          className="btn-press group/close absolute right-3 top-3 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-lg text-white/80 ring-1 ring-white/10 backdrop-blur hover:bg-purple-500/60 hover:text-white sm:right-4 sm:top-4 sm:h-10 sm:w-10 sm:text-xl"
         >
-          <FiX />
+          <FiX className="transition-transform duration-300 group-hover/close:rotate-90" />
         </button>
 
-        <div className={`h-1.5 bg-gradient-to-r ${skill.iconBg} flex-shrink-0`} />
+        <div className="modal-scroll max-h-[88vh] overflow-y-auto overscroll-contain sm:max-h-[85vh]">
+          <div aria-hidden className={`h-1.5 w-full bg-gradient-to-r ${skill.iconBg}`} />
 
-        <div className="p-6 md:p-8 border-b border-white/10 flex-shrink-0">
-          <div className="flex items-start gap-4">
-            <div
-              className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${skill.iconBg} flex items-center justify-center flex-shrink-0 shadow-lg`}
-            >
-              <Icon className="text-white text-2xl" />
-            </div>
-            <div className="min-w-0">
-              <h3 className="text-xl md:text-2xl font-semibold mb-1 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                {skill.title}
-              </h3>
-              <p className="text-gray-400 text-sm">{skill.tagline}</p>
-            </div>
-          </div>
+          <div className="relative border-b border-white/10 p-5 sm:p-7 md:p-8">
+            <span
+              aria-hidden
+              className={`pointer-events-none absolute -top-16 -left-10 h-44 w-44 rounded-full bg-gradient-to-br ${skill.iconBg} opacity-20 blur-3xl`}
+            />
 
-          <div className="flex flex-wrap items-center gap-2 mt-4">
-            {skill.tags.map((t) => (
-              <span
-                key={t}
-                className="text-xs px-3 py-1 rounded-full bg-purple-400/10 text-purple-300 border border-purple-400/20"
+            <motion.div {...lightboxItem(0)} className="relative flex items-start gap-3 pr-10 sm:gap-4">
+              <div
+                className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${skill.iconBg} shadow-lg transition-transform duration-500 hover:scale-105 hover:rotate-3 sm:h-14 sm:w-14`}
               >
-                {t}
-              </span>
-            ))}
+                <Icon className="text-xl text-white sm:text-2xl" />
+              </div>
+              <div className="min-w-0">
+                <h3 className="bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-xl font-semibold leading-snug text-transparent sm:text-2xl md:text-3xl">
+                  {skill.title}
+                </h3>
+                <p className="mt-2 max-w-2xl text-xs leading-relaxed text-gray-400 sm:text-sm">
+                  {skill.tagline}
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div {...lightboxItem(1)} className="relative mt-5 flex flex-wrap items-center gap-2">
+              {skill.tags.map((t) => (
+                <span
+                  key={t}
+                  className="btn-press rounded-full border border-purple-400/20 bg-purple-400/10 px-3 py-1 text-[11px] text-purple-300 hover:border-purple-400/50 hover:bg-purple-500/20 hover:text-white sm:text-xs"
+                >
+                  {t}
+                </span>
+              ))}
+            </motion.div>
+
+            <motion.div {...lightboxItem(2)} className="relative mt-6 border-t border-white/5 pt-6">
+              <a
+                href={skill.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-press btn-shine group/link inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
+              >
+                <FiExternalLink className="transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />{" "}
+                Visit Official Site
+              </a>
+            </motion.div>
           </div>
 
-          <a
-            href={skill.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm mt-5 px-4 py-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 transition"
-          >
-            <FiExternalLink /> Visit Official Site
-          </a>
-        </div>
-
-        <div className="p-6 md:p-8 overflow-y-auto space-y-6">
-          {skill.sections.map((s, i) => (
-            <div key={i}>
-              <h4 className="text-sm font-semibold text-purple-300 mb-1.5">{s.heading}</h4>
-              <p className="text-gray-300 text-sm leading-relaxed">{s.text}</p>
+          <div className="p-5 sm:p-7 md:p-8">
+            <div className="max-w-3xl space-y-7 sm:space-y-8">
+              {skill.sections.map((s, i) => (
+                <motion.div key={i} {...lightboxItem(3 + i)} className="relative pl-4 sm:pl-5">
+                  <span
+                    aria-hidden
+                    className="absolute left-0 top-[0.35rem] h-5 w-1 rounded-full bg-gradient-to-b from-purple-400 to-pink-400 shadow-[0_0_10px_-2px_rgba(168,85,247,0.9)]"
+                  />
+                  <h4 className="text-sm font-semibold leading-snug text-purple-200 sm:text-[0.95rem]">
+                    {s.heading}
+                  </h4>
+                  <p className="mt-2.5 text-sm leading-[1.8] text-gray-300 md:text-[0.95rem]">
+                    {s.text}
+                  </p>
+                </motion.div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </motion.div>
     </motion.div>
@@ -660,49 +698,52 @@ export default function SkillsPage() {
   const [selected, setSelected] = useState<Skill | null>(null);
 
   return (
-    <section className="py-16 sm:py-24 px-4 sm:px-6 max-w-6xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-4"
+    <section className="relative py-12 sm:py-16 px-4 sm:px-6 max-w-6xl mx-auto">
+      <PageBackdrop />
+
+      <PageHeader
+        eyebrow="Toolbox"
+        title="My"
+        accent="Skills"
+        description={
+          <p>
+            I am a computer science engineering student majoring in data science, with a deep passion for academic
+            research and high-quality technical writing. My primary research interests lie in data science, machine
+            learning, and data mining, and I have already gained significant experience by publishing several journal
+            and conference papers. Beyond my technical capabilities, I possess strong creative skills in filmmaking,
+            video editing, photography, and presentation, and I am a multilingual communicator, fluent in English,
+            Bengali, and Hindi.
+          </p>
+        }
       >
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-400/30 bg-purple-400/5 text-purple-300 text-xs font-medium mb-5">
-          <FiGlobe className="text-sm" />
-          Languages, Tools & Creative Craft
-        </div>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">
-          My <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Skills</span>
-        </h1>
-      </motion.div>
-
-      <p className="text-gray-400 text-center mb-6 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
-        I am a computer science engineering student majoring in data science, with a deep passion for academic
-        research and high-quality technical writing. My primary research interests lie in data science, machine
-        learning, and data mining, and I have already gained significant experience by publishing several journal
-        and conference papers. Beyond my technical capabilities, I possess strong creative skills in filmmaking,
-        video editing, photography, and presentation, and I am a multilingual communicator, fluent in English,
-        Bengali, and Hindi.
-      </p>
-
-      <div className="flex flex-wrap justify-center gap-2 mb-16">
-        {["English", "Bengali", "Hindi"].map((lang) => (
-          <span
-            key={lang}
-            className="text-xs sm:text-sm px-4 py-1.5 rounded-full border border-purple-400/30 text-purple-300 bg-purple-400/5"
-          >
-            {lang}
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          <span className="btn-press group/chip inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-400/30 bg-purple-400/5 text-purple-300 text-xs font-medium hover:border-purple-400/60 hover:bg-purple-500/15 hover:text-white">
+            <FiGlobe className="text-sm transition-transform duration-500 group-hover/chip:rotate-[20deg] group-hover/chip:scale-110" />
+            Languages, Tools & Creative Craft
           </span>
-        ))}
-      </div>
+          {["English", "Bengali", "Hindi"].map((lang) => (
+            <span
+              key={lang}
+              className="btn-press text-xs sm:text-sm px-4 py-1.5 rounded-full border border-purple-400/30 text-purple-300 bg-purple-400/5 hover:border-purple-400/60 hover:bg-purple-500/15 hover:text-white"
+            >
+              {lang}
+            </span>
+          ))}
+        </div>
+      </PageHeader>
 
-      <div className="mb-20">
-        <h2 className="text-2xl font-bold mb-8 flex items-center gap-3">
+      <div className="mb-14 sm:mb-20">
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, ease }}
+          className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 flex items-center gap-3"
+        >
           <span className="w-2 h-8 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full" />
           Programming <span className="text-purple-400">Languages</span>
-        </h2>
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6">
+        </motion.h2>
+        <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
           {languages.map((s, i) => (
             <SkillCard key={s.title} skill={s} index={i} onClick={() => setSelected(s)} />
           ))}
@@ -710,11 +751,17 @@ export default function SkillsPage() {
       </div>
 
       <div>
-        <h2 className="text-2xl font-bold mb-8 flex items-center gap-3">
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, ease }}
+          className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 flex items-center gap-3"
+        >
           <span className="w-2 h-8 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full" />
           Tools & <span className="text-purple-400">Software</span>
-        </h2>
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6">
+        </motion.h2>
+        <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
           {tools.map((s, i) => (
             <SkillCard key={s.title} skill={s} index={i} onClick={() => setSelected(s)} />
           ))}

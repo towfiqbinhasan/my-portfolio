@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import {
@@ -13,6 +13,8 @@ import {
   FiLock,
 } from "react-icons/fi";
 import experienceData from "@/data/experience.json";
+import { PageBackdrop, PageHeader, GlowCard, ease } from "@/components/PageShell";
+import { lightboxItem } from "@/components/Carousel";
 
 type Experience = {
   role: string;
@@ -32,6 +34,22 @@ type Experience = {
 
 const experiences: Experience[] = experienceData as Experience[];
 
+/** Shared shell for both modals so they read like the home-page lightbox. */
+const backdropClass =
+  "fixed inset-0 flex items-center justify-center overflow-y-auto bg-black/80 px-3 py-6 sm:px-6 sm:py-10";
+const panelClass =
+  "modal-rim relative my-auto w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0e0e14] shadow-2xl shadow-black/70 sm:rounded-3xl";
+const scrollAreaClass =
+  "modal-scroll max-h-[88vh] overflow-y-auto overscroll-contain sm:max-h-[85vh]";
+const closeButtonClass =
+  "absolute right-3 top-3 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-lg text-white/80 ring-1 ring-white/10 backdrop-blur transition hover:bg-purple-500/60 hover:text-white sm:right-4 sm:top-4 sm:h-10 sm:w-10 sm:text-xl";
+const chipClass =
+  "inline-flex items-center gap-1.5 rounded-full bg-white/[0.04] px-2.5 py-1 text-[11px] text-gray-400 ring-1 ring-white/10";
+/** Form control shared by the offer-letter request modal. */
+const fieldClass =
+  "field-input w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white placeholder:text-gray-500 focus:border-purple-400/60 focus:bg-white/[0.06] focus:outline-none focus:ring-2 focus:ring-purple-500/35";
+const fieldLabelClass = "field-label mb-2 block text-sm text-gray-400";
+
 function CompanyLogo({
   exp,
   size = "md",
@@ -45,7 +63,7 @@ function CompanyLogo({
   if (exp.logo) {
     return (
       <div
-        className={`relative ${dims} flex-shrink-0 overflow-hidden bg-white/10 border border-white/10 shadow-lg group-hover:scale-105 transition-transform duration-300`}
+        className={`relative ${dims} flex-shrink-0 overflow-hidden border border-white/10 bg-white/10 shadow-lg transition-transform duration-500 ease-out group-hover:scale-105`}
       >
         <Image
           src={exp.logo}
@@ -60,7 +78,7 @@ function CompanyLogo({
 
   return (
     <div
-      className={`${dims} bg-gradient-to-br ${exp.logoBg} flex items-center justify-center flex-shrink-0 shadow-lg text-white font-bold group-hover:scale-105 transition-transform duration-300`}
+      className={`${dims} bg-gradient-to-br ${exp.logoBg} flex flex-shrink-0 items-center justify-center font-bold text-white shadow-lg transition-transform duration-500 ease-out group-hover:scale-105`}
     >
       {exp.logoText}
     </div>
@@ -77,6 +95,7 @@ function RequestAccessModal({
   onClose: () => void;
 }) {
   const [loading, setLoading] = useState(false);
+  const reduce = useReducedMotion();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -117,95 +136,123 @@ function RequestAccessModal({
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+      animate={{ opacity: 1, backdropFilter: "blur(8px)" }}
+      exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+      transition={{ duration: 0.35, ease }}
       onClick={onClose}
-      className="fixed inset-0 z-[110] bg-black/85 backdrop-blur-sm flex items-center justify-center px-4 sm:px-6 py-10 overflow-y-auto"
+      className={`${backdropClass} z-[110]`}
     >
       <motion.div
-        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        initial={{ opacity: 0, scale: 0.94, y: 24 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-        transition={{ duration: 0.3 }}
+        exit={{ opacity: 0, scale: 0.96, y: 16, transition: { duration: 0.22, ease: "easeIn" } }}
+        transition={reduce ? { duration: 0.2, ease } : { type: "spring", stiffness: 260, damping: 26 }}
         onClick={(e) => e.stopPropagation()}
-        className="relative max-w-md w-full bg-[#111117] border border-white/10 rounded-2xl overflow-hidden my-auto p-6 md:p-8"
+        className={`${panelClass} max-w-4xl`}
       >
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center bg-white/5 hover:bg-purple-500/40 rounded-full transition"
-        >
+        <button onClick={onClose} aria-label="Close" className={closeButtonClass}>
           <FiX />
         </button>
 
-        <div className="flex items-center gap-2 text-purple-300 mb-1">
-          <FiLock className="text-sm" />
-          <span className="text-xs font-medium">Restricted Document</span>
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-24 -top-28 h-56 w-56 rounded-full bg-purple-600/20 blur-3xl"
+        />
+
+        <div className={scrollAreaClass}>
+          <div className="relative p-5 sm:p-7 md:p-8">
+            <motion.div {...lightboxItem(0)}>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-purple-400/25 bg-purple-500/10 px-3 py-1 text-[11px] font-medium tracking-wide text-purple-200">
+                <FiLock className="text-xs" /> Restricted Document
+              </span>
+              <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text pr-10 text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
+                Request Access
+              </h3>
+              <p className="mt-2 text-sm leading-[1.8] text-purple-300/90">
+                {target.company} — {target.label}
+              </p>
+            </motion.div>
+
+            <motion.form
+              {...lightboxItem(1)}
+              onSubmit={handleSubmit}
+              className="mt-7 space-y-5 border-t border-white/5 pt-6"
+            >
+              <div>
+                <label htmlFor="offer-name" className={fieldLabelClass}>
+                  Name
+                </label>
+                <input
+                  id="offer-name"
+                  type="text"
+                  name="name"
+                  required
+                  placeholder="Your name"
+                  className={fieldClass}
+                />
+              </div>
+
+              <div className="grid gap-5 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="offer-email" className={fieldLabelClass}>
+                    Email
+                  </label>
+                  <input
+                    id="offer-email"
+                    type="email"
+                    name="email"
+                    required
+                    placeholder="you@example.com"
+                    className={fieldClass}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="offer-phone" className={fieldLabelClass}>
+                    Phone Number
+                  </label>
+                  <input
+                    id="offer-phone"
+                    type="tel"
+                    name="phone"
+                    required
+                    placeholder="+880 1XXXXXXXXX"
+                    className={fieldClass}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="offer-reason" className={fieldLabelClass}>
+                  Why do you need to see this offer letter?
+                </label>
+                <textarea
+                  id="offer-reason"
+                  name="reason"
+                  required
+                  rows={3}
+                  placeholder="e.g. Verifying internship credentials for a job application"
+                  className={`${fieldClass} resize-none`}
+                />
+              </div>
+
+              <div className="border-t border-white/5 pt-6">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_0_24px_-6px_rgba(168,85,247,0.9)] transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:min-w-[14rem]"
+                >
+                  {loading ? "Sending..." : (
+                    <>
+                      <FiSend /> Submit Request
+                    </>
+                  )}
+                </button>
+              </div>
+            </motion.form>
+          </div>
         </div>
-        <h3 className="text-xl font-semibold mb-1">Request Access</h3>
-        <p className="text-purple-300 text-sm mb-6">
-          {target.company} — {target.label}
-        </p>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="text-sm text-gray-400 mb-1 block">Name</label>
-            <input
-              type="text"
-              name="name"
-              required
-              placeholder="Your name"
-              className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-purple-400 transition"
-            />
-          </div>
-
-          <div>
-            <label className="text-sm text-gray-400 mb-1 block">Email</label>
-            <input
-              type="email"
-              name="email"
-              required
-              placeholder="you@example.com"
-              className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-purple-400 transition"
-            />
-          </div>
-
-          <div>
-            <label className="text-sm text-gray-400 mb-1 block">Phone Number</label>
-            <input
-              type="tel"
-              name="phone"
-              required
-              placeholder="+880 1XXXXXXXXX"
-              className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-purple-400 transition"
-            />
-          </div>
-
-          <div>
-            <label className="text-sm text-gray-400 mb-1 block">
-              Why do you need to see this offer letter?
-            </label>
-            <textarea
-              name="reason"
-              required
-              rows={3}
-              placeholder="e.g. Verifying internship credentials for a job application"
-              className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-purple-400 transition resize-none"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 transition rounded-lg px-6 py-3 font-medium disabled:opacity-50"
-          >
-            {loading ? "Sending..." : (
-              <>
-                <FiSend /> Submit Request
-              </>
-            )}
-          </button>
-        </form>
       </motion.div>
     </motion.div>
   );
@@ -220,102 +267,116 @@ function ExperienceModal({
   onClose: () => void;
   onRequestAccess: (target: RequestTarget) => void;
 }) {
+  const reduce = useReducedMotion();
+
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+      animate={{ opacity: 1, backdropFilter: "blur(8px)" }}
+      exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+      transition={{ duration: 0.35, ease }}
       onClick={onClose}
-      className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-sm flex items-center justify-center px-4 sm:px-6 py-10 overflow-y-auto"
+      className={`${backdropClass} z-[100]`}
     >
       <motion.div
-        initial={{ opacity: 0, scale: 0.92, y: 20 }}
+        initial={{ opacity: 0, scale: 0.94, y: 24 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.92, y: 20 }}
-        transition={{ duration: 0.3 }}
+        exit={{ opacity: 0, scale: 0.96, y: 16, transition: { duration: 0.22, ease: "easeIn" } }}
+        transition={reduce ? { duration: 0.2, ease } : { type: "spring", stiffness: 260, damping: 26 }}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-2xl bg-[#111117] border border-white/10 rounded-2xl overflow-hidden my-auto max-h-[85vh] flex flex-col"
+        className={`${panelClass} max-w-2xl`}
       >
-        <button
-          onClick={onClose}
-          aria-label="Close"
-          className="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center bg-black/50 hover:bg-purple-500/60 rounded-full text-xl transition"
-        >
+        <button onClick={onClose} aria-label="Close" className={closeButtonClass}>
           <FiX />
         </button>
 
-        <div className={`h-1.5 bg-gradient-to-r ${exp.logoBg} flex-shrink-0`} />
+        <div className={scrollAreaClass}>
+          <div className={`h-1.5 w-full bg-gradient-to-r ${exp.logoBg}`} />
 
-        <div className="p-6 md:p-8 border-b border-white/10 flex-shrink-0">
-          <div className="flex items-start gap-4">
-            <CompanyLogo exp={exp} size="lg" />
-            <div className="min-w-0">
-              <h3 className="text-xl md:text-2xl font-semibold mb-1 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                {exp.role}
-              </h3>
-              
-             <a   href={exp.companyLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-purple-300 text-sm hover:text-purple-200 hover:underline underline-offset-2 transition-colors"
-              >
-                {exp.company} · {exp.employmentType}
-                <FiExternalLink className="text-xs" />
-              </a>
+          <motion.div
+            {...lightboxItem(0)}
+            className="border-b border-white/5 p-5 sm:p-7 md:p-8"
+          >
+            <div className="flex items-start gap-4">
+              <CompanyLogo exp={exp} size="lg" />
+              <div className="min-w-0">
+                <h3 className="mb-1 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text pr-10 text-xl font-semibold leading-snug text-transparent md:text-2xl">
+                  {exp.role}
+                </h3>
 
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-gray-500 text-xs">
-                <span className="flex items-center gap-1">
-                  <FiCalendar /> {exp.duration}
-                </span>
-                <span className="flex items-center gap-1">
-                  <FiMapPin /> {exp.location}
-                  {exp.mode ? ` · ${exp.mode}` : ""}
-                </span>
+                <a
+                  href={exp.companyLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm text-purple-300 transition-colors hover:text-purple-200 hover:underline hover:underline-offset-2"
+                >
+                  {exp.company} · {exp.employmentType}
+                  <FiExternalLink className="text-xs" />
+                </a>
+
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  <span className={chipClass}>
+                    <FiCalendar className="flex-shrink-0" /> {exp.duration}
+                  </span>
+                  <span className={chipClass}>
+                    <FiMapPin className="flex-shrink-0" /> {exp.location}
+                    {exp.mode ? ` · ${exp.mode}` : ""}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
 
-        <div className="p-6 md:p-8 overflow-y-auto space-y-6">
-          <p className="text-gray-300 text-sm leading-relaxed">{exp.description}</p>
-
-          <div>
-            <h4 className="text-sm font-semibold text-purple-300 mb-2">Skills Gained</h4>
-            <div className="flex flex-wrap gap-2">
-              {exp.skills.map((s) => (
-                <span
-                  key={s}
-                  className="text-xs px-3 py-1.5 rounded-full bg-purple-400/10 text-purple-300 border border-purple-400/20"
-                >
-                  {s}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-wrap gap-3 pt-2">
-            
-            <a  href={exp.companyLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 transition"
+          <div className="p-5 sm:p-7 md:p-8">
+            <motion.p
+              {...lightboxItem(1)}
+              className="max-w-3xl text-sm leading-[1.8] text-gray-300 md:text-[0.95rem]"
             >
-              <FiExternalLink /> Visit {exp.company}
-            </a>
-            {exp.offerLetter && (
-              <button
-                onClick={() =>
-                  onRequestAccess({
-                    company: exp.company,
-                    fileKey: exp.offerLetter!.fileKey,
-                    label: exp.offerLetter!.label,
-                  })
-                }
-                className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-full border border-white/20 hover:bg-white/10 transition"
+              {exp.description}
+            </motion.p>
+
+            <motion.div {...lightboxItem(2)} className="mt-7">
+              <h4 className="mb-3 text-sm font-semibold text-purple-300">Skills Gained</h4>
+              <div className="flex flex-wrap gap-2">
+                {exp.skills.map((s) => (
+                  <span
+                    key={s}
+                    className="rounded-full bg-purple-500/10 px-3 py-1.5 text-xs text-purple-200 ring-1 ring-purple-400/25 transition hover:bg-purple-500/20 hover:text-white hover:ring-purple-400/50"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              {...lightboxItem(3)}
+              className="mt-7 flex flex-wrap gap-2.5 border-t border-white/5 pt-6 sm:gap-3"
+            >
+              <a
+                href={exp.companyLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group/link inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] transition hover:opacity-90 sm:px-5 sm:text-sm"
               >
-                <FiLock className="text-xs" /> Request {exp.offerLetter.label}
-              </button>
-            )}
+                <FiExternalLink className="transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />{" "}
+                Visit {exp.company}
+              </a>
+              {exp.offerLetter && (
+                <button
+                  onClick={() =>
+                    onRequestAccess({
+                      company: exp.company,
+                      fileKey: exp.offerLetter!.fileKey,
+                      label: exp.offerLetter!.label,
+                    })
+                  }
+                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-xs transition hover:border-purple-400/60 hover:bg-purple-500/15 hover:text-white sm:px-5 sm:text-sm"
+                >
+                  <FiLock className="text-xs" /> Request {exp.offerLetter.label}
+                </button>
+              )}
+            </motion.div>
           </div>
         </div>
       </motion.div>
@@ -327,122 +388,150 @@ export default function ExperiencePage() {
   const [selected, setSelected] = useState<Experience | null>(null);
   const [requestTarget, setRequestTarget] = useState<RequestTarget | null>(null);
 
+  // Escape closes the top-most modal, and the page behind it stays put
+  useEffect(() => {
+    if (!selected && !requestTarget) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      if (requestTarget) setRequestTarget(null);
+      else setSelected(null);
+    };
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [selected, requestTarget]);
+
   return (
-    <section className="py-16 sm:py-24 px-4 sm:px-6 max-w-5xl mx-auto">
-      <motion.h1
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-center"
-      >
-        My <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Experience</span>
-      </motion.h1>
-      <p className="text-gray-400 text-center mb-16 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
-        A timeline of the roles, internships, and teaching positions that have shaped my professional journey from
-        full-stack development internships to hands-on software engineering and academic mentoring. Internship offer
-        letters are available on request for verification purposes.
-      </p>
+    <section className="relative mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
+      <PageBackdrop />
+
+      <PageHeader
+        eyebrow="Work"
+        title="My"
+        accent="Experience"
+        description="A timeline of the roles, internships, and teaching positions that have shaped my professional journey from full-stack development internships to hands-on software engineering and academic mentoring. Internship offer letters are available on request for verification purposes."
+      />
 
       <div className="relative">
-        <div className="absolute left-4 sm:left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-500 via-pink-500 to-purple-500/20 md:-translate-x-1/2" />
+        {/* Timeline spine, drawn as the section comes into view */}
+        <motion.div
+          aria-hidden
+          initial={{ scaleY: 0 }}
+          whileInView={{ scaleY: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1.4, ease }}
+          className="absolute left-4 top-0 bottom-0 w-px origin-top bg-gradient-to-b from-purple-500 via-pink-500 to-transparent sm:left-6 md:left-1/2 md:-translate-x-1/2"
+        />
 
-        <div className="space-y-10 sm:space-y-12">
+        <div className="space-y-8 sm:space-y-12">
           {experiences.map((exp, i) => (
-            <motion.div
+            <div
               key={i}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.08 }}
               className={
                 i % 2 === 1
                   ? "relative flex flex-col md:flex-row-reverse items-start gap-4 sm:gap-6"
                   : "relative flex flex-col md:flex-row items-start gap-4 sm:gap-6"
               }
             >
-              <div className="absolute left-4 sm:left-6 md:left-1/2 top-6 sm:top-8 w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 -translate-x-1/2 ring-4 ring-[#0a0a0f] z-10" />
+              {/* Node on the spine */}
+              <motion.span
+                aria-hidden
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2, ease }}
+                className="absolute left-4 top-7 z-10 h-3.5 w-3.5 -translate-x-1/2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-[0_0_14px_rgba(236,72,153,0.8)] ring-4 ring-[#0a0a0f] sm:left-6 sm:top-8 md:left-1/2"
+              />
 
-              <div className="ml-10 sm:ml-16 md:ml-0 md:w-1/2 w-[calc(100%-2.5rem)] sm:w-[calc(100%-4rem)]">
-                <div
-                  className={
-                    i % 2 === 1
-                      ? "bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-purple-400/60 transition-colors duration-300 group md:mr-10 p-5 sm:p-6"
-                      : "bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-purple-400/60 transition-colors duration-300 group md:ml-10 p-5 sm:p-6"
-                  }
-                >
-                  <div className="flex items-start gap-3 mb-3">
-                    <CompanyLogo exp={exp} size="md" />
-                    <div className="min-w-0">
-                      <h3 className="text-base sm:text-lg font-semibold leading-snug">{exp.role}</h3>
-                      
-                     <a   href={exp.companyLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1 text-purple-300 text-xs sm:text-sm hover:text-purple-200 hover:underline underline-offset-2 transition-colors"
+              <div className="ml-10 w-[calc(100%-2.5rem)] sm:ml-16 sm:w-[calc(100%-4rem)] md:ml-0 md:w-1/2">
+                <GlowCard delay={(i % 2) * 0.1} className={i % 2 === 1 ? "md:ml-10" : "md:mr-10"}>
+                  <span
+                    aria-hidden
+                    className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r ${exp.logoBg} opacity-70`}
+                  />
+                  <span aria-hidden className="carousel-sheen pointer-events-none absolute inset-0" />
+
+                  <div className="relative p-5 sm:p-6">
+                    <div className="flex items-start gap-3">
+                      <CompanyLogo exp={exp} size="md" />
+                      <div className="min-w-0">
+                        <h3 className="text-base font-semibold leading-snug text-white sm:text-lg">
+                          {exp.role}
+                        </h3>
+
+                        <a
+                          href={exp.companyLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1 text-xs text-purple-300 transition-colors hover:text-purple-200 hover:underline hover:underline-offset-2 sm:text-sm"
+                        >
+                          {exp.company} · {exp.employmentType}
+                          <FiExternalLink className="text-[10px]" />
+                        </a>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 flex flex-wrap items-center gap-2">
+                      <span className={chipClass}>
+                        <FiCalendar className="flex-shrink-0" /> {exp.duration}
+                      </span>
+                      <span className={chipClass}>
+                        <FiMapPin className="flex-shrink-0" /> {exp.location}
+                        {exp.mode ? ` · ${exp.mode}` : ""}
+                      </span>
+                    </div>
+
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      {exp.skills.slice(0, 3).map((s) => (
+                        <span
+                          key={s}
+                          className="rounded-full bg-purple-500/10 px-2 py-1 text-[11px] text-purple-300 ring-1 ring-purple-400/20"
+                        >
+                          {s}
+                        </span>
+                      ))}
+                      {exp.skills.length > 3 && (
+                        <span className="rounded-full bg-white/5 px-2 py-1 text-[11px] text-gray-500 ring-1 ring-white/10">
+                          +{exp.skills.length - 3}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-white/10 pt-4">
+                      <button
+                        onClick={() => setSelected(exp)}
+                        className="group/btn inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-purple-200 transition hover:border-purple-400/60 hover:bg-purple-500/15 hover:text-white sm:text-sm"
                       >
-                        {exp.company} · {exp.employmentType}
-                        <FiExternalLink className="text-[10px]" />
-                      </a>
+                        <FiBriefcase className="text-sm transition-transform duration-300 group-hover/btn:-translate-y-0.5" />
+                        View Details
+                      </button>
+
+                      {exp.offerLetter && (
+                        <button
+                          onClick={() =>
+                            setRequestTarget({
+                              company: exp.company,
+                              fileKey: exp.offerLetter!.fileKey,
+                              label: exp.offerLetter!.label,
+                            })
+                          }
+                          className="inline-flex items-center gap-1.5 rounded-full bg-purple-500/15 px-3 py-1.5 text-[11px] text-purple-300 ring-1 ring-purple-400/25 transition hover:bg-purple-500/25 hover:text-white"
+                        >
+                          <FiLock className="text-[10px]" /> Request Offer Letter
+                        </button>
+                      )}
                     </div>
                   </div>
-
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-3 text-gray-500 text-xs">
-                    <span className="flex items-center gap-1">
-                      <FiCalendar className="flex-shrink-0" /> {exp.duration}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <FiMapPin className="flex-shrink-0" /> {exp.location}
-                      {exp.mode ? ` · ${exp.mode}` : ""}
-                    </span>
-                  </div>
-
-                  <div className="flex flex-wrap gap-1.5 mb-4">
-                    {exp.skills.slice(0, 3).map((s) => (
-                      <span
-                        key={s}
-                        className="text-[11px] px-2 py-1 rounded-full bg-purple-400/10 text-purple-300 border border-purple-400/20"
-                      >
-                        {s}
-                      </span>
-                    ))}
-                    {exp.skills.length > 3 && (
-                      <span className="text-[11px] px-2 py-1 rounded-full bg-white/5 text-gray-500 border border-white/10">
-                        +{exp.skills.length - 3}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="flex flex-wrap items-center gap-4">
-                    <button
-                      onClick={() => setSelected(exp)}
-                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-purple-300 hover:text-white transition-colors"
-                    >
-                      <FiBriefcase className="text-sm" />
-                      View Details
-                    </button>
-
-                    {exp.offerLetter && (
-                      <button
-                        onClick={() =>
-                          setRequestTarget({
-                            company: exp.company,
-                            fileKey: exp.offerLetter!.fileKey,
-                            label: exp.offerLetter!.label,
-                          })
-                        }
-                        className="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-full bg-purple-500/15 text-purple-300 border border-purple-400/25 hover:bg-purple-500/25 transition"
-                      >
-                        <FiLock className="text-[10px]" /> Request Offer Letter
-                      </button>
-                    )}
-                  </div>
-                </div>
+                </GlowCard>
               </div>
 
               <div className="hidden md:block md:w-1/2" />
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

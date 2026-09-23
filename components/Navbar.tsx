@@ -2,13 +2,18 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useSpring,
+  useMotionValueEvent,
+} from "framer-motion";
 import Image from "next/image";
 import {
   FiMenu,
   FiX,
   FiChevronDown,
-  FiAward,
   FiCpu,
   FiCamera,
   FiMap,
@@ -57,22 +62,55 @@ const allLinks = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  const [hovered, setHovered] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
   const isMoreActive = moreLinks.some((l) => l.path === pathname);
 
+  // Shrink + darken the bar once the page is scrolled, and drive the progress line.
+  const { scrollY, scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 25 });
+  useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 24));
+
   return (
-    <nav className="fixed top-0 w-full z-50 bg-black/30 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/20">
-      <div className="max-w-7xl mx-auto flex items-center gap-3 px-4 sm:px-6 py-4">
+    <motion.nav
+      initial={{ y: -90, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      className={
+        scrolled
+          ? "fixed top-0 w-full z-50 bg-black/70 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/40 transition-colors duration-500"
+          : "fixed top-0 w-full z-50 bg-black/30 backdrop-blur-xl border-b border-white/5 transition-colors duration-500"
+      }
+    >
+      <div
+        className={
+          scrolled
+            ? "max-w-7xl mx-auto flex items-center gap-3 px-4 sm:px-6 py-2.5 transition-[padding] duration-500"
+            : "max-w-7xl mx-auto flex items-center gap-3 px-4 sm:px-6 py-4 transition-[padding] duration-500"
+        }
+      >
         <Link
   href="/"
+  onClick={(e) => {
+    setOpen(false);
+    setMoreOpen(false);
+    // Already home: reload so the page starts at the top with the hero intro again.
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "auto" });
+      window.location.reload();
+    }
+  }}
   className="flex items-center gap-2 group flex-shrink-0 whitespace-nowrap"
 >
-  <div className="relative w-9 h-9 rounded-full overflow-hidden shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform flex-shrink-0">
+  <div className="relative w-9 h-9 rounded-full overflow-hidden shadow-lg shadow-purple-500/30 ring-2 ring-transparent group-hover:ring-purple-400/60 group-hover:scale-110 group-hover:rotate-[360deg] transition-all duration-700 flex-shrink-0">
     <Image
       src="/logo.png"
       alt="Towfiq Bin Hasan Logo"
       fill
+      sizes="36px"
       className="object-cover"
     />
   </div>
@@ -81,32 +119,54 @@ export default function Navbar() {
   </span>
 </Link>
 
-        <div className="hidden md:flex items-center gap-1 text-sm ml-auto relative">
-          {primaryLinks.map((link) => {
+        <div
+          className="hidden md:flex items-center gap-1 text-sm ml-auto relative"
+          onMouseLeave={() => setHovered(null)}
+        >
+          {primaryLinks.map((link, i) => {
             const isActive = pathname === link.path;
             return (
-              <Link
+              <motion.div
                 key={link.name}
-                href={link.path}
-                className={
-                  isActive
-                    ? "relative px-3 lg:px-4 py-2 rounded-full transition whitespace-nowrap text-white"
-                    : "relative px-3 lg:px-4 py-2 rounded-full transition whitespace-nowrap text-gray-400 hover:text-white"
-                }
+                initial={{ opacity: 0, y: -12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.25 + i * 0.05, ease: "easeOut" }}
               >
-                {isActive && (
-                  <motion.div
-                    layoutId="active-pill"
-                    className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-pink-500/30 border border-purple-400/40 rounded-full"
-                    transition={{ type: "spring", duration: 0.5 }}
-                  />
-                )}
-                <span className="relative z-10">{link.name}</span>
-              </Link>
+                <Link
+                  href={link.path}
+                  onMouseEnter={() => setHovered(link.path)}
+                  className={
+                    isActive
+                      ? "relative block px-3 lg:px-4 py-2 rounded-full transition whitespace-nowrap text-white"
+                      : "relative block px-3 lg:px-4 py-2 rounded-full transition whitespace-nowrap text-gray-400 hover:text-white"
+                  }
+                >
+                  {/* Hover highlight glides from link to link */}
+                  {hovered === link.path && !isActive && (
+                    <motion.div
+                      layoutId="hover-pill"
+                      className="absolute inset-0 rounded-full bg-white/[0.07]"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  {isActive && (
+                    <motion.div
+                      layoutId="active-pill"
+                      className="nav-active-pill absolute inset-0 rounded-full border border-purple-400/50"
+                      transition={{ type: "spring", stiffness: 300, damping: 28 }}
+                    />
+                  )}
+                  <span className="relative z-10">{link.name}</span>
+                </Link>
+              </motion.div>
             );
           })}
 
-          <button
+          <motion.button
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.25 + primaryLinks.length * 0.05, ease: "easeOut" }}
+            onMouseEnter={() => setHovered("more")}
             onClick={() => setMoreOpen(!moreOpen)}
             className={
               isMoreActive
@@ -114,11 +174,18 @@ export default function Navbar() {
                 : "relative flex items-center gap-1 px-3 lg:px-4 py-2 rounded-full transition text-gray-400 hover:text-white"
             }
           >
+            {hovered === "more" && !isMoreActive && (
+              <motion.div
+                layoutId="hover-pill"
+                className="absolute inset-0 rounded-full bg-white/[0.07]"
+                transition={{ type: "spring", stiffness: 380, damping: 30 }}
+              />
+            )}
             {isMoreActive && (
               <motion.div
                 layoutId="active-pill"
-                className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-pink-500/30 border border-purple-400/40 rounded-full"
-                transition={{ type: "spring", duration: 0.5 }}
+                className="nav-active-pill absolute inset-0 rounded-full border border-purple-400/50"
+                transition={{ type: "spring", stiffness: 300, damping: 28 }}
               />
             )}
             <span className="relative z-10">More</span>
@@ -129,7 +196,7 @@ export default function Navbar() {
                   : "relative z-10 transition-transform"
               }
             />
-          </button>
+          </motion.button>
 
           <AnimatePresence>
             {moreOpen && (
@@ -254,6 +321,13 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+
+      {/* Scroll progress */}
+      <motion.div
+        aria-hidden
+        style={{ scaleX: progress }}
+        className="absolute bottom-0 left-0 right-0 h-[2px] origin-left bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-400"
+      />
+    </motion.nav>
   );
 }

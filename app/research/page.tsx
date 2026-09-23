@@ -1,13 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import {
   FiFileText,
   FiExternalLink,
-  FiChevronLeft,
-  FiChevronRight,
   FiX,
   FiAward,
   FiGlobe,
@@ -16,6 +14,8 @@ import {
 } from "react-icons/fi";
 import conferenceData from "@/data/conference.json";
 import journalData from "@/data/journal.json";
+import { PageBackdrop, PageHeader, GlowCard, StatTile, ease } from "@/components/PageShell";
+import { ModalGallery, lightboxItem } from "@/components/Carousel";
 
 type ConferencePaper = {
   title: string;
@@ -59,6 +59,25 @@ function showNoPdfToast() {
   });
 }
 
+/** Small section title with the gradient bar, matching the home page. */
+function SectionTitle({ title, accent }: { title: string; accent: string }) {
+  return (
+    <motion.h2
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.6, ease }}
+      className="mb-6 flex items-center gap-3 text-xl font-bold tracking-tight sm:mb-8 sm:text-2xl"
+    >
+      <span className="h-7 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-b from-purple-500 to-pink-500 shadow-[0_0_14px_-2px_rgba(168,85,247,0.8)] sm:h-8 sm:w-2" />
+      {title}{" "}
+      <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+        {accent}
+      </span>
+    </motion.h2>
+  );
+}
+
 function ConferenceCard({
   paper,
   index,
@@ -69,48 +88,55 @@ function ConferenceCard({
   onClick: () => void;
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      onClick={onClick}
-      className="cursor-pointer bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-purple-400 transition group flex flex-col"
-    >
-      {/* Certificate preview — full image visible, no cropping */}
-      <div className="relative w-full h-52 overflow-hidden bg-black/40">
-        <Image
-          src={paper.certificateImage}
-          alt={paper.title}
-          fill
-          sizes="400px"
-          className="object-contain group-hover:scale-105 transition duration-500 p-2"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/70 via-transparent to-transparent pointer-events-none" />
-        <span className="absolute top-3 left-3 flex items-center gap-1 text-xs bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full text-purple-300">
-          <FiAward /> Certificate
-        </span>
-      </div>
+    <GlowCard delay={(index % 2) * 0.12} className="flex flex-col">
+      <div onClick={onClick} className="flex flex-1 cursor-pointer flex-col">
+        {/* Certificate preview — full image visible, no cropping */}
+        <div className="relative h-48 w-full overflow-hidden bg-black/40 sm:h-52">
+          <Image
+            src={paper.certificateImage}
+            alt={paper.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 400px"
+            className="object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-110"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/15 to-transparent"
+          />
+          <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-purple-200 ring-1 ring-white/10 backdrop-blur">
+            <FiAward className="transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110" />{" "}
+            Certificate
+          </span>
+          <span aria-hidden className="carousel-sheen pointer-events-none absolute inset-0" />
+        </div>
 
-      <div className="p-6 flex flex-col flex-1">
-        <p className="text-purple-300 text-xs mb-2">
-          {paper.conferenceName}, {paper.year}
-        </p>
-        <h3 className="text-lg font-semibold mb-3 leading-snug">{paper.title}</h3>
-        <p className="text-gray-400 text-sm line-clamp-2 mb-5">{paper.details}</p>
+        <div className="relative flex flex-1 flex-col p-5 sm:p-6">
+          <p className="text-[11px] leading-relaxed text-purple-300 sm:text-xs">
+            {paper.conferenceName}, {paper.year}
+          </p>
+          <h3 className="mt-2 text-base font-semibold leading-snug text-white sm:text-lg">
+            {paper.title}
+          </h3>
+          <p className="mt-3 line-clamp-2 text-xs leading-relaxed text-gray-400 sm:text-sm">
+            {paper.details}
+          </p>
 
-        {/* View Details button */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onClick();
-          }}
-          className="mt-auto inline-flex items-center justify-center gap-2 text-sm font-medium px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 hover:scale-[1.02] transition self-start"
-        >
-          <FiEye /> View Details
-        </button>
+          {/* View Details button */}
+          <div className="mt-auto pt-5">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onClick();
+              }}
+              className="btn-press btn-shine group/cta inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
+            >
+              <FiEye className="transition-transform duration-300 group-hover/cta:scale-110" />{" "}
+              View Details
+            </button>
+          </div>
+        </div>
       </div>
-    </motion.div>
+    </GlowCard>
   );
 }
 
@@ -121,172 +147,153 @@ function ConferenceModal({
   paper: ConferencePaper;
   onClose: () => void;
 }) {
-  const [current, setCurrent] = useState(0);
   const eventImages = getEventImages(paper);
 
-  const next = () => setCurrent((c) => (c + 1) % eventImages.length);
-  const prev = () =>
-    setCurrent((c) => (c - 1 + eventImages.length) % eventImages.length);
+  // Escape to close, page scroll locked (the gallery handles its own arrow keys).
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [onClose]);
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+      animate={{ opacity: 1, backdropFilter: "blur(8px)" }}
+      exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+      transition={{ duration: 0.35, ease }}
       onClick={onClose}
-      className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-sm flex items-center justify-center px-6 py-10 overflow-y-auto"
+      className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-black/80 px-3 py-6 sm:px-6 sm:py-10"
     >
       <motion.div
-        initial={{ opacity: 0, scale: 0.85, y: 20 }}
+        initial={{ opacity: 0, scale: 0.94, y: 24 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.85, y: 20 }}
-        transition={{ duration: 0.3 }}
+        exit={{ opacity: 0, scale: 0.96, y: 16, transition: { duration: 0.22, ease: "easeIn" } }}
+        transition={{ type: "spring", stiffness: 260, damping: 26 }}
         onClick={(e) => e.stopPropagation()}
-        className="relative max-w-2xl w-full bg-[#111117] border border-white/10 rounded-2xl overflow-hidden my-auto"
+        className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#0e0e14] shadow-2xl shadow-black/70 sm:rounded-3xl"
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center bg-black/50 hover:bg-purple-500/60 rounded-full text-xl transition"
+          aria-label="Close"
+          className="btn-press group/close absolute right-3 top-3 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-lg text-white/80 ring-1 ring-white/10 backdrop-blur hover:bg-purple-500/60 hover:text-white sm:right-4 sm:top-4 sm:h-10 sm:w-10 sm:text-xl"
         >
-          <FiX />
+          <FiX className="transition-transform duration-300 group-hover/close:rotate-90" />
         </button>
 
-        {/* Static Certificate */}
-        <div className="relative w-full h-64 md:h-80 bg-black/40">
-          <Image
-            src={paper.certificateImage}
-            alt="Certificate"
-            fill
-            sizes="672px"
-            className="object-contain bg-black/60"
-          />
-          <span className="absolute top-3 left-3 flex items-center gap-1 text-xs bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full text-purple-300">
-            <FiAward /> Certificate
-          </span>
-        </div>
-
-        {/* Event Slideshow */}
-        {eventImages.length > 0 && (
-          <div className="relative w-full h-72 md:h-96 bg-black/60 border-t border-white/10">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={current}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}
-                className="absolute inset-0"
-              >
-                <Image
-                  src={eventImages[current]}
-                  alt="Event"
-                  fill
-                  sizes="672px"
-                  className="object-contain"
-                />
-              </motion.div>
-            </AnimatePresence>
-
-            {eventImages.length > 1 && (
-              <>
-                <button
-                  onClick={prev}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 flex items-center justify-center bg-black/50 hover:bg-purple-500/60 rounded-full transition"
-                >
-                  <FiChevronLeft />
-                </button>
-                <button
-                  onClick={next}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 flex items-center justify-center bg-black/50 hover:bg-purple-500/60 rounded-full transition"
-                >
-                  <FiChevronRight />
-                </button>
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-                  {eventImages.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setCurrent(i)}
-                      className={
-                        i === current
-                          ? "w-5 h-2 rounded-full transition bg-purple-400"
-                          : "w-2 h-2 rounded-full transition bg-white/40"
-                      }
-                    />
-                  ))}
-                </div>
-              </>
-            )}
-            <span className="absolute top-3 left-3 flex items-center gap-1 text-xs bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full text-purple-300">
-              Event Photos
+        <div className="modal-scroll max-h-[88vh] overflow-y-auto overscroll-contain sm:max-h-[85vh]">
+          {/* Certificate */}
+          <div className="relative">
+            <ModalGallery
+              images={[paper.certificateImage]}
+              alt={`${paper.title} certificate`}
+              fit="contain"
+            />
+            <span className="pointer-events-none absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-purple-200 ring-1 ring-white/10 backdrop-blur sm:text-xs">
+              <FiAward /> Certificate
             </span>
           </div>
-        )}
 
-        <div className="p-6 md:p-8">
-          <p className="text-purple-300 text-xs mb-2">
-            {paper.conferenceName}, {paper.year}
-          </p>
-          <h3 className="text-2xl font-semibold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-            {paper.title}
-          </h3>
-          <p className="text-gray-300 leading-relaxed text-sm md:text-base mb-6">
-            {paper.details}
-          </p>
-
-          <div className="flex gap-4 flex-wrap">
-            {paper.paperPdf && paper.paperPdf !== "#" ? (
-              
-            <a    href={paper.paperPdf}
-                target="_blank"
-                className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 transition"
-              >
-                <FiFileText /> View Paper
-              </a>
-            ) : (
-              <span
-                onClick={showNoPdfToast}
-                className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 text-gray-500 cursor-pointer hover:bg-white/5"
-              >
-                <FiFileText /> View Paper
+          {/* Event photos */}
+          {eventImages.length > 0 && (
+            <div className="relative border-t border-white/10">
+              <ModalGallery
+                images={eventImages}
+                alt={`${paper.title} event photo`}
+                fit="cover"
+              />
+              <span className="pointer-events-none absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-purple-200 ring-1 ring-white/10 backdrop-blur sm:text-xs">
+                Event Photos
               </span>
-            )}
+            </div>
+          )}
 
-            {paper.paperLink && paper.paperLink !== "#" ? (
-              
-           <a     href={paper.paperLink}
-                target="_blank"
-                className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 hover:bg-white/10 transition"
-              >
-                <FiExternalLink /> View Paper Online
-              </a>
-            ) : (
-              <span
-                onClick={showNotPublishedToast}
-                className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 text-gray-500 cursor-pointer hover:bg-white/5"
-              >
-                <FiExternalLink /> View Paper Online
+          <div className="relative border-t border-white/5 p-5 sm:p-7 md:p-8">
+            <motion.div {...lightboxItem(0)}>
+              <span className="btn-press inline-flex items-center gap-1.5 rounded-full border border-purple-400/25 bg-purple-500/10 px-3 py-1 text-[11px] tracking-wider text-purple-200 hover:border-purple-400/50 hover:bg-purple-500/20 hover:text-white">
+                {paper.conferenceName}, {paper.year}
               </span>
-            )}
+              <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
+                {paper.title}
+              </h3>
+            </motion.div>
 
-            {paper.conferenceWebsite && (
-              
-             <a   href={paper.conferenceWebsite}
-                target="_blank"
-                className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 hover:bg-white/10 transition"
-              >
-                <FiGlobe /> Conference Website
-              </a>
-            )}
+            <motion.p
+              {...lightboxItem(1)}
+              className="mt-6 max-w-3xl text-sm leading-[1.8] text-gray-300 md:text-[0.95rem]"
+            >
+              {paper.details}
+            </motion.p>
 
-            {paper.posterImage && (
-              
-          <a      href={paper.posterImage}
-                target="_blank"
-                className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 hover:bg-white/10 transition"
-              >
-                <FiImage /> View Poster
-              </a>
-            )}
+            <motion.div
+              {...lightboxItem(2)}
+              className="mt-7 flex flex-wrap gap-2.5 border-t border-white/5 pt-6 sm:gap-3"
+            >
+              {paper.paperPdf && paper.paperPdf !== "#" ? (
+                <a
+                  href={paper.paperPdf}
+                  target="_blank"
+                  className="btn-press btn-shine group/cta inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
+                >
+                  <FiFileText className="transition-transform duration-300 group-hover/cta:scale-110" />{" "}
+                  View Paper
+                </a>
+              ) : (
+                <span
+                  onClick={showNoPdfToast}
+                  className="btn-press inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-xs text-gray-500 hover:bg-white/5 hover:text-gray-300 sm:px-5 sm:text-sm"
+                >
+                  <FiFileText /> View Paper
+                </span>
+              )}
+
+              {paper.paperLink && paper.paperLink !== "#" ? (
+                <a
+                  href={paper.paperLink}
+                  target="_blank"
+                  className="btn-press group/link inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-xs hover:border-purple-400/60 hover:bg-purple-500/15 hover:text-white sm:px-5 sm:text-sm"
+                >
+                  <FiExternalLink className="transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />{" "}
+                  View Paper Online
+                </a>
+              ) : (
+                <span
+                  onClick={showNotPublishedToast}
+                  className="btn-press inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-xs text-gray-500 hover:bg-white/5 hover:text-gray-300 sm:px-5 sm:text-sm"
+                >
+                  <FiExternalLink /> View Paper Online
+                </span>
+              )}
+
+              {paper.conferenceWebsite && (
+                <a
+                  href={paper.conferenceWebsite}
+                  target="_blank"
+                  className="btn-press group/link inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-xs hover:border-purple-400/60 hover:bg-purple-500/15 hover:text-white sm:px-5 sm:text-sm"
+                >
+                  <FiGlobe className="transition-transform duration-500 group-hover/link:rotate-[20deg] group-hover/link:scale-110" />{" "}
+                  Conference Website
+                </a>
+              )}
+
+              {paper.posterImage && (
+                <a
+                  href={paper.posterImage}
+                  target="_blank"
+                  className="btn-press group/link inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-xs hover:border-purple-400/60 hover:bg-purple-500/15 hover:text-white sm:px-5 sm:text-sm"
+                >
+                  <FiImage className="transition-transform duration-300 group-hover/link:scale-110" />{" "}
+                  View Poster
+                </a>
+              )}
+            </motion.div>
           </div>
         </div>
       </motion.div>
@@ -297,27 +304,33 @@ function ConferenceModal({
 export default function Research() {
   const [selected, setSelected] = useState<ConferencePaper | null>(null);
 
+  const ieeeCount = conferencePapers.filter((p) => /ieee/i.test(p.conferenceName)).length;
+
   return (
-    <section className="py-16 px-6 max-w-5xl mx-auto">
-      <motion.h1
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-4xl md:text-5xl font-bold mb-4 text-center"
+    <section className="relative mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
+      <PageBackdrop />
+
+      <PageHeader
+        eyebrow="Academia"
+        title="Research"
+        accent="Papers"
+        description={
+          <p>
+            I have a diverse research background covering Machine Learning, Environmental Science, and Public Health. My completed works include a comparative study of data mining techniques for heart disease classification, an analysis of soil salinity in the Sundarbans to track climate change impacts, and a study on hospital admission trends at Kurmitola General Hospital to improve resource management. Building on this foundation, I am currently very active in my university research life. I am working on several new conference papers and a comprehensive journal publication, focusing on more advanced data science topics and larger datasets. My goal is to continue expanding my research portfolio through ongoing university projects and contribute meaningful findings to the global academic community.
+          </p>
+        }
       >
-        Research <span className="text-purple-400">Papers</span>
-      </motion.h1>
-      <p className="text-gray-400 text-center mb-16 max-w-2xl mx-auto">
-        I have a diverse research background covering Machine Learning, Environmental Science, and Public Health. My completed works include a comparative study of data mining techniques for heart disease classification, an analysis of soil salinity in the Sundarbans to track climate change impacts, and a study on hospital admission trends at Kurmitola General Hospital to improve resource management. Building on this foundation, I am currently very active in my university research life. I am working on several new conference papers and a comprehensive journal publication, focusing on more advanced data science topics and larger datasets. My goal is to continue expanding my research portfolio through ongoing university projects and contribute meaningful findings to the global academic community.
-      </p>
+        <div className="mx-auto grid max-w-xl grid-cols-3 gap-3 sm:gap-4">
+          <StatTile value={conferencePapers.length} label="Conference papers" />
+          <StatTile value={ieeeCount} label="IEEE conferences" delay={0.1} />
+          <StatTile value={journalPapers.length} label="Journal (in progress)" delay={0.2} />
+        </div>
+      </PageHeader>
 
       {/* Conference Papers */}
-      <div className="mb-20">
-        <h2 className="text-2xl font-bold mb-8 flex items-center gap-3">
-          <span className="w-2 h-8 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full" />
-          Conference <span className="text-purple-400">Papers</span>
-        </h2>
-        <div className="grid md:grid-cols-2 gap-6">
+      <div className="mb-16 sm:mb-20">
+        <SectionTitle title="Conference" accent="Papers" />
+        <div className="grid gap-5 md:grid-cols-2">
           {conferencePapers.map((p, i) => (
             <ConferenceCard
               key={p.title + i}
@@ -331,39 +344,36 @@ export default function Research() {
 
       {/* Journal Papers */}
       <div>
-        <h2 className="text-2xl font-bold mb-8 flex items-center gap-3">
-          <span className="w-2 h-8 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full" />
-          Journal <span className="text-purple-400">Papers</span>
-        </h2>
-        <div className="space-y-6">
+        <SectionTitle title="Journal" accent="Papers" />
+        <div className="space-y-4 sm:space-y-5">
           {journalPapers.map((p, i) => (
-            <motion.div
-              key={p.title + i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="bg-white/5 border border-white/10 rounded-xl p-6 hover:border-purple-400 transition"
-            >
-              <div className="flex items-start gap-3">
-                <FiFileText className="text-purple-400 text-2xl mt-1 flex-shrink-0" />
-                <div className="flex-1">
-                  <p className="text-purple-300 text-xs mb-1">
+            <GlowCard key={p.title + i} delay={i * 0.1} className="p-5 sm:p-6">
+              <div className="relative flex items-start gap-4">
+                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 text-purple-200 ring-1 ring-purple-400/30 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                  <FiFileText />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-[11px] text-purple-300 sm:text-xs">
                     {p.journalName}, {p.year}
                   </p>
-                  <h3 className="text-lg font-semibold mb-2">{p.title}</h3>
-                  <p className="text-gray-400 text-sm mb-3">{p.details}</p>
+                  <h3 className="mt-1.5 text-base font-semibold leading-snug text-white sm:text-lg">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 text-xs leading-relaxed text-gray-400 sm:text-sm">
+                    {p.details}
+                  </p>
 
-                  
-              <a      href={p.link}
+                  <a
+                    href={p.link}
                     target="_blank"
-                    className="inline-flex items-center gap-1 text-sm hover:text-purple-400"
+                    className="btn-press group/link mt-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-xs hover:border-purple-400/60 hover:bg-purple-500/15 hover:text-white sm:text-sm"
                   >
-                    <FiExternalLink /> View Paper
+                    <FiExternalLink className="transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />{" "}
+                    View Paper
                   </a>
                 </div>
               </div>
-            </motion.div>
+            </GlowCard>
           ))}
         </div>
       </div>

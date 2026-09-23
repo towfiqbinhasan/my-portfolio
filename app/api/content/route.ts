@@ -5,6 +5,19 @@ const GITHUB_REPO = 'my-portfolio';
 const GITHUB_BRANCH = 'main';
 const GITHUB_API = 'https://api.github.com';
 
+type Entry = Record<string, unknown>;
+
+type GitHubPutBody = {
+  message: string;
+  content: string;
+  branch: string;
+  sha?: string;
+};
+
+function errorMessage(err: unknown) {
+  return err instanceof Error && err.message ? err.message : 'Server error';
+}
+
 function githubHeaders() {
   return {
     Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
@@ -24,7 +37,7 @@ async function getFileSha(path: string): Promise<string | null> {
   return data.sha;
 }
 
-async function readJsonFile(path: string): Promise<any[]> {
+async function readJsonFile(path: string): Promise<Entry[]> {
   const sha = await getFileSha(path);
   if (!sha) return [];
 
@@ -59,14 +72,14 @@ export async function GET(req: NextRequest) {
     const tagged = items.map((item, index) => ({ ...item, _index: index }));
 
     return NextResponse.json({ success: true, items: tagged });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error(err);
-    return NextResponse.json({ error: err.message || 'Server error' }, { status: 500 });
+    return NextResponse.json({ error: errorMessage(err) }, { status: 500 });
   }
 }
 
 // A shared helper: fetch the full JSON array + its current sha
-async function getJsonWithSha(path: string): Promise<{ items: any[]; sha: string | null }> {
+async function getJsonWithSha(path: string): Promise<{ items: Entry[]; sha: string | null }> {
   const sha = await getFileSha(path);
   if (!sha) return { items: [], sha: null };
 
@@ -79,8 +92,8 @@ async function getJsonWithSha(path: string): Promise<{ items: any[]; sha: string
   return { items: JSON.parse(decoded), sha: data.sha };
 }
 
-async function writeJsonFile(path: string, items: any[], sha: string | null, message: string) {
-  const body: any = {
+async function writeJsonFile(path: string, items: Entry[], sha: string | null, message: string) {
+  const body: GitHubPutBody = {
     message,
     content: Buffer.from(JSON.stringify(items, null, 2)).toString('base64'),
     branch: GITHUB_BRANCH,
@@ -139,9 +152,9 @@ export async function PUT(req: NextRequest) {
     await writeJsonFile(dataPath, items, sha, `Update ${category} entry via mobile app`);
 
     return NextResponse.json({ success: true, entry: items[index] });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error(err);
-    return NextResponse.json({ error: err.message || 'Server error' }, { status: 500 });
+    return NextResponse.json({ error: errorMessage(err) }, { status: 500 });
   }
 }
 
@@ -171,8 +184,8 @@ export async function DELETE(req: NextRequest) {
     await writeJsonFile(dataPath, items, sha, `Delete ${category} entry via mobile app`);
 
     return NextResponse.json({ success: true });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error(err);
-    return NextResponse.json({ error: err.message || 'Server error' }, { status: 500 });
+    return NextResponse.json({ error: errorMessage(err) }, { status: 500 });
   }
 }

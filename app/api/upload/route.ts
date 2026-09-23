@@ -5,6 +5,19 @@ const GITHUB_REPO = 'my-portfolio';
 const GITHUB_BRANCH = 'main';
 const GITHUB_API = 'https://api.github.com';
 
+type Entry = Record<string, unknown>;
+
+type GitHubPutBody = {
+  message: string;
+  content: string;
+  branch: string;
+  sha?: string;
+};
+
+function errorMessage(err: unknown) {
+  return err instanceof Error && err.message ? err.message : 'Server error';
+}
+
 function githubHeaders() {
   return {
     Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
@@ -28,7 +41,7 @@ async function getFileSha(path: string): Promise<string | null> {
 // Create or update a file on GitHub using the Contents API
 async function putFile(path: string, base64Content: string, message: string) {
   const existingSha = await getFileSha(path);
-  const body: any = {
+  const body: GitHubPutBody = {
     message,
     content: base64Content,
     branch: GITHUB_BRANCH,
@@ -51,8 +64,8 @@ async function putFile(path: string, base64Content: string, message: string) {
 }
 
 // Read an existing JSON array file and add a new entry to the top of it
-async function appendToJsonFile(path: string, newEntry: any) {
-  let existing: any[] = [];
+async function appendToJsonFile(path: string, newEntry: Entry) {
+  let existing: Entry[] = [];
   const sha = await getFileSha(path);
 
   if (sha) {
@@ -84,13 +97,14 @@ export async function POST(req: NextRequest) {
     }
 
     const entryId = Date.now().toString();
-    const finalEntry: any = { id: entryId, ...fields };
+    const finalEntry: Entry = { id: entryId, ...fields };
 
     // Convert comma-separated text fields into proper arrays
     const arrayFields = ['skills', 'tech', 'categories'];
     for (const key of arrayFields) {
-      if (typeof finalEntry[key] === 'string') {
-        finalEntry[key] = finalEntry[key]
+      const value = finalEntry[key];
+      if (typeof value === 'string') {
+        finalEntry[key] = value
           .split(',')
           .map((item: string) => item.trim())
           .filter((item: string) => item.length > 0);
@@ -113,8 +127,8 @@ export async function POST(req: NextRequest) {
     await appendToJsonFile(dataPath, finalEntry);
 
     return NextResponse.json({ success: true, entry: finalEntry });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error(err);
-    return NextResponse.json({ error: err.message || 'Server error' }, { status: 500 });
+    return NextResponse.json({ error: errorMessage(err) }, { status: 500 });
   }
 }

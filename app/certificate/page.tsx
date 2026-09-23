@@ -1,9 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { FiX, FiAward, FiCalendar, FiExternalLink, FiZoomIn } from "react-icons/fi";
 import certificatesData from "@/data/certificate.json";
+import { PageBackdrop, PageHeader, GlowCard, ease } from "@/components/PageShell";
+import { ModalGallery, lightboxItem } from "@/components/Carousel";
 
 type Certificate = {
   title: string;
@@ -19,6 +21,7 @@ const certificates: Certificate[] = certificatesData as Certificate[];
 
 export default function CertificatePage() {
   const [selected, setSelected] = useState<Certificate | null>(null);
+  const reduce = useReducedMotion();
 
   // Lock background scroll while the modal is open
   useEffect(() => {
@@ -38,166 +41,175 @@ export default function CertificatePage() {
   }, []);
 
   return (
-    <section className="py-16 px-6 max-w-6xl mx-auto">
-      <motion.h1
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-4xl md:text-5xl font-bold mb-4 text-center"
-      >
-        My <span className="text-purple-400">Certificates</span>
-      </motion.h1>
-      <p className="text-gray-400 text-center mb-16 max-w-xl mx-auto">
-        A collection of certifications earned through courses, workshops, and
-        professional programs.
-      </p>
+    <section className="relative mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      <PageBackdrop />
 
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <PageHeader
+        eyebrow="Credentials"
+        title="My"
+        accent="Certificates"
+        description="A collection of certifications earned through courses, workshops, and professional programs."
+      />
+
+      <div className="grid gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         {certificates.map((cert, i) => (
-          <motion.div
-            key={cert.title + i}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.08 }}
-            className="flex flex-col bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-purple-400/70 hover:shadow-[0_0_25px_-5px_rgba(168,85,247,0.35)] transition-all duration-300 group"
-          >
+          <GlowCard key={cert.title + i} delay={(i % 3) * 0.1} className="flex flex-col">
             {/* Image — click to view full size */}
             <button
               type="button"
               onClick={() => setSelected(cert)}
-              className="relative w-full h-52 overflow-hidden bg-black/40 cursor-zoom-in"
+              className="btn-press relative h-52 w-full cursor-zoom-in overflow-hidden bg-black/40"
             >
               <Image
                 src={cert.image}
                 alt={cert.title}
                 fill
                 sizes="400px"
-                className="object-contain p-3 transition duration-500 group-hover:scale-105"
+                className="object-contain p-3 transition-transform duration-700 ease-out group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 text-sm font-medium text-white bg-purple-500/80 px-3 py-1.5 rounded-full">
+              <span aria-hidden className="carousel-sheen pointer-events-none absolute inset-0" />
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/40 to-transparent"
+              />
+              <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-300 group-hover:bg-black/45">
+                <span className="flex translate-y-1 items-center gap-2 rounded-full bg-purple-500/80 px-3 py-1.5 text-sm font-medium text-white opacity-0 ring-1 ring-white/15 backdrop-blur transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                   <FiZoomIn /> View full size
                 </span>
               </div>
             </button>
 
-            <div className="p-5 flex flex-col flex-1">
-              <h3 className="text-base font-semibold mb-1 leading-snug">
+            <div className="relative flex flex-1 flex-col p-5">
+              <h3 className="text-base font-semibold leading-snug text-white">
                 {cert.title}
               </h3>
 
-              
-              <a  href={cert.issuerLink}
+              <a
+                href={cert.issuerLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-1 text-purple-300 text-xs mb-1 w-fit hover:text-purple-200 hover:underline underline-offset-2 transition-colors"
+                className="group/link mt-1 inline-flex w-fit items-center gap-1 text-xs text-purple-300 transition-colors hover:text-purple-200 hover:underline hover:underline-offset-2"
               >
                 {cert.issuer}
-                <FiExternalLink className="text-[11px]" />
+                <FiExternalLink className="text-[11px] transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
               </a>
 
-              <p className="text-gray-500 text-xs flex items-center gap-1 mb-2">
-                <FiCalendar /> {cert.date}
+              <p className="mt-2 inline-flex items-center gap-1.5 text-[11px] text-gray-500 transition-colors duration-300 group-hover:text-gray-400">
+                <FiCalendar className="transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110" />{" "}
+                {cert.date}
               </p>
 
-              <p className="text-gray-400 text-xs leading-relaxed mb-3 line-clamp-2">
+              <p className="mt-3 line-clamp-2 text-xs leading-relaxed text-gray-400">
                 {cert.description}
               </p>
 
               {Array.isArray(cert.skills) && cert.skills.length > 0 && (
-                <div className="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-white/10">
+                <div className="mt-auto flex flex-wrap gap-1.5 border-t border-white/10 pt-3">
                   {cert.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="text-[11px] leading-none px-2 py-1 rounded-full bg-purple-400/10 text-purple-300 border border-purple-400/20"
+                      className="btn-press rounded-full bg-purple-500/10 px-2 py-1 text-[11px] leading-none text-purple-300 ring-1 ring-purple-400/20 hover:bg-purple-500/20 hover:text-white hover:ring-purple-400/50"
                     >
                       {skill}
                     </span>
                   ))}
                 </div>
               )}
+
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-px scale-x-0 bg-gradient-to-r from-transparent via-purple-400 to-transparent transition-transform duration-500 group-hover:scale-x-100"
+              />
             </div>
-          </motion.div>
+          </GlowCard>
         ))}
       </div>
 
       <AnimatePresence>
         {selected && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            animate={{ opacity: 1, backdropFilter: "blur(8px)" }}
+            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            transition={{ duration: 0.35, ease }}
             onClick={() => setSelected(null)}
-            className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-sm flex items-center justify-center px-4 py-10 overflow-y-auto"
+            className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-black/80 px-3 py-6 sm:px-6 sm:py-10"
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              initial={{ opacity: 0, scale: 0.94, y: 24 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              transition={{ duration: 0.3 }}
+              exit={{ opacity: 0, scale: 0.96, y: 16, transition: { duration: 0.22, ease: "easeIn" } }}
+              transition={reduce ? { duration: 0.2, ease } : { type: "spring", stiffness: 260, damping: 26 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-4xl bg-[#111117] border border-white/10 rounded-2xl overflow-hidden my-auto"
+              className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#0e0e14] shadow-2xl shadow-black/70 sm:rounded-3xl"
             >
               <button
                 onClick={() => setSelected(null)}
                 aria-label="Close"
-                className="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center bg-black/50 hover:bg-purple-500/60 rounded-full text-xl transition"
+                className="btn-press group/close absolute right-3 top-3 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-lg text-white/80 ring-1 ring-white/10 backdrop-blur hover:bg-purple-500/60 hover:text-white sm:right-4 sm:top-4 sm:h-10 sm:w-10 sm:text-xl"
               >
-                <FiX />
+                <FiX className="transition-transform duration-300 group-hover/close:rotate-90" />
               </button>
 
-              {/* Full-size image — never cropped, scales to fit */}
-              <div className="relative w-full bg-black/60 flex items-center justify-center">
-                <Image
-                  src={selected.image}
-                  alt={selected.title}
-                  width={1600}
-                  height={1131}
-                  sizes="(max-width: 768px) 100vw, 900px"
-                  className="w-full h-auto max-h-[75vh] object-contain"
-                />
-              </div>
+              <div className="modal-scroll max-h-[88vh] overflow-y-auto overscroll-contain sm:max-h-[85vh]">
+                {/* Full-size document — never cropped, scales to fit */}
+                <ModalGallery images={[selected.image]} alt={selected.title} fit="contain" />
 
-              <div className="p-6 md:p-8">
-                <div className="flex items-start gap-3">
-                  <FiAward className="text-purple-400 text-2xl mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="text-xl font-semibold mb-1">
+                <div className="relative border-t border-white/5 p-5 sm:p-7 md:p-8">
+                  <motion.div {...lightboxItem(0)}>
+                    <span
+                      aria-label="Certificate"
+                      className="btn-press group/badge inline-flex h-7 items-center justify-center rounded-full border border-purple-400/25 bg-purple-500/10 px-3 text-sm text-purple-200 hover:border-purple-400/50 hover:bg-purple-500/20 hover:text-white"
+                    >
+                      <FiAward className="transition-transform duration-500 group-hover/badge:rotate-12 group-hover/badge:scale-110" />
+                    </span>
+                    <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
                       {selected.title}
                     </h3>
-                    
-                    <a  href={selected.issuerLink}
+                  </motion.div>
+
+                  <motion.div
+                    {...lightboxItem(1)}
+                    className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2"
+                  >
+                    <a
+                      href={selected.issuerLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-purple-300 text-sm hover:text-purple-200 hover:underline underline-offset-2 transition-colors"
+                      className="group/link inline-flex items-center gap-1.5 text-sm text-purple-300 transition-colors hover:text-purple-200 hover:underline hover:underline-offset-2"
                     >
                       {selected.issuer}
-                      <FiExternalLink className="text-xs" />
+                      <FiExternalLink className="text-xs transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
                     </a>
-                    <p className="text-gray-500 text-xs flex items-center gap-1 mt-1">
-                      <FiCalendar /> {selected.date}
-                    </p>
-                  </div>
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white/[0.04] px-2.5 py-1 text-[11px] text-gray-400 ring-1 ring-white/10">
+                      <FiCalendar className="flex-shrink-0" /> {selected.date}
+                    </span>
+                  </motion.div>
+
+                  <motion.p
+                    {...lightboxItem(2)}
+                    className="mt-6 max-w-3xl text-sm leading-[1.8] text-gray-300 md:text-[0.95rem]"
+                  >
+                    {selected.description}
+                  </motion.p>
+
+                  {Array.isArray(selected.skills) && selected.skills.length > 0 && (
+                    <motion.div
+                      {...lightboxItem(3)}
+                      className="mt-7 flex flex-wrap gap-2 border-t border-white/5 pt-6"
+                    >
+                      {selected.skills.map((skill) => (
+                        <span
+                          key={skill}
+                          className="btn-press rounded-full bg-purple-500/10 px-3 py-1.5 text-xs text-purple-200 ring-1 ring-purple-400/25 hover:bg-purple-500/20 hover:text-white hover:ring-purple-400/50"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </motion.div>
+                  )}
                 </div>
-
-                <p className="text-gray-400 text-sm leading-relaxed mt-4">
-                  {selected.description}
-                </p>
-
-                {Array.isArray(selected.skills) && selected.skills.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mt-5 pt-5 border-t border-white/10">
-                    {selected.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="text-xs px-3 py-1.5 rounded-full bg-purple-400/10 text-purple-300 border border-purple-400/20"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                )}
               </div>
             </motion.div>
           </motion.div>

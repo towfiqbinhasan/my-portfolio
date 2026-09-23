@@ -1,9 +1,8 @@
 "use client";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import {
-  FiX,
   FiSmartphone,
   FiMonitor,
   FiHeadphones,
@@ -12,6 +11,8 @@ import {
   FiCheck,
 } from "react-icons/fi";
 import { MdKeyboard } from "react-icons/md";
+import { PageBackdrop, PageHeader, GlowCard } from "@/components/PageShell";
+import { Lightbox, lightboxItem } from "@/components/Carousel";
 
 type GadgetItem = {
   name: string;
@@ -124,98 +125,95 @@ function GadgetCard({
 }) {
   const Icon = gadget.icon;
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.07 }}
-      onClick={onClick}
-      className="cursor-pointer bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-purple-400 transition group"
-    >
-      <div className="relative w-full h-48 overflow-hidden bg-black/40">
-        <Image
-          src={gadget.image}
-          alt={gadget.name}
-          fill
-          sizes="400px"
-          className="object-contain group-hover:scale-105 transition duration-500"
-        />
-        <span className="absolute top-3 left-3 flex items-center gap-1.5 text-xs bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full text-purple-300">
-          <Icon className="text-sm" /> {gadget.category}
-        </span>
-      </div>
-      <div className="p-5">
-        <h3 className="text-base font-semibold">{gadget.name}</h3>
-        <p className="text-gray-500 text-xs mt-1">
-          Tap to view full specifications
-        </p>
-      </div>
-    </motion.div>
-  );
-}
-
-function GadgetModal({
-  gadget,
-  onClose,
-}: {
-  gadget: GadgetItem;
-  onClose: () => void;
-}) {
-  const Icon = gadget.icon;
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      onClick={onClose}
-      className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-sm flex items-center justify-center px-6 py-10 overflow-y-auto"
-    >
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-        transition={{ duration: 0.3 }}
-        onClick={(e) => e.stopPropagation()}
-        className="relative max-w-2xl w-full bg-[#111117] border border-white/10 rounded-2xl overflow-hidden my-auto"
+    <GlowCard delay={index * 0.08}>
+      <button
+        type="button"
+        onClick={onClick}
+        aria-label={gadget.name}
+        className="btn-press block w-full cursor-pointer text-left"
       >
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center bg-black/50 hover:bg-purple-500/60 rounded-full text-xl transition"
-        >
-          <FiX />
-        </button>
-
-        <div className="relative w-full h-72 md:h-80 bg-black/60">
+        <div className="relative h-44 w-full overflow-hidden bg-black/40 sm:h-48">
           <Image
             src={gadget.image}
             alt={gadget.name}
             fill
-            sizes="672px"
-            className="object-contain"
+            sizes="(max-width: 640px) 100vw, 400px"
+            className="object-contain p-4 transition-transform duration-700 ease-out group-hover:scale-110"
+          />
+          {/* Scrim so the chip stays readable over any product shot */}
+          <span
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/10 to-transparent"
+          />
+          <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-purple-200 ring-1 ring-white/10 backdrop-blur transition-all duration-500 group-hover:bg-purple-500/30 group-hover:text-white group-hover:ring-purple-400/50">
+            <Icon className="text-sm transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6" /> {gadget.category}
+          </span>
+          <span aria-hidden className="carousel-sheen pointer-events-none absolute inset-0" />
+        </div>
+
+        <div className="relative p-5">
+          <h3 className="text-base font-semibold leading-snug text-white">{gadget.name}</h3>
+          <p className="mt-1.5 text-xs text-gray-500 transition-colors duration-300 group-hover:text-purple-300">
+            Tap to view full specifications
+          </p>
+          <span
+            aria-hidden
+            className="mt-3 block h-px w-8 bg-gradient-to-r from-purple-400 to-pink-400 transition-all duration-500 group-hover:w-16"
           />
         </div>
+      </button>
+    </GlowCard>
+  );
+}
 
-        <div className="p-6 md:p-8">
-          <span className="inline-flex items-center gap-1.5 text-xs bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full mb-3">
+function GadgetDetails({ gadget }: { gadget: GadgetItem }) {
+  const Icon = gadget.icon;
+  return (
+    <>
+      <motion.div
+        {...lightboxItem(0)}
+        className="relative h-56 w-full bg-[#08080c] xs:h-64 sm:h-72 md:h-80"
+      >
+        <Image
+          src={gadget.image}
+          alt={gadget.name}
+          fill
+          sizes="(min-width: 1024px) 896px, 100vw"
+          className="object-contain p-5 sm:p-8"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0e0e14] to-transparent"
+        />
+      </motion.div>
+
+      <div className="relative border-t border-white/5 p-5 sm:p-7 md:p-8">
+        <motion.div {...lightboxItem(1)}>
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-purple-400/25 bg-purple-500/10 px-3 py-1 text-[11px] uppercase tracking-wider text-purple-200">
             <Icon className="text-sm" /> {gadget.category}
           </span>
-          <h3 className="text-2xl font-semibold mb-5 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
             {gadget.name}
           </h3>
+        </motion.div>
 
-          <div className="space-y-3">
-            {gadget.specs.map((spec, i) => (
-              <div key={i} className="flex items-start gap-3">
-                <span className="w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <FiCheck className="text-purple-300 text-xs" />
-                </span>
-                <p className="text-gray-300 text-sm leading-relaxed">{spec}</p>
-              </div>
-            ))}
-          </div>
+        {/* Two columns from sm up, so the longer spec lines stay short and scannable */}
+        <div className="mt-6 grid gap-2.5 border-t border-white/5 pt-6 sm:grid-cols-2 sm:gap-3">
+          {gadget.specs.map((spec, i) => (
+            <motion.div
+              key={spec}
+              {...lightboxItem(2 + i)}
+              className="group/spec flex items-start gap-3 rounded-xl border border-white/5 bg-white/[0.03] p-3.5 transition duration-300 hover:-translate-y-0.5 hover:border-purple-400/30 hover:bg-white/[0.06]"
+            >
+              <span className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500/40 to-pink-500/40 ring-1 ring-purple-400/30 transition duration-300 group-hover/spec:scale-110 group-hover/spec:ring-purple-400/60">
+                <FiCheck className="text-[11px] text-purple-50" />
+              </span>
+              <p className="min-w-0 break-words text-sm leading-[1.8] text-gray-300">{spec}</p>
+            </motion.div>
+          ))}
         </div>
-      </motion.div>
-    </motion.div>
+      </div>
+    </>
   );
 }
 
@@ -223,20 +221,17 @@ export default function GadgetsPage() {
   const [selected, setSelected] = useState<GadgetItem | null>(null);
 
   return (
-    <section className="py-16 px-6 max-w-6xl mx-auto">
-      <motion.h1
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-4xl md:text-5xl font-bold mb-4 text-center"
-      >
-        My <span className="text-purple-400">Gadgets</span>
-      </motion.h1>
-      <p className="text-gray-400 text-center mb-16 max-w-2xl mx-auto">
-        A look at the devices and tools I use daily for coding, gaming, content creation, and research work.
-      </p>
+    <section className="relative mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      <PageBackdrop />
 
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <PageHeader
+        eyebrow="Everyday tech"
+        title="My"
+        accent="Gadgets"
+        description="A look at the devices and tools I use daily for coding, gaming, content creation, and research work."
+      />
+
+      <div className="grid gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         {gadgets.map((gadget, i) => (
           <GadgetCard
             key={gadget.name}
@@ -247,11 +242,14 @@ export default function GadgetsPage() {
         ))}
       </div>
 
-      <AnimatePresence>
-        {selected && (
-          <GadgetModal gadget={selected} onClose={() => setSelected(null)} />
-        )}
-      </AnimatePresence>
+      <Lightbox
+        open={selected !== null}
+        onClose={() => setSelected(null)}
+        contentKey={selected?.name}
+        wide
+      >
+        {selected && <GadgetDetails gadget={selected} />}
+      </Lightbox>
     </section>
   );
 }
