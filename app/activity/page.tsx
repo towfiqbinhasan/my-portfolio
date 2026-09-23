@@ -28,7 +28,7 @@ const activities: ActivityItem[] = [
 
 // Accent per card, cycled by position so the grid keeps some colour rhythm.
 const accents = [
-  "from-purple-500 to-pink-500",
+  "from-purple-500 to-cyan-400",
   "from-cyan-500 to-blue-500",
   "from-amber-500 to-orange-500",
   "from-emerald-500 to-teal-500",

@@ -73,9 +73,9 @@ function SectionTitle({ title, accent }: { title: string; accent: string }) {
       transition={{ duration: 0.6, ease }}
       className="mb-6 flex items-center gap-3 text-xl font-bold tracking-tight sm:mb-8 sm:text-2xl"
     >
-      <span className="h-7 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-b from-purple-500 to-pink-500 shadow-[0_0_14px_-2px_rgba(168,85,247,0.8)] sm:h-8 sm:w-2" />
+      <span className="h-7 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-b from-purple-500 to-cyan-400 shadow-[0_0_14px_-2px_rgba(168,85,247,0.8)] sm:h-8 sm:w-2" />
       {title}{" "}
-      <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+      <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
         {accent}
       </span>
     </motion.h2>
@@ -181,7 +181,7 @@ function ProjectCard({
               e.stopPropagation();
               onClick();
             }}
-            className="btn-press btn-shine mt-5 w-full rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-4 py-2.5 text-center text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] hover:opacity-90 hover:shadow-[0_0_28px_-6px_rgba(236,72,153,0.9)] sm:text-sm"
+            className="btn-press btn-shine mt-5 w-full rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-4 py-2.5 text-center text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] hover:opacity-90 hover:shadow-[0_0_28px_-6px_rgba(34,211,238,0.9)] sm:text-sm"
           >
             View Details
           </button>
@@ -254,7 +254,7 @@ function ProjectModal({
               <span className="inline-flex items-center gap-1.5 rounded-full border border-purple-400/25 bg-purple-500/10 px-3 py-1 text-[11px] uppercase tracking-wider text-purple-200">
                 {project.field}
               </span>
-              <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
+              <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
                 {project.title}
               </h3>
             </motion.div>
@@ -282,7 +282,7 @@ function ProjectModal({
                 <a
                   href={project.live}
                   target="_blank"
-                  className="btn-press btn-shine inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] hover:opacity-90 hover:shadow-[0_0_28px_-6px_rgba(236,72,153,0.9)] sm:px-5 sm:text-sm"
+                  className="btn-press btn-shine inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] hover:opacity-90 hover:shadow-[0_0_28px_-6px_rgba(34,211,238,0.9)] sm:px-5 sm:text-sm"
                 >
                   <FiExternalLink /> Live Demo
                 </a>
@@ -377,7 +377,7 @@ export default function Projects() {
                     aria-hidden
                     layoutId="project-filter-pill"
                     transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                    className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-[0_0_20px_-4px_rgba(168,85,247,0.9)]"
+                    className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 shadow-[0_0_20px_-4px_rgba(168,85,247,0.9)]"
                   />
                 )}
                 <span className="relative whitespace-nowrap">{cat}</span>

@@ -21,7 +21,7 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #8b5cf6, #ec4899);
+  background: linear-gradient(180deg, #8b5cf6, #22d3ee);
   border-radius: 10px;
 }
 
@@ -123,7 +123,7 @@ body {
   50% { background-position: 100% 50%; }
 }
 .nav-active-pill {
-  background: linear-gradient(90deg, rgba(168, 85, 247, 0.35), rgba(236, 72, 153, 0.35), rgba(99, 102, 241, 0.35), rgba(168, 85, 247, 0.35));
+  background: linear-gradient(90deg, rgba(168, 85, 247, 0.35), rgba(34, 211, 238, 0.35), rgba(99, 102, 241, 0.35), rgba(168, 85, 247, 0.35));
   background-size: 300% 100%;
   animation: nav-pill-shift 6s ease-in-out infinite;
   box-shadow: 0 0 18px rgba(168, 85, 247, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
@@ -199,7 +199,7 @@ body {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(145deg, rgba(168, 85, 247, 0.45), transparent 35%, transparent 65%, rgba(236, 72, 153, 0.35));
+  background: linear-gradient(145deg, rgba(168, 85, 247, 0.45), transparent 35%, transparent 65%, rgba(34, 211, 238, 0.35));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -220,7 +220,7 @@ body {
   bottom: 0;
   height: 2px;
   border-radius: 2px;
-  background: linear-gradient(90deg, #a855f7, #ec4899);
+  background: linear-gradient(90deg, #a855f7, #22d3ee);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);

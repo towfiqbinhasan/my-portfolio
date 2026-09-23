@@ -69,9 +69,9 @@ function SectionTitle({ title, accent }: { title: string; accent: string }) {
       transition={{ duration: 0.6, ease }}
       className="mb-6 flex items-center gap-3 text-xl font-bold tracking-tight sm:mb-8 sm:text-2xl"
     >
-      <span className="h-7 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-b from-purple-500 to-pink-500 shadow-[0_0_14px_-2px_rgba(168,85,247,0.8)] sm:h-8 sm:w-2" />
+      <span className="h-7 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-b from-purple-500 to-cyan-400 shadow-[0_0_14px_-2px_rgba(168,85,247,0.8)] sm:h-8 sm:w-2" />
       {title}{" "}
-      <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+      <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
         {accent}
       </span>
     </motion.h2>
@@ -128,7 +128,7 @@ function ConferenceCard({
                 e.stopPropagation();
                 onClick();
               }}
-              className="btn-press btn-shine group/cta inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
+              className="btn-press btn-shine group/cta inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
             >
               <FiEye className="transition-transform duration-300 group-hover/cta:scale-110" />{" "}
               View Details
@@ -220,7 +220,7 @@ function ConferenceModal({
               <span className="btn-press inline-flex items-center gap-1.5 rounded-full border border-purple-400/25 bg-purple-500/10 px-3 py-1 text-[11px] tracking-wider text-purple-200 hover:border-purple-400/50 hover:bg-purple-500/20 hover:text-white">
                 {paper.conferenceName}, {paper.year}
               </span>
-              <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
+              <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
                 {paper.title}
               </h3>
             </motion.div>
@@ -240,7 +240,7 @@ function ConferenceModal({
                 <a
                   href={paper.paperPdf}
                   target="_blank"
-                  className="btn-press btn-shine group/cta inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
+                  className="btn-press btn-shine group/cta inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
                 >
                   <FiFileText className="transition-transform duration-300 group-hover/cta:scale-110" />{" "}
                   View Paper
@@ -349,7 +349,7 @@ export default function Research() {
           {journalPapers.map((p, i) => (
             <GlowCard key={p.title + i} delay={i * 0.1} className="p-5 sm:p-6">
               <div className="relative flex items-start gap-4">
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 text-purple-200 ring-1 ring-purple-400/30 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/20 to-cyan-400/20 text-purple-200 ring-1 ring-purple-400/30 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                   <FiFileText />
                 </div>
                 <div className="min-w-0 flex-1">

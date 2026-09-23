@@ -83,7 +83,7 @@
     "mode": "Remote",
     "logo": "/experience/code.jpg",
     "logoText": "CA",
-    "logoBg": "from-pink-500 to-rose-600",
+    "logoBg": "from-cyan-500 to-teal-600",
     "description": "Completed a Data Science Internship at CodeAlpha from 1st May 2026 to 30th May 2026, focused on learning new skills with a deeper understanding of concepts through hands-on application of gained knowledge. The internship emphasized orientation, practical skill-building, and fulfilling assigned work responsibly and effectively — equipping for future data science projects.",
     "skills": [
       "Data Science",
@@ -212,7 +212,7 @@
     "mode": "",
     "logo": "/experience/ud.jpg",
     "logoText": "U",
-    "logoBg": "from-fuchsia-600 to-purple-700",
+    "logoBg": "from-violet-600 to-purple-700",
     "description": "Assisted senior faculty as a Physics and Mathematics teacher at UDVASH, one of Bangladesh's premier admission and academic coaching centers. Supported lesson preparation, doubt-clearing sessions, and helped students strengthen their conceptual understanding of Physics and Mathematics.",
     "skills": [
       "Physics Teacher",

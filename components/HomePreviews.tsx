@@ -37,7 +37,7 @@ export function ViewDetails({ href, label }: { href: string; label?: string }) {
       <span
         aria-hidden
         className="hero-badge-spin absolute left-1/2 top-1/2 aspect-square w-[300%] -translate-x-1/2 -translate-y-1/2 opacity-70 transition-opacity group-hover:opacity-100"
-        style={{ background: "conic-gradient(from 0deg, transparent 0 60%, #a855f7, #ec4899, transparent 90%)" }}
+        style={{ background: "conic-gradient(from 0deg, transparent 0 60%, #a855f7, #22d3ee, transparent 90%)" }}
       />
       <span className="btn-shine relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/10 bg-[#0d0d12] px-5 py-2.5 text-sm font-medium text-white">
         <span className="relative">{text}</span>
@@ -88,7 +88,7 @@ export function SectionHeading({
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2, ease }}
-            className="h-px w-10 origin-left bg-gradient-to-r from-purple-400 to-pink-400"
+            className="h-px w-10 origin-left bg-gradient-to-r from-purple-400 to-cyan-400"
           />
           {eyebrow}
         </motion.div>
@@ -100,7 +100,7 @@ export function SectionHeading({
           className="mt-3 sm:mt-4 text-[1.75rem] xs:text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight"
         >
           {title}{" "}
-          <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">{accent}</span>
+          <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">{accent}</span>
         </motion.h2>
         {text && (
           <motion.p
@@ -232,7 +232,7 @@ export function QualificationPreview() {
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1.4, ease }}
-          className="absolute left-0 right-0 top-[106px] hidden h-px origin-left bg-gradient-to-r from-purple-500 via-pink-500 to-transparent md:block"
+          className="absolute left-0 right-0 top-[106px] hidden h-px origin-left bg-gradient-to-r from-purple-500 via-cyan-400 to-transparent md:block"
         />
         {qualifications.map((q, i) => (
           <GlowCard key={q.degree} delay={i * 0.12} className="p-4 sm:p-5">
@@ -244,7 +244,7 @@ export function QualificationPreview() {
                 <FiCalendar className="transition-transform duration-500 group-hover:scale-110" /> {q.duration}
               </span>
             </div>
-            <div className="relative mt-6 h-3 w-3 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 shadow-[0_0_12px_rgba(236,72,153,0.8)] transition-transform duration-500 group-hover:scale-150" />
+            <div className="relative mt-6 h-3 w-3 rounded-full bg-gradient-to-r from-purple-400 to-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.8)] transition-transform duration-500 group-hover:scale-150" />
             <h3 className="mt-5 font-semibold text-white leading-snug">{q.degree}</h3>
             <p className="mt-1 text-sm text-purple-300/90">{q.major}</p>
             <p className="mt-3 text-sm text-gray-400 leading-relaxed">{q.institute}</p>
@@ -461,7 +461,7 @@ export function ResearchPreview() {
               <p className="mt-1 text-[11px] leading-tight sm:text-sm text-gray-400 transition-colors duration-500 group-hover:text-purple-200">{s.label}</p>
               <span
                 aria-hidden
-                className="mx-auto mt-2 block h-px w-6 bg-gradient-to-r from-purple-400 to-pink-400 transition-all duration-500 group-hover:w-12 lg:mx-0"
+                className="mx-auto mt-2 block h-px w-6 bg-gradient-to-r from-purple-400 to-cyan-400 transition-all duration-500 group-hover:w-12 lg:mx-0"
               />
             </GlowCard>
           ))}
@@ -470,7 +470,7 @@ export function ResearchPreview() {
           {papers.slice(0, 3).map((p, i) => (
             <GlowCard key={p.title} delay={0.15 + i * 0.1} className="p-5">
               <div className="flex gap-4">
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 text-purple-200 ring-1 ring-purple-400/30 transition-all duration-500 group-hover:scale-110 group-hover:-rotate-6 group-hover:ring-purple-400/60">
+                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/20 to-cyan-400/20 text-purple-200 ring-1 ring-purple-400/30 transition-all duration-500 group-hover:scale-110 group-hover:-rotate-6 group-hover:ring-purple-400/60">
                   <FiFileText />
                 </div>
                 <div className="min-w-0">
@@ -500,7 +500,7 @@ export function CvContactPreview() {
             <span className="font-mono text-purple-400">08</span> Resume
           </p>
           <h2 className="relative mt-4 text-2xl xs:text-3xl sm:text-4xl font-bold">
-            Download my <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">CV</span>
+            Download my <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">CV</span>
           </h2>
           <p className="relative mt-3 text-gray-400 leading-relaxed">
             CVs tailored for different roles, each with a photo and a Harvard-style version. Request one and get a secure link by email.
@@ -509,7 +509,7 @@ export function CvContactPreview() {
             aria-hidden
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="relative my-7 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 text-2xl text-white shadow-lg shadow-purple-500/40"
+            className="relative my-7 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-cyan-400 text-2xl text-white shadow-lg shadow-purple-500/40"
           >
             <FiDownload />
           </motion.div>
@@ -519,12 +519,12 @@ export function CvContactPreview() {
         </GlowCard>
 
         <GlowCard delay={0.12} className="p-6 sm:p-9">
-          <div aria-hidden className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-pink-600/20 blur-3xl" />
+          <div aria-hidden className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-cyan-500/20 blur-3xl" />
           <p className="relative flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-purple-300/80">
             <span className="font-mono text-purple-400">09</span> Say hello
           </p>
           <h2 className="relative mt-4 text-2xl xs:text-3xl sm:text-4xl font-bold">
-            Let&apos;s <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">connect</span>
+            Let&apos;s <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">connect</span>
           </h2>
           <p className="relative mt-3 text-gray-400 leading-relaxed">
             Have a project, a job opportunity or a research idea? My inbox is always open.
@@ -568,7 +568,7 @@ const more = [
   { name: "Gadgets", path: "/gadgets", icon: FiCpu, text: "The tech I use every day", color: "from-cyan-500/20" },
   { name: "Tour", path: "/tour", icon: FiMap, text: "Travels across Bangladesh", color: "from-emerald-500/20" },
   { name: "Photography", path: "/photography", icon: FiCamera, text: "Moments through my lens", color: "from-amber-500/20" },
-  { name: "Filmography", path: "/filmography", icon: FiFilm, text: "Short films & edits", color: "from-pink-500/20" },
+  { name: "Filmography", path: "/filmography", icon: FiFilm, text: "Short films & edits", color: "from-blue-500/20" },
   { name: "Activity", path: "/activity", icon: FiUsers, text: "Clubs, events & volunteering", color: "from-violet-500/20" },
 ];
 
@@ -586,7 +586,7 @@ export function ExploreMore() {
           <span className="font-mono text-purple-400">10</span> Beyond code
         </p>
         <h2 className="mt-4 text-[1.75rem] xs:text-3xl sm:text-4xl md:text-5xl font-bold">
-          Explore <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">more</span>
+          Explore <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">more</span>
         </h2>
       </motion.div>
       <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-5">

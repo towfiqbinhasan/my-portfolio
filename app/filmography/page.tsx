@@ -83,7 +83,7 @@ export default function FilmographyPage() {
                     aria-hidden
                     className="absolute inset-0 flex items-center justify-center bg-black/25 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                   >
-                    <span className="flex h-14 w-14 scale-90 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-pink-500 shadow-[0_0_30px_rgba(168,85,247,0.5)] ring-1 ring-white/20 transition-transform duration-300 group-hover:scale-100">
+                    <span className="flex h-14 w-14 scale-90 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 shadow-[0_0_30px_rgba(168,85,247,0.5)] ring-1 ring-white/20 transition-transform duration-300 group-hover:scale-100">
                       <FiPlay className="ml-1 text-xl text-white" />
                     </span>
                   </span>
@@ -97,7 +97,7 @@ export default function FilmographyPage() {
                   </p>
                   <span
                     aria-hidden
-                    className="mt-3 block h-px w-8 bg-gradient-to-r from-purple-400 to-pink-400 transition-all duration-500 group-hover:w-16"
+                    className="mt-3 block h-px w-8 bg-gradient-to-r from-purple-400 to-cyan-400 transition-all duration-500 group-hover:w-16"
                   />
                 </div>
               </button>
@@ -121,7 +121,7 @@ export default function FilmographyPage() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.15, ease }}
-              className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/25 to-pink-500/25 text-2xl text-purple-200 ring-1 ring-purple-400/30"
+              className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/25 to-cyan-400/25 text-2xl text-purple-200 ring-1 ring-purple-400/30"
             >
               <FiFilm />
             </motion.span>
@@ -163,7 +163,7 @@ export default function FilmographyPage() {
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-purple-400/25 bg-purple-500/10 px-3 py-1 text-[11px] uppercase tracking-wider text-purple-200">
                   <FiCalendar className="text-xs" /> {selected.date}
                 </span>
-                <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
+                <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
                   {selected.title}
                 </h3>
               </motion.div>
@@ -187,7 +187,7 @@ export default function FilmographyPage() {
                     href={selected.videoLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-press btn-shine inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-5 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] hover:opacity-90 hover:shadow-[0_0_28px_-6px_rgba(236,72,153,0.9)] sm:text-sm"
+                    className="btn-press btn-shine inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-5 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] hover:opacity-90 hover:shadow-[0_0_28px_-6px_rgba(34,211,238,0.9)] sm:text-sm"
                   >
                     <FiPlay /> Watch Video
                   </a>

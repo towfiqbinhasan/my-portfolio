@@ -158,7 +158,7 @@ function GadgetCard({
           </p>
           <span
             aria-hidden
-            className="mt-3 block h-px w-8 bg-gradient-to-r from-purple-400 to-pink-400 transition-all duration-500 group-hover:w-16"
+            className="mt-3 block h-px w-8 bg-gradient-to-r from-purple-400 to-cyan-400 transition-all duration-500 group-hover:w-16"
           />
         </div>
       </button>
@@ -192,7 +192,7 @@ function GadgetDetails({ gadget }: { gadget: GadgetItem }) {
           <span className="inline-flex items-center gap-1.5 rounded-full border border-purple-400/25 bg-purple-500/10 px-3 py-1 text-[11px] uppercase tracking-wider text-purple-200">
             <Icon className="text-sm" /> {gadget.category}
           </span>
-          <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
+          <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
             {gadget.name}
           </h3>
         </motion.div>
@@ -205,7 +205,7 @@ function GadgetDetails({ gadget }: { gadget: GadgetItem }) {
               {...lightboxItem(2 + i)}
               className="group/spec flex items-start gap-3 rounded-xl border border-white/5 bg-white/[0.03] p-3.5 transition duration-300 hover:-translate-y-0.5 hover:border-purple-400/30 hover:bg-white/[0.06]"
             >
-              <span className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500/40 to-pink-500/40 ring-1 ring-purple-400/30 transition duration-300 group-hover/spec:scale-110 group-hover/spec:ring-purple-400/60">
+              <span className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500/40 to-cyan-400/40 ring-1 ring-purple-400/30 transition duration-300 group-hover/spec:scale-110 group-hover/spec:ring-purple-400/60">
                 <FiCheck className="text-[11px] text-purple-50" />
               </span>
               <p className="min-w-0 break-words text-sm leading-[1.8] text-gray-300">{spec}</p>

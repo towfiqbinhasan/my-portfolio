@@ -159,7 +159,7 @@ export default function Contact() {
         <GlowCard delay={0.12} lift={false} className="p-6 sm:p-8">
           <div
             aria-hidden
-            className="pointer-events-none absolute -left-24 -bottom-24 h-52 w-52 rounded-full bg-pink-600/15 blur-3xl"
+            className="pointer-events-none absolute -left-24 -bottom-24 h-52 w-52 rounded-full bg-cyan-500/15 blur-3xl"
           />
 
           <div className="relative">
@@ -257,7 +257,7 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={loading}
-                className="btn-press btn-shine mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/45 disabled:cursor-not-allowed disabled:opacity-50"
+                className="btn-press btn-shine mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-500 to-cyan-400 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/45 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {loading ? (
                   <span className="relative flex items-center gap-2">

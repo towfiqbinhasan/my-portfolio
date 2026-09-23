@@ -22,8 +22,8 @@ export default function Home() {
       <SkillsPreview />
       <ProjectsPreview />
       <ResearchPreview />
-      <CertificatesSlider />
       <Highlights />
+      <CertificatesSlider />
       <CvContactPreview />
       <ExploreMore />
     </main>

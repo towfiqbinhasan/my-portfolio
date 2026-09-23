@@ -25,7 +25,7 @@ export default function Highlights() {
     <section className="relative overflow-hidden py-12 sm:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
-          index="07"
+          index="06"
           eyebrow="Moments"
           title="Highlighter"
           accent="Points"
@@ -72,7 +72,7 @@ export default function Highlights() {
                 </span>
 
                 <div className="absolute inset-x-0 bottom-0 p-5">
-                  <span className="mb-2 block h-px w-8 bg-gradient-to-r from-purple-400 to-pink-400 transition-all duration-500 group-hover:w-16" />
+                  <span className="mb-2 block h-px w-8 bg-gradient-to-r from-purple-400 to-cyan-400 transition-all duration-500 group-hover:w-16" />
                   <p className="line-clamp-3 text-sm leading-snug text-gray-100">{item.caption}</p>
                   <span className="mt-2 block text-[11px] text-purple-300 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                     Read the story
@@ -116,9 +116,9 @@ export default function Highlights() {
               <motion.div {...lightboxItem(1)}>
                 <span
                   aria-hidden
-                  className="block h-px w-10 rounded-full bg-gradient-to-r from-purple-400 to-pink-400"
+                  className="block h-px w-10 rounded-full bg-gradient-to-r from-purple-400 to-cyan-400"
                 />
-                <h3 className="mt-4 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-xl font-semibold leading-snug text-transparent sm:text-2xl">
+                <h3 className="mt-4 bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-xl font-semibold leading-snug text-transparent sm:text-2xl">
                   {selected.caption}
                 </h3>
               </motion.div>

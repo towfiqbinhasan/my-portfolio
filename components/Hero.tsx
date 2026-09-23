@@ -221,11 +221,11 @@ function RubikCube() {
         className="hero-badge-spin absolute top-1/2 left-1/2 -ml-40 -mt-40 w-80 h-80 rounded-full blur-[90px] opacity-35"
         style={{
           animationDuration: "24s",
-          background: "conic-gradient(from 0deg, #8b5cf6, #06b6d4, #22c55e, #f59e0b, #ec4899, #8b5cf6)",
+          background: "conic-gradient(from 0deg, #8b5cf6, #3b82f6, #22c55e, #f59e0b, #22d3ee, #8b5cf6)",
         }}
       />
       {/* Floor: soft coloured reflection + contact shadow */}
-      <div aria-hidden className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-80 h-16 rounded-[100%] bg-gradient-to-r from-violet-500/25 via-cyan-400/20 to-pink-500/25 blur-2xl" />
+      <div aria-hidden className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-80 h-16 rounded-[100%] bg-gradient-to-r from-violet-500/25 via-cyan-400/20 to-cyan-400/25 blur-2xl" />
       <div aria-hidden className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-8 rounded-[100%] bg-black blur-xl opacity-90" />
 
       <motion.div
@@ -255,7 +255,7 @@ const fadeUp = (delay: number) => ({
   transition: { duration: 0.9, delay, ease },
 });
 
-const HEADLINE = [["Towfiq", "Bin"], ["Hasan"]];
+const HEADLINE = [["Towfiq", "Bin", "Hasan"]];
 
 /** Dimmed pipe between the roles in the subtitle. */
 const Sep = () => <span className="mx-1.5 text-neutral-600">|</span>;
@@ -329,7 +329,7 @@ export default function Hero() {
                 className="hero-badge-spin absolute left-1/2 top-1/2 aspect-square w-[250%] -translate-x-1/2 -translate-y-1/2"
                 style={{
                   background:
-                    "conic-gradient(from 0deg, #14b8a6, #8b5cf6, #ec4899, #14b8a6)",
+                    "conic-gradient(from 0deg, #14b8a6, #8b5cf6, #22d3ee, #14b8a6)",
                 }}
               />
               <span className="relative inline-flex items-center gap-2 sm:gap-2.5 rounded-full bg-[#0b0b0d] py-1.5 pl-1.5 pr-3.5 sm:pr-4 text-xs sm:text-sm text-gray-200">
@@ -348,11 +348,11 @@ export default function Hero() {
 
           {/* Headline: word-by-word blur reveal */}
           <h1
-            className="mt-7 sm:mt-8 text-[clamp(2.9rem,13vw,4.4rem)] leading-[0.95] sm:text-8xl lg:text-[8.5rem] tracking-tight"
+            className="mt-7 whitespace-nowrap text-[clamp(1.6rem,8.6vw,3.6rem)] leading-[1.05] tracking-tight sm:mt-8 lg:text-[clamp(2.6rem,4.7vw,5.2rem)]"
             style={{ fontFamily: "var(--font-serif), Georgia, serif" }}
           >
             {HEADLINE.map((line, li) => (
-              <span key={li} className="block pb-3">
+              <span key={li} className="block pb-2">
                 {line.map((word) => {
                   const d = 0.25 + wordIndex++ * 0.12;
                   return (
@@ -384,7 +384,7 @@ export default function Hero() {
             {/* Filled gradient button with a light sweep on hover */}
             <Link
               href="/projects"
-              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_12px_32px_-12px_rgba(168,85,247,0.9)] transition-transform duration-300 hover:-translate-y-0.5 sm:text-base"
+              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-r from-purple-500 to-cyan-400 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_12px_32px_-12px_rgba(168,85,247,0.9)] transition-transform duration-300 hover:-translate-y-0.5 sm:text-base"
             >
               <span
                 aria-hidden

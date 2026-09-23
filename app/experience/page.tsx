@@ -166,7 +166,7 @@ function RequestAccessModal({
               <span className="inline-flex items-center gap-1.5 rounded-full border border-purple-400/25 bg-purple-500/10 px-3 py-1 text-[11px] font-medium tracking-wide text-purple-200">
                 <FiLock className="text-xs" /> Restricted Document
               </span>
-              <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text pr-10 text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
+              <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text pr-10 text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
                 Request Access
               </h3>
               <p className="mt-2 text-sm leading-[1.8] text-purple-300/90">
@@ -241,7 +241,7 @@ function RequestAccessModal({
                 <button
                   type="submit"
                   disabled={loading}
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_0_24px_-6px_rgba(168,85,247,0.9)] transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:min-w-[14rem]"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_0_24px_-6px_rgba(168,85,247,0.9)] transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:min-w-[14rem]"
                 >
                   {loading ? "Sending..." : (
                     <>
@@ -300,7 +300,7 @@ function ExperienceModal({
             <div className="flex items-start gap-4">
               <CompanyLogo exp={exp} size="lg" />
               <div className="min-w-0">
-                <h3 className="mb-1 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text pr-10 text-xl font-semibold leading-snug text-transparent md:text-2xl">
+                <h3 className="mb-1 bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text pr-10 text-xl font-semibold leading-snug text-transparent md:text-2xl">
                   {exp.role}
                 </h3>
 
@@ -357,7 +357,7 @@ function ExperienceModal({
                 href={exp.companyLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group/link inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] transition hover:opacity-90 sm:px-5 sm:text-sm"
+                className="group/link inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] transition hover:opacity-90 sm:px-5 sm:text-sm"
               >
                 <FiExternalLink className="transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />{" "}
                 Visit {exp.company}
@@ -424,7 +424,7 @@ export default function ExperiencePage() {
           whileInView={{ scaleY: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.4, ease }}
-          className="absolute left-4 top-0 bottom-0 w-px origin-top bg-gradient-to-b from-purple-500 via-pink-500 to-transparent sm:left-6 md:left-1/2 md:-translate-x-1/2"
+          className="absolute left-4 top-0 bottom-0 w-px origin-top bg-gradient-to-b from-purple-500 via-cyan-400 to-transparent sm:left-6 md:left-1/2 md:-translate-x-1/2"
         />
 
         <div className="space-y-8 sm:space-y-12">
@@ -444,7 +444,7 @@ export default function ExperiencePage() {
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2, ease }}
-                className="absolute left-4 top-7 z-10 h-3.5 w-3.5 -translate-x-1/2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-[0_0_14px_rgba(236,72,153,0.8)] ring-4 ring-[#0a0a0f] sm:left-6 sm:top-8 md:left-1/2"
+                className="absolute left-4 top-7 z-10 h-3.5 w-3.5 -translate-x-1/2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 shadow-[0_0_14px_rgba(34,211,238,0.8)] ring-4 ring-[#0a0a0f] sm:left-6 sm:top-8 md:left-1/2"
               />
 
               <div className="ml-10 w-[calc(100%-2.5rem)] sm:ml-16 sm:w-[calc(100%-4rem)] md:ml-0 md:w-1/2">

@@ -58,7 +58,7 @@ const cvCategories: CVCategory[] = [
     title: "Software Engineering",
     subtitle: "Full-Stack Development & Systems Design",
     icon: FiCode,
-    color: "from-pink-500 to-rose-500",
+    color: "from-cyan-500 to-teal-500",
     versions: [
       {
         label: "With Photo",
@@ -78,7 +78,7 @@ const cvCategories: CVCategory[] = [
     title: "Information Systems",
     subtitle: "Data, Databases & Information Management",
     icon: FiDatabase,
-    color: "from-fuchsia-500 to-purple-500",
+    color: "from-violet-500 to-purple-500",
     versions: [
       {
         label: "With Photo",
@@ -98,7 +98,7 @@ const cvCategories: CVCategory[] = [
     title: "Networking + Software Engineering",
     subtitle: "Combined profile covering both disciplines",
     icon: FiLayers,
-    color: "from-indigo-500 to-pink-500",
+    color: "from-indigo-500 to-cyan-500",
     versions: [
       {
         label: "With Photo",
@@ -118,7 +118,7 @@ const cvCategories: CVCategory[] = [
     title: "Networking + Information Systems",
     subtitle: "Combined profile covering both disciplines",
     icon: FiLayers,
-    color: "from-purple-500 to-fuchsia-500",
+    color: "from-purple-500 to-sky-500",
     versions: [
       {
         label: "With Photo",
@@ -138,7 +138,7 @@ const cvCategories: CVCategory[] = [
     title: "Information Systems + Software Engineering",
     subtitle: "Combined profile covering both disciplines",
     icon: FiLayers,
-    color: "from-fuchsia-500 to-rose-500",
+    color: "from-sky-500 to-cyan-500",
     versions: [
       {
         label: "With Photo",
@@ -158,7 +158,7 @@ const cvCategories: CVCategory[] = [
     title: "Networking + Software Engineering + Information Systems",
     subtitle: "Complete all-in-one combined profile",
     icon: FiLayers,
-    color: "from-purple-500 via-pink-500 to-fuchsia-500",
+    color: "from-purple-500 via-cyan-400 to-teal-500",
     versions: [
       {
         label: "With Photo",
@@ -334,7 +334,7 @@ export default function CVPage() {
                             fileKey: version.fileKey,
                           })
                         }
-                        className="btn-press btn-shine flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/50"
+                        className="btn-press btn-shine flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/50"
                         title={`Request ${category.title} CV - ${version.label}`}
                       >
                         <FiDownload />
@@ -389,7 +389,7 @@ export default function CVPage() {
                     >
                       <FiFileText />
                     </span>
-                    <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text pr-10 text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
+                    <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text pr-10 text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
                       Request Access
                     </h3>
                     <p className="mt-2 text-sm leading-[1.8] text-purple-300">
@@ -472,7 +472,7 @@ export default function CVPage() {
                       <button
                         type="submit"
                         disabled={loading}
-                        className="btn-press btn-shine inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_0_24px_-6px_rgba(168,85,247,0.9)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:min-w-[14rem]"
+                        className="btn-press btn-shine inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_0_24px_-6px_rgba(168,85,247,0.9)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:min-w-[14rem]"
                       >
                         {loading ? (
                           <span className="relative flex items-center gap-2">

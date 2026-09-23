@@ -43,5 +43,5 @@ export const SKILLS: { name: string; icon: IconType; color: string }[] = [
   { name: "Photoshop", icon: TbBrandAdobePhotoshop, color: "#31A8FF" },
   { name: "Office", icon: TbBrandOffice, color: "#F2663A" },
   { name: "Photography", icon: FiCamera, color: "#E5E5E5" },
-  { name: "Filmmaking", icon: FiFilm, color: "#F472B6" },
+  { name: "Filmmaking", icon: FiFilm, color: "#22D3EE" },
 ];

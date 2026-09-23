@@ -21,7 +21,7 @@ export default function Photography() {
           <GlowCard key={src} delay={i * 0.08} className="aspect-square">
             <span
               aria-hidden
-              className="absolute inset-0 bg-gradient-to-br from-purple-600/25 via-transparent to-pink-600/25"
+              className="absolute inset-0 bg-gradient-to-br from-purple-600/25 via-transparent to-cyan-500/25"
             />
             <span
               aria-hidden

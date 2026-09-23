@@ -12,7 +12,12 @@ export const ease = [0.22, 1, 0.36, 1] as const;
 /** Spotlight + grain behind the top of a page. */
 export function PageBackdrop() {
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[620px] overflow-hidden">
+    /* Full-bleed: the section it sits in is width-capped, so anchoring to the
+       section would leave visible vertical edges cutting through the content. */
+    <div
+      aria-hidden
+      className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[620px] w-screen max-w-[100vw] -translate-x-1/2 overflow-hidden"
+    >
       <div
         className="absolute inset-0"
         style={{
@@ -25,9 +30,10 @@ export function PageBackdrop() {
         style={{
           backgroundImage:
             "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+          maskImage: "linear-gradient(to bottom, black 45%, transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to bottom, black 45%, transparent 100%)",
         }}
       />
-      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
     </div>
   );
 }
@@ -76,7 +82,7 @@ export function PageHeader({
         className="mt-4 text-[1.9rem] font-bold tracking-tight xs:text-4xl sm:text-5xl md:text-6xl"
       >
         {title}{" "}
-        <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
           {accent}
         </span>
       </motion.h1>

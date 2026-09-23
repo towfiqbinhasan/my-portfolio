@@ -46,11 +46,11 @@ function FooterLink({ href, name }: { href: string; name: string }) {
     <li>
       <Link
         href={href}
-        className="group/link inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors duration-300 hover:text-white"
+        className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-gray-300 transition-colors duration-300 hover:text-white"
       >
         <span
           aria-hidden
-          className="h-px w-0 bg-gradient-to-r from-purple-400 to-pink-400 transition-all duration-300 group-hover/link:w-3"
+          className="h-px w-0 bg-gradient-to-r from-purple-400 to-cyan-400 transition-all duration-300 group-hover/link:w-3"
         />
         {name}
         <FiArrowUpRight className="text-[0.85em] opacity-0 transition-all duration-300 group-hover/link:opacity-100" />
@@ -97,14 +97,14 @@ export default function Footer() {
               <span className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-transparent transition-all duration-700 group-hover:rotate-[360deg] group-hover:ring-purple-400/60">
                 <Image src="/logo.png" alt="Towfiq Bin Hasan Logo" fill sizes="40px" className="object-cover" />
               </span>
-              <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-lg font-bold text-transparent">
+              <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-lg font-bold text-transparent">
                 Towfiq Bin Hasan
               </span>
             </Link>
 
             <a
               href="mailto:towfiqbinhasan@gmail.com"
-              className="group/mail mt-5 inline-flex items-center gap-2.5 text-sm text-gray-500 transition-colors duration-300 hover:text-white"
+              className="group/mail mt-5 inline-flex items-center gap-2.5 text-sm font-medium text-gray-300 transition-colors duration-300 hover:text-white"
             >
               <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10 transition-all duration-300 group-hover/mail:-translate-y-0.5 group-hover/mail:bg-purple-500/15 group-hover/mail:ring-purple-400/40">
                 <FiMail />
@@ -132,7 +132,7 @@ export default function Footer() {
 
           {/* Link columns */}
           <motion.div {...reveal(0.1)}>
-            <h3 className="mb-4 flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-purple-300/80">
+            <h3 className="mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-purple-300">
               <span aria-hidden className="h-px w-5 bg-gradient-to-r from-purple-400 to-transparent" />
               Explore
             </h3>
@@ -144,7 +144,7 @@ export default function Footer() {
           </motion.div>
 
           <motion.div {...reveal(0.18)}>
-            <h3 className="mb-4 flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-purple-300/80">
+            <h3 className="mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-purple-300">
               <span aria-hidden className="h-px w-5 bg-gradient-to-r from-purple-400 to-transparent" />
               More
             </h3>
@@ -157,13 +157,13 @@ export default function Footer() {
 
           {/* Get in touch */}
           <motion.div {...reveal(0.26)} className="sm:col-span-2 lg:col-span-1">
-            <h3 className="mb-4 flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-purple-300/80">
+            <h3 className="mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-purple-300">
               <span aria-hidden className="h-px w-5 bg-gradient-to-r from-purple-400 to-transparent" />
               Contact
             </h3>
             <Link
               href="/contact"
-              className="btn-press btn-shine inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_10px_28px_-12px_rgba(168,85,247,0.9)]"
+              className="btn-press btn-shine inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_10px_28px_-12px_rgba(168,85,247,0.9)]"
             >
               Contact Me
               <FiArrowUpRight />
@@ -176,13 +176,13 @@ export default function Footer() {
           {...reveal(0.3)}
           className="mt-12 flex flex-col items-center gap-4 border-t border-white/10 pt-6 sm:flex-row sm:justify-between"
         >
-          <p className="text-center text-sm text-gray-500 sm:text-left">
+          <p className="text-center text-sm font-medium text-gray-400 sm:text-left">
             © {new Date().getFullYear()} Towfiq Bin Hasan. All rights reserved.
           </p>
 
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="btn-press group/top inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-gray-400 hover:border-purple-400/40 hover:bg-purple-500/10 hover:text-white"
+            className="btn-press group/top inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs font-medium text-gray-300 hover:border-purple-400/40 hover:bg-purple-500/10 hover:text-white"
           >
             Back to top
             <FiArrowUp className="transition-transform duration-300 group-hover/top:-translate-y-0.5" />

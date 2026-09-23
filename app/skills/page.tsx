@@ -273,7 +273,7 @@ const tools: Skill[] = [
     title: "Microsoft Visual Studio",
     tagline: "The backbone of my first big C# project — a full Pharmacy Management System.",
     icon: TbBrandVisualStudio,
-    iconBg: "from-purple-600 to-fuchsia-500",
+    iconBg: "from-purple-600 to-violet-500",
     category: "Tool",
     tags: ["C#", "OOP", "Database Integration"],
     link: "https://visualstudio.microsoft.com",
@@ -637,7 +637,7 @@ function SkillModal({ skill, onClose }: { skill: Skill; onClose: () => void }) {
                 <Icon className="text-xl text-white sm:text-2xl" />
               </div>
               <div className="min-w-0">
-                <h3 className="bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-xl font-semibold leading-snug text-transparent sm:text-2xl md:text-3xl">
+                <h3 className="bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-xl font-semibold leading-snug text-transparent sm:text-2xl md:text-3xl">
                   {skill.title}
                 </h3>
                 <p className="mt-2 max-w-2xl text-xs leading-relaxed text-gray-400 sm:text-sm">
@@ -662,7 +662,7 @@ function SkillModal({ skill, onClose }: { skill: Skill; onClose: () => void }) {
                 href={skill.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-press btn-shine group/link inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
+                className="btn-press btn-shine group/link inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
               >
                 <FiExternalLink className="transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />{" "}
                 Visit Official Site
@@ -676,7 +676,7 @@ function SkillModal({ skill, onClose }: { skill: Skill; onClose: () => void }) {
                 <motion.div key={i} {...lightboxItem(3 + i)} className="relative pl-4 sm:pl-5">
                   <span
                     aria-hidden
-                    className="absolute left-0 top-[0.35rem] h-5 w-1 rounded-full bg-gradient-to-b from-purple-400 to-pink-400 shadow-[0_0_10px_-2px_rgba(168,85,247,0.9)]"
+                    className="absolute left-0 top-[0.35rem] h-5 w-1 rounded-full bg-gradient-to-b from-purple-400 to-cyan-400 shadow-[0_0_10px_-2px_rgba(168,85,247,0.9)]"
                   />
                   <h4 className="text-sm font-semibold leading-snug text-purple-200 sm:text-[0.95rem]">
                     {s.heading}
@@ -740,7 +740,7 @@ export default function SkillsPage() {
           transition={{ duration: 0.6, ease }}
           className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 flex items-center gap-3"
         >
-          <span className="w-2 h-8 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full" />
+          <span className="w-2 h-8 bg-gradient-to-b from-purple-500 to-cyan-400 rounded-full" />
           Programming <span className="text-purple-400">Languages</span>
         </motion.h2>
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
@@ -758,7 +758,7 @@ export default function SkillsPage() {
           transition={{ duration: 0.6, ease }}
           className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 flex items-center gap-3"
         >
-          <span className="w-2 h-8 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full" />
+          <span className="w-2 h-8 bg-gradient-to-b from-purple-500 to-cyan-400 rounded-full" />
           Tools & <span className="text-purple-400">Software</span>
         </motion.h2>
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">

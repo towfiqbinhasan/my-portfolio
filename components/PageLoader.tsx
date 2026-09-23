@@ -87,7 +87,7 @@ export default function PageLoader() {
                 className="absolute h-32 w-32 rounded-full"
                 style={{
                   background:
-                    "conic-gradient(from 0deg, transparent 0deg, rgba(168,85,247,0.15) 140deg, #a855f7 300deg, #ec4899 360deg)",
+                    "conic-gradient(from 0deg, transparent 0deg, rgba(168,85,247,0.15) 140deg, #a855f7 300deg, #22d3ee 360deg)",
                   WebkitMask:
                     "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px))",
                   mask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px))",
@@ -101,7 +101,7 @@ export default function PageLoader() {
                 transition={{ duration: 1.6, repeat: Infinity, ease: "linear" }}
                 className="absolute h-32 w-32"
               >
-                <span className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-pink-400 shadow-[0_0_14px_4px_rgba(236,72,153,0.8)]" />
+                <span className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400 shadow-[0_0_14px_4px_rgba(34,211,238,0.8)]" />
               </motion.span>
 
               {/* Logo */}
@@ -120,7 +120,7 @@ export default function PageLoader() {
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ duration: 0.6, ease: "easeInOut" }}
-                className="block h-full w-full origin-left bg-gradient-to-r from-purple-400 to-pink-400"
+                className="block h-full w-full origin-left bg-gradient-to-r from-purple-400 to-cyan-400"
               />
             </div>
 

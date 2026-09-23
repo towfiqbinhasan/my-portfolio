@@ -29,7 +29,7 @@ export default function CertificatesSlider() {
     <section className="relative overflow-hidden py-12 sm:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
-          index="06"
+          index="07"
           eyebrow="Credentials"
           title="My"
           accent="Certificates"
@@ -131,14 +131,14 @@ export default function CertificatesSlider() {
 
             <div className="relative border-t border-white/5 p-5 sm:p-7 md:p-8">
               <motion.div {...lightboxItem(1)} className="flex items-start gap-3 sm:gap-4">
-                <span className="mt-1 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/25 to-pink-500/25 text-purple-200 ring-1 ring-purple-400/30">
+                <span className="mt-1 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/25 to-cyan-400/25 text-purple-200 ring-1 ring-purple-400/30">
                   <FiAward />
                 </span>
                 <div className="min-w-0">
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-purple-400/25 bg-purple-500/10 px-3 py-1 text-[11px] uppercase tracking-wider text-purple-200">
                     <FiCalendar className="text-xs" /> {selected.date}
                   </span>
-                  <h3 className="mt-2.5 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-xl font-semibold leading-snug text-transparent sm:text-2xl">
+                  <h3 className="mt-2.5 bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-xl font-semibold leading-snug text-transparent sm:text-2xl">
                     {selected.title}
                   </h3>
                 </div>

@@ -114,7 +114,7 @@ export default function Navbar() {
       className="object-cover"
     />
   </div>
-  <span className="text-base lg:text-lg font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent hidden sm:inline-block whitespace-nowrap">
+  <span className="text-base lg:text-lg font-bold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent hidden sm:inline-block whitespace-nowrap">
     Towfiq Bin Hasan
   </span>
 </Link>
@@ -212,7 +212,7 @@ export default function Navbar() {
                   transition={{ duration: 0.18, ease: "easeOut" }}
                   className="absolute top-full right-0 mt-3 w-[340px] bg-[#111117]/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden z-50"
                 >
-                  <div className="h-1 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500" />
+                  <div className="h-1 w-full bg-gradient-to-r from-purple-500 via-cyan-400 to-purple-500" />
 
                   <div className="p-3">
                     <p className="text-[11px] uppercase tracking-wider text-gray-500 px-3 pt-2 pb-3">
@@ -229,7 +229,7 @@ export default function Navbar() {
                             onClick={() => setMoreOpen(false)}
                             className={
                               isActive
-                                ? "flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm transition bg-gradient-to-r from-purple-500/25 to-pink-500/25 border border-purple-400/40 text-white"
+                                ? "flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm transition bg-gradient-to-r from-purple-500/25 to-cyan-400/25 border border-purple-400/40 text-white"
                                 : "flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm transition text-gray-400 hover:bg-white/5 hover:text-white border border-transparent"
                             }
                           >
@@ -308,7 +308,7 @@ export default function Navbar() {
                       onClick={() => setOpen(false)}
                       className={
                         isActive
-                          ? "block px-4 py-3 rounded-xl transition bg-gradient-to-r from-purple-500/30 to-pink-500/30 border border-purple-400/40 text-white"
+                          ? "block px-4 py-3 rounded-xl transition bg-gradient-to-r from-purple-500/30 to-cyan-400/30 border border-purple-400/40 text-white"
                           : "block px-4 py-3 rounded-xl transition text-gray-400 hover:bg-white/5 hover:text-white"
                       }
                     >
@@ -326,7 +326,7 @@ export default function Navbar() {
       <motion.div
         aria-hidden
         style={{ scaleX: progress }}
-        className="absolute bottom-0 left-0 right-0 h-[2px] origin-left bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-400"
+        className="absolute bottom-0 left-0 right-0 h-[2px] origin-left bg-gradient-to-r from-purple-500 via-cyan-400 to-cyan-400"
       />
     </motion.nav>
   );

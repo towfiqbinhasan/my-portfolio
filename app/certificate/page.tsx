@@ -164,7 +164,7 @@ export default function CertificatePage() {
                     >
                       <FiAward className="transition-transform duration-500 group-hover/badge:rotate-12 group-hover/badge:scale-110" />
                     </span>
-                    <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
+                    <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
                       {selected.title}
                     </h3>
                   </motion.div>

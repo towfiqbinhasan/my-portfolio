@@ -37,7 +37,7 @@ export default function Qualification() {
           whileInView={{ scaleY: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.4, ease }}
-          className="absolute left-4 top-0 bottom-0 w-px origin-top bg-gradient-to-b from-purple-500 via-pink-500 to-transparent sm:left-6 md:left-1/2 md:-translate-x-1/2"
+          className="absolute left-4 top-0 bottom-0 w-px origin-top bg-gradient-to-b from-purple-500 via-cyan-400 to-transparent sm:left-6 md:left-1/2 md:-translate-x-1/2"
         />
 
         <div className="space-y-8 sm:space-y-12">
@@ -57,7 +57,7 @@ export default function Qualification() {
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 + i * 0.1, ease }}
-                className="absolute left-4 top-7 z-10 h-3.5 w-3.5 -translate-x-1/2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-[0_0_14px_rgba(236,72,153,0.8)] ring-4 ring-[#0a0a0f] sm:left-6 sm:top-8 md:left-1/2"
+                className="absolute left-4 top-7 z-10 h-3.5 w-3.5 -translate-x-1/2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 shadow-[0_0_14px_rgba(34,211,238,0.8)] ring-4 ring-[#0a0a0f] sm:left-6 sm:top-8 md:left-1/2"
               />
 
               <div className="ml-10 w-[calc(100%-2.5rem)] sm:ml-16 sm:w-[calc(100%-4rem)] md:ml-0 md:w-1/2">
