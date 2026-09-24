@@ -254,13 +254,13 @@ export default function Hero() {
 
         {/* ---------- Right: portrait ---------- */}
         <motion.div
-          className="order-1 mx-auto flex w-full max-w-[640px] items-center gap-4 sm:gap-6 lg:order-2"
+          className="order-1 mx-auto flex w-full max-w-[640px] items-center justify-center lg:order-2 lg:max-w-none"
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, delay: 0.2, ease }}
         >
           {/* Tech icon column */}
-          <div className="hidden shrink-0 flex-col gap-3 sm:flex">
+          <div className="mr-3 hidden shrink-0 flex-col gap-3 sm:flex">
             {techColumn.map(({ icon: Icon, color, label }, i) => (
               <motion.div
                 key={label}
@@ -275,58 +275,60 @@ export default function Hero() {
             ))}
           </div>
 
-          <div className="relative flex min-w-0 flex-1 justify-center py-8 sm:justify-start">
-          <div className="relative h-[228px] w-[228px] xs:h-[266px] xs:w-[266px] sm:h-[300px] sm:w-[300px] xl:h-[380px] xl:w-[380px]">
+          {/* Cube */}
+          <div className="relative h-[228px] w-[228px] shrink-0 xs:h-[266px] xs:w-[266px] md:h-[300px] md:w-[300px] xl:h-[266px] xl:w-[266px] 2xl:h-[330px] 2xl:w-[330px]">
             {/* Blue glow behind the cube */}
             <div aria-hidden className="absolute -inset-10 rounded-full bg-blue-600/25 blur-3xl" />
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-[0.6] xs:scale-[0.7] sm:scale-[0.79] xl:scale-100">
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-[0.6] xs:scale-[0.7] md:scale-[0.79] xl:scale-[0.7] 2xl:scale-[0.87]">
               <RubikCube />
             </div>
           </div>
 
-          {/* Floating cards */}
-          <motion.div {...float(0)} className="absolute -top-2 right-0 hidden sm:block xl:-right-6">
-            <Link href="/projects" className={`${glass} group flex w-64 flex-col gap-3 rounded-2xl p-5`}>
-              <div className="flex items-center gap-3">
-                <LuCode className="shrink-0 text-4xl text-sky-400 drop-shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
-                <p className="border-l border-sky-400/30 pl-3 text-lg font-bold leading-tight text-white">
-                  Crafting Digital <span className="text-sky-400">Solutions</span>
+          {/* Info cards: stacked close together, with a clear gap from the cube.
+              Hidden on phones and on small laptops (lg), where there's no room beside the cube. */}
+          <div className="ml-5 hidden w-48 shrink-0 flex-col gap-4 sm:flex lg:hidden xl:flex 2xl:ml-8 2xl:w-60">
+            <motion.div {...float(0)}>
+              <Link href="/projects" className={`${glass} group flex flex-col gap-3 rounded-2xl p-4 2xl:p-5`}>
+                <div className="flex items-center gap-3">
+                  <LuCode className="shrink-0 text-3xl text-sky-400 drop-shadow-[0_0_8px_rgba(56,189,248,0.8)] 2xl:text-4xl" />
+                  <p className="border-l border-sky-400/30 pl-3 text-base font-bold leading-tight text-white 2xl:text-lg">
+                    Crafting Digital <span className="text-sky-400">Solutions</span>
+                  </p>
+                </div>
+                <div className="flex items-end justify-between gap-2">
+                  <p className="text-xs text-slate-300 2xl:text-sm">Turning Ideas Into Real Products</p>
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-sky-400/60 text-sky-300 transition-transform group-hover:translate-x-1">
+                    <FiArrowRight />
+                  </span>
+                </div>
+              </Link>
+            </motion.div>
+
+            <motion.div {...float(1.2)}>
+              <div className={`${glass} rounded-2xl p-4`}>
+                <div className="flex items-center gap-3">
+                  <LuBrainCircuit className="shrink-0 text-3xl text-sky-400 drop-shadow-[0_0_8px_rgba(56,189,248,0.8)] 2xl:text-4xl" />
+                  <p className="border-l border-sky-400/30 pl-3 text-sm font-bold leading-tight text-white 2xl:text-base">
+                    AI &amp; Machine <span className="block text-lg text-sky-400 2xl:text-xl">Learning</span>
+                  </p>
+                </div>
+                <p className="mt-3 text-[11px] text-sky-200/80 2xl:text-xs">Data Science Research</p>
+                <p className="text-[11px] text-sky-200/80 2xl:text-xs">Python • TensorFlow • PyTorch</p>
+              </div>
+            </motion.div>
+
+            <motion.div {...float(2.4)}>
+              <div className={`${glass} rounded-2xl px-4 py-3`}>
+                <p className="flex items-center gap-2.5 text-sm font-semibold text-white 2xl:text-base">
+                  <span className="h-2.5 w-2.5 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.9)]" />
+                  Software Engineer
+                </p>
+                <p className="mt-1.5 flex items-center gap-2.5 text-xs text-slate-300 2xl:text-sm">
+                  <LuMapPin className="shrink-0 text-sky-400" />
+                  Laravel • Next.js • React
                 </p>
               </div>
-              <div className="flex items-end justify-between gap-2">
-                <p className="text-sm text-slate-300">Turning Ideas Into Real Products</p>
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-sky-400/60 text-sky-300 transition-transform group-hover:translate-x-1">
-                  <FiArrowRight />
-                </span>
-              </div>
-            </Link>
-          </motion.div>
-
-          <motion.div {...float(1.2)} className="absolute right-0 top-[42%] hidden sm:block xl:-right-10">
-            <div className={`${glass} w-60 rounded-2xl p-4`}>
-              <div className="flex items-center gap-3">
-                <LuBrainCircuit className="shrink-0 text-4xl text-sky-400 drop-shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
-                <p className="border-l border-sky-400/30 pl-3 text-base font-bold leading-tight text-white">
-                  AI &amp; Machine <span className="block text-xl text-sky-400">Learning</span>
-                </p>
-              </div>
-              <p className="mt-3 text-xs text-sky-200/80">Data Science Research</p>
-              <p className="text-xs text-sky-200/80">Python • TensorFlow • PyTorch</p>
-            </div>
-          </motion.div>
-
-          <motion.div {...float(2.4)} className="absolute -bottom-2 right-0 hidden sm:block xl:-right-6">
-            <div className={`${glass} rounded-full px-6 py-3.5`}>
-              <p className="flex items-center gap-3 text-base font-semibold text-white">
-                <span className="h-3 w-3 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.9)]" />
-                Software Engineer
-              </p>
-              <p className="mt-1.5 flex items-center gap-3 text-sm text-slate-300">
-                <LuMapPin className="text-sky-400" />
-                Laravel • Next.js • React
-              </p>
-            </div>
-          </motion.div>
+            </motion.div>
           </div>
         </motion.div>
       </div>
