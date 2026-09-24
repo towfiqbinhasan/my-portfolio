@@ -3,13 +3,19 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageLoader from "@/components/PageLoader";
 import ChatBot from "@/components/ChatBot";
+import ResearchBackground from "@/components/ResearchBackground";
 import { Toaster } from "react-hot-toast";
-import { Instrument_Serif } from "next/font/google";
+import { Instrument_Serif, Outfit } from "next/font/google";
 
 const serif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-serif",
+});
+const display = Outfit({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-display",
 });
 export const metadata = {
   title: "Towfiq Bin Hasan",
@@ -22,18 +28,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={serif.variable} data-scroll-behavior="smooth">
+    <html lang="en" className={`${serif.variable} ${display.variable}`} data-scroll-behavior="smooth">
       <body>
        <PageLoader /> 
+       <ResearchBackground />
        <ChatBot />
   <Navbar />
   <Toaster
     position="top-center"
     toastOptions={{
       style: {
-        background: "#1a1a24",
+        background: "#0c1d3d",
         color: "#fff",
-        border: "1px solid rgba(168, 85, 247, 0.3)",
+        border: "1px solid rgba(14, 165, 233, 0.3)",
       },
     }}
   />

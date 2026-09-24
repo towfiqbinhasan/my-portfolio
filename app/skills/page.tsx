@@ -129,7 +129,7 @@ const languages: Skill[] = [
     title: "C#",
     tagline: "Conquering one of my toughest courses (OOP2) by building a real Pharmacy Management System.",
     icon: TbBrandCSharp,
-    iconBg: "from-purple-600 to-violet-500",
+    iconBg: "from-sky-600 to-blue-500",
     category: "Language",
     tags: ["C#", "OOP", "Windows Forms", "SQL"],
     link: "https://learn.microsoft.com/en-us/dotnet/csharp/",
@@ -273,7 +273,7 @@ const tools: Skill[] = [
     title: "Microsoft Visual Studio",
     tagline: "The backbone of my first big C# project — a full Pharmacy Management System.",
     icon: TbBrandVisualStudio,
-    iconBg: "from-purple-600 to-violet-500",
+    iconBg: "from-sky-600 to-blue-500",
     category: "Tool",
     tags: ["C#", "OOP", "Database Integration"],
     link: "https://visualstudio.microsoft.com",
@@ -475,7 +475,7 @@ const tools: Skill[] = [
     title: "Filmmaking & Adobe Video Editor",
     tagline: "Capturing the soul of every journey for the TH Team's travel content.",
     icon: TbBrandAdobePremiere,
-    iconBg: "from-indigo-700 to-purple-700",
+    iconBg: "from-indigo-700 to-sky-700",
     category: "Tool",
     tags: ["Filmmaking", "Travel Content"],
     link: "https://www.adobe.com/products/premiere.html",
@@ -542,7 +542,7 @@ function SkillCard({ skill, index, onClick }: { skill: Skill; index: number; onC
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
             title={`Visit official ${skill.title} website`}
-            className="btn-press group/link w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center border border-white/10 text-gray-400 hover:text-purple-300 hover:border-purple-400 hover:bg-purple-400/10"
+            className="btn-press group/link w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center border border-white/10 text-gray-400 hover:text-sky-300 hover:border-sky-400 hover:bg-sky-400/10"
           >
             <FiExternalLink className="text-sm transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
           </a>
@@ -555,7 +555,7 @@ function SkillCard({ skill, index, onClick }: { skill: Skill; index: number; onC
           {skill.tags.slice(0, 3).map((t) => (
             <span
               key={t}
-              className="text-[11px] px-2 py-1 rounded-full bg-purple-400/10 text-purple-300 border border-purple-400/20"
+              className="text-[11px] px-2 py-1 rounded-full bg-sky-400/10 text-sky-300 border border-sky-400/20"
             >
               {t}
             </span>
@@ -569,7 +569,7 @@ function SkillCard({ skill, index, onClick }: { skill: Skill; index: number; onC
 
         <button
           onClick={onClick}
-          className="btn-press mt-auto inline-flex w-fit items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs sm:text-sm font-medium text-purple-300 hover:border-purple-400/60 hover:bg-purple-500/15 hover:text-white"
+          className="btn-press mt-auto inline-flex w-fit items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs sm:text-sm font-medium text-sky-300 hover:border-sky-400/60 hover:bg-sky-500/15 hover:text-white"
         >
           Read the story
           <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
@@ -611,12 +611,12 @@ function SkillModal({ skill, onClose }: { skill: Skill; onClose: () => void }) {
         exit={{ opacity: 0, scale: 0.96, y: 16, transition: { duration: 0.22, ease: "easeIn" } }}
         transition={{ type: "spring", stiffness: 260, damping: 26 }}
         onClick={(e) => e.stopPropagation()}
-        className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#0e0e14] shadow-2xl shadow-black/70 sm:rounded-3xl"
+        className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#0a1730] shadow-2xl shadow-black/70 sm:rounded-3xl"
       >
         <button
           onClick={onClose}
           aria-label="Close"
-          className="btn-press group/close absolute right-3 top-3 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-lg text-white/80 ring-1 ring-white/10 backdrop-blur hover:bg-purple-500/60 hover:text-white sm:right-4 sm:top-4 sm:h-10 sm:w-10 sm:text-xl"
+          className="btn-press group/close absolute right-3 top-3 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-lg text-white/80 ring-1 ring-white/10 backdrop-blur hover:bg-sky-500/60 hover:text-white sm:right-4 sm:top-4 sm:h-10 sm:w-10 sm:text-xl"
         >
           <FiX className="transition-transform duration-300 group-hover/close:rotate-90" />
         </button>
@@ -637,7 +637,7 @@ function SkillModal({ skill, onClose }: { skill: Skill; onClose: () => void }) {
                 <Icon className="text-xl text-white sm:text-2xl" />
               </div>
               <div className="min-w-0">
-                <h3 className="bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-xl font-semibold leading-snug text-transparent sm:text-2xl md:text-3xl">
+                <h3 className="bg-gradient-to-r from-white via-sky-200 to-cyan-200 bg-clip-text text-xl font-semibold leading-snug text-transparent sm:text-2xl md:text-3xl">
                   {skill.title}
                 </h3>
                 <p className="mt-2 max-w-2xl text-xs leading-relaxed text-gray-400 sm:text-sm">
@@ -650,7 +650,7 @@ function SkillModal({ skill, onClose }: { skill: Skill; onClose: () => void }) {
               {skill.tags.map((t) => (
                 <span
                   key={t}
-                  className="btn-press rounded-full border border-purple-400/20 bg-purple-400/10 px-3 py-1 text-[11px] text-purple-300 hover:border-purple-400/50 hover:bg-purple-500/20 hover:text-white sm:text-xs"
+                  className="btn-press rounded-full border border-sky-400/20 bg-sky-400/10 px-3 py-1 text-[11px] text-sky-300 hover:border-sky-400/50 hover:bg-sky-500/20 hover:text-white sm:text-xs"
                 >
                   {t}
                 </span>
@@ -662,7 +662,7 @@ function SkillModal({ skill, onClose }: { skill: Skill; onClose: () => void }) {
                 href={skill.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-press btn-shine group/link inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
+                className="btn-press btn-shine group/link inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(14, 165, 233,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
               >
                 <FiExternalLink className="transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />{" "}
                 Visit Official Site
@@ -676,9 +676,9 @@ function SkillModal({ skill, onClose }: { skill: Skill; onClose: () => void }) {
                 <motion.div key={i} {...lightboxItem(3 + i)} className="relative pl-4 sm:pl-5">
                   <span
                     aria-hidden
-                    className="absolute left-0 top-[0.35rem] h-5 w-1 rounded-full bg-gradient-to-b from-purple-400 to-cyan-400 shadow-[0_0_10px_-2px_rgba(168,85,247,0.9)]"
+                    className="absolute left-0 top-[0.35rem] h-5 w-1 rounded-full bg-gradient-to-b from-sky-400 to-cyan-400 shadow-[0_0_10px_-2px_rgba(14, 165, 233,0.9)]"
                   />
-                  <h4 className="text-sm font-semibold leading-snug text-purple-200 sm:text-[0.95rem]">
+                  <h4 className="text-sm font-semibold leading-snug text-sky-200 sm:text-[0.95rem]">
                     {s.heading}
                   </h4>
                   <p className="mt-2.5 text-sm leading-[1.8] text-gray-300 md:text-[0.95rem]">
@@ -717,14 +717,14 @@ export default function SkillsPage() {
         }
       >
         <div className="flex flex-wrap items-center justify-center gap-2">
-          <span className="btn-press group/chip inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-400/30 bg-purple-400/5 text-purple-300 text-xs font-medium hover:border-purple-400/60 hover:bg-purple-500/15 hover:text-white">
+          <span className="btn-press group/chip inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-sky-400/30 bg-sky-400/5 text-sky-300 text-xs font-medium hover:border-sky-400/60 hover:bg-sky-500/15 hover:text-white">
             <FiGlobe className="text-sm transition-transform duration-500 group-hover/chip:rotate-[20deg] group-hover/chip:scale-110" />
             Languages, Tools & Creative Craft
           </span>
           {["English", "Bengali", "Hindi"].map((lang) => (
             <span
               key={lang}
-              className="btn-press text-xs sm:text-sm px-4 py-1.5 rounded-full border border-purple-400/30 text-purple-300 bg-purple-400/5 hover:border-purple-400/60 hover:bg-purple-500/15 hover:text-white"
+              className="btn-press text-xs sm:text-sm px-4 py-1.5 rounded-full border border-sky-400/30 text-sky-300 bg-sky-400/5 hover:border-sky-400/60 hover:bg-sky-500/15 hover:text-white"
             >
               {lang}
             </span>
@@ -740,8 +740,8 @@ export default function SkillsPage() {
           transition={{ duration: 0.6, ease }}
           className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 flex items-center gap-3"
         >
-          <span className="w-2 h-8 bg-gradient-to-b from-purple-500 to-cyan-400 rounded-full" />
-          Programming <span className="text-purple-400">Languages</span>
+          <span className="w-2 h-8 bg-gradient-to-b from-sky-500 to-cyan-400 rounded-full" />
+          Programming <span className="text-sky-400">Languages</span>
         </motion.h2>
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
           {languages.map((s, i) => (
@@ -758,8 +758,8 @@ export default function SkillsPage() {
           transition={{ duration: 0.6, ease }}
           className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 flex items-center gap-3"
         >
-          <span className="w-2 h-8 bg-gradient-to-b from-purple-500 to-cyan-400 rounded-full" />
-          Tools & <span className="text-purple-400">Software</span>
+          <span className="w-2 h-8 bg-gradient-to-b from-sky-500 to-cyan-400 rounded-full" />
+          Tools & <span className="text-sky-400">Software</span>
         </motion.h2>
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
           {tools.map((s, i) => (

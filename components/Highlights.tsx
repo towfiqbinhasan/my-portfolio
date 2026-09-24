@@ -72,9 +72,9 @@ export default function Highlights() {
                 </span>
 
                 <div className="absolute inset-x-0 bottom-0 p-5">
-                  <span className="mb-2 block h-px w-8 bg-gradient-to-r from-purple-400 to-cyan-400 transition-all duration-500 group-hover:w-16" />
+                  <span className="mb-2 block h-px w-8 bg-gradient-to-r from-sky-400 to-cyan-400 transition-all duration-500 group-hover:w-16" />
                   <p className="line-clamp-3 text-sm leading-snug text-gray-100">{item.caption}</p>
-                  <span className="mt-2 block text-[11px] text-purple-300 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  <span className="mt-2 block text-[11px] text-sky-300 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                     Read the story
                   </span>
                 </div>
@@ -97,7 +97,7 @@ export default function Highlights() {
           <>
             <motion.div
               {...lightboxItem(0)}
-              className="relative h-60 w-full bg-[#08080c] xs:h-72 sm:h-80 md:h-[26rem]"
+              className="relative h-60 w-full bg-[#020b1f] xs:h-72 sm:h-80 md:h-[26rem]"
             >
               <Image
                 src={selected.image}
@@ -108,7 +108,7 @@ export default function Highlights() {
               />
               <div
                 aria-hidden
-                className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0e0e14] via-[#0e0e14]/40 to-transparent"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0a1730] via-[#0a1730]/40 to-transparent"
               />
             </motion.div>
 
@@ -116,9 +116,9 @@ export default function Highlights() {
               <motion.div {...lightboxItem(1)}>
                 <span
                   aria-hidden
-                  className="block h-px w-10 rounded-full bg-gradient-to-r from-purple-400 to-cyan-400"
+                  className="block h-px w-10 rounded-full bg-gradient-to-r from-sky-400 to-cyan-400"
                 />
-                <h3 className="mt-4 bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-xl font-semibold leading-snug text-transparent sm:text-2xl">
+                <h3 className="mt-4 bg-gradient-to-r from-white via-sky-200 to-cyan-200 bg-clip-text text-xl font-semibold leading-snug text-transparent sm:text-2xl">
                   {selected.caption}
                 </h3>
               </motion.div>

@@ -58,7 +58,7 @@ export default function CertificatesSlider() {
               >
                 {/* Certificate sheet, framed so the white paper sits on dark glass */}
                 <div className="relative m-3 overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] p-px">
-                  <div className="relative h-36 w-full overflow-hidden rounded-xl bg-[#0b0b10] sm:h-40">
+                  <div className="relative h-36 w-full overflow-hidden rounded-xl bg-[#04102a] sm:h-40">
                     <Image
                       src={cert.image}
                       alt={cert.title}
@@ -79,7 +79,7 @@ export default function CertificatesSlider() {
 
                 <div className="px-4 pb-4 pt-1">
                   <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-white">{cert.title}</h3>
-                  <p className="mt-1.5 truncate text-xs text-purple-300/90">{cert.issuer}</p>
+                  <p className="mt-1.5 truncate text-xs text-sky-300/90">{cert.issuer}</p>
                   {cert.date && (
                     <p className="mt-2 inline-flex items-center gap-1.5 text-[11px] text-gray-500">
                       <FiCalendar /> {cert.date}
@@ -89,7 +89,7 @@ export default function CertificatesSlider() {
 
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-px scale-x-0 bg-gradient-to-r from-transparent via-purple-400 to-transparent transition-transform duration-500 group-hover:scale-x-100"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-px scale-x-0 bg-gradient-to-r from-transparent via-sky-400 to-transparent transition-transform duration-500 group-hover:scale-x-100"
                 />
               </button>
             );
@@ -114,7 +114,7 @@ export default function CertificatesSlider() {
           <>
             <motion.div
               {...lightboxItem(0)}
-              className="relative h-60 w-full bg-[#08080c] xs:h-72 sm:h-80 md:h-[26rem]"
+              className="relative h-60 w-full bg-[#020b1f] xs:h-72 sm:h-80 md:h-[26rem]"
             >
               <Image
                 src={selected.image}
@@ -125,20 +125,20 @@ export default function CertificatesSlider() {
               />
               <div
                 aria-hidden
-                className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0e0e14] to-transparent"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0a1730] to-transparent"
               />
             </motion.div>
 
             <div className="relative border-t border-white/5 p-5 sm:p-7 md:p-8">
               <motion.div {...lightboxItem(1)} className="flex items-start gap-3 sm:gap-4">
-                <span className="mt-1 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/25 to-cyan-400/25 text-purple-200 ring-1 ring-purple-400/30">
+                <span className="mt-1 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500/25 to-cyan-400/25 text-sky-200 ring-1 ring-sky-400/30">
                   <FiAward />
                 </span>
                 <div className="min-w-0">
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-purple-400/25 bg-purple-500/10 px-3 py-1 text-[11px] uppercase tracking-wider text-purple-200">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-sky-400/25 bg-sky-500/10 px-3 py-1 text-[11px] uppercase tracking-wider text-sky-200">
                     <FiCalendar className="text-xs" /> {selected.date}
                   </span>
-                  <h3 className="mt-2.5 bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-xl font-semibold leading-snug text-transparent sm:text-2xl">
+                  <h3 className="mt-2.5 bg-gradient-to-r from-white via-sky-200 to-cyan-200 bg-clip-text text-xl font-semibold leading-snug text-transparent sm:text-2xl">
                     {selected.title}
                   </h3>
                 </div>
@@ -149,7 +149,7 @@ export default function CertificatesSlider() {
                   selected.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="rounded-md bg-white/5 px-2.5 py-1 text-[11px] text-gray-300 ring-1 ring-white/10 transition hover:bg-purple-500/15 hover:text-white hover:ring-purple-400/40"
+                      className="rounded-md bg-white/5 px-2.5 py-1 text-[11px] text-gray-300 ring-1 ring-white/10 transition hover:bg-sky-500/15 hover:text-white hover:ring-sky-400/40"
                     >
                       {skill}
                     </span>
@@ -168,7 +168,7 @@ export default function CertificatesSlider() {
                   href={selected.issuerLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-xs text-gray-200 transition hover:border-purple-400/60 hover:bg-purple-500/15 hover:text-white sm:px-5 sm:text-sm"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-xs text-gray-200 transition hover:border-sky-400/60 hover:bg-sky-500/15 hover:text-white sm:px-5 sm:text-sm"
                 >
                   {selected.issuer} <FiExternalLink className="text-xs" />
                 </a>

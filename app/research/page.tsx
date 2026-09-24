@@ -69,9 +69,9 @@ function SectionTitle({ title, accent }: { title: string; accent: string }) {
       transition={{ duration: 0.6, ease }}
       className="mb-6 flex items-center gap-3 text-xl font-bold tracking-tight sm:mb-8 sm:text-2xl"
     >
-      <span className="h-7 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-b from-purple-500 to-cyan-400 shadow-[0_0_14px_-2px_rgba(168,85,247,0.8)] sm:h-8 sm:w-2" />
+      <span className="h-7 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-b from-sky-500 to-cyan-400 shadow-[0_0_14px_-2px_rgba(14, 165, 233,0.8)] sm:h-8 sm:w-2" />
       {title}{" "}
-      <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+      <span className="bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">
         {accent}
       </span>
     </motion.h2>
@@ -101,9 +101,9 @@ function ConferenceCard({
           />
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/15 to-transparent"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#020817] via-[#020817]/15 to-transparent"
           />
-          <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-purple-200 ring-1 ring-white/10 backdrop-blur">
+          <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-sky-200 ring-1 ring-white/10 backdrop-blur">
             <FiAward className="transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110" />{" "}
             Certificate
           </span>
@@ -111,7 +111,7 @@ function ConferenceCard({
         </div>
 
         <div className="relative flex flex-1 flex-col p-5 sm:p-6">
-          <p className="text-[11px] leading-relaxed text-purple-300 sm:text-xs">
+          <p className="text-[11px] leading-relaxed text-sky-300 sm:text-xs">
             {paper.conferenceName}, {paper.year}
           </p>
           <h3 className="mt-2 text-base font-semibold leading-snug text-white sm:text-lg">
@@ -128,7 +128,7 @@ function ConferenceCard({
                 e.stopPropagation();
                 onClick();
               }}
-              className="btn-press btn-shine group/cta inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
+              className="btn-press btn-shine group/cta inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(14, 165, 233,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
             >
               <FiEye className="transition-transform duration-300 group-hover/cta:scale-110" />{" "}
               View Details
@@ -178,12 +178,12 @@ function ConferenceModal({
         exit={{ opacity: 0, scale: 0.96, y: 16, transition: { duration: 0.22, ease: "easeIn" } }}
         transition={{ type: "spring", stiffness: 260, damping: 26 }}
         onClick={(e) => e.stopPropagation()}
-        className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#0e0e14] shadow-2xl shadow-black/70 sm:rounded-3xl"
+        className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#0a1730] shadow-2xl shadow-black/70 sm:rounded-3xl"
       >
         <button
           onClick={onClose}
           aria-label="Close"
-          className="btn-press group/close absolute right-3 top-3 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-lg text-white/80 ring-1 ring-white/10 backdrop-blur hover:bg-purple-500/60 hover:text-white sm:right-4 sm:top-4 sm:h-10 sm:w-10 sm:text-xl"
+          className="btn-press group/close absolute right-3 top-3 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-lg text-white/80 ring-1 ring-white/10 backdrop-blur hover:bg-sky-500/60 hover:text-white sm:right-4 sm:top-4 sm:h-10 sm:w-10 sm:text-xl"
         >
           <FiX className="transition-transform duration-300 group-hover/close:rotate-90" />
         </button>
@@ -196,7 +196,7 @@ function ConferenceModal({
               alt={`${paper.title} certificate`}
               fit="contain"
             />
-            <span className="pointer-events-none absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-purple-200 ring-1 ring-white/10 backdrop-blur sm:text-xs">
+            <span className="pointer-events-none absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-sky-200 ring-1 ring-white/10 backdrop-blur sm:text-xs">
               <FiAward /> Certificate
             </span>
           </div>
@@ -209,7 +209,7 @@ function ConferenceModal({
                 alt={`${paper.title} event photo`}
                 fit="cover"
               />
-              <span className="pointer-events-none absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-purple-200 ring-1 ring-white/10 backdrop-blur sm:text-xs">
+              <span className="pointer-events-none absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-sky-200 ring-1 ring-white/10 backdrop-blur sm:text-xs">
                 Event Photos
               </span>
             </div>
@@ -217,10 +217,10 @@ function ConferenceModal({
 
           <div className="relative border-t border-white/5 p-5 sm:p-7 md:p-8">
             <motion.div {...lightboxItem(0)}>
-              <span className="btn-press inline-flex items-center gap-1.5 rounded-full border border-purple-400/25 bg-purple-500/10 px-3 py-1 text-[11px] tracking-wider text-purple-200 hover:border-purple-400/50 hover:bg-purple-500/20 hover:text-white">
+              <span className="btn-press inline-flex items-center gap-1.5 rounded-full border border-sky-400/25 bg-sky-500/10 px-3 py-1 text-[11px] tracking-wider text-sky-200 hover:border-sky-400/50 hover:bg-sky-500/20 hover:text-white">
                 {paper.conferenceName}, {paper.year}
               </span>
-              <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
+              <h3 className="mt-3 bg-gradient-to-r from-white via-sky-200 to-cyan-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
                 {paper.title}
               </h3>
             </motion.div>
@@ -240,7 +240,7 @@ function ConferenceModal({
                 <a
                   href={paper.paperPdf}
                   target="_blank"
-                  className="btn-press btn-shine group/cta inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
+                  className="btn-press btn-shine group/cta inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(14, 165, 233,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
                 >
                   <FiFileText className="transition-transform duration-300 group-hover/cta:scale-110" />{" "}
                   View Paper
@@ -258,7 +258,7 @@ function ConferenceModal({
                 <a
                   href={paper.paperLink}
                   target="_blank"
-                  className="btn-press group/link inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-xs hover:border-purple-400/60 hover:bg-purple-500/15 hover:text-white sm:px-5 sm:text-sm"
+                  className="btn-press group/link inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-xs hover:border-sky-400/60 hover:bg-sky-500/15 hover:text-white sm:px-5 sm:text-sm"
                 >
                   <FiExternalLink className="transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />{" "}
                   View Paper Online
@@ -276,7 +276,7 @@ function ConferenceModal({
                 <a
                   href={paper.conferenceWebsite}
                   target="_blank"
-                  className="btn-press group/link inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-xs hover:border-purple-400/60 hover:bg-purple-500/15 hover:text-white sm:px-5 sm:text-sm"
+                  className="btn-press group/link inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-xs hover:border-sky-400/60 hover:bg-sky-500/15 hover:text-white sm:px-5 sm:text-sm"
                 >
                   <FiGlobe className="transition-transform duration-500 group-hover/link:rotate-[20deg] group-hover/link:scale-110" />{" "}
                   Conference Website
@@ -287,7 +287,7 @@ function ConferenceModal({
                 <a
                   href={paper.posterImage}
                   target="_blank"
-                  className="btn-press group/link inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-xs hover:border-purple-400/60 hover:bg-purple-500/15 hover:text-white sm:px-5 sm:text-sm"
+                  className="btn-press group/link inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-xs hover:border-sky-400/60 hover:bg-sky-500/15 hover:text-white sm:px-5 sm:text-sm"
                 >
                   <FiImage className="transition-transform duration-300 group-hover/link:scale-110" />{" "}
                   View Poster
@@ -349,11 +349,11 @@ export default function Research() {
           {journalPapers.map((p, i) => (
             <GlowCard key={p.title + i} delay={i * 0.1} className="p-5 sm:p-6">
               <div className="relative flex items-start gap-4">
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/20 to-cyan-400/20 text-purple-200 ring-1 ring-purple-400/30 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500/20 to-cyan-400/20 text-sky-200 ring-1 ring-sky-400/30 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                   <FiFileText />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-[11px] text-purple-300 sm:text-xs">
+                  <p className="text-[11px] text-sky-300 sm:text-xs">
                     {p.journalName}, {p.year}
                   </p>
                   <h3 className="mt-1.5 text-base font-semibold leading-snug text-white sm:text-lg">
@@ -366,7 +366,7 @@ export default function Research() {
                   <a
                     href={p.link}
                     target="_blank"
-                    className="btn-press group/link mt-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-xs hover:border-purple-400/60 hover:bg-purple-500/15 hover:text-white sm:text-sm"
+                    className="btn-press group/link mt-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-xs hover:border-sky-400/60 hover:bg-sky-500/15 hover:text-white sm:text-sm"
                   >
                     <FiExternalLink className="transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />{" "}
                     View Paper

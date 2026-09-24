@@ -80,8 +80,8 @@ export default function Navbar() {
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       className={
         scrolled
-          ? "fixed top-0 w-full z-50 bg-black/70 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/40 transition-colors duration-500"
-          : "fixed top-0 w-full z-50 bg-black/30 backdrop-blur-xl border-b border-white/5 transition-colors duration-500"
+          ? "fixed top-0 w-full z-50 bg-[#020b1f]/85 backdrop-blur-xl border-b border-sky-400/15 shadow-lg shadow-black/40 transition-colors duration-500"
+          : "fixed top-0 w-full z-50 bg-[#020b1f]/40 backdrop-blur-xl border-b border-sky-400/10 transition-colors duration-500"
       }
     >
       <div
@@ -105,7 +105,7 @@ export default function Navbar() {
   }}
   className="flex items-center gap-2 group flex-shrink-0 whitespace-nowrap"
 >
-  <div className="relative w-9 h-9 rounded-full overflow-hidden shadow-lg shadow-purple-500/30 ring-2 ring-transparent group-hover:ring-purple-400/60 group-hover:scale-110 group-hover:rotate-[360deg] transition-all duration-700 flex-shrink-0">
+  <div className="relative w-9 h-9 rounded-full overflow-hidden shadow-lg shadow-sky-500/30 ring-2 ring-transparent group-hover:ring-sky-400/60 group-hover:scale-110 group-hover:rotate-[360deg] transition-all duration-700 flex-shrink-0">
     <Image
       src="/logo.png"
       alt="Towfiq Bin Hasan Logo"
@@ -114,7 +114,7 @@ export default function Navbar() {
       className="object-cover"
     />
   </div>
-  <span className="text-base lg:text-lg font-bold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent hidden sm:inline-block whitespace-nowrap">
+  <span className="text-base lg:text-lg font-bold bg-gradient-to-r from-cyan-300 via-sky-400 to-blue-500 bg-clip-text text-transparent hidden sm:inline-block whitespace-nowrap">
     Towfiq Bin Hasan
   </span>
 </Link>
@@ -152,7 +152,7 @@ export default function Navbar() {
                   {isActive && (
                     <motion.div
                       layoutId="active-pill"
-                      className="nav-active-pill absolute inset-0 rounded-full border border-purple-400/50"
+                      className="nav-active-pill absolute inset-0 rounded-full border border-sky-400/50"
                       transition={{ type: "spring", stiffness: 300, damping: 28 }}
                     />
                   )}
@@ -184,7 +184,7 @@ export default function Navbar() {
             {isMoreActive && (
               <motion.div
                 layoutId="active-pill"
-                className="nav-active-pill absolute inset-0 rounded-full border border-purple-400/50"
+                className="nav-active-pill absolute inset-0 rounded-full border border-sky-400/50"
                 transition={{ type: "spring", stiffness: 300, damping: 28 }}
               />
             )}
@@ -210,9 +210,9 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 8, scale: 0.96 }}
                   transition={{ duration: 0.18, ease: "easeOut" }}
-                  className="absolute top-full right-0 mt-3 w-[340px] bg-[#111117]/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden z-50"
+                  className="absolute top-full right-0 mt-3 w-[340px] bg-[#0a1a36]/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden z-50"
                 >
-                  <div className="h-1 w-full bg-gradient-to-r from-purple-500 via-cyan-400 to-purple-500" />
+                  <div className="h-1 w-full bg-gradient-to-r from-sky-500 via-cyan-400 to-sky-500" />
 
                   <div className="p-3">
                     <p className="text-[11px] uppercase tracking-wider text-gray-500 px-3 pt-2 pb-3">
@@ -229,14 +229,14 @@ export default function Navbar() {
                             onClick={() => setMoreOpen(false)}
                             className={
                               isActive
-                                ? "flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm transition bg-gradient-to-r from-purple-500/25 to-cyan-400/25 border border-purple-400/40 text-white"
+                                ? "flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm transition bg-gradient-to-r from-sky-500/25 to-cyan-400/25 border border-sky-400/40 text-white"
                                 : "flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm transition text-gray-400 hover:bg-white/5 hover:text-white border border-transparent"
                             }
                           >
                             <span
                               className={
                                 isActive
-                                  ? "w-7 h-7 rounded-lg bg-purple-500/30 flex items-center justify-center flex-shrink-0"
+                                  ? "w-7 h-7 rounded-lg bg-sky-500/30 flex items-center justify-center flex-shrink-0"
                                   : "w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0"
                               }
                             >
@@ -308,7 +308,7 @@ export default function Navbar() {
                       onClick={() => setOpen(false)}
                       className={
                         isActive
-                          ? "block px-4 py-3 rounded-xl transition bg-gradient-to-r from-purple-500/30 to-cyan-400/30 border border-purple-400/40 text-white"
+                          ? "block px-4 py-3 rounded-xl transition bg-gradient-to-r from-sky-500/30 to-cyan-400/30 border border-sky-400/40 text-white"
                           : "block px-4 py-3 rounded-xl transition text-gray-400 hover:bg-white/5 hover:text-white"
                       }
                     >
@@ -326,7 +326,7 @@ export default function Navbar() {
       <motion.div
         aria-hidden
         style={{ scaleX: progress }}
-        className="absolute bottom-0 left-0 right-0 h-[2px] origin-left bg-gradient-to-r from-purple-500 via-cyan-400 to-cyan-400"
+        className="absolute bottom-0 left-0 right-0 h-[2px] origin-left bg-gradient-to-r from-sky-500 via-cyan-400 to-cyan-400"
       />
     </motion.nav>
   );

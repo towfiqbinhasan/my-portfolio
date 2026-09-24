@@ -28,7 +28,7 @@ const activities: ActivityItem[] = [
 
 // Accent per card, cycled by position so the grid keeps some colour rhythm.
 const accents = [
-  "from-purple-500 to-cyan-400",
+  "from-sky-500 to-cyan-400",
   "from-cyan-500 to-blue-500",
   "from-amber-500 to-orange-500",
   "from-emerald-500 to-teal-500",
@@ -70,12 +70,12 @@ export default function ActivityPage() {
                   <h3 className="text-base font-semibold leading-snug text-white sm:text-lg">
                     {activity.title}
                   </h3>
-                  <p className="mt-1 text-xs text-purple-300 sm:text-sm">{activity.organization}</p>
+                  <p className="mt-1 text-xs text-sky-300 sm:text-sm">{activity.organization}</p>
                 </div>
               </div>
 
-              <p className="btn-press mt-4 inline-flex w-fit items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] text-gray-400 hover:border-purple-400/40 hover:bg-purple-500/10 hover:text-purple-200">
-                <FiCalendar className="text-purple-400/80 transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110" />{" "}
+              <p className="btn-press mt-4 inline-flex w-fit items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] text-gray-400 hover:border-sky-400/40 hover:bg-sky-500/10 hover:text-sky-200">
+                <FiCalendar className="text-sky-400/80 transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110" />{" "}
                 {activity.date}
               </p>
 
@@ -85,7 +85,7 @@ export default function ActivityPage() {
 
               <span
                 aria-hidden
-                className="pointer-events-none absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-gradient-to-r from-transparent via-purple-400 to-transparent transition-transform duration-500 group-hover:scale-x-100"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-gradient-to-r from-transparent via-sky-400 to-transparent transition-transform duration-500 group-hover:scale-x-100"
               />
             </div>
           </GlowCard>

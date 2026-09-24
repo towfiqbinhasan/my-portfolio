@@ -21,11 +21,11 @@ export default function Photography() {
           <GlowCard key={src} delay={i * 0.08} className="aspect-square">
             <span
               aria-hidden
-              className="absolute inset-0 bg-gradient-to-br from-purple-600/25 via-transparent to-cyan-500/25"
+              className="absolute inset-0 bg-gradient-to-br from-sky-600/25 via-transparent to-cyan-500/25"
             />
             <span
               aria-hidden
-              className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(168,85,247,0.18),transparent_65%)]"
+              className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(14, 165, 233,0.18),transparent_65%)]"
             />
             <span aria-hidden className="carousel-sheen pointer-events-none absolute inset-0" />
             <span className="absolute inset-0 flex items-center justify-center">
@@ -36,7 +36,7 @@ export default function Photography() {
             </span>
             <span
               aria-hidden
-              className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0a0a0f] to-transparent"
+              className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#020817] to-transparent"
             />
           </GlowCard>
         ))}

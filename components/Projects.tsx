@@ -73,9 +73,9 @@ function SectionTitle({ title, accent }: { title: string; accent: string }) {
       transition={{ duration: 0.6, ease }}
       className="mb-6 flex items-center gap-3 text-xl font-bold tracking-tight sm:mb-8 sm:text-2xl"
     >
-      <span className="h-7 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-b from-purple-500 to-cyan-400 shadow-[0_0_14px_-2px_rgba(168,85,247,0.8)] sm:h-8 sm:w-2" />
+      <span className="h-7 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-b from-sky-500 to-cyan-400 shadow-[0_0_14px_-2px_rgba(14, 165, 233,0.8)] sm:h-8 sm:w-2" />
       {title}{" "}
-      <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+      <span className="bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">
         {accent}
       </span>
     </motion.h2>
@@ -106,7 +106,7 @@ function ProjectCard({
           )}
           <div
             aria-hidden
-            className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/20 to-transparent"
+            className="absolute inset-0 bg-gradient-to-t from-[#020817] via-[#020817]/20 to-transparent"
           />
           <span aria-hidden className="carousel-sheen pointer-events-none absolute inset-0" />
         </div>
@@ -121,7 +121,7 @@ function ProjectCard({
             {project.tech.map((t) => (
               <span
                 key={t}
-                className="rounded-md bg-white/5 px-2 py-0.5 text-[11px] text-gray-300 ring-1 ring-white/10 transition duration-300 hover:-translate-y-0.5 hover:bg-purple-500/15 hover:text-white hover:ring-purple-400/40"
+                className="rounded-md bg-white/5 px-2 py-0.5 text-[11px] text-gray-300 ring-1 ring-white/10 transition duration-300 hover:-translate-y-0.5 hover:bg-sky-500/15 hover:text-white hover:ring-sky-400/40"
               >
                 {t}
               </span>
@@ -134,7 +134,7 @@ function ProjectCard({
                 href={project.live}
                 onClick={(e) => e.stopPropagation()}
                 target="_blank"
-                className="group/link flex items-center gap-1.5 text-xs transition-colors duration-300 hover:text-purple-300 sm:text-sm"
+                className="group/link flex items-center gap-1.5 text-xs transition-colors duration-300 hover:text-sky-300 sm:text-sm"
               >
                 <FiExternalLink className="transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
                 <span className={linkUnderline}>Live</span>
@@ -156,7 +156,7 @@ function ProjectCard({
               href={project.github}
               onClick={(e) => e.stopPropagation()}
               target="_blank"
-              className="group/link flex items-center gap-1.5 text-xs transition-colors duration-300 hover:text-purple-300 sm:text-sm"
+              className="group/link flex items-center gap-1.5 text-xs transition-colors duration-300 hover:text-sky-300 sm:text-sm"
             >
               <FiGithub className="transition-transform duration-300 group-hover/link:scale-110" />
               <span className={linkUnderline}>Code</span>
@@ -168,7 +168,7 @@ function ProjectCard({
                   href={d.url}
                   onClick={(e) => e.stopPropagation()}
                   target="_blank"
-                  className="group/link flex items-center gap-1.5 text-xs transition-colors duration-300 hover:text-purple-300 sm:text-sm"
+                  className="group/link flex items-center gap-1.5 text-xs transition-colors duration-300 hover:text-sky-300 sm:text-sm"
                 >
                   <FiFileText className="transition-transform duration-300 group-hover/link:-translate-y-0.5" />
                   <span className={linkUnderline}>{d.label}</span>
@@ -181,7 +181,7 @@ function ProjectCard({
               e.stopPropagation();
               onClick();
             }}
-            className="btn-press btn-shine mt-5 w-full rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-4 py-2.5 text-center text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] hover:opacity-90 hover:shadow-[0_0_28px_-6px_rgba(34,211,238,0.9)] sm:text-sm"
+            className="btn-press btn-shine mt-5 w-full rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2.5 text-center text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(14, 165, 233,0.9)] hover:opacity-90 hover:shadow-[0_0_28px_-6px_rgba(34,211,238,0.9)] sm:text-sm"
           >
             View Details
           </button>
@@ -227,12 +227,12 @@ function ProjectModal({
         exit={{ opacity: 0, scale: 0.96, y: 16, transition: { duration: 0.22, ease: "easeIn" } }}
         transition={{ type: "spring", stiffness: 260, damping: 26 }}
         onClick={(e) => e.stopPropagation()}
-        className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#0e0e14] shadow-2xl shadow-black/70 sm:rounded-3xl"
+        className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#0a1730] shadow-2xl shadow-black/70 sm:rounded-3xl"
       >
         <button
           onClick={onClose}
           aria-label="Close"
-          className="btn-press group/close absolute right-3 top-3 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-lg text-white/80 ring-1 ring-white/10 backdrop-blur hover:bg-purple-500/60 hover:text-white sm:right-4 sm:top-4 sm:h-10 sm:w-10 sm:text-xl"
+          className="btn-press group/close absolute right-3 top-3 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-lg text-white/80 ring-1 ring-white/10 backdrop-blur hover:bg-sky-500/60 hover:text-white sm:right-4 sm:top-4 sm:h-10 sm:w-10 sm:text-xl"
         >
           <FiX className="transition-transform duration-300 group-hover/close:rotate-90" />
         </button>
@@ -251,10 +251,10 @@ function ProjectModal({
 
           <div className="relative border-t border-white/5 p-5 sm:p-7 md:p-8">
             <motion.div {...lightboxItem(0)}>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-purple-400/25 bg-purple-500/10 px-3 py-1 text-[11px] uppercase tracking-wider text-purple-200">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-sky-400/25 bg-sky-500/10 px-3 py-1 text-[11px] uppercase tracking-wider text-sky-200">
                 {project.field}
               </span>
-              <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
+              <h3 className="mt-3 bg-gradient-to-r from-white via-sky-200 to-cyan-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
                 {project.title}
               </h3>
             </motion.div>
@@ -263,7 +263,7 @@ function ProjectModal({
               {project.tech.map((t) => (
                 <span
                   key={t}
-                  className="rounded-md bg-white/5 px-2.5 py-1 text-[11px] text-gray-300 ring-1 ring-white/10 transition hover:bg-purple-500/15 hover:text-white hover:ring-purple-400/40"
+                  className="rounded-md bg-white/5 px-2.5 py-1 text-[11px] text-gray-300 ring-1 ring-white/10 transition hover:bg-sky-500/15 hover:text-white hover:ring-sky-400/40"
                 >
                   {t}
                 </span>
@@ -282,7 +282,7 @@ function ProjectModal({
                 <a
                   href={project.live}
                   target="_blank"
-                  className="btn-press btn-shine inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(168,85,247,0.9)] hover:opacity-90 hover:shadow-[0_0_28px_-6px_rgba(34,211,238,0.9)] sm:px-5 sm:text-sm"
+                  className="btn-press btn-shine inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(14, 165, 233,0.9)] hover:opacity-90 hover:shadow-[0_0_28px_-6px_rgba(34,211,238,0.9)] sm:px-5 sm:text-sm"
                 >
                   <FiExternalLink /> Live Demo
                 </a>
@@ -298,7 +298,7 @@ function ProjectModal({
               <a
                 href={project.github}
                 target="_blank"
-                className="btn-press inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-xs hover:border-purple-400/60 hover:bg-purple-500/15 hover:text-white sm:px-5 sm:text-sm"
+                className="btn-press inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-xs hover:border-sky-400/60 hover:bg-sky-500/15 hover:text-white sm:px-5 sm:text-sm"
               >
                 <FiGithub /> View Code
               </a>
@@ -308,7 +308,7 @@ function ProjectModal({
                     key={d.url}
                     href={d.url}
                     target="_blank"
-                    className="btn-press inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-xs hover:border-purple-400/60 hover:bg-purple-500/15 hover:text-white sm:px-5 sm:text-sm"
+                    className="btn-press inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-xs hover:border-sky-400/60 hover:bg-sky-500/15 hover:text-white sm:px-5 sm:text-sm"
                   >
                     <FiFileText /> {d.label}
                   </a>
@@ -369,7 +369,7 @@ export default function Projects() {
                 className={
                   active
                     ? "btn-press relative rounded-full border border-transparent px-3 py-1.5 text-xs font-medium text-white xs:px-4 xs:py-2 xs:text-sm"
-                    : "btn-press relative rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs text-gray-400 hover:border-purple-400/50 hover:bg-white/[0.06] hover:text-purple-200 xs:px-4 xs:py-2 xs:text-sm"
+                    : "btn-press relative rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs text-gray-400 hover:border-sky-400/50 hover:bg-white/[0.06] hover:text-sky-200 xs:px-4 xs:py-2 xs:text-sm"
                 }
               >
                 {active && (
@@ -377,7 +377,7 @@ export default function Projects() {
                     aria-hidden
                     layoutId="project-filter-pill"
                     transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                    className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 shadow-[0_0_20px_-4px_rgba(168,85,247,0.9)]"
+                    className="absolute inset-0 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 shadow-[0_0_20px_-4px_rgba(14, 165, 233,0.9)]"
                   />
                 )}
                 <span className="relative whitespace-nowrap">{cat}</span>

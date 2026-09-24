@@ -37,7 +37,7 @@ export default function Qualification() {
           whileInView={{ scaleY: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.4, ease }}
-          className="absolute left-4 top-0 bottom-0 w-px origin-top bg-gradient-to-b from-purple-500 via-cyan-400 to-transparent sm:left-6 md:left-1/2 md:-translate-x-1/2"
+          className="absolute left-4 top-0 bottom-0 w-px origin-top bg-gradient-to-b from-sky-500 via-cyan-400 to-transparent sm:left-6 md:left-1/2 md:-translate-x-1/2"
         />
 
         <div className="space-y-8 sm:space-y-12">
@@ -57,7 +57,7 @@ export default function Qualification() {
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 + i * 0.1, ease }}
-                className="absolute left-4 top-7 z-10 h-3.5 w-3.5 -translate-x-1/2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 shadow-[0_0_14px_rgba(34,211,238,0.8)] ring-4 ring-[#0a0a0f] sm:left-6 sm:top-8 md:left-1/2"
+                className="absolute left-4 top-7 z-10 h-3.5 w-3.5 -translate-x-1/2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 shadow-[0_0_14px_rgba(34,211,238,0.8)] ring-4 ring-[#020817] sm:left-6 sm:top-8 md:left-1/2"
               />
 
               <div className="ml-10 w-[calc(100%-2.5rem)] sm:ml-16 sm:w-[calc(100%-4rem)] md:ml-0 md:w-1/2">
@@ -70,8 +70,8 @@ export default function Qualification() {
                       sizes="(max-width: 768px) 100vw, 500px"
                       className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/20 to-transparent" />
-                    <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-purple-200 ring-1 ring-white/10 backdrop-blur">
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#020817] via-[#020817]/20 to-transparent" />
+                    <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-sky-200 ring-1 ring-white/10 backdrop-blur">
                       <FiCalendar className="transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110" />{" "}
                       {q.duration}
                     </span>
@@ -85,9 +85,9 @@ export default function Qualification() {
                     <h3 className="text-base font-semibold leading-snug text-white sm:text-lg">
                       {q.degree}
                     </h3>
-                    <p className="mt-1.5 text-xs text-purple-300 sm:text-sm">{q.major}</p>
+                    <p className="mt-1.5 text-xs text-sky-300 sm:text-sm">{q.major}</p>
                     <p className="mt-3 flex items-start gap-2 text-xs leading-relaxed text-gray-400 sm:text-sm">
-                      <FiMapPin className="mt-0.5 flex-shrink-0 text-purple-400/70 transition-all duration-300 group-hover:scale-110 group-hover:text-purple-300" />
+                      <FiMapPin className="mt-0.5 flex-shrink-0 text-sky-400/70 transition-all duration-300 group-hover:scale-110 group-hover:text-sky-300" />
                       {q.institute}
                     </p>
 
@@ -96,7 +96,7 @@ export default function Qualification() {
                         href={q.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn-press group/link mt-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-xs hover:border-purple-400/60 hover:bg-purple-500/15 hover:text-white sm:text-sm"
+                        className="btn-press group/link mt-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-xs hover:border-sky-400/60 hover:bg-sky-500/15 hover:text-white sm:text-sm"
                       >
                         Visit Website
                         <FiExternalLink className="transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />

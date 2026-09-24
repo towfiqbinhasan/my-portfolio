@@ -22,7 +22,7 @@ export function PageBackdrop() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 70% 60% at 50% -10%, rgba(168,85,247,0.16), transparent 70%)",
+            "radial-gradient(ellipse 70% 60% at 50% -10%, rgba(14, 165, 233,0.16), transparent 70%)",
         }}
       />
       <div
@@ -58,20 +58,20 @@ export function PageHeader({
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease }}
-        className="flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-purple-300/80 sm:text-xs"
+        className="flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-sky-300/80 sm:text-xs"
       >
         <motion.span
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.7, delay: 0.15, ease }}
-          className="h-px w-8 origin-right bg-gradient-to-l from-purple-400 to-transparent sm:w-12"
+          className="h-px w-8 origin-right bg-gradient-to-l from-sky-400 to-transparent sm:w-12"
         />
         {eyebrow}
         <motion.span
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.7, delay: 0.15, ease }}
-          className="h-px w-8 origin-left bg-gradient-to-r from-purple-400 to-transparent sm:w-12"
+          className="h-px w-8 origin-left bg-gradient-to-r from-sky-400 to-transparent sm:w-12"
         />
       </motion.div>
 
@@ -82,7 +82,7 @@ export function PageHeader({
         className="mt-4 text-[1.9rem] font-bold tracking-tight xs:text-4xl sm:text-5xl md:text-6xl"
       >
         {title}{" "}
-        <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-sky-400 via-cyan-400 to-sky-400 bg-clip-text text-transparent">
           {accent}
         </span>
       </motion.h1>
@@ -156,7 +156,7 @@ export function StatTile({
 }) {
   return (
     <GlowCard delay={delay} className="p-4 text-center sm:p-5">
-      <div className="bg-gradient-to-br from-white to-purple-300 bg-clip-text text-2xl font-bold text-transparent xs:text-3xl sm:text-4xl">
+      <div className="bg-gradient-to-br from-white to-sky-300 bg-clip-text text-2xl font-bold text-transparent xs:text-3xl sm:text-4xl">
         {value}
       </div>
       <p className="mt-1 text-[11px] leading-tight text-gray-400 sm:text-sm">{label}</p>

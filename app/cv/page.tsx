@@ -38,7 +38,7 @@ const cvCategories: CVCategory[] = [
     title: "Networking",
     subtitle: "Network Engineering & Infrastructure",
     icon: FiCpu,
-    color: "from-purple-500 to-indigo-500",
+    color: "from-sky-500 to-indigo-500",
     versions: [
       {
         label: "With Photo",
@@ -78,7 +78,7 @@ const cvCategories: CVCategory[] = [
     title: "Information Systems",
     subtitle: "Data, Databases & Information Management",
     icon: FiDatabase,
-    color: "from-violet-500 to-purple-500",
+    color: "from-blue-500 to-sky-500",
     versions: [
       {
         label: "With Photo",
@@ -118,7 +118,7 @@ const cvCategories: CVCategory[] = [
     title: "Networking + Information Systems",
     subtitle: "Combined profile covering both disciplines",
     icon: FiLayers,
-    color: "from-purple-500 to-sky-500",
+    color: "from-sky-500 to-sky-500",
     versions: [
       {
         label: "With Photo",
@@ -158,7 +158,7 @@ const cvCategories: CVCategory[] = [
     title: "Networking + Software Engineering + Information Systems",
     subtitle: "Complete all-in-one combined profile",
     icon: FiLayers,
-    color: "from-purple-500 via-cyan-400 to-teal-500",
+    color: "from-sky-500 via-cyan-400 to-teal-500",
     versions: [
       {
         label: "With Photo",
@@ -183,7 +183,7 @@ type SelectedCV = {
 };
 
 const fieldClass =
-  "field-input w-full rounded-xl border border-white/10 bg-white/[0.04] py-3 pl-11 pr-4 text-sm text-white placeholder:text-gray-500 focus:border-purple-400/60 focus:bg-white/[0.06] focus:outline-none focus:ring-2 focus:ring-purple-500/35";
+  "field-input w-full rounded-xl border border-white/10 bg-white/[0.04] py-3 pl-11 pr-4 text-sm text-white placeholder:text-gray-500 focus:border-sky-400/60 focus:bg-white/[0.06] focus:outline-none focus:ring-2 focus:ring-sky-500/35";
 const labelClass = "field-label mb-2 block text-sm text-gray-400";
 const fieldIconClass =
   "field-icon pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-500";
@@ -281,7 +281,7 @@ export default function CVPage() {
 
               <div className="relative mb-6 flex items-center gap-4 sm:mb-8">
                 <div
-                  className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${category.color} text-xl text-white shadow-lg shadow-purple-500/20 sm:h-14 sm:w-14 sm:text-2xl`}
+                  className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${category.color} text-xl text-white shadow-lg shadow-sky-500/20 sm:h-14 sm:w-14 sm:text-2xl`}
                 >
                   <CategoryIcon />
                 </div>
@@ -302,16 +302,16 @@ export default function CVPage() {
                       key={version.fileKey}
                       className={`group/version relative flex items-center justify-between gap-3 rounded-2xl border p-4 transition duration-300 sm:gap-4 sm:p-5 ${
                         isSelected
-                          ? "border-purple-400/60 bg-purple-500/10 shadow-[0_0_0_1px_rgba(168,85,247,0.25)]"
-                          : "border-white/10 bg-black/25 hover:border-purple-400/50 hover:bg-white/[0.05]"
+                          ? "border-sky-400/60 bg-sky-500/10 shadow-[0_0_0_1px_rgba(14, 165, 233,0.25)]"
+                          : "border-white/10 bg-black/25 hover:border-sky-400/50 hover:bg-white/[0.05]"
                       }`}
                     >
                       <div className="flex min-w-0 items-center gap-3 sm:gap-4">
                         <div
                           className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl ring-1 ring-white/10 transition sm:h-11 sm:w-11 ${
                             isSelected
-                              ? "bg-purple-500/25 text-purple-200"
-                              : "bg-white/5 text-purple-300 group-hover/version:bg-purple-500/20"
+                              ? "bg-sky-500/25 text-sky-200"
+                              : "bg-white/5 text-sky-300 group-hover/version:bg-sky-500/20"
                           }`}
                         >
                           <VersionIcon className="text-lg" />
@@ -334,7 +334,7 @@ export default function CVPage() {
                             fileKey: version.fileKey,
                           })
                         }
-                        className="btn-press btn-shine flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/50"
+                        className="btn-press btn-shine flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 text-white shadow-lg shadow-sky-500/25 hover:shadow-sky-500/50"
                         title={`Request ${category.title} CV - ${version.label}`}
                       >
                         <FiDownload />
@@ -365,17 +365,17 @@ export default function CVPage() {
               exit={{ opacity: 0, scale: 0.96, y: 16, transition: { duration: 0.22, ease: "easeIn" } }}
               transition={{ type: "spring", stiffness: 260, damping: 26 }}
               onClick={(e) => e.stopPropagation()}
-              className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#0e0e14] shadow-2xl shadow-black/70 sm:rounded-3xl"
+              className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#0a1730] shadow-2xl shadow-black/70 sm:rounded-3xl"
             >
               <div
                 aria-hidden
-                className="pointer-events-none absolute -right-24 -top-28 h-56 w-56 rounded-full bg-purple-600/20 blur-3xl"
+                className="pointer-events-none absolute -right-24 -top-28 h-56 w-56 rounded-full bg-sky-600/20 blur-3xl"
               />
 
               <button
                 onClick={() => setSelected(null)}
                 aria-label="Close"
-                className="btn-press absolute right-3 top-3 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-lg text-white/80 ring-1 ring-white/10 backdrop-blur hover:bg-purple-500/60 hover:text-white sm:right-4 sm:top-4 sm:h-10 sm:w-10 sm:text-xl"
+                className="btn-press absolute right-3 top-3 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-lg text-white/80 ring-1 ring-white/10 backdrop-blur hover:bg-sky-500/60 hover:text-white sm:right-4 sm:top-4 sm:h-10 sm:w-10 sm:text-xl"
               >
                 <FiX />
               </button>
@@ -385,14 +385,14 @@ export default function CVPage() {
                   <motion.div {...lightboxItem(0)}>
                     <span
                       aria-label="Curriculum vitae"
-                      className="inline-flex h-7 items-center justify-center rounded-full border border-purple-400/25 bg-purple-500/10 px-3 text-sm text-purple-200"
+                      className="inline-flex h-7 items-center justify-center rounded-full border border-sky-400/25 bg-sky-500/10 px-3 text-sm text-sky-200"
                     >
                       <FiFileText />
                     </span>
-                    <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text pr-10 text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
+                    <h3 className="mt-3 bg-gradient-to-r from-white via-sky-200 to-cyan-200 bg-clip-text pr-10 text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
                       Request Access
                     </h3>
-                    <p className="mt-2 text-sm leading-[1.8] text-purple-300">
+                    <p className="mt-2 text-sm leading-[1.8] text-sky-300">
                       {selected.categoryTitle} — {selected.versionLabel}
                     </p>
                   </motion.div>
@@ -472,7 +472,7 @@ export default function CVPage() {
                       <button
                         type="submit"
                         disabled={loading}
-                        className="btn-press btn-shine inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_0_24px_-6px_rgba(168,85,247,0.9)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:min-w-[14rem]"
+                        className="btn-press btn-shine inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_0_24px_-6px_rgba(14, 165, 233,0.9)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:min-w-[14rem]"
                       >
                         {loading ? (
                           <span className="relative flex items-center gap-2">

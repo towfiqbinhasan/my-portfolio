@@ -1,266 +1,63 @@
 "use client";
-import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
-import {
-  motion,
-  useMotionValue,
-  useAnimationFrame,
-  useReducedMotion,
-} from "framer-motion";
-import { FaGithub, FaLinkedin, FaFacebook, FaWhatsapp } from "react-icons/fa";
-import { FiMail, FiChevronRight, FiArrowUpRight, FiArrowRight, FiDownload } from "react-icons/fi";
-import { SKILLS } from "@/lib/skills";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
-
-/* ---------- 3D cube ---------- */
-
-const CUBIE = 76; // size of one small cube (px)
-const STEP = CUBIE + 4; // spacing between cubies
-const HALF = CUBIE / 2;
-type Coord = { x: number; y: number; z: number };
-
-// For each face: its transform, fake lighting, and which tile (0-8) a cubie
-// occupies on that side of the big cube — null when the face is hidden inside.
-const FACES: {
-  key: string;
-  transform: string;
-  shade: number;
-  tile: (c: Coord) => number | null;
-}[] = [
-  { key: "front", transform: `translateZ(${HALF}px)`, shade: 0.55, tile: (c) => (c.z === 1 ? (c.y + 1) * 3 + c.x + 1 : null) },
-  { key: "right", transform: `rotateY(90deg) translateZ(${HALF}px)`, shade: 0.4, tile: (c) => (c.x === 1 ? (c.y + 1) * 3 + 1 - c.z : null) },
-  { key: "back", transform: `rotateY(180deg) translateZ(${HALF}px)`, shade: 0.35, tile: (c) => (c.z === -1 ? (c.y + 1) * 3 + 1 - c.x : null) },
-  { key: "left", transform: `rotateY(-90deg) translateZ(${HALF}px)`, shade: 0.5, tile: (c) => (c.x === -1 ? (c.y + 1) * 3 + c.z + 1 : null) },
-  { key: "top", transform: `rotateX(90deg) translateZ(${HALF}px)`, shade: 0.8, tile: (c) => (c.y === -1 ? (c.z + 1) * 3 + c.x + 1 : null) },
-  { key: "bottom", transform: `rotateX(-90deg) translateZ(${HALF}px)`, shade: 0.2, tile: (c) => (c.y === 1 ? (1 - c.z) * 3 + c.x + 1 : null) },
-];
-
-function Cubie({ x, y, z }: Coord) {
-  return (
-    <div
-      className="absolute left-0 top-0"
-      style={{
-        width: CUBIE,
-        height: CUBIE,
-        marginLeft: -HALF,
-        marginTop: -HALF,
-        transformStyle: "preserve-3d",
-        transform: `translate3d(${x * STEP}px, ${y * STEP}px, ${z * STEP}px)`,
-      }}
-    >
-      {FACES.map((face, f) => {
-        const light = Math.round(16 + face.shade * 30);
-        const tile = face.tile({ x, y, z });
-        const base = `linear-gradient(145deg, rgb(${light},${light},${light + 3}) 0%, rgb(8,8,10) 100%)`;
-
-        // Faces hidden inside the cube: plain dark plastic.
-        if (tile == null) {
-          return (
-            <div
-              key={face.key}
-              className="absolute inset-0 rounded-[10px]"
-              style={{ transform: face.transform, backfaceVisibility: "hidden", backgroundImage: base }}
-            />
-          );
-        }
-
-        const skill = SKILLS[(f * 9 + tile) % SKILLS.length];
-        // Diagonal wave: the shine reaches each tile a moment after its neighbour.
-        const delay = ((tile % 3) + Math.floor(tile / 3)) * 0.14 + f * 0.9;
-
-        return (
-          <div
-            key={face.key}
-            className="cube-tile absolute inset-0 rounded-[10px] flex flex-col items-center justify-center gap-1.5"
-            style={
-              {
-                transform: face.transform,
-                backfaceVisibility: "hidden",
-                backgroundImage: `radial-gradient(circle at 50% 38%, ${skill.color}2e 0%, transparent 62%), ${base}`,
-                "--c": skill.color,
-                "--d": `${delay}s`,
-              } as CSSProperties
-            }
-          >
-            <skill.icon
-              className="cube-icon relative z-[1]"
-              size={30}
-              style={{
-                color: skill.color,
-                opacity: 0.75 + face.shade * 0.25,
-                filter: `drop-shadow(0 0 10px ${skill.color}80)`,
-              }}
-            />
-            <span
-              className="relative z-[1] text-[9px] font-semibold tracking-wide text-neutral-200 whitespace-nowrap"
-              style={{ opacity: 0.65 + face.shade * 0.35 }}
-            >
-              {skill.name}
-            </span>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-function Layer({ y, angle }: { y: number; angle: number }) {
-  const cubies = [];
-  for (let x = -1; x <= 1; x++)
-    for (let z = -1; z <= 1; z++)
-      cubies.push(<Cubie key={`${x}${z}`} x={x} y={y} z={z} />);
-
-  return (
-    <motion.div
-      className="absolute left-0 top-0"
-      style={{ transformStyle: "preserve-3d" }}
-      animate={{ rotateY: angle }}
-      transition={{ type: "spring", stiffness: 60, damping: 14, mass: 1.2 }}
-    >
-      {cubies}
-    </motion.div>
-  );
-}
-
-type LayerName = "top" | "middle" | "bottom";
-
-// Scramble the skills, then play the moves backwards so every side returns to its original set.
-const SCRAMBLE: [LayerName, number][] = [
-  ["top", 90],
-  ["bottom", -90],
-  ["middle", 180],
-  ["top", -90],
-  ["bottom", 90],
-];
-const SEQUENCE: ([LayerName, number] | null)[] = [
-  ...SCRAMBLE,
-  null, // hold scrambled
-  ...[...SCRAMBLE].reverse().map(([l, d]): [LayerName, number] => [l, -d]),
-  null, // hold solved
-  null,
-];
-
-function RubikCube() {
-  const reduce = useReducedMotion();
-  const [twists, setTwists] = useState<Record<LayerName, number>>({ top: 0, middle: 0, bottom: 0 });
-
-  useEffect(() => {
-    if (reduce) return;
-    let i = 0;
-    const id = setInterval(() => {
-      const move = SEQUENCE[i % SEQUENCE.length];
-      if (move) {
-        const [layer, deg] = move;
-        setTwists((t) => ({ ...t, [layer]: t[layer] + deg }));
-      }
-      i++;
-    }, 1500);
-    return () => clearInterval(id);
-  }, [reduce]);
-
-  // Drag to rotate, with momentum; drifts back into a slow auto-spin when left alone.
-  const REST_X = -20;
-  const rotX = useMotionValue(REST_X);
-  const rotY = useMotionValue(30);
-  const dragging = useRef(false);
-  const last = useRef({ x: 0, y: 0 });
-  const velocity = useRef({ x: 0, y: 0 }); // degrees per frame
-
-  useAnimationFrame((_, delta) => {
-    if (dragging.current) return;
-    const f = Math.min(delta / 16.7, 3); // normalise to ~60fps
-    const v = velocity.current;
-    v.x *= Math.pow(0.94, f);
-    v.y *= Math.pow(0.94, f);
-
-    const spin = reduce ? 0 : 0.125; // matches the old 48s-per-turn auto-spin
-    rotY.set(rotY.get() + (v.y + spin) * f);
-    // Once momentum fades, tilt eases back so the logos stay readable.
-    const x = rotX.get() + v.x * f;
-    rotX.set(Math.abs(v.x) < 0.05 ? x + (REST_X - x) * 0.02 * f : x);
-  });
-
-  const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
-    dragging.current = true;
-    last.current = { x: e.clientX, y: e.clientY };
-    velocity.current = { x: 0, y: 0 };
-    e.currentTarget.setPointerCapture(e.pointerId);
-  };
-
-  const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {
-    if (!dragging.current) return;
-    const dx = e.clientX - last.current.x;
-    const dy = e.clientY - last.current.y;
-    last.current = { x: e.clientX, y: e.clientY };
-    const vy = dx * 0.45;
-    const vx = -dy * 0.45;
-    velocity.current = { x: vx, y: vy };
-    rotY.set(rotY.get() + vy);
-    rotX.set(Math.max(-75, Math.min(75, rotX.get() + vx)));
-  };
-
-  const endDrag = (e: PointerEvent<HTMLDivElement>) => {
-    dragging.current = false;
-    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
-      e.currentTarget.releasePointerCapture(e.pointerId);
-    }
-  };
-
-  return (
-    <div
-      className="relative w-[380px] h-[380px] flex items-center justify-center cursor-grab active:cursor-grabbing select-none touch-pan-y"
-      style={{ perspective: 1400 }}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={endDrag}
-      onPointerCancel={endDrag}
-    >
-      {/* Slowly rotating colour aura behind the cube */}
-      <div
-        aria-hidden
-        className="hero-badge-spin absolute top-1/2 left-1/2 -ml-40 -mt-40 w-80 h-80 rounded-full blur-[90px] opacity-35"
-        style={{
-          animationDuration: "24s",
-          background: "conic-gradient(from 0deg, #8b5cf6, #3b82f6, #22c55e, #f59e0b, #22d3ee, #8b5cf6)",
-        }}
-      />
-      {/* Floor: soft coloured reflection + contact shadow */}
-      <div aria-hidden className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-80 h-16 rounded-[100%] bg-gradient-to-r from-violet-500/25 via-cyan-400/20 to-cyan-400/25 blur-2xl" />
-      <div aria-hidden className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-8 rounded-[100%] bg-black blur-xl opacity-90" />
-
-      <motion.div
-        style={{ transformStyle: "preserve-3d" }}
-        animate={reduce ? undefined : { y: [0, -14, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <motion.div style={{ rotateX: rotX, rotateY: rotY, transformStyle: "preserve-3d" }}>
-          <div className="relative" style={{ transformStyle: "preserve-3d" }}>
-            <Layer y={-1} angle={twists.top} />
-            <Layer y={0} angle={twists.middle} />
-            <Layer y={1} angle={twists.bottom} />
-          </div>
-        </motion.div>
-      </motion.div>
-    </div>
-  );
-}
-
-/* ---------- Hero ---------- */
+import RubikCube from "@/components/RubikCube";
+import type { CSSProperties } from "react";
+import { FiMail, FiChevronRight, FiDownload, FiArrowRight, FiArrowUpRight, FiFolder } from "react-icons/fi";
+import { FaGithub, FaLinkedin, FaFacebook, FaWhatsapp } from "react-icons/fa";
+import {
+  LuBrainCircuit,
+  LuGraduationCap,
+  LuNetwork,
+  LuChartColumn,
+  LuCode,
+  LuDatabase,
+  LuCloud,
+  LuMapPin,
+  LuUserSearch,
+} from "react-icons/lu";
+import { SiLaravel, SiReact, SiNextdotjs, SiJavascript, SiMysql, SiDocker } from "react-icons/si";
+import type { IconType } from "react-icons";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 const fadeUp = (delay: number) => ({
-  initial: { opacity: 0, y: 24, filter: "blur(10px)" },
+  initial: { opacity: 0, y: 24, filter: "blur(8px)" },
   animate: { opacity: 1, y: 0, filter: "blur(0px)" },
-  transition: { duration: 0.9, delay, ease },
+  transition: { duration: 0.8, delay, ease },
 });
 
-const HEADLINE = [["Towfiq", "Bin", "Hasan"]];
+const roles: { label: string; icon: IconType }[] = [
+  { label: "CS Student", icon: LuGraduationCap },
+  { label: "Full Stack Web Developer", icon: LuCode },
+  { label: "ML Engineer", icon: LuBrainCircuit },
+  { label: "Researcher", icon: LuUserSearch },
+];
 
-/** Dimmed pipe between the roles in the subtitle. */
-const Sep = () => <span className="mx-1.5 text-neutral-600">|</span>;
+const techColumn: { icon: IconType; color: string; label: string }[] = [
+  { icon: SiLaravel, color: "#FF2D20", label: "Laravel" },
+  { icon: SiReact, color: "#61DAFB", label: "React" },
+  { icon: SiNextdotjs, color: "#ffffff", label: "Next.js" },
+  { icon: SiJavascript, color: "#8CC84B", label: "JavaScript" },
+  { icon: SiMysql, color: "#38bdf8", label: "MySQL" },
+  { icon: SiDocker, color: "#2496ED", label: "Docker" },
+];
 
-const secondaryLinks = [
+const stackRow: { icon: IconType; title: string; sub: string }[] = [
+  { icon: SiLaravel, title: "Laravel", sub: "Backend" },
+  { icon: SiReact, title: "Next.js / React", sub: "Frontend" },
+  { icon: LuDatabase, title: "MySQL / Redis", sub: "Database & Cache" },
+  { icon: LuCloud, title: "Docker / Dokploy", sub: "Deployment" },
+];
+
+const mlRow: { icon: IconType; title: string; sub: string }[] = [
+  { icon: LuBrainCircuit, title: "Machine Learning", sub: "Python • Scikit-learn" },
+  { icon: LuChartColumn, title: "Data Science", sub: "Pandas • NumPy" },
+  { icon: LuNetwork, title: "Deep Learning", sub: "TensorFlow • PyTorch" },
+  { icon: LuGraduationCap, title: "CS Student", sub: "Research & Learning" },
+];
+
+const quickLinks = [
   { href: "/experience", label: "Experience" },
   { href: "/research", label: "Research" },
   { href: "/certificate", label: "Certificates" },
@@ -275,197 +72,267 @@ const socials = [
   { href: "https://wa.me/qr/IHA6ZSEDQZ57M1", icon: FaWhatsapp, label: "WhatsApp", color: "#25D366" },
 ];
 
+/** Glassy navy card with a thin glowing blue border. */
+const glass =
+  "border border-sky-400/40 bg-[#061433]/70 backdrop-blur-md shadow-[0_0_24px_-6px_rgba(56,189,248,0.55),inset_0_0_20px_rgba(56,189,248,0.06)]";
+
+function InfoStrip({ items, delay }: { items: typeof stackRow; delay: number }) {
+  return (
+    <motion.div
+      {...fadeUp(delay)}
+      className={`${glass} grid grid-cols-2 gap-y-4 rounded-[28px] px-5 py-4 sm:rounded-full sm:px-7 md:grid-cols-4`}
+    >
+      {items.map(({ icon: Icon, title, sub }, i) => (
+        <div
+          key={title}
+          className={`flex items-center gap-3 md:px-4 ${i > 0 ? "md:border-l md:border-sky-400/20" : ""}`}
+        >
+          <Icon className="shrink-0 text-3xl text-sky-400 drop-shadow-[0_0_8px_rgba(56,189,248,0.7)]" />
+          <div className="min-w-0 leading-tight">
+            <p className="truncate text-sm font-semibold text-white">{title}</p>
+            <p className="truncate text-xs text-sky-300/80">{sub}</p>
+          </div>
+        </div>
+      ))}
+    </motion.div>
+  );
+}
+
 export default function Hero() {
-  let wordIndex = 0;
+  const reduce = useReducedMotion();
+  const float = (d: number) =>
+    reduce ? {} : { animate: { y: [0, -8, 0] }, transition: { duration: 5, delay: d, repeat: Infinity, ease: "easeInOut" as const } };
 
   return (
-    <section className="relative -mt-20 pt-20 min-h-screen overflow-hidden bg-[#050505]">
-      {/* Spotlight from the top-right */}
+    <section
+      className="relative -mt-20 overflow-hidden bg-[#020b1f] pt-20"
+      style={{ fontFamily: "var(--font-display), 'Segoe UI', sans-serif" }}
+    >
+      {/* Deep blue glows */}
       <div
+        aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 60% 55% at 75% 20%, rgba(255,255,255,0.09), transparent 70%)",
+            "radial-gradient(ellipse 45% 60% at 72% 45%, rgba(29,78,216,0.35), transparent 70%), radial-gradient(ellipse 50% 40% at 10% 10%, rgba(14,116,144,0.18), transparent 70%), linear-gradient(180deg, #030d26 0%, #020817 100%)",
         }}
       />
-
-      {/* Diagonal light streak sweeping across the bottom */}
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute left-[-25%] top-[62%] h-40 w-[150%] -rotate-[8deg] blur-3xl"
-        style={{
-          background:
-            "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.07) 35%, rgba(255,255,255,0.12) 55%, transparent 80%)",
-        }}
-        initial={{ opacity: 0, x: "-20%" }}
-        animate={{ opacity: [0, 1, 0.7, 1], x: ["-20%", "10%", "-5%", "-20%"] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-      />
+      {/* Faint dot grid */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-[-10%] top-[70%] h-px w-[120%] -rotate-[8deg] bg-gradient-to-r from-transparent via-white/15 to-transparent"
-      />
-
-      {/* Fine grain */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay"
+        className="pointer-events-none absolute inset-0 opacity-[0.12]"
         style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+          backgroundImage: "radial-gradient(rgba(125,211,252,0.8) 1px, transparent 1px)",
+          backgroundSize: "22px 22px",
+          maskImage: "radial-gradient(ellipse 30% 30% at 45% 62%, black, transparent)",
+          WebkitMaskImage: "radial-gradient(ellipse 30% 30% at 45% 62%, black, transparent)",
         }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-6 md:px-12 min-h-[calc(100vh-5rem)] grid lg:grid-cols-[1.1fr_1fr] items-center gap-8 sm:gap-6 py-12 sm:py-16">
-        {/* Left: copy */}
-        <div className="order-2 lg:order-1">
-          {/* Badge with animated gradient border */}
-          <motion.div {...fadeUp(0.1)}>
+      <div className="relative mx-auto grid max-w-[1560px] items-center gap-10 px-4 py-10 sm:px-6 md:px-10 lg:min-h-[calc(100vh-5rem)] lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-4 lg:py-14">
+        {/* ---------- Left: copy ---------- */}
+        <div className="order-2 min-w-0 lg:order-1">
+          {/* Status + role chips: always one line. Sized in em so the row scales with the viewport;
+              on phones it scrolls sideways instead of wrapping. */}
+          <motion.div
+            {...fadeUp(0.1)}
+            className="scrollbar-hide -mx-2 -my-3 flex items-center gap-[0.6em] overflow-x-auto px-2 py-3 text-[clamp(10px,1.4vw,14px)] lg:text-[clamp(9px,0.72vw,12px)]"
+          >
             <Link
               href="/contact"
-              className="group relative inline-flex overflow-hidden rounded-full p-px"
+              className={`${glass} group inline-flex shrink-0 items-center gap-[0.6em] whitespace-nowrap rounded-full px-[1.1em] py-[0.6em] font-medium text-white`}
             >
-              <span
-                className="hero-badge-spin absolute left-1/2 top-1/2 aspect-square w-[250%] -translate-x-1/2 -translate-y-1/2"
-                style={{
-                  background:
-                    "conic-gradient(from 0deg, #14b8a6, #8b5cf6, #22d3ee, #14b8a6)",
-                }}
-              />
-              <span className="relative inline-flex items-center gap-2 sm:gap-2.5 rounded-full bg-[#0b0b0d] py-1.5 pl-1.5 pr-3.5 sm:pr-4 text-xs sm:text-sm text-gray-200">
-                <span className="relative h-7 w-7 overflow-hidden rounded-full ring-1 ring-white/15">
-                  <Image src="/DSC00106.jpg" alt="Towfiq Bin Hasan" fill sizes="28px" className="object-cover" priority />
-                </span>
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-                </span>
-                Open to Collaboration
-                <FiChevronRight className="transition-transform group-hover:translate-x-0.5" />
+              <span className="relative flex h-[0.7em] w-[0.7em]">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                <span className="relative inline-flex h-full w-full rounded-full bg-emerald-400" />
               </span>
+              Available for New Opportunities
+              <FiChevronRight className="transition-transform group-hover:translate-x-0.5" />
             </Link>
-          </motion.div>
-
-          {/* Headline: word-by-word blur reveal */}
-          <h1
-            className="mt-7 whitespace-nowrap text-[clamp(1.6rem,8.6vw,3.6rem)] leading-[1.05] tracking-tight sm:mt-8 lg:text-[clamp(2.6rem,4.7vw,5.2rem)]"
-            style={{ fontFamily: "var(--font-serif), Georgia, serif" }}
-          >
-            {HEADLINE.map((line, li) => (
-              <span key={li} className="block pb-2">
-                {line.map((word) => {
-                  const d = 0.25 + wordIndex++ * 0.12;
-                  return (
-                    <motion.span
-                      key={word}
-                      className="inline-block mr-[0.22em] bg-gradient-to-br from-white via-white to-neutral-500 bg-clip-text text-transparent"
-                      initial={{ opacity: 0, y: 40, filter: "blur(14px)" }}
-                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                      transition={{ duration: 1, delay: d, ease }}
-                    >
-                      {word}
-                    </motion.span>
-                  );
-                })}
+            {roles.map(({ label, icon: Icon }) => (
+              <span
+                key={label}
+                className={`${glass} inline-flex shrink-0 items-center gap-[0.5em] whitespace-nowrap rounded-full px-[0.95em] py-[0.6em] text-white`}
+              >
+                <Icon className="text-sky-400" />
+                {label}
               </span>
             ))}
-          </h1>
+          </motion.div>
+
+          {/* Headline */}
+          <motion.h1 {...fadeUp(0.25)} className="mt-7 font-extrabold leading-[0.98] tracking-tight">
+            <span className="block text-[clamp(2.6rem,8vw,5rem)] text-white">Hi, I&apos;m</span>
+            <span className="block bg-gradient-to-r from-cyan-300 via-sky-400 to-blue-500 bg-clip-text pb-2 text-[clamp(2.3rem,7.6vw,5rem)] lg:text-[clamp(3rem,4.6vw,5.4rem)] text-transparent drop-shadow-[0_0_28px_rgba(56,189,248,0.35)] sm:whitespace-nowrap">
+              Towfiq Bin Hasan
+            </span>
+          </motion.h1>
+
+          {/* Tagline: always one line, font scales with the viewport so it fits */}
+          <motion.div
+            {...fadeUp(0.4)}
+            className="mt-3 flex items-center gap-2 whitespace-nowrap text-[clamp(7px,2.1vw,13px)] font-medium uppercase tracking-[0.06em] text-sky-300 sm:gap-3 sm:tracking-[0.08em] lg:text-[clamp(10px,0.95vw,15px)] lg:tracking-[0.14em]"
+          >
+            <span className="whitespace-nowrap">Full Stack Developer</span>
+            {["ML Engineer", "Researcher"].map((role) => (
+              <span key={role} className="flex items-center gap-2 sm:gap-3">
+                <span aria-hidden className="h-1.5 w-1.5 shrink-0 rounded-full bg-sky-300" />
+                {role}
+              </span>
+            ))}
+          </motion.div>
 
           <motion.p
-            {...fadeUp(0.7)}
-            className="mt-4 max-w-3xl text-sm sm:text-base md:text-lg leading-relaxed text-neutral-400"
+            {...fadeUp(0.55)}
+            className="mt-6 max-w-2xl text-[15px] leading-relaxed text-slate-300 sm:text-lg"
           >
-            CS Student <Sep /> Passionate about Web Development &amp; Problem Solving <Sep />{" "}
-            Researcher <Sep /> Traveler <Sep /> Photographer <Sep /> Filmmaker
+            <b className="font-semibold text-white">Computer Science</b> student at AIUB and{" "}
+            <b className="font-semibold text-white">Full Stack Developer</b> specializing in{" "}
+            <b className="font-semibold text-white">Machine Learning</b> and{" "}
+            <b className="font-semibold text-white">Data Science research</b>. I engineer scalable, production-ready
+            web applications with Laravel, Next.js and React, and build data-driven models with Python to solve
+            real-world problems.
           </motion.p>
 
-          {/* Primary actions */}
-          <motion.div {...fadeUp(0.85)} className="mt-8 sm:mt-10 flex flex-wrap items-center gap-3 sm:gap-4">
-            {/* Filled gradient button with a light sweep on hover */}
+          {/* Actions */}
+          <motion.div {...fadeUp(0.7)} className="mt-8 flex flex-wrap items-center gap-4">
             <Link
               href="/projects"
-              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-r from-purple-500 to-cyan-400 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_12px_32px_-12px_rgba(168,85,247,0.9)] transition-transform duration-300 hover:-translate-y-0.5 sm:text-base"
+              className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-sky-600 to-cyan-600 px-7 py-3.5 text-base font-semibold text-white shadow-[0_0_18px_-6px_rgba(34,211,238,0.45)] hover:from-sky-500 hover:to-cyan-500 transition-transform duration-300 hover:-translate-y-0.5"
             >
-              <span
-                aria-hidden
-                className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full"
-              />
-              <span className="relative">View Projects</span>
-              <FiArrowRight className="relative transition-transform duration-300 group-hover:translate-x-1" />
+              <FiFolder className="text-xl" />
+              View Projects
+              <FiArrowRight className="text-lg transition-transform group-hover:translate-x-1" />
             </Link>
-
-            {/* Glass button */}
             <Link
               href="/cv"
-              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-2xl border border-white/15 bg-white/[0.04] px-6 py-3.5 text-sm font-semibold text-neutral-200 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-purple-400/50 hover:bg-white/[0.08] hover:text-white sm:text-base"
+              className="group inline-flex items-center gap-3 rounded-full border border-sky-400/60 bg-[#061433]/60 px-7 py-3.5 text-base font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-sky-400/10 hover:shadow-[0_0_24px_-6px_rgba(56,189,248,0.8)]"
             >
-              <FiDownload className="transition-transform duration-300 group-hover:translate-y-0.5" />
+              <FiDownload className="text-xl transition-transform group-hover:translate-y-0.5" />
               Download CV
             </Link>
           </motion.div>
 
           {/* Quick links */}
-          <motion.div {...fadeUp(1)} className="mt-8 flex flex-wrap items-center gap-2">
-            {secondaryLinks.map((l, i) => (
-              <motion.div
+          <motion.div {...fadeUp(0.78)} className="mt-7 flex flex-wrap items-center gap-2.5">
+            {quickLinks.map((l) => (
+              <Link
                 key={l.href}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 1.05 + i * 0.07, ease }}
+                href={l.href}
+                className="group inline-flex items-center gap-1.5 rounded-full border border-sky-400/25 bg-[#061433]/50 px-4 py-1.5 text-sm text-slate-300 transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-400/60 hover:bg-sky-400/10 hover:text-white"
               >
-                <Link
-                  href={l.href}
-                  className="group inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.02] px-3.5 py-1.5 text-xs text-neutral-400 transition-all duration-300 hover:-translate-y-0.5 hover:border-purple-400/40 hover:bg-purple-500/10 hover:text-white sm:text-sm"
-                >
-                  {l.label}
-                  <FiArrowUpRight className="text-[0.9em] opacity-0 transition-all duration-300 group-hover:opacity-100" />
-                </Link>
-              </motion.div>
+                {l.label}
+                <FiArrowUpRight className="text-[0.9em] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              </Link>
             ))}
           </motion.div>
 
           {/* Socials */}
-          <motion.div {...fadeUp(1.15)} className="mt-7 flex items-center gap-3">
-            <span aria-hidden className="h-px w-8 bg-gradient-to-r from-purple-400/60 to-transparent" />
-            {socials.map(({ href, icon: Icon, label, color }, i) => (
-              <motion.a
+          <motion.div {...fadeUp(0.84)} className="mt-6 flex items-center gap-3">
+            <span aria-hidden className="h-px w-8 bg-gradient-to-r from-sky-400/70 to-transparent" />
+            {socials.map(({ href, icon: Icon, label, color }) => (
+              <a
                 key={label}
                 href={href}
                 aria-label={label}
                 title={label}
                 target={href.startsWith("mailto") ? undefined : "_blank"}
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, scale: 0.6 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.45, delay: 1.2 + i * 0.07, ease }}
-                whileHover={{ y: -4 }}
-                whileTap={{ scale: 0.92 }}
                 style={{ "--sc": color } as CSSProperties}
-                className="social-orb flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-lg text-neutral-400 backdrop-blur sm:h-11 sm:w-11"
+                className="social-orb flex h-10 w-10 items-center justify-center rounded-xl border border-sky-400/25 bg-[#061433]/50 text-lg text-slate-400 transition-transform hover:-translate-y-1 sm:h-11 sm:w-11"
               >
                 <Icon />
-              </motion.a>
+              </a>
             ))}
           </motion.div>
+
+          <div className="mt-10 space-y-5">
+            <InfoStrip items={stackRow} delay={0.85} />
+            <InfoStrip items={mlRow} delay={1} />
+          </div>
         </div>
 
-        {/* Right: cube */}
+        {/* ---------- Right: portrait ---------- */}
         <motion.div
-          className="order-1 lg:order-2 flex justify-center lg:justify-end"
-          initial={{ opacity: 0, scale: 0.85 }}
+          className="order-1 mx-auto flex w-full max-w-[640px] items-center gap-4 sm:gap-6 lg:order-2"
+          initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.4, delay: 0.2, ease }}
+          transition={{ duration: 1.2, delay: 0.2, ease }}
         >
-          <div className="relative h-[228px] w-[228px] xs:h-[266px] xs:w-[266px] sm:h-[300px] sm:w-[300px] lg:h-[380px] lg:w-[380px]">
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-[0.6] xs:scale-[0.7] sm:scale-[0.79] lg:scale-100">
+          {/* Tech icon column */}
+          <div className="hidden shrink-0 flex-col gap-3 sm:flex">
+            {techColumn.map(({ icon: Icon, color, label }, i) => (
+              <motion.div
+                key={label}
+                title={label}
+                initial={{ opacity: 0, x: -16 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 + i * 0.08, ease }}
+                className={`${glass} flex h-14 w-14 items-center justify-center rounded-xl`}
+              >
+                <Icon className="text-[26px]" style={{ color, filter: `drop-shadow(0 0 6px ${color}99)` }} />
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="relative flex min-w-0 flex-1 justify-center py-8 sm:justify-start">
+          <div className="relative h-[228px] w-[228px] xs:h-[266px] xs:w-[266px] sm:h-[300px] sm:w-[300px] xl:h-[380px] xl:w-[380px]">
+            {/* Blue glow behind the cube */}
+            <div aria-hidden className="absolute -inset-10 rounded-full bg-blue-600/25 blur-3xl" />
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-[0.6] xs:scale-[0.7] sm:scale-[0.79] xl:scale-100">
               <RubikCube />
             </div>
+          </div>
+
+          {/* Floating cards */}
+          <motion.div {...float(0)} className="absolute -top-2 right-0 hidden sm:block xl:-right-6">
+            <Link href="/projects" className={`${glass} group flex w-64 flex-col gap-3 rounded-2xl p-5`}>
+              <div className="flex items-center gap-3">
+                <LuCode className="shrink-0 text-4xl text-sky-400 drop-shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
+                <p className="border-l border-sky-400/30 pl-3 text-lg font-bold leading-tight text-white">
+                  Crafting Digital <span className="text-sky-400">Solutions</span>
+                </p>
+              </div>
+              <div className="flex items-end justify-between gap-2">
+                <p className="text-sm text-slate-300">Turning Ideas Into Real Products</p>
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-sky-400/60 text-sky-300 transition-transform group-hover:translate-x-1">
+                  <FiArrowRight />
+                </span>
+              </div>
+            </Link>
+          </motion.div>
+
+          <motion.div {...float(1.2)} className="absolute right-0 top-[42%] hidden sm:block xl:-right-10">
+            <div className={`${glass} w-60 rounded-2xl p-4`}>
+              <div className="flex items-center gap-3">
+                <LuBrainCircuit className="shrink-0 text-4xl text-sky-400 drop-shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
+                <p className="border-l border-sky-400/30 pl-3 text-base font-bold leading-tight text-white">
+                  AI &amp; Machine <span className="block text-xl text-sky-400">Learning</span>
+                </p>
+              </div>
+              <p className="mt-3 text-xs text-sky-200/80">Data Science Research</p>
+              <p className="text-xs text-sky-200/80">Python • TensorFlow • PyTorch</p>
+            </div>
+          </motion.div>
+
+          <motion.div {...float(2.4)} className="absolute -bottom-2 right-0 xl:-right-6">
+            <div className={`${glass} rounded-full px-6 py-3.5`}>
+              <p className="flex items-center gap-3 text-base font-semibold text-white">
+                <span className="h-3 w-3 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.9)]" />
+                Software Engineer
+              </p>
+              <p className="mt-1.5 flex items-center gap-3 text-sm text-slate-300">
+                <LuMapPin className="text-sky-400" />
+                Laravel • Next.js • React
+              </p>
+            </div>
+          </motion.div>
           </div>
         </motion.div>
       </div>
 
       {/* Fade into the next section */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-[#0a0a0f]" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-[#020817]" />
     </section>
   );
 }

@@ -37,9 +37,9 @@ export function ViewDetails({ href, label }: { href: string; label?: string }) {
       <span
         aria-hidden
         className="hero-badge-spin absolute left-1/2 top-1/2 aspect-square w-[300%] -translate-x-1/2 -translate-y-1/2 opacity-70 transition-opacity group-hover:opacity-100"
-        style={{ background: "conic-gradient(from 0deg, transparent 0 60%, #a855f7, #22d3ee, transparent 90%)" }}
+        style={{ background: "conic-gradient(from 0deg, transparent 0 60%, #0ea5e9, #22d3ee, transparent 90%)" }}
       />
-      <span className="btn-shine relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/10 bg-[#0d0d12] px-5 py-2.5 text-sm font-medium text-white">
+      <span className="btn-shine relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/10 bg-[#081630] px-5 py-2.5 text-sm font-medium text-white">
         <span className="relative">{text}</span>
         <FiArrowRight className="relative transition-transform duration-300 group-hover:translate-x-1" />
       </span>
@@ -80,15 +80,15 @@ export function SectionHeading({
           whileInView={{ opacity: 1, x: 0, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease }}
-          className={`flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-purple-300/80 ${center ? "justify-center" : ""}`}
+          className={`flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-sky-300/80 ${center ? "justify-center" : ""}`}
         >
-          <span className="font-mono text-purple-400">{index}</span>
+          <span className="font-mono text-sky-400">{index}</span>
           <motion.span
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2, ease }}
-            className="h-px w-10 origin-left bg-gradient-to-r from-purple-400 to-cyan-400"
+            className="h-px w-10 origin-left bg-gradient-to-r from-sky-400 to-cyan-400"
           />
           {eyebrow}
         </motion.div>
@@ -100,7 +100,7 @@ export function SectionHeading({
           className="mt-3 sm:mt-4 text-[1.75rem] xs:text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight"
         >
           {title}{" "}
-          <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">{accent}</span>
+          <span className="bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">{accent}</span>
         </motion.h2>
         {text && (
           <motion.p
@@ -232,7 +232,7 @@ export function QualificationPreview() {
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1.4, ease }}
-          className="absolute left-0 right-0 top-[106px] hidden h-px origin-left bg-gradient-to-r from-purple-500 via-cyan-400 to-transparent md:block"
+          className="absolute left-0 right-0 top-[106px] hidden h-px origin-left bg-gradient-to-r from-sky-500 via-cyan-400 to-transparent md:block"
         />
         {qualifications.map((q, i) => (
           <GlowCard key={q.degree} delay={i * 0.12} className="p-4 sm:p-5">
@@ -240,13 +240,13 @@ export function QualificationPreview() {
               <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl ring-1 ring-white/10">
                 <Image src={q.image} alt={q.institute} fill sizes="56px" className="object-cover transition-transform duration-500 group-hover:scale-110" />
               </div>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-purple-400/30 bg-purple-500/10 px-3 py-1 text-xs text-purple-200 transition-colors duration-500 group-hover:border-purple-400/60 group-hover:bg-purple-500/20 group-hover:text-white">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-sky-400/30 bg-sky-500/10 px-3 py-1 text-xs text-sky-200 transition-colors duration-500 group-hover:border-sky-400/60 group-hover:bg-sky-500/20 group-hover:text-white">
                 <FiCalendar className="transition-transform duration-500 group-hover:scale-110" /> {q.duration}
               </span>
             </div>
-            <div className="relative mt-6 h-3 w-3 rounded-full bg-gradient-to-r from-purple-400 to-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.8)] transition-transform duration-500 group-hover:scale-150" />
+            <div className="relative mt-6 h-3 w-3 rounded-full bg-gradient-to-r from-sky-400 to-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.8)] transition-transform duration-500 group-hover:scale-150" />
             <h3 className="mt-5 font-semibold text-white leading-snug">{q.degree}</h3>
-            <p className="mt-1 text-sm text-purple-300/90">{q.major}</p>
+            <p className="mt-1 text-sm text-sky-300/90">{q.major}</p>
             <p className="mt-3 text-sm text-gray-400 leading-relaxed">{q.institute}</p>
           </GlowCard>
         ))}
@@ -302,7 +302,7 @@ export function ExperiencePreview() {
                       </span>
                     )}
                   </div>
-                  <p className="mt-0.5 text-sm text-purple-300">{e.company}</p>
+                  <p className="mt-0.5 text-sm text-sky-300">{e.company}</p>
                   <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500">
                     <span className="inline-flex items-center gap-1.5"><FiBriefcase /> {e.employmentType}</span>
                     <span className="inline-flex items-center gap-1.5"><FiCalendar /> {e.duration}</span>
@@ -406,8 +406,8 @@ export function ProjectsPreview() {
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/20 to-transparent" />
-              <span className="absolute left-3 top-3 rounded-full bg-black/60 px-2.5 py-1 text-[11px] font-medium text-purple-200 backdrop-blur ring-1 ring-white/10 transition-all duration-500 group-hover:bg-purple-500/40 group-hover:text-white group-hover:ring-purple-400/50">
+              <div className="absolute inset-0 bg-gradient-to-t from-[#020817] via-[#020817]/20 to-transparent" />
+              <span className="absolute left-3 top-3 rounded-full bg-black/60 px-2.5 py-1 text-[11px] font-medium text-sky-200 backdrop-blur ring-1 ring-white/10 transition-all duration-500 group-hover:bg-sky-500/40 group-hover:text-white group-hover:ring-sky-400/50">
                 {p.field}
               </span>
             </div>
@@ -455,13 +455,13 @@ export function ResearchPreview() {
         <div className="grid grid-cols-3 lg:grid-cols-1 gap-3 sm:gap-4">
           {stats.map((s, i) => (
             <GlowCard key={s.label} delay={i * 0.1} className="p-3 sm:p-5 text-center lg:text-left">
-              <div className="origin-center text-3xl xs:text-4xl sm:text-5xl font-bold bg-gradient-to-br from-white to-purple-300 bg-clip-text text-transparent transition-transform duration-500 group-hover:scale-105 lg:origin-left">
+              <div className="origin-center text-3xl xs:text-4xl sm:text-5xl font-bold bg-gradient-to-br from-white to-sky-300 bg-clip-text text-transparent transition-transform duration-500 group-hover:scale-105 lg:origin-left">
                 <CountUp to={s.value} />
               </div>
-              <p className="mt-1 text-[11px] leading-tight sm:text-sm text-gray-400 transition-colors duration-500 group-hover:text-purple-200">{s.label}</p>
+              <p className="mt-1 text-[11px] leading-tight sm:text-sm text-gray-400 transition-colors duration-500 group-hover:text-sky-200">{s.label}</p>
               <span
                 aria-hidden
-                className="mx-auto mt-2 block h-px w-6 bg-gradient-to-r from-purple-400 to-cyan-400 transition-all duration-500 group-hover:w-12 lg:mx-0"
+                className="mx-auto mt-2 block h-px w-6 bg-gradient-to-r from-sky-400 to-cyan-400 transition-all duration-500 group-hover:w-12 lg:mx-0"
               />
             </GlowCard>
           ))}
@@ -470,13 +470,13 @@ export function ResearchPreview() {
           {papers.slice(0, 3).map((p, i) => (
             <GlowCard key={p.title} delay={0.15 + i * 0.1} className="p-5">
               <div className="flex gap-4">
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/20 to-cyan-400/20 text-purple-200 ring-1 ring-purple-400/30 transition-all duration-500 group-hover:scale-110 group-hover:-rotate-6 group-hover:ring-purple-400/60">
+                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500/20 to-cyan-400/20 text-sky-200 ring-1 ring-sky-400/30 transition-all duration-500 group-hover:scale-110 group-hover:-rotate-6 group-hover:ring-sky-400/60">
                   <FiFileText />
                 </div>
                 <div className="min-w-0">
                   <h3 className="font-medium text-white leading-snug line-clamp-2">{p.title}</h3>
                   <p className="mt-1.5 text-xs text-gray-500">
-                    <span className="text-purple-300">{p.year}</span> · {p.conferenceName}
+                    <span className="text-sky-300">{p.year}</span> · {p.conferenceName}
                   </p>
                 </div>
               </div>
@@ -495,12 +495,12 @@ export function CvContactPreview() {
     <section className="px-4 sm:px-6 py-12 sm:py-20 max-w-6xl mx-auto">
       <div className="grid gap-5 md:grid-cols-2">
         <GlowCard className="p-6 sm:p-9">
-          <div aria-hidden className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-purple-600/20 blur-3xl" />
-          <p className="relative flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-purple-300/80">
-            <span className="font-mono text-purple-400">08</span> Resume
+          <div aria-hidden className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-sky-600/20 blur-3xl" />
+          <p className="relative flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-sky-300/80">
+            <span className="font-mono text-sky-400">08</span> Resume
           </p>
           <h2 className="relative mt-4 text-2xl xs:text-3xl sm:text-4xl font-bold">
-            Download my <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">CV</span>
+            Download my <span className="bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">CV</span>
           </h2>
           <p className="relative mt-3 text-gray-400 leading-relaxed">
             CVs tailored for different roles, each with a photo and a Harvard-style version. Request one and get a secure link by email.
@@ -509,7 +509,7 @@ export function CvContactPreview() {
             aria-hidden
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="relative my-7 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-cyan-400 text-2xl text-white shadow-lg shadow-purple-500/40"
+            className="relative my-7 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-500 to-cyan-400 text-2xl text-white shadow-lg shadow-sky-500/40"
           >
             <FiDownload />
           </motion.div>
@@ -520,18 +520,18 @@ export function CvContactPreview() {
 
         <GlowCard delay={0.12} className="p-6 sm:p-9">
           <div aria-hidden className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-cyan-500/20 blur-3xl" />
-          <p className="relative flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-purple-300/80">
-            <span className="font-mono text-purple-400">09</span> Say hello
+          <p className="relative flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-sky-300/80">
+            <span className="font-mono text-sky-400">09</span> Say hello
           </p>
           <h2 className="relative mt-4 text-2xl xs:text-3xl sm:text-4xl font-bold">
-            Let&apos;s <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">connect</span>
+            Let&apos;s <span className="bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">connect</span>
           </h2>
           <p className="relative mt-3 text-gray-400 leading-relaxed">
             Have a project, a job opportunity or a research idea? My inbox is always open.
           </p>
           <div className="relative my-7 space-y-3">
             <a href="mailto:towfiqbinhasan@gmail.com" className="group/mail flex items-center gap-3 break-all text-sm sm:text-base text-gray-300 transition-colors duration-300 hover:text-white">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10 transition-all duration-300 group-hover/mail:-translate-y-0.5 group-hover/mail:bg-purple-500/20 group-hover/mail:text-purple-200 group-hover/mail:ring-purple-400/40"><FiMail /></span>
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10 transition-all duration-300 group-hover/mail:-translate-y-0.5 group-hover/mail:bg-sky-500/20 group-hover/mail:text-sky-200 group-hover/mail:ring-sky-400/40"><FiMail /></span>
               towfiqbinhasan@gmail.com
             </a>
             <div className="flex gap-3 text-lg">
@@ -546,7 +546,7 @@ export function CvContactPreview() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="btn-press flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-gray-400 ring-1 ring-white/10 hover:bg-purple-500/20 hover:text-white hover:ring-purple-400/40"
+                  className="btn-press flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-gray-400 ring-1 ring-white/10 hover:bg-sky-500/20 hover:text-white hover:ring-sky-400/40"
                 >
                   <Icon />
                 </a>
@@ -569,7 +569,7 @@ const more = [
   { name: "Tour", path: "/tour", icon: FiMap, text: "Travels across Bangladesh", color: "from-emerald-500/20" },
   { name: "Photography", path: "/photography", icon: FiCamera, text: "Moments through my lens", color: "from-amber-500/20" },
   { name: "Filmography", path: "/filmography", icon: FiFilm, text: "Short films & edits", color: "from-blue-500/20" },
-  { name: "Activity", path: "/activity", icon: FiUsers, text: "Clubs, events & volunteering", color: "from-violet-500/20" },
+  { name: "Activity", path: "/activity", icon: FiUsers, text: "Clubs, events & volunteering", color: "from-blue-500/20" },
 ];
 
 export function ExploreMore() {
@@ -582,11 +582,11 @@ export function ExploreMore() {
         transition={{ duration: 0.7, ease }}
         className="mb-10 text-center"
       >
-        <p className="text-xs uppercase tracking-[0.25em] text-purple-300/80">
-          <span className="font-mono text-purple-400">10</span> Beyond code
+        <p className="text-xs uppercase tracking-[0.25em] text-sky-300/80">
+          <span className="font-mono text-sky-400">10</span> Beyond code
         </p>
         <h2 className="mt-4 text-[1.75rem] xs:text-3xl sm:text-4xl md:text-5xl font-bold">
-          Explore <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">more</span>
+          Explore <span className="bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">more</span>
         </h2>
       </motion.div>
       <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-5">
@@ -594,10 +594,10 @@ export function ExploreMore() {
           <GlowCard key={m.path} delay={i * 0.08} className="last:col-span-2 md:last:col-span-1">
             <Link href={m.path} className="btn-press relative block h-full p-4 sm:p-5">
               <div aria-hidden className={`absolute inset-0 bg-gradient-to-br ${m.color} to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100`} />
-              <m.icon className="relative text-2xl text-purple-300 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6" />
+              <m.icon className="relative text-2xl text-sky-300 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6" />
               <h3 className="relative mt-4 font-semibold text-white">{m.name}</h3>
               <p className="relative mt-1 text-xs text-gray-500">{m.text}</p>
-              <span className="relative mt-4 inline-flex items-center gap-1 text-xs text-purple-300 transition-colors duration-300 group-hover:text-purple-200">
+              <span className="relative mt-4 inline-flex items-center gap-1 text-xs text-sky-300 transition-colors duration-300 group-hover:text-sky-200">
                 View details <FiArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
               </span>
             </Link>

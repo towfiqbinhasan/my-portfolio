@@ -43,12 +43,12 @@ const socials = [
     icon: FiGlobe,
     label: "Old Portfolio (Google Sites)",
     href: "https://sites.google.com/view/mdtowfiqbinhasanportfolio/home",
-    color: "text-purple-400",
+    color: "text-sky-400",
   },
 ];
 
 const fieldClass =
-  "field-input w-full rounded-xl border border-white/10 bg-white/[0.04] py-3 pl-11 pr-4 text-sm text-white placeholder:text-gray-500 focus:border-purple-400/60 focus:bg-white/[0.06] focus:outline-none focus:shadow-[0_0_0_3px_rgba(168,85,247,0.12)]";
+  "field-input w-full rounded-xl border border-white/10 bg-white/[0.04] py-3 pl-11 pr-4 text-sm text-white placeholder:text-gray-500 focus:border-sky-400/60 focus:bg-white/[0.06] focus:outline-none focus:shadow-[0_0_0_3px_rgba(14, 165, 233,0.12)]";
 const labelClass = "field-label mb-2 block text-sm text-gray-400";
 const fieldIconClass =
   "field-icon pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-500";
@@ -105,7 +105,7 @@ export default function Contact() {
         <GlowCard lift={false} className="flex flex-col justify-between p-6 sm:p-8">
           <div
             aria-hidden
-            className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-purple-600/20 blur-3xl"
+            className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-sky-600/20 blur-3xl"
           />
 
           <div className="relative">
@@ -118,9 +118,9 @@ export default function Contact() {
 
             <a
               href="mailto:towfiqbinhasan@gmail.com"
-              className="group mb-8 flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-4 transition duration-300 hover:-translate-y-0.5 hover:border-purple-400/60 hover:bg-purple-500/10 sm:px-5"
+              className="group mb-8 flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-4 transition duration-300 hover:-translate-y-0.5 hover:border-sky-400/60 hover:bg-sky-500/10 sm:px-5"
             >
-              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-white/5 text-lg text-purple-400 ring-1 ring-white/10 transition group-hover:bg-purple-500/20">
+              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-white/5 text-lg text-sky-400 ring-1 ring-white/10 transition group-hover:bg-sky-500/20">
                 <FiMail />
               </span>
               <span className="min-w-0 break-all text-sm text-gray-200 transition group-hover:text-white sm:text-base">
@@ -136,9 +136,9 @@ export default function Contact() {
                     key={s.label + s.href}
                     href={s.href}
                     target="_blank"
-                    className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3.5 transition duration-300 hover:-translate-y-0.5 hover:border-purple-400/60 hover:bg-white/[0.07] sm:gap-4 sm:px-5 sm:py-4"
+                    className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3.5 transition duration-300 hover:-translate-y-0.5 hover:border-sky-400/60 hover:bg-white/[0.07] sm:gap-4 sm:px-5 sm:py-4"
                   >
-                    <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10 transition group-hover:bg-purple-500/20">
+                    <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10 transition group-hover:bg-sky-500/20">
                       <Icon className={`text-xl ${s.color}`} />
                     </span>
                     <span className="min-w-0 break-words text-sm text-gray-300 transition group-hover:text-white">
@@ -166,7 +166,7 @@ export default function Contact() {
             <h2 className="text-xl font-semibold">Send a Feedback</h2>
             <div
               aria-hidden
-              className="mt-4 mb-6 h-px w-full bg-gradient-to-r from-purple-400/50 via-white/10 to-transparent"
+              className="mt-4 mb-6 h-px w-full bg-gradient-to-r from-sky-400/50 via-white/10 to-transparent"
             />
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -257,7 +257,7 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={loading}
-                className="btn-press btn-shine mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-500 to-cyan-400 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/45 disabled:cursor-not-allowed disabled:opacity-50"
+                className="btn-press btn-shine mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-sky-500/25 hover:shadow-sky-500/45 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {loading ? (
                   <span className="relative flex items-center gap-2">

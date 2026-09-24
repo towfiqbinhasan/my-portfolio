@@ -197,23 +197,23 @@ export default function ChatBot() {
               <motion.span
                 animate={{
                   boxShadow: [
-                    "0 0 0px rgba(168,85,247,0.35)",
-                    "0 0 22px rgba(168,85,247,0.75)",
-                    "0 0 0px rgba(168,85,247,0.35)",
+                    "0 0 0px rgba(14, 165, 233,0.35)",
+                    "0 0 22px rgba(14, 165, 233,0.75)",
+                    "0 0 0px rgba(14, 165, 233,0.35)",
                   ],
                 }}
                 transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-cyan-400"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-cyan-400"
               >
                 <HiSparkles className="text-lg text-white" />
               </motion.span>
-              <span className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 rounded-full border-2 border-[#0d0d13] bg-emerald-400">
+              <span className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 rounded-full border-2 border-[#081630] bg-emerald-400">
                 <span className="absolute inset-0 animate-ping rounded-full bg-emerald-400 opacity-75" />
               </span>
             </span>
 
-            <span className="max-w-[230px] rounded-2xl rounded-bl-md border border-purple-400/25 bg-[#0d0d13]/95 px-4 py-3 shadow-2xl shadow-purple-500/20 backdrop-blur-md">
-              <span className="mb-0.5 flex items-center gap-1.5 text-[11px] font-medium text-purple-300">
+            <span className="max-w-[230px] rounded-2xl rounded-bl-md border border-sky-400/25 bg-[#081630]/95 px-4 py-3 shadow-2xl shadow-sky-500/20 backdrop-blur-md">
+              <span className="mb-0.5 flex items-center gap-1.5 text-[11px] font-medium text-sky-300">
                 Towfiq&apos;s AI Agent
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
               </span>
@@ -222,7 +222,7 @@ export default function ChatBot() {
                 <motion.span
                   animate={{ opacity: [0, 1, 0] }}
                   transition={{ duration: 0.9, repeat: Infinity }}
-                  className="ml-0.5 inline-block h-[14px] w-px align-middle bg-purple-400"
+                  className="ml-0.5 inline-block h-[14px] w-px align-middle bg-sky-400"
                 />
               </span>
             </span>
@@ -239,10 +239,10 @@ export default function ChatBot() {
         whileTap={{ scale: 0.94 }}
         onClick={() => (open ? setOpen(false) : handleOpen())}
         aria-label={open ? "Close chat" : "Open chat"}
-        className="fixed bottom-6 right-4 sm:right-6 z-[200] flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 shadow-lg shadow-purple-500/40"
+        className="fixed bottom-6 right-4 sm:right-6 z-[200] flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-cyan-400 shadow-lg shadow-sky-500/40"
       >
         {!open && (
-          <span aria-hidden className="absolute inset-0 animate-ping rounded-full bg-purple-500/30" />
+          <span aria-hidden className="absolute inset-0 animate-ping rounded-full bg-sky-500/30" />
         )}
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
@@ -267,21 +267,21 @@ export default function ChatBot() {
             exit={{ opacity: 0, y: 24, scale: 0.94 }}
             transition={{ type: "spring", stiffness: 280, damping: 26 }}
             style={{ transformOrigin: "bottom right" }}
-            className="fixed bottom-24 right-4 sm:right-6 z-[200] flex h-[70vh] max-h-[560px] w-[calc(100vw-2rem)] max-w-[400px] flex-col overflow-hidden rounded-3xl border border-white/10 bg-[#0b0b10]/95 shadow-2xl shadow-black/60 backdrop-blur-xl"
+            className="fixed bottom-24 right-4 sm:right-6 z-[200] flex h-[70vh] max-h-[560px] w-[calc(100vw-2rem)] max-w-[400px] flex-col overflow-hidden rounded-3xl border border-white/10 bg-[#04102a]/95 shadow-2xl shadow-black/60 backdrop-blur-xl"
           >
             {/* Header */}
-            <div className="relative flex items-center gap-3 border-b border-white/10 bg-gradient-to-r from-purple-600/20 via-violet-600/10 to-cyan-500/20 px-4 py-3.5">
+            <div className="relative flex items-center gap-3 border-b border-white/10 bg-gradient-to-r from-sky-600/20 via-blue-600/10 to-cyan-500/20 px-4 py-3.5">
               <div className="relative flex-shrink-0">
-                <div className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-purple-400/40">
+                <div className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-sky-400/40">
                   <Image src="/logo.png" alt="Towfiq's AI assistant" fill sizes="40px" className="object-cover" />
                 </div>
-                <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-[#0b0b10] bg-emerald-400" />
+                <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-[#04102a] bg-emerald-400" />
               </div>
 
               <div className="min-w-0 flex-1">
                 <p className="flex items-center gap-1.5 text-sm font-semibold text-white">
                   Towfiq&apos;s AI Assistant
-                  <HiSparkles className="text-xs text-purple-300" />
+                  <HiSparkles className="text-xs text-sky-300" />
                 </p>
                 <p className="truncate text-[11px] text-emerald-300/90">
                   {loading ? "Typing…" : "Online · usually replies instantly"}
@@ -304,7 +304,7 @@ export default function ChatBot() {
                 <FiX />
               </button>
 
-              <span aria-hidden className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-purple-400/50 to-transparent" />
+              <span aria-hidden className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent" />
             </div>
 
             {/* Messages */}
@@ -318,14 +318,14 @@ export default function ChatBot() {
                   className={msg.role === "user" ? "flex justify-end gap-2" : "flex items-end gap-2"}
                 >
                   {msg.role === "assistant" && (
-                    <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 text-xs text-white">
+                    <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-cyan-400 text-xs text-white">
                       <HiSparkles />
                     </span>
                   )}
                   <div
                     className={
                       msg.role === "user"
-                        ? "max-w-[78%] rounded-2xl rounded-br-md bg-gradient-to-br from-purple-500 to-cyan-400 px-4 py-2.5 text-sm leading-relaxed text-white shadow-lg shadow-purple-500/20"
+                        ? "max-w-[78%] rounded-2xl rounded-br-md bg-gradient-to-br from-sky-500 to-cyan-400 px-4 py-2.5 text-sm leading-relaxed text-white shadow-lg shadow-sky-500/20"
                         : "max-w-[80%] whitespace-pre-wrap rounded-2xl rounded-bl-md border border-white/10 bg-white/[0.06] px-4 py-2.5 text-sm leading-relaxed text-gray-200"
                     }
                   >
@@ -334,7 +334,7 @@ export default function ChatBot() {
                       <motion.span
                         animate={{ opacity: [0, 1, 0] }}
                         transition={{ duration: 0.9, repeat: Infinity }}
-                        className="ml-0.5 inline-block h-[13px] w-px align-middle bg-purple-300"
+                        className="ml-0.5 inline-block h-[13px] w-px align-middle bg-sky-300"
                       />
                     )}
                   </div>
@@ -347,13 +347,13 @@ export default function ChatBot() {
                   animate={{ opacity: 1, y: 0 }}
                   className="flex items-end gap-2"
                 >
-                  <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 text-xs text-white">
+                  <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-cyan-400 text-xs text-white">
                     <HiSparkles />
                   </span>
                   <div className="flex items-center gap-1.5 rounded-2xl rounded-bl-md border border-white/10 bg-white/[0.06] px-4 py-3">
-                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-purple-300 [animation-delay:-0.3s]" />
-                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-purple-300 [animation-delay:-0.15s]" />
-                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-purple-300" />
+                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-sky-300 [animation-delay:-0.3s]" />
+                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-sky-300 [animation-delay:-0.15s]" />
+                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-sky-300" />
                   </div>
                 </motion.div>
               )}
@@ -377,7 +377,7 @@ export default function ChatBot() {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.4, delay: 0.25 + i * 0.07, ease }}
                           onClick={() => sendMessage(s)}
-                          className="rounded-full border border-purple-400/25 bg-purple-500/10 px-3 py-1.5 text-xs text-purple-200 transition hover:border-purple-400/60 hover:bg-purple-500/20 hover:text-white"
+                          className="rounded-full border border-sky-400/25 bg-sky-500/10 px-3 py-1.5 text-xs text-sky-200 transition hover:border-sky-400/60 hover:bg-sky-500/20 hover:text-white"
                         >
                           {s}
                         </motion.button>
@@ -395,7 +395,7 @@ export default function ChatBot() {
                   e.preventDefault();
                   sendMessage();
                 }}
-                className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] p-1.5 pl-4 transition focus-within:border-purple-400/60 focus-within:bg-white/[0.07] focus-within:shadow-[0_0_0_3px_rgba(168,85,247,0.12)]"
+                className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] p-1.5 pl-4 transition focus-within:border-sky-400/60 focus-within:bg-white/[0.07] focus-within:shadow-[0_0_0_3px_rgba(14, 165, 233,0.12)]"
               >
                 <input
                   ref={inputRef}
@@ -411,7 +411,7 @@ export default function ChatBot() {
                   whileHover={{ scale: 1.08 }}
                   whileTap={{ scale: 0.92 }}
                   aria-label="Send message"
-                  className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 text-white shadow-lg shadow-purple-500/30 transition disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
+                  className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-cyan-400 text-white shadow-lg shadow-sky-500/30 transition disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
                 >
                   <FiSend className="text-sm" />
                 </motion.button>

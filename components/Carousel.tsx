@@ -221,13 +221,13 @@ export function Lightbox({
             exit={{ opacity: 0, scale: 0.96, y: 16, transition: { duration: 0.22, ease: "easeIn" } }}
             transition={{ type: "spring", stiffness: 260, damping: 26 }}
             onClick={(e) => e.stopPropagation()}
-            className={`modal-rim relative my-auto w-full ${wide ? "max-w-4xl" : "max-w-2xl"} overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-[#0e0e14] shadow-2xl shadow-black/70`}
+            className={`modal-rim relative my-auto w-full ${wide ? "max-w-4xl" : "max-w-2xl"} overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-[#0a1730] shadow-2xl shadow-black/70`}
           >
-            <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-400/60 to-transparent" />
+            <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/60 to-transparent" />
             <button
               onClick={onClose}
               aria-label="Close"
-              className="btn-press absolute right-3 top-3 sm:right-4 sm:top-4 z-20 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-black/60 text-lg sm:text-xl text-white/80 ring-1 ring-white/10 backdrop-blur transition hover:bg-purple-500/60 hover:text-white"
+              className="btn-press absolute right-3 top-3 sm:right-4 sm:top-4 z-20 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-black/60 text-lg sm:text-xl text-white/80 ring-1 ring-white/10 backdrop-blur transition hover:bg-sky-500/60 hover:text-white"
             >
               <FiX />
             </button>
@@ -236,7 +236,7 @@ export function Lightbox({
               <button
                 onClick={onPrev}
                 aria-label="Previous"
-                className="btn-press absolute left-2 sm:left-3 top-1/2 z-20 flex h-9 w-9 sm:h-11 sm:w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-lg sm:text-xl text-white/80 ring-1 ring-white/10 backdrop-blur transition hover:bg-purple-500/60 hover:text-white"
+                className="btn-press absolute left-2 sm:left-3 top-1/2 z-20 flex h-9 w-9 sm:h-11 sm:w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-lg sm:text-xl text-white/80 ring-1 ring-white/10 backdrop-blur transition hover:bg-sky-500/60 hover:text-white"
               >
                 <FiChevronLeft />
               </button>
@@ -245,7 +245,7 @@ export function Lightbox({
               <button
                 onClick={onNext}
                 aria-label="Next"
-                className="btn-press absolute right-2 sm:right-3 top-1/2 z-20 flex h-9 w-9 sm:h-11 sm:w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-lg sm:text-xl text-white/80 ring-1 ring-white/10 backdrop-blur transition hover:bg-purple-500/60 hover:text-white"
+                className="btn-press absolute right-2 sm:right-3 top-1/2 z-20 flex h-9 w-9 sm:h-11 sm:w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-lg sm:text-xl text-white/80 ring-1 ring-white/10 backdrop-blur transition hover:bg-sky-500/60 hover:text-white"
               >
                 <FiChevronRight />
               </button>
@@ -325,7 +325,7 @@ export function ModalGallery({
 
   return (
     <div className={className}>
-      <div className="group relative h-[46vh] max-h-[560px] min-h-[240px] w-full overflow-hidden bg-[#08080c] sm:h-[54vh] md:h-[60vh]">
+      <div className="group relative h-[46vh] max-h-[560px] min-h-[240px] w-full overflow-hidden bg-[#020b1f] sm:h-[54vh] md:h-[60vh]">
         {/* Blurred copy of the same shot fills the frame, so a portrait photo
             never sits on an empty black box — the photo itself is never cropped. */}
         <Image
@@ -366,21 +366,21 @@ export function ModalGallery({
           </motion.div>
         </AnimatePresence>
 
-        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#0e0e14] to-transparent" />
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#0a1730] to-transparent" />
 
         {images.length > 1 && (
           <>
             <button
               onClick={() => go(-1)}
               aria-label="Previous image"
-              className="btn-press absolute left-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white/80 opacity-0 ring-1 ring-white/10 backdrop-blur transition hover:bg-purple-500/70 hover:text-white focus-visible:opacity-100 group-hover:opacity-100"
+              className="btn-press absolute left-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white/80 opacity-0 ring-1 ring-white/10 backdrop-blur transition hover:bg-sky-500/70 hover:text-white focus-visible:opacity-100 group-hover:opacity-100"
             >
               <FiChevronLeft />
             </button>
             <button
               onClick={() => go(1)}
               aria-label="Next image"
-              className="btn-press absolute right-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white/80 opacity-0 ring-1 ring-white/10 backdrop-blur transition hover:bg-purple-500/70 hover:text-white focus-visible:opacity-100 group-hover:opacity-100"
+              className="btn-press absolute right-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white/80 opacity-0 ring-1 ring-white/10 backdrop-blur transition hover:bg-sky-500/70 hover:text-white focus-visible:opacity-100 group-hover:opacity-100"
             >
               <FiChevronRight />
             </button>
@@ -404,7 +404,7 @@ export function ModalGallery({
               aria-label={`Image ${i + 1}`}
               className={`btn-press relative h-12 w-16 flex-shrink-0 overflow-hidden rounded-lg ring-1 sm:h-14 sm:w-20 ${
                 i === index
-                  ? "ring-2 ring-purple-400 brightness-110"
+                  ? "ring-2 ring-sky-400 brightness-110"
                   : "opacity-55 ring-white/10 hover:opacity-100"
               }`}
             >

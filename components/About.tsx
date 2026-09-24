@@ -13,7 +13,7 @@ export default function About() {
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(ellipse 55% 60% at 30% 40%, rgba(168,85,247,0.10), transparent 70%)",
+            "radial-gradient(ellipse 55% 60% at 30% 40%, rgba(14, 165, 233,0.10), transparent 70%)",
         }}
       />
 
@@ -26,32 +26,41 @@ export default function About() {
           transition={{ duration: 0.8, ease }}
           className="relative mx-auto w-full max-w-[260px] sm:max-w-[300px] md:max-w-none"
         >
-          {/* Glow + offset frame */}
-          <span
-            aria-hidden
-            className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-purple-500/25 via-violet-500/10 to-cyan-400/25 blur-2xl"
-          />
-          <span
-            aria-hidden
-            className="absolute -bottom-3 -right-3 h-full w-full rounded-3xl border border-purple-400/25"
-          />
+          {/* Blue glow + spinning neon ring */}
+          <span aria-hidden className="absolute -inset-6 rounded-full bg-blue-600/10 blur-3xl" />
           <motion.div
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="group relative aspect-[4/5] overflow-hidden rounded-3xl ring-1 ring-white/10"
+            className="relative aspect-square"
           >
-            <Image
-              src="/DSC00106.jpg"
-              alt="Towfiq Bin Hasan"
-              fill
-              sizes="(max-width: 768px) 300px, 320px"
-              className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+            <motion.span
+              aria-hidden
+              className="absolute -inset-1 rounded-full"
+              style={{
+                background: "conic-gradient(from 200deg, #0ea5e9, #1d4ed8, #22d3ee, #0ea5e9)",
+                boxShadow: "0 0 12px rgba(56,189,248,0.3), 0 0 32px rgba(37,99,235,0.15)",
+              }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
             />
+            <div className="group absolute inset-0 overflow-hidden rounded-full bg-[#030d26]">
+              <Image
+                src="/DSC00106.jpg"
+                alt="Towfiq Bin Hasan"
+                fill
+                sizes="(max-width: 768px) 300px, 320px"
+                className="object-cover object-[50%_20%] transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+              />
+              <span
+                aria-hidden
+                className="absolute inset-0 bg-gradient-to-t from-[#020b1f]/70 via-transparent to-transparent"
+              />
+            </div>
+            {/* Floor glow */}
             <span
               aria-hidden
-              className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent"
+              className="absolute -bottom-6 left-1/2 h-8 w-[85%] -translate-x-1/2 rounded-[100%] bg-sky-400/10 blur-2xl"
             />
-            <span aria-hidden className="carousel-sheen pointer-events-none absolute inset-0" />
           </motion.div>
         </motion.div>
 
@@ -62,15 +71,15 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6, ease }}
-            className="flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-purple-300/80"
+            className="flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-sky-300/80"
           >
-            <span className="font-mono text-purple-400">00</span>
+            <span className="font-mono text-sky-400">00</span>
             <motion.span
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2, ease }}
-              className="h-px w-10 origin-left bg-gradient-to-r from-purple-400 to-cyan-400"
+              className="h-px w-10 origin-left bg-gradient-to-r from-sky-400 to-cyan-400"
             />
             Introduction
           </motion.div>
@@ -83,7 +92,7 @@ export default function About() {
             className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl"
           >
             About{" "}
-            <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">
               Me
             </span>
           </motion.h2>
@@ -98,10 +107,10 @@ export default function About() {
           >
             <span
               aria-hidden
-              className="absolute left-0 top-0 h-16 w-px bg-gradient-to-b from-purple-400 to-cyan-400"
+              className="absolute left-0 top-0 h-16 w-px bg-gradient-to-b from-sky-400 to-cyan-400"
             />
 
-            <p className="text-sm leading-[1.9] text-gray-400 sm:text-[0.95rem] first-letter:float-left first-letter:mr-2.5 first-letter:text-4xl first-letter:font-bold first-letter:leading-none first-letter:text-purple-300 sm:first-letter:text-5xl">
+            <p className="text-sm leading-[1.9] text-gray-400 sm:text-[0.95rem] first-letter:float-left first-letter:mr-2.5 first-letter:text-4xl first-letter:font-bold first-letter:leading-none first-letter:text-sky-300 sm:first-letter:text-5xl">
               I am a meticulous computer science and engineering student at AIUB, majoring in data science. I have a strong passion for my field, particularly in machine learning, data mining, and research. My technical expertise includes C++, Java, C#, and full-stack web development, along with a solid understanding of DSA and database management. I have also participated in several academic conferences and have shared my projects on GitHub.
             </p>
 

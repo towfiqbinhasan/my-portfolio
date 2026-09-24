@@ -35,7 +35,7 @@ export default function PageLoader() {
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, filter: "blur(8px)", transition: { duration: 0.45, ease } }}
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#08080c]"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#020b1f]"
         >
           {/* Ambient spotlight + grain, matching the hero */}
           <span
@@ -43,7 +43,7 @@ export default function PageLoader() {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(ellipse 60% 55% at 50% 45%, rgba(168,85,247,0.18), transparent 70%)",
+                "radial-gradient(ellipse 60% 55% at 50% 45%, rgba(14, 165, 233,0.18), transparent 70%)",
             }}
           />
           <span
@@ -68,7 +68,7 @@ export default function PageLoader() {
                 aria-hidden
                 animate={reduce ? undefined : { scale: [1, 1.18, 1], opacity: [0.35, 0.12, 0.35] }}
                 transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute h-32 w-32 rounded-full bg-purple-500/40 blur-2xl"
+                className="absolute h-32 w-32 rounded-full bg-sky-500/40 blur-2xl"
               />
 
               {/* Outer ring: slow, thin, dashed */}
@@ -87,7 +87,7 @@ export default function PageLoader() {
                 className="absolute h-32 w-32 rounded-full"
                 style={{
                   background:
-                    "conic-gradient(from 0deg, transparent 0deg, rgba(168,85,247,0.15) 140deg, #a855f7 300deg, #22d3ee 360deg)",
+                    "conic-gradient(from 0deg, transparent 0deg, rgba(14, 165, 233,0.15) 140deg, #0ea5e9 300deg, #22d3ee 360deg)",
                   WebkitMask:
                     "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px))",
                   mask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px))",
@@ -108,7 +108,7 @@ export default function PageLoader() {
               <motion.div
                 animate={reduce ? undefined : { scale: [1, 1.05, 1] }}
                 transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-                className="relative h-24 w-24 overflow-hidden rounded-full ring-1 ring-white/10 shadow-2xl shadow-purple-500/40"
+                className="relative h-24 w-24 overflow-hidden rounded-full ring-1 ring-white/10 shadow-2xl shadow-sky-500/40"
               >
                 <Image src="/logo.png" alt="Loading" fill sizes="96px" className="object-cover" priority />
               </motion.div>
@@ -120,7 +120,7 @@ export default function PageLoader() {
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ duration: 0.6, ease: "easeInOut" }}
-                className="block h-full w-full origin-left bg-gradient-to-r from-purple-400 to-cyan-400"
+                className="block h-full w-full origin-left bg-gradient-to-r from-sky-400 to-cyan-400"
               />
             </div>
 

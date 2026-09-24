@@ -68,7 +68,7 @@ export default function TourPage() {
                   {/* Scrim keeps the photo readable where the card text begins */}
                   <span
                     aria-hidden
-                    className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/15 to-transparent"
+                    className="absolute inset-0 bg-gradient-to-t from-[#020817] via-[#020817]/15 to-transparent"
                   />
                   <span aria-hidden className="carousel-sheen pointer-events-none absolute inset-0" />
                   <span
@@ -81,15 +81,15 @@ export default function TourPage() {
 
                 <div className="relative p-5">
                   <h3 className="text-base font-semibold leading-snug text-white">{tour.place}</h3>
-                  <p className="mt-1.5 flex items-start gap-1.5 text-xs text-purple-300">
-                    <FiMapPin className="mt-0.5 flex-shrink-0 text-purple-400/80 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:scale-110" /> {tour.location}
+                  <p className="mt-1.5 flex items-start gap-1.5 text-xs text-sky-300">
+                    <FiMapPin className="mt-0.5 flex-shrink-0 text-sky-400/80 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:scale-110" /> {tour.location}
                   </p>
                   <p className="mt-1 flex items-center gap-1.5 text-xs text-gray-500 transition-colors duration-500 group-hover:text-gray-400">
                     <FiCalendar className="flex-shrink-0 transition-transform duration-500 group-hover:scale-110" /> {tour.date}
                   </p>
                   <span
                     aria-hidden
-                    className="mt-3 block h-px w-8 bg-gradient-to-r from-purple-400 to-cyan-400 transition-all duration-500 group-hover:w-16"
+                    className="mt-3 block h-px w-8 bg-gradient-to-r from-sky-400 to-cyan-400 transition-all duration-500 group-hover:w-16"
                   />
                 </div>
               </button>
@@ -104,7 +104,7 @@ export default function TourPage() {
               className="pointer-events-none absolute inset-x-0 top-0 h-40"
               style={{
                 background:
-                  "radial-gradient(ellipse 60% 70% at 50% 0%, rgba(168,85,247,0.18), transparent 70%)",
+                  "radial-gradient(ellipse 60% 70% at 50% 0%, rgba(14, 165, 233,0.18), transparent 70%)",
               }}
             />
             <motion.span
@@ -113,13 +113,13 @@ export default function TourPage() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.15, ease }}
-              className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/25 to-cyan-400/25 text-2xl text-purple-200 ring-1 ring-purple-400/30"
+              className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-500/25 to-cyan-400/25 text-2xl text-sky-200 ring-1 ring-sky-400/30"
             >
               <FiMap />
             </motion.span>
             <span
               aria-hidden
-              className="relative mx-auto mt-6 block h-px w-16 bg-gradient-to-r from-transparent via-purple-400/60 to-transparent"
+              className="relative mx-auto mt-6 block h-px w-16 bg-gradient-to-r from-transparent via-sky-400/60 to-transparent"
             />
           </GlowCard>
         </div>
@@ -137,19 +137,19 @@ export default function TourPage() {
 
             <div className="relative border-t border-white/5 p-5 sm:p-7 md:p-8">
               <motion.div {...lightboxItem(0)}>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-purple-400/25 bg-purple-500/10 px-3 py-1 text-[11px] uppercase tracking-wider text-purple-200">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-sky-400/25 bg-sky-500/10 px-3 py-1 text-[11px] uppercase tracking-wider text-sky-200">
                   <FiCalendar className="text-xs" /> {selected.date}
                 </span>
-                <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
+                <h3 className="mt-3 bg-gradient-to-r from-white via-sky-200 to-cyan-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
                   {selected.place}
                 </h3>
               </motion.div>
 
               <motion.p
                 {...lightboxItem(1)}
-                className="mt-4 inline-flex items-start gap-2 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-1.5 text-sm text-purple-200"
+                className="mt-4 inline-flex items-start gap-2 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-1.5 text-sm text-sky-200"
               >
-                <FiMapPin className="mt-0.5 flex-shrink-0 text-purple-400/80" /> {selected.location}
+                <FiMapPin className="mt-0.5 flex-shrink-0 text-sky-400/80" /> {selected.location}
               </motion.p>
 
               <motion.div {...lightboxItem(2)} className="mt-6 border-t border-white/5 pt-6">

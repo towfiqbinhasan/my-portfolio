@@ -143,9 +143,9 @@ function GadgetCard({
           {/* Scrim so the chip stays readable over any product shot */}
           <span
             aria-hidden
-            className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/10 to-transparent"
+            className="absolute inset-0 bg-gradient-to-t from-[#020817] via-[#020817]/10 to-transparent"
           />
-          <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-purple-200 ring-1 ring-white/10 backdrop-blur transition-all duration-500 group-hover:bg-purple-500/30 group-hover:text-white group-hover:ring-purple-400/50">
+          <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-sky-200 ring-1 ring-white/10 backdrop-blur transition-all duration-500 group-hover:bg-sky-500/30 group-hover:text-white group-hover:ring-sky-400/50">
             <Icon className="text-sm transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6" /> {gadget.category}
           </span>
           <span aria-hidden className="carousel-sheen pointer-events-none absolute inset-0" />
@@ -153,12 +153,12 @@ function GadgetCard({
 
         <div className="relative p-5">
           <h3 className="text-base font-semibold leading-snug text-white">{gadget.name}</h3>
-          <p className="mt-1.5 text-xs text-gray-500 transition-colors duration-300 group-hover:text-purple-300">
+          <p className="mt-1.5 text-xs text-gray-500 transition-colors duration-300 group-hover:text-sky-300">
             Tap to view full specifications
           </p>
           <span
             aria-hidden
-            className="mt-3 block h-px w-8 bg-gradient-to-r from-purple-400 to-cyan-400 transition-all duration-500 group-hover:w-16"
+            className="mt-3 block h-px w-8 bg-gradient-to-r from-sky-400 to-cyan-400 transition-all duration-500 group-hover:w-16"
           />
         </div>
       </button>
@@ -172,7 +172,7 @@ function GadgetDetails({ gadget }: { gadget: GadgetItem }) {
     <>
       <motion.div
         {...lightboxItem(0)}
-        className="relative h-56 w-full bg-[#08080c] xs:h-64 sm:h-72 md:h-80"
+        className="relative h-56 w-full bg-[#020b1f] xs:h-64 sm:h-72 md:h-80"
       >
         <Image
           src={gadget.image}
@@ -183,16 +183,16 @@ function GadgetDetails({ gadget }: { gadget: GadgetItem }) {
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0e0e14] to-transparent"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0a1730] to-transparent"
         />
       </motion.div>
 
       <div className="relative border-t border-white/5 p-5 sm:p-7 md:p-8">
         <motion.div {...lightboxItem(1)}>
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-purple-400/25 bg-purple-500/10 px-3 py-1 text-[11px] uppercase tracking-wider text-purple-200">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-sky-400/25 bg-sky-500/10 px-3 py-1 text-[11px] uppercase tracking-wider text-sky-200">
             <Icon className="text-sm" /> {gadget.category}
           </span>
-          <h3 className="mt-3 bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
+          <h3 className="mt-3 bg-gradient-to-r from-white via-sky-200 to-cyan-200 bg-clip-text text-2xl font-semibold leading-snug text-transparent sm:text-3xl">
             {gadget.name}
           </h3>
         </motion.div>
@@ -203,10 +203,10 @@ function GadgetDetails({ gadget }: { gadget: GadgetItem }) {
             <motion.div
               key={spec}
               {...lightboxItem(2 + i)}
-              className="group/spec flex items-start gap-3 rounded-xl border border-white/5 bg-white/[0.03] p-3.5 transition duration-300 hover:-translate-y-0.5 hover:border-purple-400/30 hover:bg-white/[0.06]"
+              className="group/spec flex items-start gap-3 rounded-xl border border-white/5 bg-white/[0.03] p-3.5 transition duration-300 hover:-translate-y-0.5 hover:border-sky-400/30 hover:bg-white/[0.06]"
             >
-              <span className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500/40 to-cyan-400/40 ring-1 ring-purple-400/30 transition duration-300 group-hover/spec:scale-110 group-hover/spec:ring-purple-400/60">
-                <FiCheck className="text-[11px] text-purple-50" />
+              <span className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-sky-500/40 to-cyan-400/40 ring-1 ring-sky-400/30 transition duration-300 group-hover/spec:scale-110 group-hover/spec:ring-sky-400/60">
+                <FiCheck className="text-[11px] text-sky-50" />
               </span>
               <p className="min-w-0 break-words text-sm leading-[1.8] text-gray-300">{spec}</p>
             </motion.div>
