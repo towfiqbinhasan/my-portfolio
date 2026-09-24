@@ -49,7 +49,7 @@ export default function About() {
                 alt="Towfiq Bin Hasan"
                 fill
                 sizes="(max-width: 768px) 300px, 320px"
-                className="object-cover object-[50%_20%] transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+                className="object-cover object-[50%_20%] brightness-[0.8] transition-transform duration-[1200ms] ease-out group-hover:scale-105"
               />
               <span
                 aria-hidden
