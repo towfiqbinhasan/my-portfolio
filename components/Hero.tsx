@@ -315,7 +315,7 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          <motion.div {...float(2.4)} className="absolute -bottom-2 right-0 xl:-right-6">
+          <motion.div {...float(2.4)} className="absolute -bottom-2 right-0 hidden sm:block xl:-right-6">
             <div className={`${glass} rounded-full px-6 py-3.5`}>
               <p className="flex items-center gap-3 text-base font-semibold text-white">
                 <span className="h-3 w-3 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.9)]" />
