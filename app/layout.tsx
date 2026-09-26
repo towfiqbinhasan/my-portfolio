@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import PageLoader from "@/components/PageLoader";
 import ChatBot from "@/components/ChatBot";
 import ResearchBackground from "@/components/ResearchBackground";
+import ButtonEffects from "@/components/ButtonEffects";
 import { Toaster } from "react-hot-toast";
 import { Instrument_Serif, Outfit } from "next/font/google";
 
@@ -33,6 +34,7 @@ export default function RootLayout({
        <PageLoader /> 
        <ResearchBackground />
        <ChatBot />
+       <ButtonEffects />
   <Navbar />
   <Toaster
     position="top-center"

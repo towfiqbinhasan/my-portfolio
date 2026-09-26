@@ -241,7 +241,7 @@ function RequestAccessModal({
                 <button
                   type="submit"
                   disabled={loading}
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_0_24px_-6px_rgba(14, 165, 233,0.9)] transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:min-w-[14rem]"
+                  className="btn-press btn-shine inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_0_24px_-6px_rgba(14,165,233,0.9)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:min-w-[14rem]"
                 >
                   {loading ? "Sending..." : (
                     <>
@@ -505,7 +505,7 @@ export default function ExperiencePage() {
                     <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-white/10 pt-4">
                       <button
                         onClick={() => setSelected(exp)}
-                        className="group/btn inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-sky-200 transition hover:border-sky-400/60 hover:bg-sky-500/15 hover:text-white sm:text-sm"
+                        className="btn-press group/btn inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-sky-200 hover:border-sky-400/60 hover:bg-sky-500/15 hover:text-white sm:text-sm"
                       >
                         <FiBriefcase className="text-sm transition-transform duration-300 group-hover/btn:-translate-y-0.5" />
                         View Details

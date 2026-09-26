@@ -110,9 +110,14 @@ body {
 @keyframes marquee {
   to { transform: translateX(-100%); }
 }
-.marquee-track { animation: marquee 40s linear infinite; }
+.marquee-track { animation: marquee 55s linear infinite; }
+/* Phones show fewer chips at once, so drift slower there to keep each one readable */
+@media (max-width: 640px) {
+  .marquee-track { animation-duration: 80s; }
+}
 .marquee-reverse { animation-direction: reverse; }
-.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee:hover .marquee-track,
+.marquee:active .marquee-track { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
 }
@@ -234,31 +239,119 @@ body {
 .field-input::placeholder { transition: opacity 0.3s ease; }
 .field-input:focus::placeholder { opacity: 0.45; }
 
-/* ---------- Buttons: sheen sweep + tactile press ---------- */
+/* ---------- Buttons: springy lift, tactile press, sheen sweep, click ripple ----------
+   .btn-press  lifts with a slight overshoot on hover, sinks on press, shows a focus ring.
+   .btn-shine  a sheen passes on its own every few seconds and again, faster, on hover.
+   .btn-ripple-* are injected on click by <ButtonEffects /> for every button-like element. */
 .btn-press {
-  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease,
-    background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease,
+    background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, opacity 0.3s ease,
+    filter 0.3s ease;
 }
-.btn-press:hover { transform: translateY(-2px); }
-.btn-press:active { transform: translateY(0) scale(0.97); }
-.btn-press:disabled { transform: none; }
+.btn-press:hover { transform: translateY(-2px) scale(1.02); filter: brightness(1.08); }
+.btn-press:active {
+  transform: translateY(0) scale(0.96);
+  transition-duration: 0.1s;
+  filter: brightness(0.95);
+}
+.btn-press:disabled { transform: none; filter: none; }
+.btn-press:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #020817, 0 0 0 4px rgba(56, 189, 248, 0.7);
+}
 
-.btn-shine { position: relative; overflow: hidden; }
+@keyframes btn-sheen-auto {
+  0%, 78% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+@keyframes btn-sheen-hover {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(120%); }
+}
+.btn-shine { position: relative; overflow: hidden; isolation: isolate; }
 .btn-shine::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.28) 50%, transparent 65%);
   transform: translateX(-120%);
-  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: btn-sheen-auto 6s ease-in-out 2s infinite;
   pointer-events: none;
 }
-.btn-shine:hover::after { transform: translateX(120%); }
+.btn-shine:hover::after { animation: btn-sheen-hover 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+.btn-shine:disabled::after { animation: none; }
+
+@keyframes btn-ripple {
+  to { transform: scale(1); opacity: 0; }
+}
+.btn-ripple-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.btn-ripple {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.15) 45%, transparent 70%);
+  transform: scale(0);
+  opacity: 1;
+  animation: btn-ripple 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .btn-press:hover, .btn-press:active { transform: none; }
   .btn-shine::after { display: none; }
+  .btn-ripple-wrap { display: none; }
   .field-group::after { transition: none; }
+}
+
+/* Contact "Send Message" button: gradient keeps flowing, a shine sweeps by on its own,
+   the glow breathes, and on hover the paper plane flies off and lands back in. */
+@keyframes send-flow { to { background-position: 200% 0; } }
+@keyframes send-glow {
+  0%, 100% { box-shadow: 0 8px 22px -8px rgba(14, 165, 233, 0.45); }
+  50% { box-shadow: 0 10px 32px -6px rgba(34, 211, 238, 0.7); }
+}
+@keyframes send-sweep {
+  0%, 60% { transform: translateX(-120%); }
+  85%, 100% { transform: translateX(120%); }
+}
+@keyframes send-plane-idle {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(2px, -2px) rotate(-6deg); }
+}
+@keyframes send-plane-fly {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  40% { transform: translate(26px, -18px) rotate(-18deg) scale(0.7); opacity: 0; }
+  41% { transform: translate(-26px, 14px) rotate(0deg) scale(0.7); opacity: 0; }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+}
+.send-btn {
+  background-image: linear-gradient(90deg, #0ea5e9, #22d3ee, #3b82f6, #0ea5e9);
+  background-size: 200% 100%;
+  animation: send-flow 6s linear infinite, send-glow 3s ease-in-out infinite;
+}
+.send-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 38%, rgba(255, 255, 255, 0.35) 50%, transparent 62%);
+  animation: send-sweep 4s ease-in-out infinite;
+}
+.send-btn .send-plane { display: inline-flex; animation: send-plane-idle 2.4s ease-in-out infinite; }
+.send-btn:hover:not(:disabled) .send-plane { animation: send-plane-fly 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+.send-btn .send-label { transition: letter-spacing 0.3s ease; }
+.send-btn:hover:not(:disabled) .send-label { letter-spacing: 0.03em; }
+.send-btn:disabled { animation: send-flow 1.5s linear infinite; }
+.send-btn:disabled::before { animation: none; opacity: 0; }
+/* It already has its own sweep, so keep the shared sheen for hover only */
+.send-btn.btn-shine:not(:hover)::after { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .send-btn, .send-btn::before, .send-btn .send-plane,
+  .send-btn:hover:not(:disabled) .send-plane { animation: none; }
 }
 
 /* Field icon picks up the accent colour while the field is focused */

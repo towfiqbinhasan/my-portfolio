@@ -132,33 +132,84 @@ export default function Hero() {
       <div className="relative mx-auto grid max-w-[1560px] items-center gap-10 px-4 py-10 sm:px-6 md:px-10 lg:min-h-[calc(100vh-5rem)] lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-4 lg:py-14">
         {/* ---------- Left: copy ---------- */}
         <div className="order-2 min-w-0 lg:order-1">
-          {/* Status + role chips: always one line. Sized in em so the row scales with the viewport;
-              on phones it scrolls sideways instead of wrapping. */}
-          <motion.div
-            {...fadeUp(0.1)}
-            className="scrollbar-hide -mx-2 -my-3 flex items-center gap-[0.6em] overflow-x-auto px-2 py-3 text-[clamp(10px,1.4vw,14px)] lg:text-[clamp(9px,0.72vw,12px)]"
-          >
-            <Link
-              href="/contact"
-              className={`${glass} group inline-flex shrink-0 items-center gap-[0.6em] whitespace-nowrap rounded-full px-[1.1em] py-[0.6em] font-medium text-white`}
+          {/* Status + role chips. On phones they wrap: status on its own line, roles flow below it.
+              From sm up they stay on one line, sized in em so the row scales with the viewport. */}
+          <div className="scrollbar-hide -mx-2 -my-3 flex flex-wrap items-center gap-2 px-2 py-3 text-[12.5px] sm:flex-nowrap sm:gap-[0.6em] sm:overflow-x-auto sm:text-[clamp(10px,1.4vw,14px)] lg:text-[clamp(9px,0.72vw,12px)]">
+            {/* Status chip: a comet of light keeps orbiting its border, plus a periodic sweep across it */}
+            <motion.div
+              initial={{ opacity: 0, y: 14, scale: 0.94 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.1, ease }}
+              whileHover={reduce ? undefined : { y: -2 }}
+              className="shrink-0"
             >
-              <span className="relative flex h-[0.7em] w-[0.7em]">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-                <span className="relative inline-flex h-full w-full rounded-full bg-emerald-400" />
-              </span>
-              Available for New Opportunities
-              <FiChevronRight className="transition-transform group-hover:translate-x-0.5" />
-            </Link>
-            {roles.map(({ label, icon: Icon }) => (
-              <span
-                key={label}
-                className={`${glass} inline-flex shrink-0 items-center gap-[0.5em] whitespace-nowrap rounded-full px-[0.95em] py-[0.6em] text-white`}
+              <Link
+                href="/contact"
+                className="group relative inline-flex overflow-hidden rounded-full bg-emerald-400/30 p-px shadow-[0_0_22px_-6px_rgba(52,211,153,0.6)] transition-shadow duration-300 hover:shadow-[0_0_30px_-4px_rgba(52,211,153,0.8)]"
               >
-                <Icon className="text-sky-400" />
-                {label}
-              </span>
+                {/* Rotating conic gradient: only its 1px rim shows, reading as light running round the border */}
+                <motion.span
+                  aria-hidden
+                  className="pointer-events-none absolute left-1/2 top-1/2 -ml-[15em] -mt-[15em] h-[30em] w-[30em] bg-[conic-gradient(from_0deg,transparent_0deg,transparent_250deg,rgba(110,231,183,0.95)_320deg,rgba(255,255,255,1)_350deg,transparent_360deg)]"
+                  animate={reduce ? undefined : { rotate: 360 }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                />
+                <span className="relative inline-flex items-center gap-[0.65em] overflow-hidden whitespace-nowrap rounded-full bg-[linear-gradient(90deg,#062a2a,#051634_60%)] px-[1.1em] py-[0.6em] font-semibold text-white">
+                  {!reduce && (
+                    <motion.span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-y-0 left-0 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/12 to-transparent"
+                      initial={{ x: "-150%" }}
+                      animate={{ x: "400%" }}
+                      transition={{ duration: 1.6, delay: 1.2, repeat: Infinity, repeatDelay: 3.5, ease: "easeInOut" }}
+                    />
+                  )}
+                  <span className="relative flex h-[0.65em] w-[0.65em]">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                    <span className="relative inline-flex h-full w-full rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
+                  </span>
+                  <span className="relative">Available for New Opportunities</span>
+                  <motion.span
+                    className="relative flex text-emerald-300"
+                    animate={reduce ? undefined : { x: [0, 3, 0] }}
+                    transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <FiChevronRight />
+                  </motion.span>
+                </span>
+              </Link>
+            </motion.div>
+            <span aria-hidden className="h-0 basis-full sm:hidden" />
+            {/* Role chips: pop in one after another, then a glow wave keeps travelling across them */}
+            {roles.map(({ label, icon: Icon }, i) => (
+              <motion.span
+                key={label}
+                initial={{ opacity: 0, y: 14, scale: 0.94 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.55, delay: 0.22 + i * 0.09, ease }}
+                whileHover={reduce ? undefined : { y: -2 }}
+                className={`${glass} group relative inline-flex shrink-0 cursor-default items-center gap-[0.55em] whitespace-nowrap rounded-full py-[0.4em] pl-[0.4em] pr-[1em] font-medium text-slate-100 transition-[border-color,box-shadow,color] duration-300 hover:border-sky-300/70 hover:text-white hover:shadow-[0_0_26px_-4px_rgba(56,189,248,0.7),inset_0_0_20px_rgba(56,189,248,0.1)]`}
+              >
+                {!reduce && (
+                  <motion.span
+                    aria-hidden
+                    className="pointer-events-none absolute -inset-px rounded-full border border-sky-300/80 shadow-[0_0_22px_-2px_rgba(56,189,248,0.75),inset_0_0_16px_rgba(56,189,248,0.18)]"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0, 1, 0] }}
+                    transition={{ duration: 1.4, delay: 1.4 + i * 0.45, repeat: Infinity, repeatDelay: 2.6, ease: "easeInOut" }}
+                  />
+                )}
+                <motion.span
+                  className="relative flex h-[1.9em] w-[1.9em] items-center justify-center rounded-full bg-sky-400/10 ring-1 ring-sky-400/30 transition-colors duration-300 group-hover:bg-sky-400/20 group-hover:ring-sky-300/60"
+                  animate={reduce ? undefined : { scale: [1, 1.12, 1] }}
+                  transition={{ duration: 1.4, delay: 1.4 + i * 0.45, repeat: Infinity, repeatDelay: 2.6, ease: "easeInOut" }}
+                >
+                  <Icon className="text-sky-300" />
+                </motion.span>
+                <span className="relative">{label}</span>
+              </motion.span>
             ))}
-          </motion.div>
+          </div>
 
           {/* Headline */}
           <motion.h1 {...fadeUp(0.25)} className="mt-7 font-extrabold leading-[0.98] tracking-tight">
@@ -198,7 +249,7 @@ export default function Hero() {
           <motion.div {...fadeUp(0.7)} className="mt-8 flex flex-wrap items-center gap-4">
             <Link
               href="/projects"
-              className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-sky-600 to-cyan-600 px-7 py-3.5 text-base font-semibold text-white shadow-[0_0_18px_-6px_rgba(34,211,238,0.45)] hover:from-sky-500 hover:to-cyan-500 transition-transform duration-300 hover:-translate-y-0.5"
+              className="btn-press btn-shine group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-sky-600 to-cyan-600 px-7 py-3.5 text-base font-semibold text-white shadow-[0_0_18px_-6px_rgba(34,211,238,0.45)] hover:from-sky-500 hover:to-cyan-500 hover:shadow-[0_0_28px_-4px_rgba(34,211,238,0.7)]"
             >
               <FiFolder className="text-xl" />
               View Projects
@@ -206,7 +257,7 @@ export default function Hero() {
             </Link>
             <Link
               href="/cv"
-              className="group inline-flex items-center gap-3 rounded-full border border-sky-400/60 bg-[#061433]/60 px-7 py-3.5 text-base font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-sky-400/10 hover:shadow-[0_0_24px_-6px_rgba(56,189,248,0.8)]"
+              className="btn-press btn-shine group inline-flex items-center gap-3 rounded-full border border-sky-400/60 bg-[#061433]/60 px-7 py-3.5 text-base font-semibold text-white hover:bg-sky-400/10 hover:shadow-[0_0_24px_-6px_rgba(56,189,248,0.8)]"
             >
               <FiDownload className="text-xl transition-transform group-hover:translate-y-0.5" />
               Download CV
@@ -219,7 +270,7 @@ export default function Hero() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="group inline-flex items-center gap-1.5 rounded-full border border-sky-400/25 bg-[#061433]/50 px-4 py-1.5 text-sm text-slate-300 transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-400/60 hover:bg-sky-400/10 hover:text-white"
+                className="btn-press group inline-flex items-center gap-1.5 rounded-full border border-sky-400/25 bg-[#061433]/50 px-4 py-1.5 text-sm text-slate-300 hover:border-sky-400/60 hover:bg-sky-400/10 hover:text-white"
               >
                 {l.label}
                 <FiArrowUpRight className="text-[0.9em] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
