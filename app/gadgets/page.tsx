@@ -143,7 +143,7 @@ function GadgetCard({
           {/* Scrim so the chip stays readable over any product shot */}
           <span
             aria-hidden
-            className="absolute inset-0 bg-gradient-to-t from-[#020817] via-[#020817]/10 to-transparent"
+            className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/10 to-transparent"
           />
           <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-sky-200 ring-1 ring-white/10 backdrop-blur transition-all duration-500 group-hover:bg-sky-500/30 group-hover:text-white group-hover:ring-sky-400/50">
             <Icon className="text-sm transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6" /> {gadget.category}
@@ -172,7 +172,7 @@ function GadgetDetails({ gadget }: { gadget: GadgetItem }) {
     <>
       <motion.div
         {...lightboxItem(0)}
-        className="relative h-56 w-full bg-[#020b1f] xs:h-64 sm:h-72 md:h-80"
+        className="relative h-56 w-full bg-[#0a0a0c] xs:h-64 sm:h-72 md:h-80"
       >
         <Image
           src={gadget.image}
@@ -183,7 +183,7 @@ function GadgetDetails({ gadget }: { gadget: GadgetItem }) {
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0a1730] to-transparent"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#141416] to-transparent"
         />
       </motion.div>
 

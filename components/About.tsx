@@ -1,29 +1,80 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { gsap, MQ } from "@/lib/gsap";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
+const PARAGRAPHS = [
+  "I am a meticulous computer science and engineering student at AIUB, majoring in data science. I have a strong passion for my field, particularly in machine learning, data mining, and research. My technical expertise includes C++, Java, C#, and full-stack web development, along with a solid understanding of DSA and database management. I have also participated in several academic conferences and have shared my projects on GitHub.",
+  "Beyond my technical life, I am an adventurous traveler. I have a dream of going on a world tour, and I have already successfully traveled across all of Bangladesh with my travel group, TH Team. My experience as a traveler has made me a more adaptable and fast learner. With a mix of strong analytical skills, teaching experience, and a motivated mindset, I am eager to bring my technical knowledge into a professional environment.",
+];
+
+/** One span per word so scroll can light them up in sequence. */
+function Words({ text }: { text: string }) {
+  return text.split(" ").map((w, i) => (
+    <span key={i} className="reveal-word">
+      {w}{" "}
+    </span>
+  ));
+}
+
 export default function About() {
+  const root = useRef<HTMLElement>(null);
+  const photo = useRef<HTMLDivElement>(null);
+  const copy = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const mm = gsap.matchMedia(root);
+    mm.add(MQ.motion, () => {
+      // Words go from dim to full white as the text scrolls up the screen.
+      gsap.to(gsap.utils.toArray(".reveal-word", copy.current), {
+        opacity: 1,
+        stagger: 0.1,
+        ease: "none",
+        scrollTrigger: { trigger: copy.current, start: "top 80%", end: "bottom 45%", scrub: true },
+      });
+      // Portrait wipes open from the bottom, then drifts slightly slower than the page.
+      gsap.fromTo(
+        photo.current,
+        { clipPath: "inset(100% 0% 0% 0%)" },
+        {
+          clipPath: "inset(0% 0% 0% 0%)",
+          duration: 1.4,
+          ease: "expo.out",
+          scrollTrigger: { trigger: photo.current, start: "top 80%", toggleActions: "play none none reverse" },
+        }
+      );
+      gsap.fromTo(
+        ".about-parallax",
+        { yPercent: -8 },
+        {
+          yPercent: 8,
+          ease: "none",
+          scrollTrigger: { trigger: root.current, start: "top bottom", end: "bottom top", scrub: true },
+        }
+      );
+    });
+    return () => mm.revert();
+  }, []);
+
   return (
-    <section className="relative mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-24">
+    <section ref={root} data-world="about" className="relative mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-24">
       {/* Soft spotlight behind the block */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(ellipse 55% 60% at 30% 40%, rgba(14, 165, 233,0.10), transparent 70%)",
+            "radial-gradient(ellipse 55% 60% at 30% 40%, rgba(225,29,46,0.10), transparent 70%)",
         }}
       />
 
       <div className="grid items-center gap-10 md:grid-cols-[minmax(0,320px)_1fr] md:gap-14">
         {/* Portrait */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8, ease }}
+        <div
+          ref={photo}
           className="relative mx-auto w-full max-w-[260px] sm:max-w-[300px] md:max-w-none"
         >
           {/* Blue glow + spinning neon ring */}
@@ -37,23 +88,25 @@ export default function About() {
               aria-hidden
               className="absolute -inset-1 rounded-full"
               style={{
-                background: "conic-gradient(from 200deg, #0ea5e9, #1d4ed8, #22d3ee, #0ea5e9)",
-                boxShadow: "0 0 12px rgba(56,189,248,0.3), 0 0 32px rgba(37,99,235,0.15)",
+                background: "conic-gradient(from 200deg, #e11d2e, #9e111d, #ff4d5e, #e11d2e)",
+                boxShadow: "0 0 12px rgba(239,54,70,0.3), 0 0 32px rgba(190,18,36,0.15)",
               }}
               animate={{ rotate: 360 }}
               transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
             />
-            <div className="group absolute inset-0 overflow-hidden rounded-full bg-[#030d26]">
-              <Image
-                src="/DSC00106.jpg"
-                alt="Towfiq Bin Hasan"
-                fill
-                sizes="(max-width: 768px) 300px, 320px"
-                className="object-cover object-[50%_20%] brightness-[0.8] transition-transform duration-[1200ms] ease-out group-hover:scale-105"
-              />
+            <div className="group absolute inset-0 overflow-hidden rounded-full bg-[#0c0c0e]">
+              <div className="about-parallax absolute -inset-[10%]">
+                <Image
+                  src="/DSC00106.jpg"
+                  alt="Towfiq Bin Hasan"
+                  fill
+                  sizes="(max-width: 768px) 360px, 400px"
+                  className="object-cover object-[50%_20%] brightness-[0.8] transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+                />
+              </div>
               <span
                 aria-hidden
-                className="absolute inset-0 bg-gradient-to-t from-[#020b1f]/70 via-transparent to-transparent"
+                className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c]/70 via-transparent to-transparent"
               />
             </div>
             {/* Floor glow */}
@@ -62,7 +115,7 @@ export default function About() {
               className="absolute -bottom-6 left-1/2 h-8 w-[85%] -translate-x-1/2 rounded-[100%] bg-sky-400/10 blur-2xl"
             />
           </motion.div>
-        </motion.div>
+        </div>
 
         {/* Copy */}
         <div>
@@ -110,13 +163,15 @@ export default function About() {
               className="absolute left-0 top-0 h-16 w-px bg-gradient-to-b from-sky-400 to-cyan-400"
             />
 
-            <p className="text-sm leading-[1.9] text-gray-400 sm:text-[0.95rem] first-letter:float-left first-letter:mr-2.5 first-letter:text-4xl first-letter:font-bold first-letter:leading-none first-letter:text-sky-300 sm:first-letter:text-5xl">
-              I am a meticulous computer science and engineering student at AIUB, majoring in data science. I have a strong passion for my field, particularly in machine learning, data mining, and research. My technical expertise includes C++, Java, C#, and full-stack web development, along with a solid understanding of DSA and database management. I have also participated in several academic conferences and have shared my projects on GitHub.
-            </p>
+            <div ref={copy}>
+              <p className="text-sm leading-[1.9] text-white sm:text-[0.95rem] first-letter:float-left first-letter:mr-2.5 first-letter:text-4xl first-letter:font-bold first-letter:leading-none first-letter:text-sky-300 sm:first-letter:text-5xl">
+                <Words text={PARAGRAPHS[0]} />
+              </p>
 
-            <p className="mt-5 text-sm leading-[1.9] text-gray-400 sm:text-[0.95rem]">
-              Beyond my technical life, I am an adventurous traveler. I have a dream of going on a world tour, and I have already successfully traveled across all of Bangladesh with my travel group, TH Team. My experience as a traveler has made me a more adaptable and fast learner. With a mix of strong analytical skills, teaching experience, and a motivated mindset, I am eager to bring my technical knowledge into a professional environment.
-            </p>
+              <p className="mt-5 text-sm leading-[1.9] text-white sm:text-[0.95rem]">
+                <Words text={PARAGRAPHS[1]} />
+              </p>
+            </div>
           </motion.div>
         </div>
       </div>

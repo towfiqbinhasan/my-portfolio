@@ -73,7 +73,7 @@ export default function Footer() {
         className="pointer-events-none absolute inset-x-0 top-0 h-56"
         style={{
           background:
-            "radial-gradient(ellipse 55% 100% at 50% 0%, rgba(14, 165, 233,0.14), transparent 70%)",
+            "radial-gradient(ellipse 55% 100% at 50% 0%, rgba(225,29,46,0.14), transparent 70%)",
         }}
       />
       {/* Faint grid, echoing the hero */}
@@ -163,7 +163,7 @@ export default function Footer() {
             </h3>
             <Link
               href="/contact"
-              className="btn-press btn-shine inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_10px_28px_-12px_rgba(14, 165, 233,0.9)]"
+              className="btn-press btn-shine inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_10px_28px_-12px_rgba(225,29,46,0.9)]"
             >
               Contact Me
               <FiArrowUpRight />

@@ -302,7 +302,7 @@ export default function CVPage() {
                       key={version.fileKey}
                       className={`group/version relative flex items-center justify-between gap-3 rounded-2xl border p-4 transition duration-300 sm:gap-4 sm:p-5 ${
                         isSelected
-                          ? "border-sky-400/60 bg-sky-500/10 shadow-[0_0_0_1px_rgba(14, 165, 233,0.25)]"
+                          ? "border-sky-400/60 bg-sky-500/10 shadow-[0_0_0_1px_rgba(225,29,46,0.25)]"
                           : "border-white/10 bg-black/25 hover:border-sky-400/50 hover:bg-white/[0.05]"
                       }`}
                     >
@@ -365,7 +365,7 @@ export default function CVPage() {
               exit={{ opacity: 0, scale: 0.96, y: 16, transition: { duration: 0.22, ease: "easeIn" } }}
               transition={{ type: "spring", stiffness: 260, damping: 26 }}
               onClick={(e) => e.stopPropagation()}
-              className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#0a1730] shadow-2xl shadow-black/70 sm:rounded-3xl"
+              className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#141416] shadow-2xl shadow-black/70 sm:rounded-3xl"
             >
               <div
                 aria-hidden
@@ -472,7 +472,7 @@ export default function CVPage() {
                       <button
                         type="submit"
                         disabled={loading}
-                        className="btn-press btn-shine inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_0_24px_-6px_rgba(14, 165, 233,0.9)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:min-w-[14rem]"
+                        className="btn-press btn-shine inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_0_24px_-6px_rgba(225,29,46,0.9)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:min-w-[14rem]"
                       >
                         {loading ? (
                           <span className="relative flex items-center gap-2">

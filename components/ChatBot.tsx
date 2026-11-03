@@ -197,9 +197,9 @@ export default function ChatBot() {
               <motion.span
                 animate={{
                   boxShadow: [
-                    "0 0 0px rgba(14, 165, 233,0.35)",
-                    "0 0 22px rgba(14, 165, 233,0.75)",
-                    "0 0 0px rgba(14, 165, 233,0.35)",
+                    "0 0 0px rgba(225,29,46,0.35)",
+                    "0 0 22px rgba(225,29,46,0.75)",
+                    "0 0 0px rgba(225,29,46,0.35)",
                   ],
                 }}
                 transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
@@ -207,12 +207,12 @@ export default function ChatBot() {
               >
                 <HiSparkles className="text-lg text-white" />
               </motion.span>
-              <span className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 rounded-full border-2 border-[#081630] bg-emerald-400">
+              <span className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 rounded-full border-2 border-[#141416] bg-emerald-400">
                 <span className="absolute inset-0 animate-ping rounded-full bg-emerald-400 opacity-75" />
               </span>
             </span>
 
-            <span className="max-w-[230px] rounded-2xl rounded-bl-md border border-sky-400/25 bg-[#081630]/95 px-4 py-3 shadow-2xl shadow-sky-500/20 backdrop-blur-md">
+            <span className="max-w-[230px] rounded-2xl rounded-bl-md border border-sky-400/25 bg-[#141416]/95 px-4 py-3 shadow-2xl shadow-sky-500/20 backdrop-blur-md">
               <span className="mb-0.5 flex items-center gap-1.5 text-[11px] font-medium text-sky-300">
                 Towfiq&apos;s AI Agent
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
@@ -267,7 +267,7 @@ export default function ChatBot() {
             exit={{ opacity: 0, y: 24, scale: 0.94 }}
             transition={{ type: "spring", stiffness: 280, damping: 26 }}
             style={{ transformOrigin: "bottom right" }}
-            className="fixed bottom-24 right-4 sm:right-6 z-[200] flex h-[70vh] max-h-[560px] w-[calc(100vw-2rem)] max-w-[400px] flex-col overflow-hidden rounded-3xl border border-white/10 bg-[#04102a]/95 shadow-2xl shadow-black/60 backdrop-blur-xl"
+            className="fixed bottom-24 right-4 sm:right-6 z-[200] flex h-[70vh] max-h-[560px] w-[calc(100vw-2rem)] max-w-[400px] flex-col overflow-hidden rounded-3xl border border-white/10 bg-[#0e0e10]/95 shadow-2xl shadow-black/60 backdrop-blur-xl"
           >
             {/* Header */}
             <div className="relative flex items-center gap-3 border-b border-white/10 bg-gradient-to-r from-sky-600/20 via-blue-600/10 to-cyan-500/20 px-4 py-3.5">
@@ -275,7 +275,7 @@ export default function ChatBot() {
                 <div className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-sky-400/40">
                   <Image src="/logo.png" alt="Towfiq's AI assistant" fill sizes="40px" className="object-cover" />
                 </div>
-                <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-[#04102a] bg-emerald-400" />
+                <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-[#0e0e10] bg-emerald-400" />
               </div>
 
               <div className="min-w-0 flex-1">
@@ -395,7 +395,7 @@ export default function ChatBot() {
                   e.preventDefault();
                   sendMessage();
                 }}
-                className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] p-1.5 pl-4 transition focus-within:border-sky-400/60 focus-within:bg-white/[0.07] focus-within:shadow-[0_0_0_3px_rgba(14, 165, 233,0.12)]"
+                className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] p-1.5 pl-4 transition focus-within:border-sky-400/60 focus-within:bg-white/[0.07] focus-within:shadow-[0_0_0_3px_rgba(225,29,46,0.12)]"
               >
                 <input
                   ref={inputRef}

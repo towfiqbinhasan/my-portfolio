@@ -38,7 +38,7 @@ const experiences: Experience[] = experienceData as Experience[];
 const backdropClass =
   "fixed inset-0 flex items-center justify-center overflow-y-auto bg-black/80 px-3 py-6 sm:px-6 sm:py-10";
 const panelClass =
-  "modal-rim relative my-auto w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a1730] shadow-2xl shadow-black/70 sm:rounded-3xl";
+  "modal-rim relative my-auto w-full overflow-hidden rounded-2xl border border-white/10 bg-[#141416] shadow-2xl shadow-black/70 sm:rounded-3xl";
 const scrollAreaClass =
   "modal-scroll max-h-[88vh] overflow-y-auto overscroll-contain sm:max-h-[85vh]";
 const closeButtonClass =
@@ -241,7 +241,7 @@ function RequestAccessModal({
                 <button
                   type="submit"
                   disabled={loading}
-                  className="btn-press btn-shine inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_0_24px_-6px_rgba(14,165,233,0.9)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:min-w-[14rem]"
+                  className="btn-press btn-shine inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_0_24px_-6px_rgba(225,29,46,0.9)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:min-w-[14rem]"
                 >
                   {loading ? "Sending..." : (
                     <>
@@ -357,7 +357,7 @@ function ExperienceModal({
                 href={exp.companyLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group/link inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(14, 165, 233,0.9)] transition hover:opacity-90 sm:px-5 sm:text-sm"
+                className="group/link inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(225,29,46,0.9)] transition hover:opacity-90 sm:px-5 sm:text-sm"
               >
                 <FiExternalLink className="transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />{" "}
                 Visit {exp.company}
@@ -444,7 +444,7 @@ export default function ExperiencePage() {
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2, ease }}
-                className="absolute left-4 top-7 z-10 h-3.5 w-3.5 -translate-x-1/2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 shadow-[0_0_14px_rgba(34,211,238,0.8)] ring-4 ring-[#020817] sm:left-6 sm:top-8 md:left-1/2"
+                className="absolute left-4 top-7 z-10 h-3.5 w-3.5 -translate-x-1/2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 shadow-[0_0_14px_rgba(255,77,94,0.8)] ring-4 ring-[#0a0a0c] sm:left-6 sm:top-8 md:left-1/2"
               />
 
               <div className="ml-10 w-[calc(100%-2.5rem)] sm:ml-16 sm:w-[calc(100%-4rem)] md:ml-0 md:w-1/2">

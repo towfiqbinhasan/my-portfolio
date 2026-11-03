@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 
 // Equations that drift up through the background.
 const FORMULAS = [
@@ -29,8 +30,11 @@ const LINK_DIST = 150; // px: nodes closer than this get connected
 /** Full-screen, click-through canvas: a drifting neural-net graph with floating equations. */
 export default function ResearchBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  // The home page draws its own 3D world instead.
+  const off = usePathname() === "/";
 
   useEffect(() => {
+    if (off) return;
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
     if (!canvas || !ctx) return;
@@ -86,7 +90,7 @@ export default function ResearchBackground() {
           const b = nodes[j];
           const d = Math.hypot(a.x - b.x, a.y - b.y);
           if (d > LINK_DIST) continue;
-          ctx.strokeStyle = `rgba(56,189,248,${(1 - d / LINK_DIST) * 0.35})`;
+          ctx.strokeStyle = `rgba(239,54,70,${(1 - d / LINK_DIST) * 0.35})`;
           ctx.lineWidth = 0.8;
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
@@ -98,8 +102,8 @@ export default function ResearchBackground() {
       // Neurons, each softly pulsing
       for (const n of nodes) {
         const glow = 0.5 + 0.5 * Math.sin(t * 0.03 + n.phase);
-        ctx.fillStyle = `rgba(125,211,252,${0.45 + glow * 0.45})`;
-        ctx.shadowColor = "rgba(56,189,248,0.9)";
+        ctx.fillStyle = `rgba(255,148,157,${0.45 + glow * 0.45})`;
+        ctx.shadowColor = "rgba(239,54,70,0.9)";
         ctx.shadowBlur = 6 + glow * 8;
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
@@ -112,7 +116,7 @@ export default function ResearchBackground() {
         const p = f.life / f.max;
         const alpha = Math.min(p / 0.15, (1 - p) / 0.15, 1) * 0.22;
         ctx.font = `italic ${f.size}px ${serif}, Georgia, serif`;
-        ctx.fillStyle = `rgba(96,165,250,${Math.max(alpha, 0)})`;
+        ctx.fillStyle = `rgba(255,120,130,${Math.max(alpha, 0)})`;
         ctx.fillText(f.text, f.x, f.y);
       }
     };
@@ -153,7 +157,9 @@ export default function ResearchBackground() {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
     };
-  }, []);
+  }, [off]);
+
+  if (off) return null;
 
   return (
     <canvas

@@ -1,7 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion, animate } from "framer-motion";
 import Image from "next/image";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -11,21 +11,38 @@ export default function PageLoader() {
   const reduce = useReducedMotion();
   const [loading, setLoading] = useState(true);
   const [prevPath, setPrevPath] = useState(pathname);
+  const counter = useRef<HTMLSpanElement>(null);
+  // First visit gets a longer count; later route changes stay snappy.
+  const [duration, setDuration] = useState(1.3);
 
   // Route changed: show the loader again (state adjusted during render, per React docs).
   if (pathname !== prevPath) {
     setPrevPath(pathname);
     setLoading(true);
+    setDuration(0.6);
   }
 
   useEffect(() => {
     if (!loading) return;
+    // Count 0 → 100%, then lift the curtain.
+    const controls = animate(0, 100, {
+      duration,
+      ease: [0.65, 0, 0.35, 1],
+      onUpdate: (v) => {
+        if (counter.current) counter.current.textContent = `${Math.round(v)}`;
+      },
+    });
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 600);
+      // Lets page intros (e.g. the hero headline) start as the curtain lifts.
+      window.dispatchEvent(new Event("loader:done"));
+    }, duration * 1000 + 150);
 
-    return () => clearTimeout(timer);
-  }, [loading, pathname]);
+    return () => {
+      controls.stop();
+      clearTimeout(timer);
+    };
+  }, [loading, pathname, duration]);
 
   return (
     <AnimatePresence>
@@ -34,8 +51,12 @@ export default function PageLoader() {
           key="loader"
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0, filter: "blur(8px)", transition: { duration: 0.45, ease } }}
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#020b1f]"
+          exit={
+            reduce
+              ? { opacity: 0, transition: { duration: 0.3 } }
+              : { y: "-100%", transition: { duration: 0.85, ease: [0.76, 0, 0.24, 1] } }
+          }
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0a0a0c]"
         >
           {/* Ambient spotlight + grain, matching the hero */}
           <span
@@ -43,7 +64,7 @@ export default function PageLoader() {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(ellipse 60% 55% at 50% 45%, rgba(14, 165, 233,0.18), transparent 70%)",
+                "radial-gradient(ellipse 60% 55% at 50% 45%, rgba(225,29,46,0.18), transparent 70%)",
             }}
           />
           <span
@@ -87,7 +108,7 @@ export default function PageLoader() {
                 className="absolute h-32 w-32 rounded-full"
                 style={{
                   background:
-                    "conic-gradient(from 0deg, transparent 0deg, rgba(14, 165, 233,0.15) 140deg, #0ea5e9 300deg, #22d3ee 360deg)",
+                    "conic-gradient(from 0deg, transparent 0deg, rgba(225,29,46,0.15) 140deg, #e11d2e 300deg, #ff4d5e 360deg)",
                   WebkitMask:
                     "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px))",
                   mask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px))",
@@ -101,7 +122,7 @@ export default function PageLoader() {
                 transition={{ duration: 1.6, repeat: Infinity, ease: "linear" }}
                 className="absolute h-32 w-32"
               >
-                <span className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400 shadow-[0_0_14px_4px_rgba(34,211,238,0.8)]" />
+                <span className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400 shadow-[0_0_14px_4px_rgba(255,77,94,0.8)]" />
               </motion.span>
 
               {/* Logo */}
@@ -119,7 +140,7 @@ export default function PageLoader() {
               <motion.span
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
+                transition={{ duration, ease: [0.65, 0, 0.35, 1] }}
                 className="block h-full w-full origin-left bg-gradient-to-r from-sky-400 to-cyan-400"
               />
             </div>
@@ -133,6 +154,17 @@ export default function PageLoader() {
               Towfiq Bin Hasan
             </motion.p>
           </motion.div>
+
+          {/* Big percentage counter in the corner */}
+          <p
+            aria-live="polite"
+            className="absolute bottom-6 right-6 font-[family-name:var(--font-heading)] text-[clamp(4rem,14vw,10rem)] leading-none text-white sm:bottom-10 sm:right-10"
+          >
+            <span ref={counter}>0</span>
+            <span className="text-sky-500">%</span>
+          </p>
+          {/* Red edge that trails the curtain as it lifts */}
+          <span aria-hidden className="absolute inset-x-0 bottom-0 h-1 bg-sky-500" />
         </motion.div>
       )}
     </AnimatePresence>

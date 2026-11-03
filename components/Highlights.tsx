@@ -97,7 +97,7 @@ export default function Highlights() {
           <>
             <motion.div
               {...lightboxItem(0)}
-              className="relative h-60 w-full bg-[#020b1f] xs:h-72 sm:h-80 md:h-[26rem]"
+              className="relative h-60 w-full bg-[#0a0a0c] xs:h-72 sm:h-80 md:h-[26rem]"
             >
               <Image
                 src={selected.image}
@@ -108,7 +108,7 @@ export default function Highlights() {
               />
               <div
                 aria-hidden
-                className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0a1730] via-[#0a1730]/40 to-transparent"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#141416] via-[#141416]/40 to-transparent"
               />
             </motion.div>
 

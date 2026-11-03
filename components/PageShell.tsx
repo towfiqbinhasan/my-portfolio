@@ -1,6 +1,6 @@
 "use client";
-import type { MouseEvent, ReactNode } from "react";
-import { motion } from "framer-motion";
+import { useRef, type MouseEvent, type ReactNode } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
 export const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -22,7 +22,7 @@ export function PageBackdrop() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 70% 60% at 50% -10%, rgba(14, 165, 233,0.16), transparent 70%)",
+            "radial-gradient(ellipse 70% 60% at 50% -10%, rgba(225,29,46,0.16), transparent 70%)",
         }}
       />
       <div
@@ -52,8 +52,20 @@ export function PageHeader({
   description?: ReactNode;
   children?: ReactNode;
 }) {
+  // As the page scrolls on, the header tips back into the screen and fades, like a title card.
+  const ref = useRef<HTMLElement>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const rotateX = useTransform(scrollYProgress, [0, 1], [0, 38]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.15]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
+
   return (
-    <header className="relative mb-12 flex flex-col items-center text-center sm:mb-16">
+    <motion.header
+      ref={ref}
+      style={reduce ? undefined : { rotateX, opacity, scale, transformPerspective: 1200, transformOrigin: "50% 0%" }}
+      className="relative mb-12 flex flex-col items-center text-center sm:mb-16"
+    >
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -108,7 +120,7 @@ export function PageHeader({
           {children}
         </motion.div>
       )}
-    </header>
+    </motion.header>
   );
 }
 
@@ -132,10 +144,12 @@ export function GlowCard({
   return (
     <motion.div
       onMouseMove={onMove}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      // Swings up out of depth: tilted back and lower, it rises and straightens as it enters.
+      initial={{ opacity: 0, y: 70, rotateX: 28, scale: 0.94, transformPerspective: 1000 }}
+      whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.7, delay, ease }}
+      transition={{ duration: 0.9, delay, ease }}
+      style={{ transformOrigin: "50% 100%" }}
       whileHover={lift ? { y: -6 } : undefined}
       className={`glow-card group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] ${className}`}
     >

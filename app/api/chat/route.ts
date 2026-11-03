@@ -1,16 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { portfolioKnowledge } from "@/lib/portfolioKnowledge";
+import { offlineAnswer } from "@/lib/offlineAnswer";
+
+/** Latest visitor question, used by the built-in fallback answers. */
+function lastQuestion(messages: { role?: string; content?: string }[]) {
+  return [...messages].reverse().find((m) => m?.role === "user" && typeof m.content === "string")?.content ?? "";
+}
 
 export async function POST(req: NextRequest) {
   try {
-    if (!process.env.GROQ_API_KEY) {
-      console.error("GROQ_API_KEY is missing in environment variables");
-      return NextResponse.json(
-        { reply: "Server is not configured properly. Please contact the admin." },
-        { status: 500 }
-      );
-    }
-
     const { messages } = await req.json();
 
     if (!messages || !Array.isArray(messages)) {
@@ -18,6 +16,12 @@ export async function POST(req: NextRequest) {
         { reply: "Invalid request format." },
         { status: 400 }
       );
+    }
+
+    // No AI key configured: answer from the portfolio facts instead of failing.
+    if (!process.env.GROQ_API_KEY) {
+      console.warn("GROQ_API_KEY is missing; chat is using the built-in answers");
+      return NextResponse.json({ reply: offlineAnswer(lastQuestion(messages)) });
     }
 
     // Groq (OpenAI-compatible) শুধু role আর content accept করে —
@@ -52,22 +56,17 @@ export async function POST(req: NextRequest) {
 
     const data = await response.json();
 
+    // AI unavailable or empty answer: fall back to the built-in answers.
     if (!response.ok) {
       console.error("Groq API error:", data);
-      return NextResponse.json(
-        { reply: "Sorry, something went wrong while contacting the AI." },
-        { status: 500 }
-      );
+      return NextResponse.json({ reply: offlineAnswer(lastQuestion(cleanMessages)) });
     }
 
     const reply = data?.choices?.[0]?.message?.content;
 
     if (!reply) {
       console.error("Unexpected Groq response:", data);
-      return NextResponse.json(
-        { reply: "Sorry, I couldn't generate a response. Please try again." },
-        { status: 500 }
-      );
+      return NextResponse.json({ reply: offlineAnswer(lastQuestion(cleanMessages)) });
     }
 
     return NextResponse.json({ reply });

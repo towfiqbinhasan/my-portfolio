@@ -70,7 +70,7 @@ export default function CertificatePage() {
               <span aria-hidden className="carousel-sheen pointer-events-none absolute inset-0" />
               <span
                 aria-hidden
-                className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#020817] via-[#020817]/40 to-transparent"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/40 to-transparent"
               />
               <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-300 group-hover:bg-black/45">
                 <span className="flex translate-y-1 items-center gap-2 rounded-full bg-sky-500/80 px-3 py-1.5 text-sm font-medium text-white opacity-0 ring-1 ring-white/15 backdrop-blur transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
@@ -142,7 +142,7 @@ export default function CertificatePage() {
               exit={{ opacity: 0, scale: 0.96, y: 16, transition: { duration: 0.22, ease: "easeIn" } }}
               transition={reduce ? { duration: 0.2, ease } : { type: "spring", stiffness: 260, damping: 26 }}
               onClick={(e) => e.stopPropagation()}
-              className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#0a1730] shadow-2xl shadow-black/70 sm:rounded-3xl"
+              className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#141416] shadow-2xl shadow-black/70 sm:rounded-3xl"
             >
               <button
                 onClick={() => setSelected(null)}

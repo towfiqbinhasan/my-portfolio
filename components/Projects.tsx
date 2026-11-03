@@ -73,7 +73,7 @@ function SectionTitle({ title, accent }: { title: string; accent: string }) {
       transition={{ duration: 0.6, ease }}
       className="mb-6 flex items-center gap-3 text-xl font-bold tracking-tight sm:mb-8 sm:text-2xl"
     >
-      <span className="h-7 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-b from-sky-500 to-cyan-400 shadow-[0_0_14px_-2px_rgba(14, 165, 233,0.8)] sm:h-8 sm:w-2" />
+      <span className="h-7 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-b from-sky-500 to-cyan-400 shadow-[0_0_14px_-2px_rgba(225,29,46,0.8)] sm:h-8 sm:w-2" />
       {title}{" "}
       <span className="bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">
         {accent}
@@ -106,7 +106,7 @@ function ProjectCard({
           )}
           <div
             aria-hidden
-            className="absolute inset-0 bg-gradient-to-t from-[#020817] via-[#020817]/20 to-transparent"
+            className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/20 to-transparent"
           />
           <span aria-hidden className="carousel-sheen pointer-events-none absolute inset-0" />
         </div>
@@ -181,7 +181,7 @@ function ProjectCard({
               e.stopPropagation();
               onClick();
             }}
-            className="btn-press btn-shine mt-5 w-full rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2.5 text-center text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(14, 165, 233,0.9)] hover:opacity-90 hover:shadow-[0_0_28px_-6px_rgba(34,211,238,0.9)] sm:text-sm"
+            className="btn-press btn-shine mt-5 w-full rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2.5 text-center text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(225,29,46,0.9)] hover:opacity-90 hover:shadow-[0_0_28px_-6px_rgba(255,77,94,0.9)] sm:text-sm"
           >
             View Details
           </button>
@@ -227,7 +227,7 @@ function ProjectModal({
         exit={{ opacity: 0, scale: 0.96, y: 16, transition: { duration: 0.22, ease: "easeIn" } }}
         transition={{ type: "spring", stiffness: 260, damping: 26 }}
         onClick={(e) => e.stopPropagation()}
-        className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#0a1730] shadow-2xl shadow-black/70 sm:rounded-3xl"
+        className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#141416] shadow-2xl shadow-black/70 sm:rounded-3xl"
       >
         <button
           onClick={onClose}
@@ -282,7 +282,7 @@ function ProjectModal({
                 <a
                   href={project.live}
                   target="_blank"
-                  className="btn-press btn-shine inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(14, 165, 233,0.9)] hover:opacity-90 hover:shadow-[0_0_28px_-6px_rgba(34,211,238,0.9)] sm:px-5 sm:text-sm"
+                  className="btn-press btn-shine inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(225,29,46,0.9)] hover:opacity-90 hover:shadow-[0_0_28px_-6px_rgba(255,77,94,0.9)] sm:px-5 sm:text-sm"
                 >
                   <FiExternalLink /> Live Demo
                 </a>
@@ -377,7 +377,7 @@ export default function Projects() {
                     aria-hidden
                     layoutId="project-filter-pill"
                     transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                    className="absolute inset-0 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 shadow-[0_0_20px_-4px_rgba(14, 165, 233,0.9)]"
+                    className="absolute inset-0 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 shadow-[0_0_20px_-4px_rgba(225,29,46,0.9)]"
                   />
                 )}
                 <span className="relative whitespace-nowrap">{cat}</span>

@@ -58,7 +58,7 @@ export default function CertificatesSlider() {
               >
                 {/* Certificate sheet, framed so the white paper sits on dark glass */}
                 <div className="relative m-3 overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] p-px">
-                  <div className="relative h-36 w-full overflow-hidden rounded-xl bg-[#04102a] sm:h-40">
+                  <div className="relative h-36 w-full overflow-hidden rounded-xl bg-[#0e0e10] sm:h-40">
                     <Image
                       src={cert.image}
                       alt={cert.title}
@@ -114,7 +114,7 @@ export default function CertificatesSlider() {
           <>
             <motion.div
               {...lightboxItem(0)}
-              className="relative h-60 w-full bg-[#020b1f] xs:h-72 sm:h-80 md:h-[26rem]"
+              className="relative h-60 w-full bg-[#0a0a0c] xs:h-72 sm:h-80 md:h-[26rem]"
             >
               <Image
                 src={selected.image}
@@ -125,7 +125,7 @@ export default function CertificatesSlider() {
               />
               <div
                 aria-hidden
-                className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0a1730] to-transparent"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#141416] to-transparent"
               />
             </motion.div>
 

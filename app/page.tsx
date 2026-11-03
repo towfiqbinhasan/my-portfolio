@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import HomeWorld from "@/components/HomeWorld";
 import Highlights from "@/components/Highlights";
 import About from "@/components/About";
 import CertificatesSlider from "@/components/CertificatesSlider";
@@ -15,6 +16,7 @@ import {
 export default function Home() {
   return (
     <main>
+      <HomeWorld />
       <Hero />
       <About />
       <QualificationPreview />

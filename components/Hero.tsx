@@ -1,5 +1,7 @@
 "use client";
 import { motion, useReducedMotion } from "framer-motion";
+import { Fragment, useEffect, useRef, useState } from "react";
+import { gsap, MQ } from "@/lib/gsap";
 import Link from "next/link";
 import RubikCube from "@/components/RubikCube";
 import type { CSSProperties } from "react";
@@ -21,9 +23,12 @@ import type { IconType } from "react-icons";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-const fadeUp = (delay: number) => ({
+const NAME = ["Towfiq", "Bin", "Hasan"];
+
+/** Fade-up intro; holds at the start until `ready` (the loader has lifted). */
+const fadeUp = (delay: number, ready = true) => ({
   initial: { opacity: 0, y: 24, filter: "blur(8px)" },
-  animate: { opacity: 1, y: 0, filter: "blur(0px)" },
+  animate: ready ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined,
   transition: { duration: 0.8, delay, ease },
 });
 
@@ -74,12 +79,12 @@ const socials = [
 
 /** Glassy navy card with a thin glowing blue border. */
 const glass =
-  "border border-sky-400/40 bg-[#061433]/70 backdrop-blur-md shadow-[0_0_24px_-6px_rgba(56,189,248,0.55),inset_0_0_20px_rgba(56,189,248,0.06)]";
+  "border border-sky-400/40 bg-[#121214]/70 backdrop-blur-md shadow-[0_0_24px_-6px_rgba(239,54,70,0.55),inset_0_0_20px_rgba(239,54,70,0.06)]";
 
-function InfoStrip({ items, delay }: { items: typeof stackRow; delay: number }) {
+function InfoStrip({ items, delay, ready }: { items: typeof stackRow; delay: number; ready: boolean }) {
   return (
     <motion.div
-      {...fadeUp(delay)}
+      {...fadeUp(delay, ready)}
       className={`${glass} grid grid-cols-2 gap-y-4 rounded-[28px] px-5 py-4 sm:rounded-full sm:px-7 md:grid-cols-4`}
     >
       {items.map(({ icon: Icon, title, sub }, i) => (
@@ -87,7 +92,7 @@ function InfoStrip({ items, delay }: { items: typeof stackRow; delay: number }) 
           key={title}
           className={`flex items-center gap-3 md:px-4 ${i > 0 ? "md:border-l md:border-sky-400/20" : ""}`}
         >
-          <Icon className="shrink-0 text-3xl text-sky-400 drop-shadow-[0_0_8px_rgba(56,189,248,0.7)]" />
+          <Icon className="shrink-0 text-3xl text-sky-400 drop-shadow-[0_0_8px_rgba(239,54,70,0.7)]" />
           <div className="min-w-0 leading-tight">
             <p className="truncate text-sm font-semibold text-white">{title}</p>
             <p className="truncate text-xs text-sky-300/80">{sub}</p>
@@ -100,21 +105,128 @@ function InfoStrip({ items, delay }: { items: typeof stackRow; delay: number }) 
 
 export default function Hero() {
   const reduce = useReducedMotion();
+  const section = useRef<HTMLElement>(null);
+  const content = useRef<HTMLDivElement>(null);
+  const blob = useRef<HTMLDivElement>(null);
+  const name = useRef<HTMLSpanElement>(null);
+
+  // Hold the intro until the page loader's curtain lifts (with a fallback in case it never fires).
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const go = () => setReady(true);
+    window.addEventListener("loader:done", go);
+    const fallback = setTimeout(go, 2500);
+    return () => {
+      window.removeEventListener("loader:done", go);
+      clearTimeout(fallback);
+    };
+  }, []);
+
+  // The name: letters tumble in from deep in 3D space one by one, then the word block
+  // tilts gently toward the mouse.
+  useEffect(() => {
+    if (!ready || !name.current) return;
+    const chars = name.current.querySelectorAll<HTMLElement>(".hero-char");
+    const ctx = gsap.context(() => {
+      if (reduce) {
+        gsap.set(chars, { opacity: 1 });
+        return;
+      }
+      gsap.fromTo(
+        chars,
+        {
+          opacity: 0,
+          rotationX: -110,
+          rotationY: () => gsap.utils.random(-50, 50),
+          z: -320,
+          yPercent: 60,
+        },
+        {
+          opacity: 1,
+          rotationX: 0,
+          rotationY: 0,
+          z: 0,
+          yPercent: 0,
+          duration: 1.5,
+          delay: 0.2,
+          ease: "expo.out",
+          stagger: 0.055,
+        }
+      );
+      // Each letter hops when the pointer passes over it.
+      chars.forEach((c) =>
+        c.addEventListener("pointerenter", () =>
+          gsap.fromTo(c, { y: 0 }, { y: -14, rotationX: 25, duration: 0.25, ease: "power3.out", yoyo: true, repeat: 1 })
+        )
+      );
+    }, name);
+
+    const el = name.current;
+    const rx = gsap.quickTo(el, "rotationX", { duration: 1.2, ease: "power3.out" });
+    const ry = gsap.quickTo(el, "rotationY", { duration: 1.2, ease: "power3.out" });
+    const tilt = (e: PointerEvent) => {
+      rx(((e.clientY / window.innerHeight) * 2 - 1) * -10);
+      ry(((e.clientX / window.innerWidth) * 2 - 1) * 14);
+    };
+    const fine = window.matchMedia("(pointer: fine)").matches && !reduce;
+    if (fine) window.addEventListener("pointermove", tilt);
+    return () => {
+      window.removeEventListener("pointermove", tilt);
+      ctx.revert();
+    };
+  }, [ready, reduce]);
+
+  // Mouse-following glow + scroll parallax (hero shrinks, fades and drifts up as you leave it)
+  useEffect(() => {
+    const mm = gsap.matchMedia(section);
+    mm.add(MQ.motion, () => {
+      gsap.to(content.current, {
+        scale: 0.9,
+        yPercent: -12,
+        autoAlpha: 0.15,
+        ease: "none",
+        scrollTrigger: { trigger: section.current, start: "top top", end: "bottom top", scrub: true },
+      });
+    });
+    mm.add("(pointer: fine) and (prefers-reduced-motion: no-preference)", () => {
+      const el = section.current;
+      if (!el || !blob.current) return;
+      const x = gsap.quickTo(blob.current, "x", { duration: 1.4, ease: "power3.out" });
+      const y = gsap.quickTo(blob.current, "y", { duration: 1.4, ease: "power3.out" });
+      const move = (e: PointerEvent) => {
+        const r = el.getBoundingClientRect();
+        x(e.clientX - r.left);
+        y(e.clientY - r.top);
+      };
+      el.addEventListener("pointermove", move);
+      return () => el.removeEventListener("pointermove", move);
+    });
+    return () => mm.revert();
+  }, []);
+
   const float = (d: number) =>
     reduce ? {} : { animate: { y: [0, -8, 0] }, transition: { duration: 5, delay: d, repeat: Infinity, ease: "easeInOut" as const } };
 
   return (
     <section
-      className="relative -mt-20 overflow-hidden bg-[#020b1f] pt-20"
-      style={{ fontFamily: "var(--font-display), 'Segoe UI', sans-serif" }}
+      ref={section}
+      data-world="hero"
+      className="relative -mt-20 overflow-hidden pt-20"
     >
+      {/* Soft red blob that drifts after the mouse */}
+      <div
+        ref={blob}
+        aria-hidden
+        className="pointer-events-none absolute left-0 top-0 hidden h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60 blur-[90px] [@media(pointer:fine)]:block"
+        style={{ background: "radial-gradient(circle, rgba(225,29,46,0.55), rgba(158,17,29,0.25) 45%, transparent 70%)" }}
+      />
       {/* Deep blue glows */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 45% 60% at 72% 45%, rgba(29,78,216,0.35), transparent 70%), radial-gradient(ellipse 50% 40% at 10% 10%, rgba(14,116,144,0.18), transparent 70%), linear-gradient(180deg, #030d26 0%, #020817 100%)",
+            "radial-gradient(ellipse 45% 60% at 72% 45%, rgba(190,18,36,0.22), transparent 70%), radial-gradient(ellipse 50% 40% at 10% 10%, rgba(120,14,24,0.14), transparent 70%)",
         }}
       />
       {/* Faint dot grid */}
@@ -122,23 +234,31 @@ export default function Hero() {
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.12]"
         style={{
-          backgroundImage: "radial-gradient(rgba(125,211,252,0.8) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(rgba(255,148,157,0.8) 1px, transparent 1px)",
           backgroundSize: "22px 22px",
           maskImage: "radial-gradient(ellipse 30% 30% at 45% 62%, black, transparent)",
           WebkitMaskImage: "radial-gradient(ellipse 30% 30% at 45% 62%, black, transparent)",
         }}
       />
 
-      <div className="relative mx-auto grid max-w-[1560px] items-center gap-10 px-4 py-10 sm:px-6 md:px-10 lg:min-h-[calc(100vh-5rem)] lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-4 lg:py-14">
+      {/* Giant outlined word sitting behind the portrait, poster style */}
+      <div
+        aria-hidden
+        className="text-outline pointer-events-none absolute right-4 mix-blend-difference top-1/2 hidden -translate-y-1/2 select-none font-[family-name:var(--font-heading)] text-[clamp(6rem,12vw,14rem)] uppercase leading-none lg:block"
+      >
+        Portfolio<span className="text-sky-500/40 [-webkit-text-stroke:0]">.</span>
+      </div>
+
+      <div ref={content} className="relative mx-auto grid max-w-[1560px] origin-top will-change-transform items-center gap-10 px-4 py-10 sm:px-6 md:px-10 lg:min-h-[calc(100vh-5rem)] lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-4 lg:py-14">
         {/* ---------- Left: copy ---------- */}
         <div className="order-2 min-w-0 lg:order-1">
           {/* Status + role chips. On phones they wrap: status on its own line, roles flow below it.
-              From sm up they stay on one line, sized in em so the row scales with the viewport. */}
-          <div className="scrollbar-hide -mx-2 -my-3 flex flex-wrap items-center gap-2 px-2 py-3 text-[12.5px] sm:flex-nowrap sm:gap-[0.6em] sm:overflow-x-auto sm:text-[clamp(10px,1.4vw,14px)] lg:text-[clamp(9px,0.72vw,12px)]">
+              From sm up they sit on one line when it fits, and wrap instead of clipping when it does not. */}
+          <div className="scrollbar-hide -mx-2 -my-3 flex flex-wrap items-center gap-2 px-2 py-3 text-[12.5px] sm:gap-[0.6em] sm:text-[clamp(10px,1.4vw,14px)] lg:text-[clamp(9px,0.72vw,12px)]">
             {/* Status chip: a comet of light keeps orbiting its border, plus a periodic sweep across it */}
             <motion.div
               initial={{ opacity: 0, y: 14, scale: 0.94 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
+              animate={ready ? { opacity: 1, y: 0, scale: 1 } : undefined}
               transition={{ duration: 0.6, delay: 0.1, ease }}
               whileHover={reduce ? undefined : { y: -2 }}
               className="shrink-0"
@@ -154,7 +274,7 @@ export default function Hero() {
                   animate={reduce ? undefined : { rotate: 360 }}
                   transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                 />
-                <span className="relative inline-flex items-center gap-[0.65em] overflow-hidden whitespace-nowrap rounded-full bg-[linear-gradient(90deg,#062a2a,#051634_60%)] px-[1.1em] py-[0.6em] font-semibold text-white">
+                <span className="relative inline-flex items-center gap-[0.65em] overflow-hidden whitespace-nowrap rounded-full bg-[linear-gradient(90deg,#14140f,#121214_60%)] px-[1.1em] py-[0.6em] font-semibold text-white">
                   {!reduce && (
                     <motion.span
                       aria-hidden
@@ -185,15 +305,15 @@ export default function Hero() {
               <motion.span
                 key={label}
                 initial={{ opacity: 0, y: 14, scale: 0.94 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
+                animate={ready ? { opacity: 1, y: 0, scale: 1 } : undefined}
                 transition={{ duration: 0.55, delay: 0.22 + i * 0.09, ease }}
                 whileHover={reduce ? undefined : { y: -2 }}
-                className={`${glass} group relative inline-flex shrink-0 cursor-default items-center gap-[0.55em] whitespace-nowrap rounded-full py-[0.4em] pl-[0.4em] pr-[1em] font-medium text-slate-100 transition-[border-color,box-shadow,color] duration-300 hover:border-sky-300/70 hover:text-white hover:shadow-[0_0_26px_-4px_rgba(56,189,248,0.7),inset_0_0_20px_rgba(56,189,248,0.1)]`}
+                className={`${glass} group relative inline-flex shrink-0 cursor-default items-center gap-[0.55em] whitespace-nowrap rounded-full py-[0.4em] pl-[0.4em] pr-[1em] font-medium text-slate-100 transition-[border-color,box-shadow,color] duration-300 hover:border-sky-300/70 hover:text-white hover:shadow-[0_0_26px_-4px_rgba(239,54,70,0.7),inset_0_0_20px_rgba(239,54,70,0.1)]`}
               >
                 {!reduce && (
                   <motion.span
                     aria-hidden
-                    className="pointer-events-none absolute -inset-px rounded-full border border-sky-300/80 shadow-[0_0_22px_-2px_rgba(56,189,248,0.75),inset_0_0_16px_rgba(56,189,248,0.18)]"
+                    className="pointer-events-none absolute -inset-px rounded-full border border-sky-300/80 shadow-[0_0_22px_-2px_rgba(239,54,70,0.75),inset_0_0_16px_rgba(239,54,70,0.18)]"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: [0, 1, 0] }}
                     transition={{ duration: 1.4, delay: 1.4 + i * 0.45, repeat: Infinity, repeatDelay: 2.6, ease: "easeInOut" }}
@@ -211,17 +331,47 @@ export default function Hero() {
             ))}
           </div>
 
-          {/* Headline */}
-          <motion.h1 {...fadeUp(0.25)} className="mt-7 font-extrabold leading-[0.98] tracking-tight">
-            <span className="block text-[clamp(2.6rem,8vw,5rem)] text-white">Hi, I&apos;m</span>
-            <span className="block bg-gradient-to-r from-cyan-300 via-sky-400 to-blue-500 bg-clip-text pb-2 text-[clamp(2.3rem,7.6vw,5rem)] lg:text-[clamp(3rem,4.6vw,5.4rem)] text-transparent drop-shadow-[0_0_28px_rgba(56,189,248,0.35)] sm:whitespace-nowrap">
-              Towfiq Bin Hasan
+          {/* Headline: the greeting slides up out of a mask, then the name builds itself in 3D */}
+          <h1 className="mt-7 leading-[0.92]">
+            <span className="block overflow-hidden pb-1">
+              <motion.span
+                className="font-script block -rotate-2 text-[clamp(2rem,5vw,3.2rem)] text-sky-500"
+                initial={{ y: "110%" }}
+                animate={ready ? { y: "0%" } : undefined}
+                transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              >
+                Hi, I&apos;m
+              </motion.span>
             </span>
-          </motion.h1>
+            <span className="mt-1 block pb-3 [perspective:900px]">
+              <span className="sr-only">Towfiq Bin Hasan</span>
+              <span
+                ref={name}
+                aria-hidden
+                className="hero-name-3d block text-[clamp(3rem,10.5vw,6rem)] text-white [transform-style:preserve-3d] lg:text-[clamp(3.6rem,6vw,7.2rem)] sm:whitespace-nowrap"
+              >
+                {NAME.map((word, w) => (
+                  <Fragment key={word}>
+                    {w > 0 && " "}
+                    <span className="inline-block whitespace-nowrap [transform-style:preserve-3d]">
+                      {word.split("").map((c, i) => (
+                        <span key={i} className="hero-char" style={{ opacity: 0 }}>
+                          {c}
+                        </span>
+                      ))}
+                      {w === NAME.length - 1 && (
+                        <span className="hero-char text-sky-500" style={{ opacity: 0 }}>.</span>
+                      )}
+                    </span>
+                  </Fragment>
+                ))}
+              </span>
+            </span>
+          </h1>
 
           {/* Tagline: always one line, font scales with the viewport so it fits */}
           <motion.div
-            {...fadeUp(0.4)}
+            {...fadeUp(0.4, ready)}
             className="mt-3 flex items-center gap-2 whitespace-nowrap text-[clamp(7px,2.1vw,13px)] font-medium uppercase tracking-[0.06em] text-sky-300 sm:gap-3 sm:tracking-[0.08em] lg:text-[clamp(10px,0.95vw,15px)] lg:tracking-[0.14em]"
           >
             <span className="whitespace-nowrap">Full Stack Developer</span>
@@ -234,7 +384,7 @@ export default function Hero() {
           </motion.div>
 
           <motion.p
-            {...fadeUp(0.55)}
+            {...fadeUp(0.55, ready)}
             className="mt-6 max-w-2xl text-[15px] leading-relaxed text-slate-300 sm:text-lg"
           >
             <b className="font-semibold text-white">Computer Science</b> student at AIUB and{" "}
@@ -246,10 +396,10 @@ export default function Hero() {
           </motion.p>
 
           {/* Actions */}
-          <motion.div {...fadeUp(0.7)} className="mt-8 flex flex-wrap items-center gap-4">
+          <motion.div {...fadeUp(0.7, ready)} className="mt-8 flex flex-wrap items-center gap-4">
             <Link
               href="/projects"
-              className="btn-press btn-shine group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-sky-600 to-cyan-600 px-7 py-3.5 text-base font-semibold text-white shadow-[0_0_18px_-6px_rgba(34,211,238,0.45)] hover:from-sky-500 hover:to-cyan-500 hover:shadow-[0_0_28px_-4px_rgba(34,211,238,0.7)]"
+              className="btn-press btn-shine group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-sky-600 to-cyan-600 px-7 py-3.5 text-base font-semibold text-white shadow-[0_0_18px_-6px_rgba(255,77,94,0.45)] hover:from-sky-500 hover:to-cyan-500 hover:shadow-[0_0_28px_-4px_rgba(255,77,94,0.7)]"
             >
               <FiFolder className="text-xl" />
               View Projects
@@ -257,7 +407,7 @@ export default function Hero() {
             </Link>
             <Link
               href="/cv"
-              className="btn-press btn-shine group inline-flex items-center gap-3 rounded-full border border-sky-400/60 bg-[#061433]/60 px-7 py-3.5 text-base font-semibold text-white hover:bg-sky-400/10 hover:shadow-[0_0_24px_-6px_rgba(56,189,248,0.8)]"
+              className="btn-press btn-shine group inline-flex items-center gap-3 rounded-full border border-sky-400/60 bg-[#121214]/60 px-7 py-3.5 text-base font-semibold text-white hover:bg-sky-400/10 hover:shadow-[0_0_24px_-6px_rgba(239,54,70,0.8)]"
             >
               <FiDownload className="text-xl transition-transform group-hover:translate-y-0.5" />
               Download CV
@@ -265,12 +415,12 @@ export default function Hero() {
           </motion.div>
 
           {/* Quick links */}
-          <motion.div {...fadeUp(0.78)} className="mt-7 flex flex-wrap items-center gap-2.5">
+          <motion.div {...fadeUp(0.78, ready)} className="mt-7 flex flex-wrap items-center gap-2.5">
             {quickLinks.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                className="btn-press group inline-flex items-center gap-1.5 rounded-full border border-sky-400/25 bg-[#061433]/50 px-4 py-1.5 text-sm text-slate-300 hover:border-sky-400/60 hover:bg-sky-400/10 hover:text-white"
+                className="btn-press group inline-flex items-center gap-1.5 rounded-full border border-sky-400/25 bg-[#121214]/50 px-4 py-1.5 text-sm text-slate-300 hover:border-sky-400/60 hover:bg-sky-400/10 hover:text-white"
               >
                 {l.label}
                 <FiArrowUpRight className="text-[0.9em] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -279,7 +429,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Socials */}
-          <motion.div {...fadeUp(0.84)} className="mt-6 flex items-center gap-3">
+          <motion.div {...fadeUp(0.84, ready)} className="mt-6 flex items-center gap-3">
             <span aria-hidden className="h-px w-8 bg-gradient-to-r from-sky-400/70 to-transparent" />
             {socials.map(({ href, icon: Icon, label, color }) => (
               <a
@@ -290,7 +440,7 @@ export default function Hero() {
                 target={href.startsWith("mailto") ? undefined : "_blank"}
                 rel="noopener noreferrer"
                 style={{ "--sc": color } as CSSProperties}
-                className="social-orb flex h-10 w-10 items-center justify-center rounded-xl border border-sky-400/25 bg-[#061433]/50 text-lg text-slate-400 transition-transform hover:-translate-y-1 sm:h-11 sm:w-11"
+                className="social-orb flex h-10 w-10 items-center justify-center rounded-xl border border-sky-400/25 bg-[#121214]/50 text-lg text-slate-400 transition-transform hover:-translate-y-1 sm:h-11 sm:w-11"
               >
                 <Icon />
               </a>
@@ -298,8 +448,8 @@ export default function Hero() {
           </motion.div>
 
           <div className="mt-10 space-y-5">
-            <InfoStrip items={stackRow} delay={0.85} />
-            <InfoStrip items={mlRow} delay={1} />
+            <InfoStrip items={stackRow} delay={0.85} ready={ready} />
+            <InfoStrip items={mlRow} delay={1} ready={ready} />
           </div>
         </div>
 
@@ -307,7 +457,7 @@ export default function Hero() {
         <motion.div
           className="order-1 mx-auto flex w-full max-w-[640px] items-center justify-center lg:order-2 lg:max-w-none"
           initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
+          animate={ready ? { opacity: 1, scale: 1 } : undefined}
           transition={{ duration: 1.2, delay: 0.2, ease }}
         >
           {/* Tech icon column */}
@@ -317,7 +467,7 @@ export default function Hero() {
                 key={label}
                 title={label}
                 initial={{ opacity: 0, x: -16 }}
-                animate={{ opacity: 1, x: 0 }}
+                animate={ready ? { opacity: 1, x: 0 } : undefined}
                 transition={{ duration: 0.5, delay: 0.6 + i * 0.08, ease }}
                 className={`${glass} flex h-14 w-14 items-center justify-center rounded-xl`}
               >
@@ -341,7 +491,7 @@ export default function Hero() {
             <motion.div {...float(0)}>
               <Link href="/projects" className={`${glass} group flex flex-col gap-3 rounded-2xl p-4 2xl:p-5`}>
                 <div className="flex items-center gap-3">
-                  <LuCode className="shrink-0 text-3xl text-sky-400 drop-shadow-[0_0_8px_rgba(56,189,248,0.8)] 2xl:text-4xl" />
+                  <LuCode className="shrink-0 text-3xl text-sky-400 drop-shadow-[0_0_8px_rgba(239,54,70,0.8)] 2xl:text-4xl" />
                   <p className="border-l border-sky-400/30 pl-3 text-base font-bold leading-tight text-white 2xl:text-lg">
                     Crafting Digital <span className="text-sky-400">Solutions</span>
                   </p>
@@ -358,7 +508,7 @@ export default function Hero() {
             <motion.div {...float(1.2)}>
               <div className={`${glass} rounded-2xl p-4`}>
                 <div className="flex items-center gap-3">
-                  <LuBrainCircuit className="shrink-0 text-3xl text-sky-400 drop-shadow-[0_0_8px_rgba(56,189,248,0.8)] 2xl:text-4xl" />
+                  <LuBrainCircuit className="shrink-0 text-3xl text-sky-400 drop-shadow-[0_0_8px_rgba(239,54,70,0.8)] 2xl:text-4xl" />
                   <p className="border-l border-sky-400/30 pl-3 text-sm font-bold leading-tight text-white 2xl:text-base">
                     AI &amp; Machine <span className="block text-lg text-sky-400 2xl:text-xl">Learning</span>
                   </p>
@@ -371,7 +521,7 @@ export default function Hero() {
             <motion.div {...float(2.4)}>
               <div className={`${glass} rounded-2xl px-4 py-3`}>
                 <p className="flex items-center gap-2.5 text-sm font-semibold text-white 2xl:text-base">
-                  <span className="h-2.5 w-2.5 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.9)]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(239,54,70,0.9)]" />
                   Software Engineer
                 </p>
                 <p className="mt-1.5 flex items-center gap-2.5 text-xs text-slate-300 2xl:text-sm">
@@ -384,8 +534,7 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Fade into the next section */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-[#020817]" />
+
     </section>
   );
 }
