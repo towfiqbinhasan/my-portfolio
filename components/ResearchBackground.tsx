@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
+import { usePublicPathname } from "@/lib/useSiteMode";
 
 // Equations that drift up through the background.
 const FORMULAS = [
@@ -31,7 +31,7 @@ const LINK_DIST = 150; // px: nodes closer than this get connected
 export default function ResearchBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   // The home page draws its own 3D world instead.
-  const off = usePathname() === "/";
+  const off = usePublicPathname() === "/";
 
   useEffect(() => {
     // Phones already draw the 3D world behind every page; a second full-screen

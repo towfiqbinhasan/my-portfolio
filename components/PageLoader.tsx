@@ -1,13 +1,13 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePublicPathname } from "@/lib/useSiteMode";
 import { motion, AnimatePresence, useReducedMotion, animate } from "framer-motion";
 import Image from "next/image";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function PageLoader() {
-  const pathname = usePathname();
+  const pathname = usePublicPathname();
   const reduce = useReducedMotion();
   const [loading, setLoading] = useState(true);
   const [prevPath, setPrevPath] = useState(pathname);

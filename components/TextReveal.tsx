@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePublicPathname } from "@/lib/useSiteMode";
 import { SplitText } from "gsap/SplitText";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
@@ -57,7 +57,7 @@ const CARD_SKIP = [
 const ownedByFramer = (el: HTMLElement) => /opacity|transform/.test(el.getAttribute("style") ?? "");
 
 export default function TextReveal() {
-  const pathname = usePathname();
+  const pathname = usePublicPathname();
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;

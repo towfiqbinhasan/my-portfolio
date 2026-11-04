@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePublicPathname } from "@/lib/useSiteMode";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { FiMessageCircle, FiX, FiSend, FiRefreshCw, FiChevronDown } from "react-icons/fi";
@@ -27,7 +27,7 @@ const SUGGESTIONS = [
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function ChatBot() {
-  const pathname = usePathname();
+  const pathname = usePublicPathname();
   const [open, setOpen] = useState(false);
   const [showGreeting, setShowGreeting] = useState(false);
   const [greetingText, setGreetingText] = useState("");

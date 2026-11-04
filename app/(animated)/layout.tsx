@@ -9,32 +9,8 @@ import MotionLayer from "@/components/MotionLayer";
 import TextReveal from "@/components/TextReveal";
 import SiteWorld from "@/components/SiteWorld";
 import { Toaster } from "react-hot-toast";
-import { Instrument_Serif, Outfit, Anton, Inter, Caveat } from "next/font/google";
+import { serif, display, heading, body, script } from "@/lib/fonts";
 
-const serif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-serif",
-});
-const display = Outfit({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-display",
-});
-const heading = Anton({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-heading",
-});
-const body = Inter({
-  subsets: ["latin"],
-  variable: "--font-body",
-});
-const script = Caveat({
-  subsets: ["latin"],
-  weight: ["500", "700"],
-  variable: "--font-script",
-});
 export const metadata = {
   title: "Towfiq Bin Hasan",
   description: "CS Student Portfolio - Web Developer, Researcher, and ML Engineer",

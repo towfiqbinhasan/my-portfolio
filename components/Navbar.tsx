@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
+import ModeToggle from "@/components/ModeToggle";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePublicPathname } from "@/lib/useSiteMode";
 import {
   motion,
   AnimatePresence,
@@ -64,7 +65,7 @@ export default function Navbar() {
   const [moreOpen, setMoreOpen] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
+  const pathname = usePublicPathname();
 
   const isMoreActive = moreLinks.some((l) => l.path === pathname);
 
@@ -255,8 +256,11 @@ export default function Navbar() {
           </AnimatePresence>
         </div>
 
+        {/* Normal | Animation style switch (mobile: pushed right, next to the menu button) */}
+        <ModeToggle current="animated" className="ml-auto md:ml-3" />
+
         <button
-          className="md:hidden ml-auto relative w-10 h-10 flex items-center justify-center text-2xl rounded-full hover:bg-white/10 transition flex-shrink-0"
+          className="md:hidden ml-2 relative w-10 h-10 flex items-center justify-center text-2xl rounded-full hover:bg-white/10 transition flex-shrink-0"
           onClick={() => setOpen(!open)}
         >
           <AnimatePresence mode="wait">

@@ -1,0 +1,360 @@
+@import "tailwindcss";
+
+/* Extra breakpoint for small phones (Tailwind only ships sm and up) */
+@theme {
+  --breakpoint-xs: 26rem; /* 416px */
+}
+
+
+* {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #020817;
+  color: #f1f1f1;
+  font-family: 'Segoe UI', sans-serif;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #3b82f6, #22d3ee);
+  border-radius: 10px;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+/* Hero: rotating gradient border for the badge */
+@keyframes hero-spin {
+  to { transform: rotate(360deg); }
+}
+.hero-badge-spin {
+  animation: hero-spin 6s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-badge-spin { animation: none; }
+}
+
+/* Hero cube tiles: glossy finish, travelling shine, hover glow */
+.cube-tile {
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -10px 18px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.35s ease, filter 0.35s ease;
+}
+.cube-tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.09) 0%, transparent 42%);
+  pointer-events: none;
+}
+.cube-tile::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(115deg, transparent 42%, rgba(255, 255, 255, 0.22) 50%, transparent 58%);
+  transform: translateX(-70%);
+  animation: cube-shine 6s ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+  pointer-events: none;
+}
+@keyframes cube-shine {
+  0%, 72% { transform: translateX(-70%); }
+  100% { transform: translateX(70%); }
+}
+.cube-icon {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cube-tile:hover {
+  filter: brightness(1.25);
+  box-shadow:
+    inset 0 0 0 1px var(--c),
+    inset 0 0 22px color-mix(in srgb, var(--c) 35%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+.cube-tile:hover .cube-icon {
+  transform: scale(1.18);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cube-tile::after { animation: none; opacity: 0; }
+}
+
+/* Home previews: cursor-following glow on cards */
+.glow-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(14, 165, 233, 0.14), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.glow-card:hover::before { opacity: 1; }
+.glow-card { transition: border-color 0.4s ease, background-color 0.4s ease; }
+.glow-card:hover { border-color: rgba(14, 165, 233, 0.35); }
+
+/* Home previews: infinite skills marquee */
+@keyframes marquee {
+  to { transform: translateX(-100%); }
+}
+.marquee-track { animation: marquee 55s linear infinite; }
+/* Phones show fewer chips at once, so drift slower there to keep each one readable */
+@media (max-width: 640px) {
+  .marquee-track { animation-duration: 80s; }
+}
+.marquee-reverse { animation-direction: reverse; }
+.marquee:hover .marquee-track,
+.marquee:active .marquee-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
+/* Navbar: active pill with a slowly shifting gradient and soft glow */
+@keyframes nav-pill-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.nav-active-pill {
+  background: linear-gradient(90deg, rgba(14, 165, 233, 0.35), rgba(34, 211, 238, 0.35), rgba(59, 130, 246, 0.35), rgba(14, 165, 233, 0.35));
+  background-size: 300% 100%;
+  animation: nav-pill-shift 6s ease-in-out infinite;
+  box-shadow: 0 0 18px rgba(14, 165, 233, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-active-pill { animation: none; }
+}
+
+/* Carousels: soft edges, lifting cards and a slow sheen across the artwork */
+.carousel-mask {
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 7%, black 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, black 7%, black 93%, transparent);
+}
+.carousel-card {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.5s ease,
+    box-shadow 0.5s ease, background-color 0.5s ease;
+  will-change: transform;
+}
+.carousel-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(14, 165, 233, 0.45);
+  box-shadow: 0 20px 45px -20px rgba(14, 165, 233, 0.55), 0 0 0 1px rgba(14, 165, 233, 0.12);
+}
+.carousel-sheen {
+  background: linear-gradient(115deg, transparent 42%, rgba(255, 255, 255, 0.16) 50%, transparent 58%);
+  transform: translateX(-120%);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.group:hover .carousel-sheen { transform: translateX(120%); }
+@media (prefers-reduced-motion: reduce) {
+  .carousel-card:hover { transform: none; }
+  .carousel-sheen { display: none; }
+}
+
+/* Chat window: slim scrollbar that matches the dark panel */
+.chat-scroll::-webkit-scrollbar { width: 5px; }
+.chat-scroll::-webkit-scrollbar-track { background: transparent; }
+.chat-scroll::-webkit-scrollbar-thumb {
+  background: rgba(14, 165, 233, 0.35);
+  border-radius: 10px;
+}
+.chat-scroll::-webkit-scrollbar-thumb:hover { background: rgba(14, 165, 233, 0.6); }
+.chat-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(14, 165, 233, 0.35) transparent;
+}
+
+/* Hero social buttons: each lights up in its own brand colour on hover */
+.social-orb {
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.social-orb:hover {
+  color: var(--sc, #fff);
+  border-color: color-mix(in srgb, var(--sc, #fff) 45%, transparent);
+  background-color: color-mix(in srgb, var(--sc, #fff) 12%, transparent);
+  box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--sc, #fff) 80%, transparent);
+}
+
+/* Modals: slim scrollbar + a soft gradient rim around the panel */
+.modal-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+.modal-scroll::-webkit-scrollbar-track { background: transparent; }
+.modal-scroll::-webkit-scrollbar-thumb {
+  background: rgba(14, 165, 233, 0.3);
+  border-radius: 10px;
+}
+.modal-scroll::-webkit-scrollbar-thumb:hover { background: rgba(14, 165, 233, 0.55); }
+.modal-scroll { scrollbar-width: thin; scrollbar-color: rgba(14, 165, 233, 0.3) transparent; }
+
+.modal-rim::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(145deg, rgba(14, 165, 233, 0.45), transparent 35%, transparent 65%, rgba(34, 211, 238, 0.35));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 30;
+}
+
+/* ---------- Forms: focused, tactile fields ---------- */
+.field-group {
+  position: relative;
+}
+/* Gradient underline that draws itself when the field is focused */
+.field-group::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #0ea5e9, #22d3ee);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+.field-group:focus-within::after { transform: scaleX(1); }
+.field-group:focus-within .field-label { color: #7dd3fc; }
+.field-label { transition: color 0.3s ease; }
+.field-input { transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease; }
+.field-input:focus { transform: translateY(-1px); }
+.field-input::placeholder { transition: opacity 0.3s ease; }
+.field-input:focus::placeholder { opacity: 0.45; }
+
+/* ---------- Buttons: springy lift, tactile press, sheen sweep, click ripple ----------
+   .btn-press  lifts with a slight overshoot on hover, sinks on press, shows a focus ring.
+   .btn-shine  a sheen passes on its own every few seconds and again, faster, on hover.
+   .btn-ripple-* are injected on click by <ButtonEffects /> for every button-like element. */
+.btn-press {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease,
+    background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, opacity 0.3s ease,
+    filter 0.3s ease;
+}
+.btn-press:hover { transform: translateY(-2px) scale(1.02); filter: brightness(1.08); }
+.btn-press:active {
+  transform: translateY(0) scale(0.96);
+  transition-duration: 0.1s;
+  filter: brightness(0.95);
+}
+.btn-press:disabled { transform: none; filter: none; }
+.btn-press:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #020817, 0 0 0 4px rgba(56, 189, 248, 0.7);
+}
+
+@keyframes btn-sheen-auto {
+  0%, 78% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+@keyframes btn-sheen-hover {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(120%); }
+}
+.btn-shine { position: relative; overflow: hidden; isolation: isolate; }
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.28) 50%, transparent 65%);
+  transform: translateX(-120%);
+  animation: btn-sheen-auto 6s ease-in-out 2s infinite;
+  pointer-events: none;
+}
+.btn-shine:hover::after { animation: btn-sheen-hover 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+.btn-shine:disabled::after { animation: none; }
+
+@keyframes btn-ripple {
+  to { transform: scale(1); opacity: 0; }
+}
+.btn-ripple-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.btn-ripple {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.15) 45%, transparent 70%);
+  transform: scale(0);
+  opacity: 1;
+  animation: btn-ripple 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-press:hover, .btn-press:active { transform: none; }
+  .btn-shine::after { display: none; }
+  .btn-ripple-wrap { display: none; }
+  .field-group::after { transition: none; }
+}
+
+/* Contact "Send Message" button: gradient keeps flowing, a shine sweeps by on its own,
+   the glow breathes, and on hover the paper plane flies off and lands back in. */
+@keyframes send-flow { to { background-position: 200% 0; } }
+@keyframes send-glow {
+  0%, 100% { box-shadow: 0 8px 22px -8px rgba(14, 165, 233, 0.45); }
+  50% { box-shadow: 0 10px 32px -6px rgba(34, 211, 238, 0.7); }
+}
+@keyframes send-sweep {
+  0%, 60% { transform: translateX(-120%); }
+  85%, 100% { transform: translateX(120%); }
+}
+@keyframes send-plane-idle {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(2px, -2px) rotate(-6deg); }
+}
+@keyframes send-plane-fly {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  40% { transform: translate(26px, -18px) rotate(-18deg) scale(0.7); opacity: 0; }
+  41% { transform: translate(-26px, 14px) rotate(0deg) scale(0.7); opacity: 0; }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+}
+.send-btn {
+  background-image: linear-gradient(90deg, #0ea5e9, #22d3ee, #3b82f6, #0ea5e9);
+  background-size: 200% 100%;
+  animation: send-flow 6s linear infinite, send-glow 3s ease-in-out infinite;
+}
+.send-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 38%, rgba(255, 255, 255, 0.35) 50%, transparent 62%);
+  animation: send-sweep 4s ease-in-out infinite;
+}
+.send-btn .send-plane { display: inline-flex; animation: send-plane-idle 2.4s ease-in-out infinite; }
+.send-btn:hover:not(:disabled) .send-plane { animation: send-plane-fly 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+.send-btn .send-label { transition: letter-spacing 0.3s ease; }
+.send-btn:hover:not(:disabled) .send-label { letter-spacing: 0.03em; }
+.send-btn:disabled { animation: send-flow 1.5s linear infinite; }
+.send-btn:disabled::before { animation: none; opacity: 0; }
+/* It already has its own sweep, so keep the shared sheen for hover only */
+.send-btn.btn-shine:not(:hover)::after { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .send-btn, .send-btn::before, .send-btn .send-plane,
+  .send-btn:hover:not(:disabled) .send-plane { animation: none; }
+}
+
+/* Field icon picks up the accent colour while the field is focused */
+.field-icon { transition: color 0.3s ease, transform 0.3s ease; }
+.field-group:focus-within .field-icon { color: #38bdf8; transform: scale(1.1); }
+

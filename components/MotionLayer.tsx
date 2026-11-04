@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
+import { usePublicPathname } from "@/lib/useSiteMode";
 import Lenis from "lenis";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
@@ -22,7 +22,7 @@ export default function MotionLayer() {
   const label = useRef<HTMLSpanElement>(null);
   const trailWrap = useRef<HTMLDivElement>(null);
   const glow = useRef<HTMLDivElement>(null);
-  const pathname = usePathname();
+  const pathname = usePublicPathname();
 
   // Smooth scrolling (wheel only: touch keeps the phone's own native momentum, which is smoother there)
   useEffect(() => {
