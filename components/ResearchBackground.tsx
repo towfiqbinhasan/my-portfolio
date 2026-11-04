@@ -34,7 +34,9 @@ export default function ResearchBackground() {
   const off = usePathname() === "/";
 
   useEffect(() => {
-    if (off) return;
+    // Phones already draw the 3D world behind every page; a second full-screen
+    // canvas with glowing (shadowBlur) nodes on top of it costs too many frames there.
+    if (off || window.matchMedia("(max-width: 767px)").matches) return;
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
     if (!canvas || !ctx) return;
@@ -90,7 +92,7 @@ export default function ResearchBackground() {
           const b = nodes[j];
           const d = Math.hypot(a.x - b.x, a.y - b.y);
           if (d > LINK_DIST) continue;
-          ctx.strokeStyle = `rgba(239,54,70,${(1 - d / LINK_DIST) * 0.35})`;
+          ctx.strokeStyle = `rgba(61,147,255,${(1 - d / LINK_DIST) * 0.35})`;
           ctx.lineWidth = 0.8;
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
@@ -102,8 +104,8 @@ export default function ResearchBackground() {
       // Neurons, each softly pulsing
       for (const n of nodes) {
         const glow = 0.5 + 0.5 * Math.sin(t * 0.03 + n.phase);
-        ctx.fillStyle = `rgba(255,148,157,${0.45 + glow * 0.45})`;
-        ctx.shadowColor = "rgba(239,54,70,0.9)";
+        ctx.fillStyle = `rgba(147,213,255,${0.45 + glow * 0.45})`;
+        ctx.shadowColor = "rgba(61,147,255,0.9)";
         ctx.shadowBlur = 6 + glow * 8;
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
@@ -116,7 +118,7 @@ export default function ResearchBackground() {
         const p = f.life / f.max;
         const alpha = Math.min(p / 0.15, (1 - p) / 0.15, 1) * 0.22;
         ctx.font = `italic ${f.size}px ${serif}, Georgia, serif`;
-        ctx.fillStyle = `rgba(255,120,130,${Math.max(alpha, 0)})`;
+        ctx.fillStyle = `rgba(120,195,255,${Math.max(alpha, 0)})`;
         ctx.fillText(f.text, f.x, f.y);
       }
     };
@@ -165,7 +167,7 @@ export default function ResearchBackground() {
     <canvas
       ref={canvasRef}
       aria-hidden
-      className="pointer-events-none fixed inset-0 z-30 h-full w-full opacity-30 mix-blend-screen"
+      className="pointer-events-none fixed inset-0 z-30 hidden h-full w-full opacity-[0.18] mix-blend-screen md:block"
     />
   );
 }

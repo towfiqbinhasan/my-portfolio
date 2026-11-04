@@ -80,8 +80,8 @@ export default function Navbar() {
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       className={
         scrolled
-          ? "fixed top-0 w-full z-50 bg-[#0a0a0c]/85 backdrop-blur-xl border-b border-sky-400/15 shadow-lg shadow-black/40 transition-colors duration-500"
-          : "fixed top-0 w-full z-50 bg-[#0a0a0c]/40 backdrop-blur-xl border-b border-sky-400/10 transition-colors duration-500"
+          ? "fixed top-0 w-full z-50 bg-[#050b1a]/85 backdrop-blur-xl border-b border-sky-400/15 shadow-lg shadow-black/40 transition-colors duration-500"
+          : "fixed top-0 w-full z-50 bg-[#050b1a]/40 backdrop-blur-xl border-b border-sky-400/10 transition-colors duration-500"
       }
     >
       <div
@@ -121,6 +121,7 @@ export default function Navbar() {
 
         <div
           className="hidden md:flex items-center gap-1 text-sm ml-auto relative"
+          data-cursor-tabs
           onMouseLeave={() => setHovered(null)}
         >
           {primaryLinks.map((link, i) => {
@@ -210,7 +211,7 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 8, scale: 0.96 }}
                   transition={{ duration: 0.18, ease: "easeOut" }}
-                  className="absolute top-full right-0 mt-3 w-[340px] bg-[#161618]/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden z-50"
+                  className="absolute top-full right-0 mt-3 w-[340px] bg-[#0d182e]/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden z-50"
                 >
                   <div className="h-1 w-full bg-gradient-to-r from-sky-500 via-cyan-400 to-sky-500" />
 

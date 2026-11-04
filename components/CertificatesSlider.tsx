@@ -39,14 +39,11 @@ export default function CertificatesSlider() {
         />
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      >
+      {/* The carousel animates itself in as it scrolls into view */}
+      <div>
         <Carousel
           count={certificates.length}
+          depth="soft"
           renderCard={(i, key) => {
             const cert = certificates[i];
             return (
@@ -54,11 +51,11 @@ export default function CertificatesSlider() {
                 key={key}
                 onClick={() => setIndex(i)}
                 draggable={false}
-                className="carousel-card group relative w-[220px] flex-shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] text-left xs:w-[250px] sm:w-[290px]"
+                className="carousel-card group relative w-[220px] flex-shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] text-left xs:w-[250px] sm:w-[290px] xl:w-[330px]"
               >
                 {/* Certificate sheet, framed so the white paper sits on dark glass */}
                 <div className="relative m-3 overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] p-px">
-                  <div className="relative h-36 w-full overflow-hidden rounded-xl bg-[#0e0e10] sm:h-40">
+                  <div className="relative h-36 w-full overflow-hidden rounded-xl bg-[#081224] sm:h-40">
                     <Image
                       src={cert.image}
                       alt={cert.title}
@@ -95,7 +92,7 @@ export default function CertificatesSlider() {
             );
           }}
         />
-      </motion.div>
+      </div>
 
       <div className="mt-12 flex justify-center md:hidden">
         <ViewDetails href="/certificate" label={`View all ${certificates.length} certificates`} />
@@ -114,7 +111,7 @@ export default function CertificatesSlider() {
           <>
             <motion.div
               {...lightboxItem(0)}
-              className="relative h-60 w-full bg-[#0a0a0c] xs:h-72 sm:h-80 md:h-[26rem]"
+              className="relative h-60 w-full bg-[#050b1a] xs:h-72 sm:h-80 md:h-[26rem]"
             >
               <Image
                 src={selected.image}
@@ -125,7 +122,7 @@ export default function CertificatesSlider() {
               />
               <div
                 aria-hidden
-                className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#141416] to-transparent"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0c162c] to-transparent"
               />
             </motion.div>
 

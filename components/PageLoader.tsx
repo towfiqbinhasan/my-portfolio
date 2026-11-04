@@ -56,7 +56,7 @@ export default function PageLoader() {
               ? { opacity: 0, transition: { duration: 0.3 } }
               : { y: "-100%", transition: { duration: 0.85, ease: [0.76, 0, 0.24, 1] } }
           }
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0a0a0c]"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#050b1a]"
         >
           {/* Ambient spotlight + grain, matching the hero */}
           <span
@@ -64,7 +64,7 @@ export default function PageLoader() {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(ellipse 60% 55% at 50% 45%, rgba(225,29,46,0.18), transparent 70%)",
+                "radial-gradient(ellipse 60% 55% at 50% 45%, rgba(47,123,255,0.18), transparent 70%)",
             }}
           />
           <span
@@ -108,7 +108,7 @@ export default function PageLoader() {
                 className="absolute h-32 w-32 rounded-full"
                 style={{
                   background:
-                    "conic-gradient(from 0deg, transparent 0deg, rgba(225,29,46,0.15) 140deg, #e11d2e 300deg, #ff4d5e 360deg)",
+                    "conic-gradient(from 0deg, transparent 0deg, rgba(47,123,255,0.15) 140deg, #2f7bff 300deg, #4fc3ff 360deg)",
                   WebkitMask:
                     "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px))",
                   mask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px))",
@@ -122,7 +122,7 @@ export default function PageLoader() {
                 transition={{ duration: 1.6, repeat: Infinity, ease: "linear" }}
                 className="absolute h-32 w-32"
               >
-                <span className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400 shadow-[0_0_14px_4px_rgba(255,77,94,0.8)]" />
+                <span className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400 shadow-[0_0_14px_4px_rgba(79,195,255,0.8)]" />
               </motion.span>
 
               {/* Logo */}
@@ -163,7 +163,7 @@ export default function PageLoader() {
             <span ref={counter}>0</span>
             <span className="text-sky-500">%</span>
           </p>
-          {/* Red edge that trails the curtain as it lifts */}
+          {/* Blue edge that trails the curtain as it lifts */}
           <span aria-hidden className="absolute inset-x-0 bottom-0 h-1 bg-sky-500" />
         </motion.div>
       )}

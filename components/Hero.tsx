@@ -79,7 +79,7 @@ const socials = [
 
 /** Glassy navy card with a thin glowing blue border. */
 const glass =
-  "border border-sky-400/40 bg-[#121214]/70 backdrop-blur-md shadow-[0_0_24px_-6px_rgba(239,54,70,0.55),inset_0_0_20px_rgba(239,54,70,0.06)]";
+  "border border-sky-400/40 bg-[#0a1428]/70 backdrop-blur-md shadow-[0_0_24px_-6px_rgba(61,147,255,0.55),inset_0_0_20px_rgba(61,147,255,0.06)]";
 
 function InfoStrip({ items, delay, ready }: { items: typeof stackRow; delay: number; ready: boolean }) {
   return (
@@ -92,7 +92,7 @@ function InfoStrip({ items, delay, ready }: { items: typeof stackRow; delay: num
           key={title}
           className={`flex items-center gap-3 md:px-4 ${i > 0 ? "md:border-l md:border-sky-400/20" : ""}`}
         >
-          <Icon className="shrink-0 text-3xl text-sky-400 drop-shadow-[0_0_8px_rgba(239,54,70,0.7)]" />
+          <Icon className="shrink-0 text-3xl text-sky-400 drop-shadow-[0_0_8px_rgba(61,147,255,0.7)]" />
           <div className="min-w-0 leading-tight">
             <p className="truncate text-sm font-semibold text-white">{title}</p>
             <p className="truncate text-xs text-sky-300/80">{sub}</p>
@@ -108,6 +108,7 @@ export default function Hero() {
   const section = useRef<HTMLElement>(null);
   const content = useRef<HTMLDivElement>(null);
   const blob = useRef<HTMLDivElement>(null);
+  const cue = useRef<HTMLDivElement>(null);
   const name = useRef<HTMLSpanElement>(null);
 
   // Hold the intro until the page loader's curtain lifts (with a fallback in case it never fires).
@@ -187,6 +188,13 @@ export default function Hero() {
         ease: "none",
         scrollTrigger: { trigger: section.current, start: "top top", end: "bottom top", scrub: true },
       });
+      // The scroll cue slips away as soon as the visitor starts scrolling.
+      gsap.to(cue.current, {
+        autoAlpha: 0,
+        y: 24,
+        ease: "none",
+        scrollTrigger: { trigger: section.current, start: "top top", end: "+=220", scrub: 0.4 },
+      });
     });
     mm.add("(pointer: fine) and (prefers-reduced-motion: no-preference)", () => {
       const el = section.current;
@@ -213,12 +221,12 @@ export default function Hero() {
       data-world="hero"
       className="relative -mt-20 overflow-hidden pt-20"
     >
-      {/* Soft red blob that drifts after the mouse */}
+      {/* Soft blue blob that drifts after the mouse */}
       <div
         ref={blob}
         aria-hidden
         className="pointer-events-none absolute left-0 top-0 hidden h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60 blur-[90px] [@media(pointer:fine)]:block"
-        style={{ background: "radial-gradient(circle, rgba(225,29,46,0.55), rgba(158,17,29,0.25) 45%, transparent 70%)" }}
+        style={{ background: "radial-gradient(circle, rgba(47,123,255,0.55), rgba(26,71,184,0.25) 45%, transparent 70%)" }}
       />
       {/* Deep blue glows */}
       <div
@@ -226,7 +234,7 @@ export default function Hero() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 45% 60% at 72% 45%, rgba(190,18,36,0.22), transparent 70%), radial-gradient(ellipse 50% 40% at 10% 10%, rgba(120,14,24,0.14), transparent 70%)",
+            "radial-gradient(ellipse 45% 60% at 72% 45%, rgba(30,82,210,0.22), transparent 70%), radial-gradient(ellipse 50% 40% at 10% 10%, rgba(18,52,140,0.14), transparent 70%)",
         }}
       />
       {/* Faint dot grid */}
@@ -234,7 +242,7 @@ export default function Hero() {
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.12]"
         style={{
-          backgroundImage: "radial-gradient(rgba(255,148,157,0.8) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(rgba(147,213,255,0.8) 1px, transparent 1px)",
           backgroundSize: "22px 22px",
           maskImage: "radial-gradient(ellipse 30% 30% at 45% 62%, black, transparent)",
           WebkitMaskImage: "radial-gradient(ellipse 30% 30% at 45% 62%, black, transparent)",
@@ -274,7 +282,7 @@ export default function Hero() {
                   animate={reduce ? undefined : { rotate: 360 }}
                   transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                 />
-                <span className="relative inline-flex items-center gap-[0.65em] overflow-hidden whitespace-nowrap rounded-full bg-[linear-gradient(90deg,#14140f,#121214_60%)] px-[1.1em] py-[0.6em] font-semibold text-white">
+                <span className="relative inline-flex items-center gap-[0.65em] overflow-hidden whitespace-nowrap rounded-full bg-[linear-gradient(90deg,#0b1730,#0a1428_60%)] px-[1.1em] py-[0.6em] font-semibold text-white">
                   {!reduce && (
                     <motion.span
                       aria-hidden
@@ -308,12 +316,12 @@ export default function Hero() {
                 animate={ready ? { opacity: 1, y: 0, scale: 1 } : undefined}
                 transition={{ duration: 0.55, delay: 0.22 + i * 0.09, ease }}
                 whileHover={reduce ? undefined : { y: -2 }}
-                className={`${glass} group relative inline-flex shrink-0 cursor-default items-center gap-[0.55em] whitespace-nowrap rounded-full py-[0.4em] pl-[0.4em] pr-[1em] font-medium text-slate-100 transition-[border-color,box-shadow,color] duration-300 hover:border-sky-300/70 hover:text-white hover:shadow-[0_0_26px_-4px_rgba(239,54,70,0.7),inset_0_0_20px_rgba(239,54,70,0.1)]`}
+                className={`${glass} group relative inline-flex shrink-0 cursor-default items-center gap-[0.55em] whitespace-nowrap rounded-full py-[0.4em] pl-[0.4em] pr-[1em] font-medium text-slate-100 transition-[border-color,box-shadow,color] duration-300 hover:border-sky-300/70 hover:text-white hover:shadow-[0_0_26px_-4px_rgba(61,147,255,0.7),inset_0_0_20px_rgba(61,147,255,0.1)]`}
               >
                 {!reduce && (
                   <motion.span
                     aria-hidden
-                    className="pointer-events-none absolute -inset-px rounded-full border border-sky-300/80 shadow-[0_0_22px_-2px_rgba(239,54,70,0.75),inset_0_0_16px_rgba(239,54,70,0.18)]"
+                    className="pointer-events-none absolute -inset-px rounded-full border border-sky-300/80 shadow-[0_0_22px_-2px_rgba(61,147,255,0.75),inset_0_0_16px_rgba(61,147,255,0.18)]"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: [0, 1, 0] }}
                     transition={{ duration: 1.4, delay: 1.4 + i * 0.45, repeat: Infinity, repeatDelay: 2.6, ease: "easeInOut" }}
@@ -359,9 +367,6 @@ export default function Hero() {
                           {c}
                         </span>
                       ))}
-                      {w === NAME.length - 1 && (
-                        <span className="hero-char text-sky-500" style={{ opacity: 0 }}>.</span>
-                      )}
                     </span>
                   </Fragment>
                 ))}
@@ -399,7 +404,7 @@ export default function Hero() {
           <motion.div {...fadeUp(0.7, ready)} className="mt-8 flex flex-wrap items-center gap-4">
             <Link
               href="/projects"
-              className="btn-press btn-shine group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-sky-600 to-cyan-600 px-7 py-3.5 text-base font-semibold text-white shadow-[0_0_18px_-6px_rgba(255,77,94,0.45)] hover:from-sky-500 hover:to-cyan-500 hover:shadow-[0_0_28px_-4px_rgba(255,77,94,0.7)]"
+              className="btn-press btn-shine group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-sky-600 to-cyan-600 px-7 py-3.5 text-base font-semibold text-white shadow-[0_0_18px_-6px_rgba(79,195,255,0.45)] hover:from-sky-500 hover:to-cyan-500 hover:shadow-[0_0_28px_-4px_rgba(79,195,255,0.7)]"
             >
               <FiFolder className="text-xl" />
               View Projects
@@ -407,7 +412,7 @@ export default function Hero() {
             </Link>
             <Link
               href="/cv"
-              className="btn-press btn-shine group inline-flex items-center gap-3 rounded-full border border-sky-400/60 bg-[#121214]/60 px-7 py-3.5 text-base font-semibold text-white hover:bg-sky-400/10 hover:shadow-[0_0_24px_-6px_rgba(239,54,70,0.8)]"
+              className="btn-press btn-shine group inline-flex items-center gap-3 rounded-full border border-sky-400/60 bg-[#0a1428]/60 px-7 py-3.5 text-base font-semibold text-white hover:bg-sky-400/10 hover:shadow-[0_0_24px_-6px_rgba(61,147,255,0.8)]"
             >
               <FiDownload className="text-xl transition-transform group-hover:translate-y-0.5" />
               Download CV
@@ -420,7 +425,7 @@ export default function Hero() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="btn-press group inline-flex items-center gap-1.5 rounded-full border border-sky-400/25 bg-[#121214]/50 px-4 py-1.5 text-sm text-slate-300 hover:border-sky-400/60 hover:bg-sky-400/10 hover:text-white"
+                className="btn-press group inline-flex items-center gap-1.5 rounded-full border border-sky-400/25 bg-[#0a1428]/50 px-4 py-1.5 text-sm text-slate-300 hover:border-sky-400/60 hover:bg-sky-400/10 hover:text-white"
               >
                 {l.label}
                 <FiArrowUpRight className="text-[0.9em] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -440,7 +445,7 @@ export default function Hero() {
                 target={href.startsWith("mailto") ? undefined : "_blank"}
                 rel="noopener noreferrer"
                 style={{ "--sc": color } as CSSProperties}
-                className="social-orb flex h-10 w-10 items-center justify-center rounded-xl border border-sky-400/25 bg-[#121214]/50 text-lg text-slate-400 transition-transform hover:-translate-y-1 sm:h-11 sm:w-11"
+                className="social-orb flex h-10 w-10 items-center justify-center rounded-xl border border-sky-400/25 bg-[#0a1428]/50 text-lg text-slate-400 transition-transform hover:-translate-y-1 sm:h-11 sm:w-11"
               >
                 <Icon />
               </a>
@@ -476,8 +481,9 @@ export default function Hero() {
             ))}
           </div>
 
-          {/* Cube */}
-          <div className="relative h-[228px] w-[228px] shrink-0 xs:h-[266px] xs:w-[266px] md:h-[300px] md:w-[300px] xl:h-[266px] xl:w-[266px] 2xl:h-[330px] 2xl:w-[330px]">
+          {/* Cube. The cursor mode covers the whole area (glow included): the scaled-down,
+              tilted cube spills past its own box, so its edges would otherwise miss it. */}
+          <div data-cursor-mode="rotate" className="relative h-[228px] w-[228px] shrink-0 xs:h-[266px] xs:w-[266px] md:h-[300px] md:w-[300px] xl:h-[266px] xl:w-[266px] 2xl:h-[330px] 2xl:w-[330px]">
             {/* Blue glow behind the cube */}
             <div aria-hidden className="absolute -inset-10 rounded-full bg-blue-600/25 blur-3xl" />
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-[0.6] xs:scale-[0.7] md:scale-[0.79] xl:scale-[0.7] 2xl:scale-[0.87]">
@@ -491,7 +497,7 @@ export default function Hero() {
             <motion.div {...float(0)}>
               <Link href="/projects" className={`${glass} group flex flex-col gap-3 rounded-2xl p-4 2xl:p-5`}>
                 <div className="flex items-center gap-3">
-                  <LuCode className="shrink-0 text-3xl text-sky-400 drop-shadow-[0_0_8px_rgba(239,54,70,0.8)] 2xl:text-4xl" />
+                  <LuCode className="shrink-0 text-3xl text-sky-400 drop-shadow-[0_0_8px_rgba(61,147,255,0.8)] 2xl:text-4xl" />
                   <p className="border-l border-sky-400/30 pl-3 text-base font-bold leading-tight text-white 2xl:text-lg">
                     Crafting Digital <span className="text-sky-400">Solutions</span>
                   </p>
@@ -508,7 +514,7 @@ export default function Hero() {
             <motion.div {...float(1.2)}>
               <div className={`${glass} rounded-2xl p-4`}>
                 <div className="flex items-center gap-3">
-                  <LuBrainCircuit className="shrink-0 text-3xl text-sky-400 drop-shadow-[0_0_8px_rgba(239,54,70,0.8)] 2xl:text-4xl" />
+                  <LuBrainCircuit className="shrink-0 text-3xl text-sky-400 drop-shadow-[0_0_8px_rgba(61,147,255,0.8)] 2xl:text-4xl" />
                   <p className="border-l border-sky-400/30 pl-3 text-sm font-bold leading-tight text-white 2xl:text-base">
                     AI &amp; Machine <span className="block text-lg text-sky-400 2xl:text-xl">Learning</span>
                   </p>
@@ -521,7 +527,7 @@ export default function Hero() {
             <motion.div {...float(2.4)}>
               <div className={`${glass} rounded-2xl px-4 py-3`}>
                 <p className="flex items-center gap-2.5 text-sm font-semibold text-white 2xl:text-base">
-                  <span className="h-2.5 w-2.5 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(239,54,70,0.9)]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(61,147,255,0.9)]" />
                   Software Engineer
                 </p>
                 <p className="mt-1.5 flex items-center gap-2.5 text-xs text-slate-300 2xl:text-sm">
@@ -534,7 +540,41 @@ export default function Hero() {
         </motion.div>
       </div>
 
-
+      {/* Scroll cue: a mouse with a rolling wheel and chevrons cascading below it */}
+      <div
+        ref={cue}
+        className="relative mb-6 hidden justify-center sm:flex lg:fixed lg:bottom-6 lg:left-[77%] lg:z-30 lg:mb-0 lg:-translate-x-1/2"
+      >
+        <motion.button
+          type="button"
+          aria-label="Scroll down"
+          onClick={() => {
+            const next = section.current?.nextElementSibling as HTMLElement | null;
+            if (!next) return;
+            const lenis = (window as unknown as { __lenis?: { scrollTo: (t: HTMLElement, o?: object) => void } }).__lenis;
+            if (lenis) lenis.scrollTo(next, { offset: -60, duration: 1.4 });
+            else next.scrollIntoView({ behavior: "smooth" });
+          }}
+          initial={{ opacity: 0, y: -10 }}
+          animate={ready ? { opacity: 1, y: 0 } : undefined}
+          transition={{ duration: 0.8, delay: 1.2, ease }}
+          className="group flex flex-col items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-slate-400 transition-colors hover:text-white"
+        >
+          <span className="relative flex h-10 w-6 justify-center rounded-full border border-sky-400/40 pt-2 shadow-[0_0_18px_-4px_rgba(47,123,255,0.7)] transition-colors group-hover:border-sky-300">
+            <span className="scroll-cue-wheel h-2 w-[3px] rounded-full bg-gradient-to-b from-cyan-300 to-sky-500" />
+          </span>
+          <span className="flex flex-col items-center">
+            {[0, 0.15, 0.3].map((d) => (
+              <span
+                key={d}
+                className="scroll-cue-chev -mt-1 h-2 w-2 border-b border-r border-sky-400"
+                style={{ ["--d" as string]: `${d}s` }}
+              />
+            ))}
+          </span>
+          <span>Scroll</span>
+        </motion.button>
+      </div>
     </section>
   );
 }

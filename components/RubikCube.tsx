@@ -42,7 +42,7 @@ function Cubie({ x, y, z }: Coord) {
       {FACES.map((face, f) => {
         const light = Math.round(16 + face.shade * 30);
         const tile = face.tile({ x, y, z });
-        const base = `linear-gradient(145deg, rgb(${light},${light},${light + 3}) 0%, rgb(10,10,12) 100%)`;
+        const base = `linear-gradient(145deg, rgb(${light},${light},${light + 3}) 0%, rgb(5,11,26) 100%)`;
 
         // Faces hidden inside the cube: plain dark plastic.
         if (tile == null) {
@@ -200,6 +200,7 @@ export default function RubikCube() {
   return (
     <div
       className="relative w-[380px] h-[380px] flex items-center justify-center cursor-grab active:cursor-grabbing select-none touch-pan-y"
+      data-cursor-mode="rotate"
       style={{ perspective: 1400 }}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
@@ -212,7 +213,7 @@ export default function RubikCube() {
         className="hero-badge-spin absolute top-1/2 left-1/2 -ml-40 -mt-40 w-80 h-80 rounded-full blur-[90px] opacity-35"
         style={{
           animationDuration: "24s",
-          background: "conic-gradient(from 0deg, #b91424, #e11d2e, #5e0b12, #ff4d5e, #9e111d, #b91424)",
+          background: "conic-gradient(from 0deg, #1d4ed8, #2f7bff, #102a6b, #4fc3ff, #1a47b8, #1d4ed8)",
         }}
       />
       {/* Floor: soft coloured reflection + contact shadow */}

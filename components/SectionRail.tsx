@@ -78,7 +78,7 @@ export default function SectionRail() {
             </span>
             <span
               className={`h-1.5 w-1.5 rotate-45 transition-all duration-300 ${
-                i === active ? "scale-150 bg-sky-500 shadow-[0_0_10px_rgba(225,29,46,0.9)]" : "bg-white/30"
+                i === active ? "scale-150 bg-sky-500 shadow-[0_0_10px_rgba(47,123,255,0.9)]" : "bg-white/30"
               }`}
             />
           </button>

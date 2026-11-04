@@ -4,85 +4,85 @@
 @theme {
   --breakpoint-xs: 26rem; /* 416px */
 
-  /* Cinematic theme: the cool blue/cyan scales the components use are remapped
-     to a vivid red, and the grays to a neutral near-black, so every page follows. */
-  --color-sky-50: #fff1f2;
-  --color-sky-100: #ffe1e3;
-  --color-sky-200: #ffc2c7;
-  --color-sky-300: #ff949d;
-  --color-sky-400: #ff4d5e;
-  --color-sky-500: #e11d2e;
-  --color-sky-600: #c01624;
-  --color-sky-700: #9e111d;
-  --color-sky-800: #7f1019;
-  --color-sky-900: #5e0b12;
-  --color-sky-950: #3a050a;
-  --color-cyan-50: #fff1f2;
-  --color-cyan-100: #ffe1e3;
-  --color-cyan-200: #ffc2c7;
-  --color-cyan-300: #ff949d;
-  --color-cyan-400: #ff4d5e;
-  --color-cyan-500: #e11d2e;
-  --color-cyan-600: #c01624;
-  --color-cyan-700: #9e111d;
-  --color-cyan-800: #7f1019;
-  --color-cyan-900: #5e0b12;
-  --color-cyan-950: #3a050a;
-  --color-teal-50: #fff1f2;
-  --color-teal-100: #ffe1e3;
-  --color-teal-200: #ffc2c7;
-  --color-teal-300: #ff949d;
-  --color-teal-400: #ff4d5e;
-  --color-teal-500: #e11d2e;
-  --color-teal-600: #c01624;
-  --color-teal-700: #9e111d;
-  --color-teal-800: #7f1019;
-  --color-teal-900: #5e0b12;
-  --color-teal-950: #3a050a;
-  --color-blue-50: #fff1f2;
-  --color-blue-100: #ffe1e3;
-  --color-blue-200: #ffc2c7;
-  --color-blue-300: #ff7a86;
-  --color-blue-400: #f0303f;
-  --color-blue-500: #c8162a;
-  --color-blue-600: #a51222;
-  --color-blue-700: #850e1b;
-  --color-blue-800: #661017;
-  --color-blue-900: #4a0b10;
-  --color-blue-950: #2a0508;
-  --color-indigo-50: #fff1f2;
-  --color-indigo-100: #ffe1e3;
-  --color-indigo-200: #ffc2c7;
-  --color-indigo-300: #ff7a86;
-  --color-indigo-400: #f0303f;
-  --color-indigo-500: #c8162a;
-  --color-indigo-600: #a51222;
-  --color-indigo-700: #850e1b;
-  --color-indigo-800: #661017;
-  --color-indigo-900: #4a0b10;
-  --color-indigo-950: #2a0508;
-  --color-gray-50: #fafafa;
-  --color-gray-100: #f4f4f5;
-  --color-gray-200: #e4e4e7;
-  --color-gray-300: #d4d4d8;
-  --color-gray-400: #a1a1aa;
-  --color-gray-500: #71717a;
-  --color-gray-600: #52525b;
-  --color-gray-700: #3f3f46;
-  --color-gray-800: #27272a;
-  --color-gray-900: #18181b;
-  --color-gray-950: #0a0a0c;
-  --color-slate-50: #fafafa;
-  --color-slate-100: #f4f4f5;
-  --color-slate-200: #e4e4e7;
-  --color-slate-300: #d4d4d8;
-  --color-slate-400: #a1a1aa;
-  --color-slate-500: #71717a;
-  --color-slate-600: #52525b;
-  --color-slate-700: #3f3f46;
-  --color-slate-800: #27272a;
-  --color-slate-900: #18181b;
-  --color-slate-950: #0a0a0c;
+  /* Navy theme (matches the TH logo): the blue/cyan scales the components use are
+     tuned to an electric blue + cyan glow, and the grays to a navy-tinted near-black. */
+  --color-sky-50: #eef6ff;
+  --color-sky-100: #d9ecff;
+  --color-sky-200: #bcdcff;
+  --color-sky-300: #8ec8ff;
+  --color-sky-400: #4fa8ff;
+  --color-sky-500: #2f7bff;
+  --color-sky-600: #1f5fe6;
+  --color-sky-700: #1a4bc0;
+  --color-sky-800: #1a3f96;
+  --color-sky-900: #172f6b;
+  --color-sky-950: #0c1a40;
+  --color-cyan-50: #ecfcff;
+  --color-cyan-100: #cff7ff;
+  --color-cyan-200: #a5eeff;
+  --color-cyan-300: #67e0ff;
+  --color-cyan-400: #2fcfff;
+  --color-cyan-500: #0bb4f0;
+  --color-cyan-600: #0891d1;
+  --color-cyan-700: #0e72a8;
+  --color-cyan-800: #135c88;
+  --color-cyan-900: #144c70;
+  --color-cyan-950: #08304b;
+  --color-teal-50: #ecfcff;
+  --color-teal-100: #cff7ff;
+  --color-teal-200: #a5eeff;
+  --color-teal-300: #67e0ff;
+  --color-teal-400: #2fcfff;
+  --color-teal-500: #0bb4f0;
+  --color-teal-600: #0891d1;
+  --color-teal-700: #0e72a8;
+  --color-teal-800: #135c88;
+  --color-teal-900: #144c70;
+  --color-teal-950: #08304b;
+  --color-blue-50: #eef4ff;
+  --color-blue-100: #dbe7ff;
+  --color-blue-200: #bfd4ff;
+  --color-blue-300: #7fb4ff;
+  --color-blue-400: #3d8bff;
+  --color-blue-500: #2563eb;
+  --color-blue-600: #1d4ed8;
+  --color-blue-700: #1e40af;
+  --color-blue-800: #1e3a8a;
+  --color-blue-900: #172554;
+  --color-blue-950: #0b1530;
+  --color-indigo-50: #eef4ff;
+  --color-indigo-100: #dbe7ff;
+  --color-indigo-200: #bfd4ff;
+  --color-indigo-300: #7fb4ff;
+  --color-indigo-400: #3d8bff;
+  --color-indigo-500: #2563eb;
+  --color-indigo-600: #1d4ed8;
+  --color-indigo-700: #1e40af;
+  --color-indigo-800: #1e3a8a;
+  --color-indigo-900: #172554;
+  --color-indigo-950: #0b1530;
+  --color-gray-50: #f5f8fd;
+  --color-gray-100: #edf2fa;
+  --color-gray-200: #dae3f0;
+  --color-gray-300: #c0cde0;
+  --color-gray-400: #8d9cb8;
+  --color-gray-500: #5f6f8f;
+  --color-gray-600: #435273;
+  --color-gray-700: #2b3a5a;
+  --color-gray-800: #1a2744;
+  --color-gray-900: #0f1a33;
+  --color-gray-950: #060c1c;
+  --color-slate-50: #f5f8fd;
+  --color-slate-100: #edf2fa;
+  --color-slate-200: #dae3f0;
+  --color-slate-300: #c0cde0;
+  --color-slate-400: #8d9cb8;
+  --color-slate-500: #5f6f8f;
+  --color-slate-600: #435273;
+  --color-slate-700: #2b3a5a;
+  --color-slate-800: #1a2744;
+  --color-slate-900: #0f1a33;
+  --color-slate-950: #060c1c;
 
   /* Sharp, film-poster edges */
   --radius-md: 3px;
@@ -103,9 +103,20 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-stopped { overflow: clip; }
 .lenis [data-lenis-prevent] { overscroll-behavior: contain; }
 
-/* ---------- Custom cursor (MotionLayer): small dot + trailing ring ---------- */
+/* ---------- Custom cursor (MotionLayer) ----------
+   A glowing core dot, a ring with a turning blue→cyan gradient edge that stretches
+   the way it travels, a comet trail while moving, a soft spotlight, and a ripple on
+   click. Over buttons and links the ring wraps around them; over text fields it
+   becomes a caret. */
+@property --cursor-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
 .cursor-dot,
-.cursor-ring {
+.cursor-ring,
+.cursor-trail,
+.cursor-glow {
   position: fixed;
   left: 0;
   top: 0;
@@ -116,18 +127,122 @@ html.lenis, html.lenis body { height: auto; }
   will-change: transform;
 }
 .cursor-dot {
-  width: 7px;
-  height: 7px;
-  background: #e11d2e;
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  box-shadow: 0 0 8px 2px rgba(79, 195, 255, 0.9), 0 0 22px 6px rgba(47, 123, 255, 0.45);
+}
+.cursor-trail {
+  width: var(--s, 6px);
+  height: var(--s, 6px);
+  background: radial-gradient(circle, rgba(143, 214, 255, 0.95), rgba(47, 123, 255, 0.5) 60%, transparent 72%);
+  mix-blend-mode: screen;
+}
+/* Spotlight: a wide, faint pool of blue light that lags behind the pointer */
+.cursor-glow {
+  z-index: 9998;
+  width: 560px;
+  height: 560px;
+  background: radial-gradient(circle, rgba(47, 123, 255, 0.13), rgba(11, 180, 240, 0.05) 40%, transparent 68%);
+  mix-blend-mode: screen;
 }
 .cursor-ring {
-  width: 36px;
-  height: 36px;
-  border: 1px solid rgba(225, 29, 46, 0.6);
-  background: rgba(225, 29, 46, 0.06);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.cursor-ring { display: flex; align-items: center; justify-content: center; transition: background-color 0.3s ease, border-color 0.3s ease; }
+.cursor-shape {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle, rgba(47, 123, 255, 0.1), rgba(47, 123, 255, 0.02) 65%, transparent 70%);
+  /* Faint full ring under the comet, so the shape always reads */
+  box-shadow: inset 0 0 0 1px rgba(143, 214, 255, 0.16), 0 0 18px -8px rgba(47, 123, 255, 0.6);
+  transition: background 0.35s ease, box-shadow 0.35s ease, opacity 0.35s ease;
+}
+/* Resting pointer: the glow slowly breathes */
+.cursor-ring-idle .cursor-shape { animation: cursor-breathe 2.6s ease-in-out infinite; }
+@keyframes cursor-breathe {
+  50% { box-shadow: inset 0 0 0 1px rgba(143, 214, 255, 0.35), 0 0 26px -2px rgba(47, 123, 255, 0.75); }
+}
+/* A tiny satellite orbiting the free ring */
+.cursor-orbit {
+  position: absolute;
+  inset: -5px;
+  border-radius: 9999px;
+  animation: cursor-orbit 3.4s linear infinite;
+  transition: opacity 0.3s ease;
+}
+.cursor-orbit::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: calc(50% - 2px);
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: #cdeeff;
+  box-shadow: 0 0 6px 1px rgba(79, 195, 255, 0.95);
+}
+@keyframes cursor-orbit { to { transform: rotate(360deg); } }
+.cursor-ring:not(.cursor-ring-free) .cursor-orbit { opacity: 0; }
+
+/* Over body text: small and quiet, so it never sits on top of what you're reading */
+.cursor-ring-read .cursor-spin { opacity: 0.55; }
+.cursor-ring-read .cursor-shape { background: none; box-shadow: inset 0 0 0 1px rgba(143, 214, 255, 0.25); }
+/* Over headings: a glass lens that makes the letters under it glow brighter */
+.cursor-ring-heading .cursor-spin { animation-duration: 4s; }
+.cursor-ring-heading .cursor-shape {
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.16), rgba(79, 195, 255, 0.1) 50%, rgba(47, 123, 255, 0.06));
+  box-shadow: inset 0 0 0 1px rgba(143, 214, 255, 0.35), 0 0 30px -6px rgba(47, 123, 255, 0.8);
+  backdrop-filter: brightness(1.45) saturate(1.35) contrast(1.05);
+}
+
+/* Click sparks */
+.cursor-spark {
+  position: fixed;
+  z-index: 10000;
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  border-radius: 9999px;
+  pointer-events: none;
+  background: #cdeeff;
+  box-shadow: 0 0 6px 1px rgba(79, 195, 255, 0.9);
+}
+/* The gradient edge: a conic gradient cut down to a thin border (works for circles and
+   the rounded boxes the ring wraps around buttons), its angle turning forever */
+.cursor-spin {
+  position: absolute;
+  inset: 0;
+  padding: 1.4px;
+  border-radius: inherit;
+  /* A comet: faint tail sweeping round to a bright white-cyan head */
+  background: conic-gradient(from var(--cursor-angle), rgba(47, 123, 255, 0) 0deg, rgba(47, 123, 255, 0.25) 140deg, #2f7bff 270deg, #8fd6ff 340deg, #ffffff 358deg, rgba(47, 123, 255, 0) 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: cursor-spin 2.6s linear infinite;
+  transition: opacity 0.3s ease;
+}
+@keyframes cursor-spin { to { --cursor-angle: 360deg; } }
+.cursor-ring-hover .cursor-shape {
+  background: linear-gradient(135deg, rgba(79, 195, 255, 0.14), rgba(47, 123, 255, 0.05));
+  box-shadow: 0 0 26px -6px rgba(47, 123, 255, 0.8), inset 0 0 14px -4px rgba(79, 195, 255, 0.5);
+}
+.cursor-ring-hover .cursor-spin { animation-duration: 1.4s; }
+.cursor-ring-text .cursor-spin { opacity: 0; }
+.cursor-ring-text .cursor-shape {
+  background: linear-gradient(180deg, #8fd6ff, #2f7bff);
+  box-shadow: 0 0 12px rgba(79, 195, 255, 0.9);
+  animation: cursor-caret 1.1s ease-in-out infinite;
+}
+@keyframes cursor-caret { 50% { opacity: 0.35; } }
 .cursor-label {
+  position: relative;
   font-size: 6px; /* the ring is scaled up 2.6x while a label shows */
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -136,8 +251,134 @@ html.lenis, html.lenis body { height: auto; }
   opacity: 0;
   transition: opacity 0.25s ease;
 }
-.cursor-ring-label { background: #e11d2e; border-color: #e11d2e; }
+.cursor-ring-label .cursor-shape {
+  background: linear-gradient(135deg, #2f7bff, #1d4ed8 55%, #0bb4f0);
+  box-shadow: 0 0 30px -4px rgba(47, 123, 255, 0.85);
+}
 .cursor-ring-label .cursor-label { opacity: 1; }
+/* Tabs (navbar, filters): a soft pill with a glowing underline that slides from tab to tab */
+.cursor-shape::after {
+  content: "";
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: -5px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, #4fc3ff, transparent);
+  box-shadow: 0 0 10px 1px rgba(79, 195, 255, 0.9);
+  opacity: 0;
+  transform: scaleX(0.3);
+  transition: opacity 0.3s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cursor-ring-tab .cursor-spin { opacity: 0; }
+.cursor-ring-tab .cursor-shape {
+  background: linear-gradient(180deg, rgba(79, 195, 255, 0.03), rgba(47, 123, 255, 0.16));
+  box-shadow: inset 0 0 0 1px rgba(79, 195, 255, 0.22);
+}
+.cursor-ring-tab .cursor-shape::after { opacity: 1; transform: scaleX(1); }
+
+/* Mode faces (icons / words inside the ring) and corner badges */
+.cursor-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: #dff3ff;
+  opacity: 0;
+  transform: scale(0.5);
+  filter: drop-shadow(0 0 4px rgba(79, 195, 255, 0.9));
+  transition: opacity 0.3s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cursor-face svg { width: 16px; height: 16px; flex-shrink: 0; }
+.cursor-badge {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  color: #fff;
+  background: linear-gradient(135deg, #4fc3ff, #2f7bff);
+  box-shadow: 0 0 12px rgba(47, 123, 255, 0.9);
+  opacity: 0;
+  transform: scale(0.3) rotate(-45deg);
+  transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.cursor-badge svg { width: 11px; height: 11px; }
+.cursor-ring-external .cursor-badge-external,
+.cursor-ring-download .cursor-badge-download { opacity: 1; transform: none; }
+.cursor-ring-download .cursor-badge-download svg { animation: cursor-bob 1.1s ease-in-out infinite; }
+@keyframes cursor-bob { 50% { translate: 0 2px; } }
+
+/* Rubik cube: a dashed orbit with a rotate icon, spinning faster while dragging */
+.cursor-ring-rotate .cursor-face-rotate {
+  opacity: 1;
+  transform: scale(1);
+  animation: cursor-icon-turn 2.4s ease-in-out infinite;
+}
+@keyframes cursor-icon-turn { 50% { rotate: 28deg; } }
+.cursor-ring-rotate .cursor-spin {
+  background: repeating-conic-gradient(from var(--cursor-angle), #4fc3ff 0deg 9deg, transparent 9deg 20deg);
+  animation-duration: 7s;
+}
+.cursor-ring-rotate .cursor-shape {
+  background: radial-gradient(circle, rgba(47, 123, 255, 0.2), rgba(5, 11, 26, 0.35) 72%);
+  box-shadow: 0 0 30px -6px rgba(47, 123, 255, 0.85);
+}
+.cursor-ring-grabbing .cursor-spin { animation-duration: 1.2s; }
+.cursor-ring-grabbing .cursor-face-rotate { animation-duration: 0.8s; }
+
+/* Clickable images: a glass lens with a magnifier */
+.cursor-ring-zoom .cursor-face-zoom { opacity: 1; transform: scale(1); }
+.cursor-ring-zoom .cursor-shape {
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.28), rgba(79, 195, 255, 0.18) 45%, rgba(29, 78, 216, 0.35));
+  box-shadow: 0 0 28px -4px rgba(47, 123, 255, 0.9), inset 0 0 10px rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(2px) saturate(1.4);
+}
+.cursor-ring-zoom .cursor-spin { animation-duration: 1.6s; }
+
+/* Carousels / marquees: a ‹ DRAG › pill whose arrows nudge outwards */
+.cursor-face-drag {
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.cursor-face-drag svg { width: 13px; height: 13px; animation: cursor-nudge-l 1.2s ease-in-out infinite; }
+.cursor-face-drag svg:last-child { animation-name: cursor-nudge-r; }
+@keyframes cursor-nudge-l { 50% { translate: -3px 0; } }
+@keyframes cursor-nudge-r { 50% { translate: 3px 0; } }
+.cursor-ring-drag .cursor-face-drag { opacity: 1; transform: scale(1); }
+.cursor-ring-drag .cursor-shape {
+  background: linear-gradient(90deg, rgba(47, 123, 255, 0.35), rgba(11, 180, 240, 0.3));
+  box-shadow: 0 0 26px -6px rgba(47, 123, 255, 0.9);
+}
+.cursor-ring-grabbing.cursor-ring-drag .cursor-face-drag svg { animation-duration: 0.5s; }
+
+/* Glass cards: a wide, faint halo instead of a ring */
+.cursor-ring-card .cursor-spin { opacity: 0.35; animation-duration: 6s; }
+.cursor-ring-card .cursor-shape {
+  background: radial-gradient(circle, rgba(79, 195, 255, 0.1), rgba(47, 123, 255, 0.04) 60%, transparent 72%);
+}
+
+.cursor-ripple {
+  position: fixed;
+  z-index: 10000;
+  width: 60px;
+  height: 60px;
+  margin: -30px 0 0 -30px;
+  border-radius: 9999px;
+  pointer-events: none;
+  border: 1.5px solid rgba(79, 195, 255, 0.85);
+  box-shadow: 0 0 18px rgba(47, 123, 255, 0.6), inset 0 0 12px rgba(47, 123, 255, 0.4);
+}
 /* The custom cursor replaces the native one wherever it's active */
 html.has-cursor,
 html.has-cursor * {
@@ -145,14 +386,17 @@ html.has-cursor * {
 }
 
 body {
-  background: #0a0a0c;
+  /* The navy wash lives on body (painted under everything, the 3D canvas included);
+     on the ::before glow layer it would cover the canvas. */
+  background: #050b1a linear-gradient(180deg, #071330 0%, #050b1a 45%, #040917 100%) fixed;
+  -webkit-tap-highlight-color: transparent;
   color: #f4f4f5;
   font-family: var(--font-body), "Inter", system-ui, sans-serif;
   overflow-x: hidden;
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Ccircle cx='11' cy='11' r='4' fill='%23e11d2e'/%3E%3Ccircle cx='11' cy='11' r='9.5' fill='none' stroke='%23e11d2e' stroke-opacity='.55'/%3E%3C/svg%3E") 11 11, auto;
 }
 
-/* Film grain over everything, plus a soft red glow bleeding in from the corners */
+/* Film grain over everything, plus a soft blue glow bleeding in from the corners */
 body::before {
   content: "";
   position: fixed;
@@ -160,8 +404,8 @@ body::before {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 55% 45% at 85% 0%, rgba(225, 29, 46, 0.14), transparent 70%),
-    radial-gradient(ellipse 45% 40% at 0% 100%, rgba(225, 29, 46, 0.09), transparent 70%);
+    radial-gradient(ellipse 55% 45% at 85% 0%, rgba(47, 123, 255, 0.18), transparent 70%),
+    radial-gradient(ellipse 45% 40% at 0% 100%, rgba(11, 180, 240, 0.1), transparent 70%);
 }
 body::after {
   content: "";
@@ -183,12 +427,17 @@ body::after {
 @media (prefers-reduced-motion: reduce) {
   body::after { animation: none; }
 }
+/* Phones: a full-screen layer repainting 8x a second over the WebGL canvas costs
+   frames during scroll, so the grain stays still (and lighter) there. */
+@media (max-width: 767px), (pointer: coarse) {
+  body::after { animation: none; inset: 0; opacity: 0.05; }
+}
 
 a, button, [role="button"], label[for], select {
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='15' cy='15' r='13' fill='%23e11d2e' fill-opacity='.18' stroke='%23e11d2e'/%3E%3Ccircle cx='15' cy='15' r='3' fill='%23fff'/%3E%3C/svg%3E") 15 15, pointer;
 }
 
-::selection { background: #e11d2e; color: #fff; }
+::selection { background: #2f7bff; color: #fff; }
 
 /* Big, condensed, uppercase headlines (Anton ships a single weight, so no faux bold) */
 h1, h2 {
@@ -221,9 +470,9 @@ button.btn-press.rounded-full {
 ::-webkit-scrollbar {
   width: 8px;
 }
-::-webkit-scrollbar-track { background: #0a0a0c; }
+::-webkit-scrollbar-track { background: #050b1a; }
 ::-webkit-scrollbar-thumb {
-  background: #e11d2e;
+  background: #2f7bff;
   border-radius: 0;
 }
 
@@ -299,14 +548,15 @@ button.btn-press.rounded-full {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(225, 29, 46, 0.14), transparent 45%);
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(47, 123, 255, 0.14), transparent 45%);
   opacity: 0;
   transition: opacity 0.4s ease;
   pointer-events: none;
 }
 .glow-card:hover::before { opacity: 1; }
-.glow-card { transition: border-color 0.4s ease, background-color 0.4s ease; }
-.glow-card:hover { border-color: rgba(225, 29, 46, 0.35); }
+.glow-card img { clip-path: inset(calc((1 - var(--reveal, 1)) * 100%) 0 0 0); }
+.glow-card { transition: border-color 0.4s ease, background-color 0.4s ease, translate 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+.glow-card:hover { border-color: rgba(47, 123, 255, 0.35); }
 
 /* Home previews: infinite skills marquee */
 @keyframes marquee {
@@ -330,10 +580,10 @@ button.btn-press.rounded-full {
   50% { background-position: 100% 50%; }
 }
 .nav-active-pill {
-  background: linear-gradient(90deg, rgba(225, 29, 46, 0.35), rgba(255, 77, 94, 0.35), rgba(185, 20, 36, 0.35), rgba(225, 29, 46, 0.35));
+  background: linear-gradient(90deg, rgba(47, 123, 255, 0.35), rgba(79, 195, 255, 0.35), rgba(29, 78, 216, 0.35), rgba(47, 123, 255, 0.35));
   background-size: 300% 100%;
   animation: nav-pill-shift 6s ease-in-out infinite;
-  box-shadow: 0 0 18px rgba(225, 29, 46, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 18px rgba(47, 123, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 @media (prefers-reduced-motion: reduce) {
   .nav-active-pill { animation: none; }
@@ -344,6 +594,24 @@ button.btn-press.rounded-full {
   -webkit-mask-image: linear-gradient(90deg, transparent, black 7%, black 93%, transparent);
   mask-image: linear-gradient(90deg, transparent, black 7%, black 93%, transparent);
 }
+/* Depth layer (Carousel): cards towards the edges are dimmed by --fd, set per frame */
+.carousel-flow {
+  position: relative;
+  will-change: transform;
+}
+.carousel-flow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-2xl);
+  background: #050b1a;
+  opacity: var(--fd, 0);
+  pointer-events: none;
+}
+.carousel-flow-focus .carousel-card {
+  border-color: rgba(79, 195, 255, 0.55);
+  box-shadow: 0 0 0 1px rgba(79, 195, 255, 0.22), 0 26px 60px -26px rgba(47, 123, 255, 0.85);
+}
 .carousel-card {
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.5s ease,
     box-shadow 0.5s ease, background-color 0.5s ease;
@@ -351,8 +619,8 @@ button.btn-press.rounded-full {
 }
 .carousel-card:hover {
   transform: translateY(-8px);
-  border-color: rgba(225, 29, 46, 0.45);
-  box-shadow: 0 20px 45px -20px rgba(225, 29, 46, 0.55), 0 0 0 1px rgba(225, 29, 46, 0.12);
+  border-color: rgba(47, 123, 255, 0.45);
+  box-shadow: 0 20px 45px -20px rgba(47, 123, 255, 0.55), 0 0 0 1px rgba(47, 123, 255, 0.12);
 }
 .carousel-sheen {
   background: linear-gradient(115deg, transparent 42%, rgba(255, 255, 255, 0.16) 50%, transparent 58%);
@@ -369,13 +637,13 @@ button.btn-press.rounded-full {
 .chat-scroll::-webkit-scrollbar { width: 5px; }
 .chat-scroll::-webkit-scrollbar-track { background: transparent; }
 .chat-scroll::-webkit-scrollbar-thumb {
-  background: rgba(225, 29, 46, 0.35);
+  background: rgba(47, 123, 255, 0.35);
   border-radius: 10px;
 }
-.chat-scroll::-webkit-scrollbar-thumb:hover { background: rgba(225, 29, 46, 0.6); }
+.chat-scroll::-webkit-scrollbar-thumb:hover { background: rgba(47, 123, 255, 0.6); }
 .chat-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(225, 29, 46, 0.35) transparent;
+  scrollbar-color: rgba(47, 123, 255, 0.35) transparent;
 }
 
 /* Hero social buttons: each lights up in its own brand colour on hover */
@@ -394,11 +662,11 @@ button.btn-press.rounded-full {
 .modal-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
 .modal-scroll::-webkit-scrollbar-track { background: transparent; }
 .modal-scroll::-webkit-scrollbar-thumb {
-  background: rgba(225, 29, 46, 0.3);
+  background: rgba(47, 123, 255, 0.3);
   border-radius: 10px;
 }
-.modal-scroll::-webkit-scrollbar-thumb:hover { background: rgba(225, 29, 46, 0.55); }
-.modal-scroll { scrollbar-width: thin; scrollbar-color: rgba(225, 29, 46, 0.3) transparent; }
+.modal-scroll::-webkit-scrollbar-thumb:hover { background: rgba(47, 123, 255, 0.55); }
+.modal-scroll { scrollbar-width: thin; scrollbar-color: rgba(47, 123, 255, 0.3) transparent; }
 
 .modal-rim::after {
   content: "";
@@ -406,7 +674,7 @@ button.btn-press.rounded-full {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(145deg, rgba(225, 29, 46, 0.45), transparent 35%, transparent 65%, rgba(255, 77, 94, 0.35));
+  background: linear-gradient(145deg, rgba(47, 123, 255, 0.45), transparent 35%, transparent 65%, rgba(79, 195, 255, 0.35));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -427,14 +695,14 @@ button.btn-press.rounded-full {
   bottom: 0;
   height: 2px;
   border-radius: 2px;
-  background: linear-gradient(90deg, #e11d2e, #ff4d5e);
+  background: linear-gradient(90deg, #2f7bff, #4fc3ff);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
 }
 .field-group:focus-within::after { transform: scaleX(1); }
-.field-group:focus-within .field-label { color: #ff949d; }
+.field-group:focus-within .field-label { color: #93d5ff; }
 .field-label { transition: color 0.3s ease; }
 .field-input { transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease; }
 .field-input:focus { transform: translateY(-1px); }
@@ -459,7 +727,7 @@ button.btn-press.rounded-full {
 .btn-press:disabled { transform: none; filter: none; }
 .btn-press:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px #0a0a0c, 0 0 0 4px rgba(239, 54, 70, 0.7);
+  box-shadow: 0 0 0 2px #050b1a, 0 0 0 4px rgba(61, 147, 255, 0.7);
 }
 
 @keyframes btn-sheen-auto {
@@ -513,8 +781,8 @@ button.btn-press.rounded-full {
    the glow breathes, and on hover the paper plane flies off and lands back in. */
 @keyframes send-flow { to { background-position: 200% 0; } }
 @keyframes send-glow {
-  0%, 100% { box-shadow: 0 8px 22px -8px rgba(225, 29, 46, 0.45); }
-  50% { box-shadow: 0 10px 32px -6px rgba(255, 77, 94, 0.7); }
+  0%, 100% { box-shadow: 0 8px 22px -8px rgba(47, 123, 255, 0.45); }
+  50% { box-shadow: 0 10px 32px -6px rgba(79, 195, 255, 0.7); }
 }
 @keyframes send-sweep {
   0%, 60% { transform: translateX(-120%); }
@@ -531,7 +799,7 @@ button.btn-press.rounded-full {
   100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
 }
 .send-btn {
-  background-image: linear-gradient(90deg, #e11d2e, #ff4d5e, #b91424, #e11d2e);
+  background-image: linear-gradient(90deg, #2f7bff, #4fc3ff, #1d4ed8, #2f7bff);
   background-size: 200% 100%;
   animation: send-flow 6s linear infinite, send-glow 3s ease-in-out infinite;
 }
@@ -558,15 +826,15 @@ button.btn-press.rounded-full {
 
 /* Field icon picks up the accent colour while the field is focused */
 .field-icon { transition: color 0.3s ease, transform 0.3s ease; }
-.field-group:focus-within .field-icon { color: #ff4d5e; transform: scale(1.1); }
+.field-group:focus-within .field-icon { color: #4fc3ff; transform: scale(1.1); }
 
 
 
-/* Skills ring: the card facing the viewer picks up a red glow */
+/* Skills ring: the card facing the viewer picks up a blue glow */
 .ring-card > div { transition: border-color 0.4s ease, box-shadow 0.4s ease; }
 .ring-card-front > div {
-  border-color: rgba(225, 29, 46, 0.7);
-  box-shadow: 0 0 0 1px rgba(225, 29, 46, 0.35), 0 0 60px -10px rgba(225, 29, 46, 0.65);
+  border-color: rgba(47, 123, 255, 0.7);
+  box-shadow: 0 0 0 1px rgba(47, 123, 255, 0.35), 0 0 60px -10px rgba(47, 123, 255, 0.65);
 }
 
 /* About: words light up one by one as the paragraph scrolls through */
@@ -581,17 +849,17 @@ button.btn-press.rounded-full {
 /* Text reveal (TextReveal): hide the back of letters while they flip */
 .split-char { backface-visibility: hidden; }
 
-/* Hero name: white letters extruded in layered red, so they read as solid 3D blocks */
+/* Hero name: white letters extruded in layered blue, so they read as solid 3D blocks */
 .hero-name-3d {
   text-shadow:
-    0 1px 0 #c01624,
-    0 2px 0 #b01422,
-    0 3px 0 #9e111d,
-    0 4px 0 #85101a,
-    0 5px 0 #6a0d15,
-    0 6px 0 #4a0b10,
+    0 1px 0 #2563eb,
+    0 2px 0 #2257d6,
+    0 3px 0 #1a47b8,
+    0 4px 0 #1b3a8f,
+    0 5px 0 #16307a,
+    0 6px 0 #0f2357,
     0 14px 26px rgba(0, 0, 0, 0.65),
-    0 0 40px rgba(225, 29, 46, 0.25);
+    0 0 40px rgba(47, 123, 255, 0.25);
 }
 .hero-char {
   display: inline-block;
@@ -599,5 +867,23 @@ button.btn-press.rounded-full {
   transition: color 0.3s ease;
 }
 .hero-char:hover {
-  color: #ff4d5e;
+  color: #4fc3ff;
+}
+
+/* Hero "scroll" cue: a mouse whose wheel keeps rolling down, and chevrons that
+   light up one after another under it */
+.scroll-cue-wheel { animation: scroll-wheel 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+@keyframes scroll-wheel {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  70% { transform: translateY(12px); opacity: 0; }
+  100% { transform: translateY(12px); opacity: 0; }
+}
+.scroll-cue-chev { animation: scroll-chev 1.8s ease-in-out infinite; animation-delay: var(--d, 0s); }
+@keyframes scroll-chev {
+  0%, 100% { opacity: 0.15; transform: translateY(-2px) rotate(45deg); }
+  50% { opacity: 1; transform: translateY(2px) rotate(45deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue-wheel, .scroll-cue-chev { animation: none; }
 }

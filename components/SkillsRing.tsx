@@ -18,7 +18,7 @@ const STEP = 360 / CARDS.length;
 
 function Card({ icon: Icon, title, text, index }: (typeof CARDS)[number] & { index: number }) {
   return (
-    <div className="relative h-full overflow-hidden border border-white/10 bg-[#121214]/90 p-6 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.9)]">
+    <div className="relative h-full overflow-hidden border border-white/10 bg-[#0a1428]/90 p-6 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.9)]">
       <span className="absolute right-4 top-3 font-[family-name:var(--font-heading)] text-4xl text-white/[0.06]">
         {String(index + 1).padStart(2, "0")}
       </span>

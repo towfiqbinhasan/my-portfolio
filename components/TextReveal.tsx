@@ -8,8 +8,11 @@ gsap.registerPlugin(SplitText);
 
 /*
  * Site-wide scroll reveal for text, on every page:
- *   h1 / h2 → letters flip up in 3D, one after another
- *   h3 / p / li / blockquote → slide up out of a soft blur as they scroll into view
+ *   h1 / h2 → letters flip up in 3D, one after another, out of a soft glow
+ *   h3 / p / li / blockquote → tilt up out of a soft blur as they scroll into view
+ *     (phones: a plain fade + rise, since animating blur on many blocks drops frames there)
+ *   cards (bordered, rounded boxes: certificates, gadgets, papers...) → rise and tilt
+ *     into place in a cascade (phones: a short fade + rise)
  *
  * It works on whatever the page renders inside #page-content, so pages need no
  * changes. Opt a block out with data-no-reveal. Content added later (tabs,
@@ -34,6 +37,22 @@ const SKIP = [
   "button",
 ].join(", ");
 
+// Cards: any sizeable bordered, rounded box. Carousels and pinned/3D pieces animate themselves.
+const CARDS = "[class*='rounded-'][class*='border'], article";
+const CARD_SKIP = [
+  "[data-no-reveal]",
+  "[data-world='hero']",
+  "nav",
+  "[role='dialog']",
+  ".modal-scroll",
+  ".marquee",
+  ".carousel-mask",
+  ".ring-card",
+  ".stack-card",
+  ".project-tilt",
+  ".timeline-item",
+].join(", ");
+
 /** Framer Motion writes its start state inline; leave those elements to it. */
 const ownedByFramer = (el: HTMLElement) => /opacity|transform/.test(el.getAttribute("style") ?? "");
 
@@ -45,6 +64,7 @@ export default function TextReveal() {
     const root = document.getElementById("page-content");
     if (!root) return;
 
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
     const seen = new WeakSet<Element>();
     const splits: SplitText[] = [];
     let live = false; // triggers are only created once the page loader has lifted
@@ -84,16 +104,17 @@ export default function TextReveal() {
             });
           });
           gsap.set(el, { perspective: 600 });
-          gsap.set(split.chars, { rotationX: -95, yPercent: 40, opacity: 0, transformOrigin: "50% 100% -12px" });
+          gsap.set(split.chars, { rotationX: -95, yPercent: 50, scale: 0.9, opacity: 0, transformOrigin: "50% 100% -12px" });
           const run = () =>
             gsap.to(split.chars, {
               rotationX: 0,
               yPercent: 0,
+              scale: 1,
               opacity: 1,
-              duration: 1,
+              duration: mobile ? 0.8 : 1.2,
               ease: "expo.out",
-              stagger: { each: 0.025, from: "start" },
-              scrollTrigger: { trigger: el, start: "top 88%", once: true },
+              stagger: { each: mobile ? 0.015 : 0.022, from: "start" },
+              scrollTrigger: { trigger: el, start: mobile ? "top 94%" : "top 88%", once: true },
               // Safety net: if the heading's own Framer entrance missed (fast scroll), show it anyway.
               onComplete: () => {
                 if (+getComputedStyle(el).opacity < 0.99) gsap.set(el, { opacity: 1, y: 0, filter: "none" });
@@ -112,7 +133,7 @@ export default function TextReveal() {
             /opacity:\s*0(?![.\d])/.test(el.getAttribute("style") ?? "") &&
             !seen.has(el) &&
             !el.closest(SKIP) &&
-            !el.matches(".split-char, .hero-char")
+            !el.matches(".split-char, .hero-char, .glow-card") // glow cards follow the scroll on their own
         );
         framerBlocks.forEach((el) => seen.add(el));
         if (framerBlocks.length) {
@@ -131,24 +152,71 @@ export default function TextReveal() {
           else queued.push(guard);
         }
 
-        // Body text: rise out of a blur, batched so neighbours cascade
+        // Cards: rise and tilt up into place, batched so a grid cascades row by row
+        const cards = Array.from(scope.querySelectorAll<HTMLElement>(CARDS)).filter((el) => {
+          if (seen.has(el) || el.closest(CARD_SKIP) || el.closest("[data-card-reveal]")) return false;
+          // Already animated by Framer (itself or a wrapper around it)
+          if (el.closest("[style*='opacity'], [style*='transform']")) return false;
+          const pos = getComputedStyle(el).position;
+          if (pos === "absolute" || pos === "fixed" || pos === "sticky") return false; // decorative frames, overlays
+          const r = el.getBoundingClientRect();
+          if (r.width < 140 || r.height < 90) return false; // chips, badges, small buttons
+          el.dataset.cardReveal = "";
+          seen.add(el);
+          return true;
+        });
+        if (cards.length) {
+          // CSS transitions on transform would smear the scroll-driven tween, so they're paused meanwhile.
+          gsap.set(
+            cards,
+            mobile
+              ? { opacity: 0, y: 40, scale: 0.97, transition: "none" }
+              : { opacity: 0, y: 80, scale: 0.94, rotationX: -12, transformPerspective: 1000, transformOrigin: "50% 0%", transition: "none" }
+          );
+          const run = () =>
+            ScrollTrigger.batch(cards, {
+              start: mobile ? "top 95%" : "top 90%",
+              once: true,
+              onEnter: (batch) =>
+                gsap.to(batch, {
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                  ...(mobile ? {} : { rotationX: 0 }),
+                  duration: mobile ? 0.7 : 1.1,
+                  ease: "expo.out",
+                  stagger: mobile ? 0.06 : 0.1,
+                  overwrite: true,
+                  clearProps: "transform,opacity,transition",
+                }),
+            });
+          if (live) run();
+          else queued.push(run);
+        }
+
+        // Body text: tilt up out of a blur, batched so neighbours cascade
         const blocks = pick(scope, BLOCKS);
         if (!blocks.length) return;
-        gsap.set(blocks, { opacity: 0, y: 28, filter: "blur(6px)" });
+        gsap.set(
+          blocks,
+          mobile
+            ? { opacity: 0, y: 22 }
+            : { opacity: 0, y: 42, rotationX: -14, transformPerspective: 900, transformOrigin: "50% 0%", filter: "blur(8px)" }
+        );
         const run = () =>
           ScrollTrigger.batch(blocks, {
-            start: "top 92%",
+            start: mobile ? "top 96%" : "top 92%",
             once: true,
             onEnter: (batch) =>
               gsap.to(batch, {
                 opacity: 1,
                 y: 0,
-                filter: "blur(0px)",
-                duration: 0.9,
-                ease: "power3.out",
-                stagger: 0.07,
+                ...(mobile ? {} : { rotationX: 0, filter: "blur(0px)" }),
+                duration: mobile ? 0.7 : 1.1,
+                ease: mobile ? "power3.out" : "expo.out",
+                stagger: mobile ? 0.05 : 0.08,
                 overwrite: true,
-                clearProps: "filter",
+                clearProps: "filter,transform",
               }),
           });
         if (live) run();

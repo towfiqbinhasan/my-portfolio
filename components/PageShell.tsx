@@ -1,6 +1,6 @@
 "use client";
-import { useRef, type MouseEvent, type ReactNode } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, type MouseEvent, type ReactNode } from "react";
+import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 
 export const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -22,7 +22,7 @@ export function PageBackdrop() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 70% 60% at 50% -10%, rgba(225,29,46,0.16), transparent 70%)",
+            "radial-gradient(ellipse 70% 60% at 50% -10%, rgba(47,123,255,0.16), transparent 70%)",
         }}
       />
       <div
@@ -133,25 +133,56 @@ export function GlowCard({
 }: {
   children: ReactNode;
   className?: string;
+  /** Grid stagger (0–0.3): later columns start their rise a little further into the scroll. */
   delay?: number;
   lift?: boolean;
 }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
+  const mobile = useRef(false);
+  useEffect(() => {
+    mobile.current = window.matchMedia("(max-width: 767px)").matches;
+  }, []);
+
+  // Tied to scroll, not a one-off: the card swings up out of depth while its top travels
+  // from the bottom of the screen to a little past the middle, and back if you scroll up.
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "start 0.55"] });
+  const smooth = useSpring(scrollYProgress, { stiffness: 150, damping: 26, mass: 0.4 });
+  const start = Math.min(delay, 0.3) * 1.6;
+  const t = useTransform(smooth, (v) => (reduce ? 1 : Math.min(Math.max((v - start) / (1 - start), 0), 1)));
+  // Phones: a shorter, flatter rise (no tilt), which stays smooth on any device.
+  const y = useTransform(t, (v) => (1 - v) * (mobile.current ? 50 : 110));
+  // Hover: the card leans a few degrees towards the mouse (springy, settles flat on leave)
+  const tiltX = useSpring(0, { stiffness: 160, damping: 18 });
+  const tiltY = useSpring(0, { stiffness: 160, damping: 18 });
+  const rotateX = useTransform([t, tiltX], ([v, tx]: number[]) => (mobile.current ? 0 : (1 - v) * 30) + tx);
+  // Its picture unveils from the bottom up, a step behind the card itself
+  const reveal = useTransform(t, (v) => Math.min(Math.max((v - 0.15) / 0.75, 0), 1));
+  const scale = useTransform(t, (v) => 1 - (1 - v) * (mobile.current ? 0.05 : 0.12));
+  const opacity = useTransform(t, [0, 0.6], [0, 1]);
+
   const onMove = (e: MouseEvent<HTMLDivElement>) => {
     const r = e.currentTarget.getBoundingClientRect();
     e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
     e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
+    if (reduce || !lift) return;
+    tiltY.set(((e.clientX - r.left) / r.width - 0.5) * 7);
+    tiltX.set(-((e.clientY - r.top) / r.height - 0.5) * 5);
+  };
+  const onLeave = () => {
+    tiltX.set(0);
+    tiltY.set(0);
   };
   return (
     <motion.div
+      ref={ref}
       onMouseMove={onMove}
-      // Swings up out of depth: tilted back and lower, it rises and straightens as it enters.
-      initial={{ opacity: 0, y: 70, rotateX: 28, scale: 0.94, transformPerspective: 1000 }}
-      whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.9, delay, ease }}
-      style={{ transformOrigin: "50% 100%" }}
-      whileHover={lift ? { y: -6 } : undefined}
-      className={`glow-card group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] ${className}`}
+      onMouseLeave={onLeave}
+      style={{ y, rotateX, rotateY: tiltY, scale, opacity, transformPerspective: 1000, transformOrigin: "50% 100%", ["--reveal" as string]: reveal }}
+      // Hover lift uses the separate `translate` property, so it never fights the scroll transform.
+      className={`glow-card group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] ${
+        lift ? "transition-[translate,border-color,background-color] duration-500 ease-out hover:-translate-y-1.5" : ""
+      } ${className}`}
     >
       {children}
     </motion.div>

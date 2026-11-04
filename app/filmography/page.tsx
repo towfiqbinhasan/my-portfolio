@@ -75,7 +75,7 @@ export default function FilmographyPage() {
                   {/* Scrim so the play badge and the title below stay readable */}
                   <span
                     aria-hidden
-                    className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/15 to-transparent"
+                    className="absolute inset-0 bg-gradient-to-t from-[#050b1a] via-[#050b1a]/15 to-transparent"
                   />
                   <span aria-hidden className="carousel-sheen pointer-events-none absolute inset-0" />
 
@@ -83,7 +83,7 @@ export default function FilmographyPage() {
                     aria-hidden
                     className="absolute inset-0 flex items-center justify-center bg-black/25 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                   >
-                    <span className="flex h-14 w-14 scale-90 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-cyan-400 shadow-[0_0_30px_rgba(225,29,46,0.5)] ring-1 ring-white/20 transition-transform duration-300 group-hover:scale-100">
+                    <span className="flex h-14 w-14 scale-90 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-cyan-400 shadow-[0_0_30px_rgba(47,123,255,0.5)] ring-1 ring-white/20 transition-transform duration-300 group-hover:scale-100">
                       <FiPlay className="ml-1 text-xl text-white" />
                     </span>
                   </span>
@@ -112,7 +112,7 @@ export default function FilmographyPage() {
               className="pointer-events-none absolute inset-x-0 top-0 h-40"
               style={{
                 background:
-                  "radial-gradient(ellipse 60% 70% at 50% 0%, rgba(225,29,46,0.18), transparent 70%)",
+                  "radial-gradient(ellipse 60% 70% at 50% 0%, rgba(47,123,255,0.18), transparent 70%)",
               }}
             />
             <motion.span
@@ -143,7 +143,7 @@ export default function FilmographyPage() {
           <>
             <motion.div
               {...lightboxItem(0)}
-              className="relative h-56 w-full bg-[#0a0a0c] xs:h-72 sm:h-80 md:h-96"
+              className="relative h-56 w-full bg-[#050b1a] xs:h-72 sm:h-80 md:h-96"
             >
               <Image
                 src={selected.thumbnail}
@@ -154,7 +154,7 @@ export default function FilmographyPage() {
               />
               <div
                 aria-hidden
-                className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#141416] via-[#141416]/40 to-transparent"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0c162c] via-[#0c162c]/40 to-transparent"
               />
             </motion.div>
 
@@ -187,7 +187,7 @@ export default function FilmographyPage() {
                     href={selected.videoLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-press btn-shine inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-5 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(225,29,46,0.9)] hover:opacity-90 hover:shadow-[0_0_28px_-6px_rgba(255,77,94,0.9)] sm:text-sm"
+                    className="btn-press btn-shine inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-5 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(47,123,255,0.9)] hover:opacity-90 hover:shadow-[0_0_28px_-6px_rgba(79,195,255,0.9)] sm:text-sm"
                   >
                     <FiPlay /> Watch Video
                   </a>

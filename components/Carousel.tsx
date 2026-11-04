@@ -12,6 +12,7 @@ import {
 import { motion, AnimatePresence, useMotionValue, useAnimationFrame, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { FiX, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 // Movement (px) that turns a press into a drag rather than a click.
 const DRAG_THRESHOLD = 6;
@@ -20,15 +21,25 @@ const DRAG_THRESHOLD = 6;
  * Endless marquee that eases to a stop on hover, can be dragged, and keeps
  * gliding with momentum after a flick. The loop width is measured from the
  * rendered cards, so it stays seamless at every breakpoint.
+ *
+ * Scrolling drives it too: the cards ride in on a 3D wave as the strip enters
+ * (scrubbed, so it follows the scroll both ways), and a fast scroll flings the
+ * strip forward and leans it in the direction of travel.
+ *
+ * Depth: the strip reads as a curved drum. The card in the middle faces you, full
+ * size and bright; towards the edges cards turn away, sink back and dim.
  */
 export function Carousel({
   count,
   renderCard,
   speed = 42,
+  depth = "full",
 }: {
   count: number;
   renderCard: (index: number, key: string) => ReactNode;
   speed?: number;
+  /** "soft" for documents (certificates): a slight curve, barely dimmed, so the sheets stay readable. */
+  depth?: "full" | "soft";
 }) {
   const reduce = useReducedMotion();
   const x = useMotionValue(0);
@@ -43,6 +54,8 @@ export function Carousel({
   const paused = useRef(false);
   const current = useRef(0); // px/sec the marquee is drifting at
   const momentum = useRef(0); // px/sec left over from a flick
+  const boost = useRef(0); // px/sec pushed in by page scrolling
+  const wrapRef = useRef<HTMLDivElement>(null);
   const last = useRef({ x: 0, t: 0 });
   const [copies, setCopies] = useState(3);
 
@@ -81,9 +94,112 @@ export function Carousel({
     current.current += (target - current.current) * (1 - Math.pow(0.92, f));
     momentum.current *= Math.pow(0.93, f);
     if (Math.abs(momentum.current) < 1) momentum.current = 0;
+    boost.current *= Math.pow(0.9, f);
 
-    x.set(wrap(x.get() - current.current * dt + momentum.current * dt));
+    x.set(wrap(x.get() - current.current * dt + momentum.current * dt + boost.current * dt));
   });
+
+  // Depth / coverflow: each card's turn, depth and dimming follow its distance from the
+  // middle. Driven by the strip position itself, so it tracks drift, drags and flings alike.
+  useLayoutEffect(() => {
+    const wrapEl = wrapRef.current;
+    const track = trackRef.current;
+    if (!wrapEl || !track || reduce) return;
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    const soft = depth === "soft";
+    const TURN = soft ? (mobile ? 4 : 7) : mobile ? 10 : 20;
+    const DEPTH = soft ? (mobile ? 15 : 35) : mobile ? 40 : 110;
+    const SHRINK = soft ? 0.03 : mobile ? 0.04 : 0.07;
+    const DIM = soft ? 0.12 : 0.42;
+    let flows: { el: HTMLElement; c: number; focus?: boolean }[] = [];
+    let half = 1;
+    // Card centres in the strip's own coordinates. Measured on the .carousel-item wrapper, whose
+    // offsetParent is the (transformed) track; offsetLeft ignores transforms, so these hold still.
+    const measureFlows = () => {
+      half = wrapEl.clientWidth / 2;
+      flows = Array.from(track.querySelectorAll<HTMLElement>(".carousel-flow")).map((el) => {
+        const item = el.parentElement!;
+        return { el, c: item.offsetLeft + item.offsetWidth / 2 };
+      });
+    };
+    const apply = (vx: number) => {
+      for (const f of flows) {
+        const d = Math.max(-1.6, Math.min(1.6, (f.c + vx - half) / half));
+        const ad = Math.abs(d);
+        f.el.style.transform = `perspective(1100px) translateZ(${(-ad * DEPTH).toFixed(1)}px) rotateY(${(d * TURN).toFixed(2)}deg) scale(${(1 - ad * SHRINK).toFixed(3)})`;
+        f.el.style.setProperty("--fd", Math.min(ad * 0.5, DIM).toFixed(3));
+        // The card nearest the middle is "in focus": it gets a glowing frame
+        const focus = ad < 0.2;
+        if (focus !== f.focus) {
+          f.focus = focus;
+          f.el.classList.toggle("carousel-flow-focus", focus);
+        }
+      }
+    };
+    measureFlows();
+    apply(x.get());
+    const unsub = x.on("change", apply);
+    const onResize = () => {
+      measureFlows();
+      apply(x.get());
+    };
+    window.addEventListener("resize", onResize);
+    return () => {
+      unsub();
+      window.removeEventListener("resize", onResize);
+    };
+  }, [copies, count, reduce, x, depth]);
+
+  // Scroll-driven entrance wave + scroll fling / lean
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el || reduce) return;
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    let settle = () => {};
+    const ctx = gsap.context(() => {
+      const items = gsap.utils.toArray<HTMLElement>(".carousel-item", el);
+      const vw = window.innerWidth;
+      gsap.fromTo(
+        items,
+        mobile
+          ? { y: 70, opacity: 0, scale: 0.88 }
+          : { y: 170, opacity: 0, scale: 0.8, rotationY: -30, rotationX: 16, transformPerspective: 1100 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          rotationY: 0,
+          rotationX: 0,
+          ease: "power2.out",
+          // The wave runs left to right across the screen; cards still off to the right finish last.
+          stagger: (_, target: HTMLElement) => gsap.utils.clamp(0, 1, target.getBoundingClientRect().left / vw) * 0.6,
+          scrollTrigger: { trigger: el, start: "top 100%", end: mobile ? "top 85%" : "top 78%", scrub: 0.8 },
+        }
+      );
+
+      const lean = gsap.quickTo(el, "skewX", { duration: 0.6, ease: "power3.out" });
+      const maxLean = mobile ? 3 : 6;
+      ScrollTrigger.create({
+        trigger: el,
+        start: "top bottom",
+        end: "bottom top",
+        onUpdate: (self) => {
+          const v = self.getVelocity(); // px/sec, positive when scrolling down
+          boost.current = gsap.utils.clamp(-1600, 1600, -v * 0.35);
+          lean(gsap.utils.clamp(-maxLean, maxLean, -v / 280));
+        },
+        onLeave: () => lean(0),
+        onLeaveBack: () => lean(0),
+      });
+      // Settle upright once scrolling stops.
+      settle = () => lean(0);
+      ScrollTrigger.addEventListener("scrollEnd", settle);
+    }, el);
+    return () => {
+      ScrollTrigger.removeEventListener("scrollEnd", settle);
+      ctx.revert();
+    };
+  }, [reduce, copies]);
 
   const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
     pressed.current = true;
@@ -135,6 +251,7 @@ export function Carousel({
 
   return (
     <div
+      ref={wrapRef}
       className="carousel-mask relative w-full"
       // Only a real cursor pauses the drift — on touch there is no reliable leave event.
       onPointerEnter={(e) => {
@@ -159,7 +276,12 @@ export function Carousel({
             aria-hidden={copy > 0}
             className="flex flex-shrink-0 gap-5 pr-5"
           >
-            {Array.from({ length: count }).map((__, i) => renderCard(i, `${copy}-${i}`))}
+            {Array.from({ length: count }).map((__, i) => (
+              <div key={`${copy}-${i}`} className="carousel-item flex flex-shrink-0">
+                {/* Separate layer for the depth effect, so it never fights the entrance tween */}
+                <div className="carousel-flow flex">{renderCard(i, `${copy}-${i}`)}</div>
+              </div>
+            ))}
           </div>
         ))}
       </motion.div>
@@ -221,7 +343,7 @@ export function Lightbox({
             exit={{ opacity: 0, scale: 0.96, y: 16, transition: { duration: 0.22, ease: "easeIn" } }}
             transition={{ type: "spring", stiffness: 260, damping: 26 }}
             onClick={(e) => e.stopPropagation()}
-            className={`modal-rim relative my-auto w-full ${wide ? "max-w-4xl" : "max-w-2xl"} overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-[#141416] shadow-2xl shadow-black/70`}
+            className={`modal-rim relative my-auto w-full ${wide ? "max-w-4xl" : "max-w-2xl"} overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-[#0c162c] shadow-2xl shadow-black/70`}
           >
             <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/60 to-transparent" />
             <button
@@ -257,7 +379,7 @@ export function Lightbox({
             )}
 
             {/* Keyed so stepping to another item replays the reveal and resets the scroll */}
-            <div key={contentKey} className="modal-scroll max-h-[88vh] sm:max-h-[85vh] overflow-y-auto overscroll-contain">
+            <div key={contentKey} data-lenis-prevent className="modal-scroll max-h-[88vh] sm:max-h-[85vh] overflow-y-auto overscroll-contain">
               {children}
             </div>
           </motion.div>
@@ -268,10 +390,17 @@ export function Lightbox({
 }
 
 /** Staggered reveal for the blocks inside a lightbox. */
+/**
+ * Soft entrance for a block inside a modal. Blocks already on screen drift up one after
+ * another as it opens; the rest float up out of a light blur as you scroll the modal to
+ * them (the in-view check respects the modal's own scroll area). The stagger is capped so
+ * nothing far down the list waits long.
+ */
 export const lightboxItem = (i: number) => ({
-  initial: { opacity: 0, y: 14 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5, delay: 0.12 + i * 0.07, ease: [0.22, 1, 0.36, 1] as const },
+  initial: { opacity: 0, y: 18, filter: "blur(4px)" },
+  whileInView: { opacity: 1, y: 0, filter: "blur(0px)" },
+  viewport: { once: true, amount: 0.15 },
+  transition: { duration: 0.6, delay: 0.1 + Math.min(i, 5) * 0.06, ease: [0.22, 1, 0.36, 1] as const },
 });
 
 /**
@@ -312,20 +441,21 @@ export function ModalGallery({
     return () => window.removeEventListener("keydown", onKey);
   }, [go, images.length]);
 
-  // Keep the active thumbnail in view
+  // Keep the active thumbnail in view. Only the strip scrolls sideways: scrollIntoView would
+  // also scroll the popup (and the page) to bring the strip itself back on screen.
   useEffect(() => {
-    stripRef.current?.querySelector<HTMLElement>(`[data-i="${index}"]`)?.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "center",
-    });
+    const strip = stripRef.current;
+    const thumb = strip?.querySelector<HTMLElement>(`[data-i="${index}"]`);
+    if (!strip || !thumb) return;
+    const offset = thumb.getBoundingClientRect().left - strip.getBoundingClientRect().left;
+    strip.scrollTo({ left: strip.scrollLeft + offset - (strip.clientWidth - thumb.offsetWidth) / 2, behavior: "smooth" });
   }, [index]);
 
   if (images.length === 0) return null;
 
   return (
     <div className={className}>
-      <div className="group relative h-[46vh] max-h-[560px] min-h-[240px] w-full overflow-hidden bg-[#0a0a0c] sm:h-[54vh] md:h-[60vh]">
+      <div className="group relative h-[46vh] max-h-[560px] min-h-[240px] w-full overflow-hidden bg-[#050b1a] sm:h-[54vh] md:h-[60vh]">
         {/* Blurred copy of the same shot fills the frame, so a portrait photo
             never sits on an empty black box — the photo itself is never cropped. */}
         <Image
@@ -366,7 +496,7 @@ export function ModalGallery({
           </motion.div>
         </AnimatePresence>
 
-        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#141416] to-transparent" />
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#0c162c] to-transparent" />
 
         {images.length > 1 && (
           <>

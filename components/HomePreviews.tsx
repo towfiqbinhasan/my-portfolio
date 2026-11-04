@@ -41,9 +41,9 @@ export function ViewDetails({ href, label }: { href: string; label?: string }) {
       <span
         aria-hidden
         className="hero-badge-spin absolute left-1/2 top-1/2 aspect-square w-[300%] -translate-x-1/2 -translate-y-1/2 opacity-70 transition-opacity group-hover:opacity-100"
-        style={{ background: "conic-gradient(from 0deg, transparent 0 60%, #e11d2e, #ff4d5e, transparent 90%)" }}
+        style={{ background: "conic-gradient(from 0deg, transparent 0 60%, #2f7bff, #4fc3ff, transparent 90%)" }}
       />
-      <span className="btn-shine relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/10 bg-[#141416] px-5 py-2.5 text-sm font-medium text-white">
+      <span className="btn-shine relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/10 bg-[#0c162c] px-5 py-2.5 text-sm font-medium text-white">
         <span className="relative">{text}</span>
         <FiArrowRight className="relative transition-transform duration-300 group-hover:translate-x-1" />
       </span>
@@ -261,7 +261,7 @@ export function QualificationPreview() {
                 <FiCalendar className="transition-transform duration-500 group-hover:scale-110" /> {q.duration}
               </span>
             </div>
-            <div className="relative mt-6 h-3 w-3 rounded-full bg-gradient-to-r from-sky-400 to-cyan-400 shadow-[0_0_12px_rgba(255,77,94,0.8)] transition-transform duration-500 group-hover:scale-150" />
+            <div className="relative mt-6 h-3 w-3 rounded-full bg-gradient-to-r from-sky-400 to-cyan-400 shadow-[0_0_12px_rgba(79,195,255,0.8)] transition-transform duration-500 group-hover:scale-150" />
             <h3 className="mt-5 font-semibold text-white leading-snug">{q.degree}</h3>
             <p className="mt-1 text-sm text-sky-300/90">{q.major}</p>
             <p className="mt-3 text-sm text-gray-400 leading-relaxed">{q.institute}</p>
@@ -309,7 +309,7 @@ export function ExperiencePreview() {
               {/* Dot on the line */}
               <span
                 aria-hidden
-                className={`absolute left-[11px] top-8 h-3 w-3 rotate-45 bg-sky-500 shadow-[0_0_14px_rgba(225,29,46,0.9)] ${i % 2 ? "md:-left-1.5" : "md:left-auto md:-right-1.5"}`}
+                className={`absolute left-[11px] top-8 h-3 w-3 rotate-45 bg-sky-500 shadow-[0_0_14px_rgba(47,123,255,0.9)] ${i % 2 ? "md:-left-1.5" : "md:left-auto md:-right-1.5"}`}
               />
               <GlowCard plain className="p-4 sm:p-6">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
@@ -393,7 +393,7 @@ function Timeline({ children }: { children: ReactNode }) {
 function SkillRow({ reverse = false }: { reverse?: boolean }) {
   const list = reverse ? [...SKILLS].reverse() : SKILLS;
   return (
-    <div className="marquee group flex overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]">
+    <div className="marquee group flex overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]">
       {[0, 1].map((copy) => (
         <div
           key={copy}
@@ -432,7 +432,8 @@ export function SkillsPreview() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease }}
-        className="mt-12 space-y-3"
+        // Breaks out of the centred column so the rows run edge to edge of the screen
+        className="relative mt-12 ml-[calc(50%-50vw)] w-screen space-y-3"
       >
         <SkillRow />
         <SkillRow reverse />
@@ -568,7 +569,7 @@ export function ProjectsPreview() {
                         className="object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050b1a] via-[#050b1a]/20 to-transparent" />
                     <span className="absolute left-3 top-3 rounded-full bg-black/60 px-2.5 py-1 text-[11px] font-medium text-sky-200 backdrop-blur ring-1 ring-white/10 transition-all duration-500 group-hover:bg-sky-500/40 group-hover:text-white group-hover:ring-sky-400/50">
                       {p.field}
                     </span>
@@ -684,7 +685,7 @@ function ProjectOverlay({ project, onClose }: { project: Project | null; onClose
             exit={{ y: 40, scale: 0.96, opacity: 0 }}
             transition={{ duration: 0.6, ease }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-3xl overflow-hidden border border-sky-500/40 bg-[#121214] shadow-[0_0_80px_-20px_rgba(225,29,46,0.6)]"
+            className="relative w-full max-w-3xl overflow-hidden border border-sky-500/40 bg-[#0a1428] shadow-[0_0_80px_-20px_rgba(47,123,255,0.6)]"
           >
             <button
               type="button"
@@ -697,7 +698,7 @@ function ProjectOverlay({ project, onClose }: { project: Project | null; onClose
             {project.images?.[0] && (
               <div className="relative aspect-[16/9]">
                 <Image src={project.images[0]} alt={project.title} fill sizes="768px" className="object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#121214] to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a1428] to-transparent" />
               </div>
             )}
             <div className="p-6 sm:p-8">

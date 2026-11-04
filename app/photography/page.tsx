@@ -25,7 +25,7 @@ export default function Photography() {
             />
             <span
               aria-hidden
-              className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(225,29,46,0.18),transparent_65%)]"
+              className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(47,123,255,0.18),transparent_65%)]"
             />
             <span aria-hidden className="carousel-sheen pointer-events-none absolute inset-0" />
             <span className="absolute inset-0 flex items-center justify-center">
@@ -36,7 +36,7 @@ export default function Photography() {
             </span>
             <span
               aria-hidden
-              className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0a0a0c] to-transparent"
+              className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#050b1a] to-transparent"
             />
           </GlowCard>
         ))}

@@ -67,7 +67,7 @@ export default function About() {
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(ellipse 55% 60% at 30% 40%, rgba(225,29,46,0.10), transparent 70%)",
+            "radial-gradient(ellipse 55% 60% at 30% 40%, rgba(47,123,255,0.10), transparent 70%)",
         }}
       />
 
@@ -88,13 +88,13 @@ export default function About() {
               aria-hidden
               className="absolute -inset-1 rounded-full"
               style={{
-                background: "conic-gradient(from 200deg, #e11d2e, #9e111d, #ff4d5e, #e11d2e)",
-                boxShadow: "0 0 12px rgba(239,54,70,0.3), 0 0 32px rgba(190,18,36,0.15)",
+                background: "conic-gradient(from 200deg, #2f7bff, #1a47b8, #4fc3ff, #2f7bff)",
+                boxShadow: "0 0 12px rgba(61,147,255,0.3), 0 0 32px rgba(30,82,210,0.15)",
               }}
               animate={{ rotate: 360 }}
               transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
             />
-            <div className="group absolute inset-0 overflow-hidden rounded-full bg-[#0c0c0e]">
+            <div className="group absolute inset-0 overflow-hidden rounded-full bg-[#070e20]">
               <div className="about-parallax absolute -inset-[10%]">
                 <Image
                   src="/DSC00106.jpg"
@@ -106,7 +106,7 @@ export default function About() {
               </div>
               <span
                 aria-hidden
-                className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c]/70 via-transparent to-transparent"
+                className="absolute inset-0 bg-gradient-to-t from-[#050b1a]/70 via-transparent to-transparent"
               />
             </div>
             {/* Floor glow */}

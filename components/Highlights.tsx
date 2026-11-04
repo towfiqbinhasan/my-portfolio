@@ -34,12 +34,8 @@ export default function Highlights() {
         />
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      >
+      {/* The carousel animates itself in as it scrolls into view */}
+      <div>
         <Carousel
           count={highlights.length}
           speed={34}
@@ -82,7 +78,7 @@ export default function Highlights() {
             );
           }}
         />
-      </motion.div>
+      </div>
 
       <Lightbox
         open={selected !== null}
@@ -97,7 +93,7 @@ export default function Highlights() {
           <>
             <motion.div
               {...lightboxItem(0)}
-              className="relative h-60 w-full bg-[#0a0a0c] xs:h-72 sm:h-80 md:h-[26rem]"
+              className="relative h-60 w-full bg-[#050b1a] xs:h-72 sm:h-80 md:h-[26rem]"
             >
               <Image
                 src={selected.image}
@@ -108,7 +104,7 @@ export default function Highlights() {
               />
               <div
                 aria-hidden
-                className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#141416] via-[#141416]/40 to-transparent"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0c162c] via-[#0c162c]/40 to-transparent"
               />
             </motion.div>
 

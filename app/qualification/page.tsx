@@ -57,7 +57,7 @@ export default function Qualification() {
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 + i * 0.1, ease }}
-                className="absolute left-4 top-7 z-10 h-3.5 w-3.5 -translate-x-1/2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 shadow-[0_0_14px_rgba(255,77,94,0.8)] ring-4 ring-[#0a0a0c] sm:left-6 sm:top-8 md:left-1/2"
+                className="absolute left-4 top-7 z-10 h-3.5 w-3.5 -translate-x-1/2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 shadow-[0_0_14px_rgba(79,195,255,0.8)] ring-4 ring-[#050b1a] sm:left-6 sm:top-8 md:left-1/2"
               />
 
               <div className="ml-10 w-[calc(100%-2.5rem)] sm:ml-16 sm:w-[calc(100%-4rem)] md:ml-0 md:w-1/2">
@@ -70,7 +70,7 @@ export default function Qualification() {
                       sizes="(max-width: 768px) 100vw, 500px"
                       className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050b1a] via-[#050b1a]/20 to-transparent" />
                     <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-sky-200 ring-1 ring-white/10 backdrop-blur">
                       <FiCalendar className="transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110" />{" "}
                       {q.duration}

@@ -4,6 +4,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // Register once; every scroll-driven component imports gsap from here.
 gsap.registerPlugin(ScrollTrigger);
+// Phones show/hide the address bar while scrolling, which resizes the viewport. Re-measuring
+// every pinned section on each of those is what made scrolling stutter on mobile.
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 /** Media queries shared by the scroll animations (used with gsap.matchMedia). */
 export const MQ = {

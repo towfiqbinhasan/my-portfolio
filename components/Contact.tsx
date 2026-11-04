@@ -48,7 +48,7 @@ const socials = [
 ];
 
 const fieldClass =
-  "field-input w-full rounded-xl border border-white/10 bg-white/[0.04] py-3 pl-11 pr-4 text-sm text-white placeholder:text-gray-500 focus:border-sky-400/60 focus:bg-white/[0.06] focus:outline-none focus:shadow-[0_0_0_3px_rgba(225,29,46,0.12)]";
+  "field-input w-full rounded-xl border border-white/10 bg-white/[0.04] py-3 pl-11 pr-4 text-sm text-white placeholder:text-gray-500 focus:border-sky-400/60 focus:bg-white/[0.06] focus:outline-none focus:shadow-[0_0_0_3px_rgba(47,123,255,0.12)]";
 const labelClass = "field-label mb-2 block text-sm text-gray-400";
 const fieldIconClass =
   "field-icon pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-500";

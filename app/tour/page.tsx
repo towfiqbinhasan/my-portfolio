@@ -68,7 +68,7 @@ export default function TourPage() {
                   {/* Scrim keeps the photo readable where the card text begins */}
                   <span
                     aria-hidden
-                    className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/15 to-transparent"
+                    className="absolute inset-0 bg-gradient-to-t from-[#050b1a] via-[#050b1a]/15 to-transparent"
                   />
                   <span aria-hidden className="carousel-sheen pointer-events-none absolute inset-0" />
                   <span
@@ -104,7 +104,7 @@ export default function TourPage() {
               className="pointer-events-none absolute inset-x-0 top-0 h-40"
               style={{
                 background:
-                  "radial-gradient(ellipse 60% 70% at 50% 0%, rgba(225,29,46,0.18), transparent 70%)",
+                  "radial-gradient(ellipse 60% 70% at 50% 0%, rgba(47,123,255,0.18), transparent 70%)",
               }}
             />
             <motion.span

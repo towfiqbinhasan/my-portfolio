@@ -611,7 +611,7 @@ function SkillModal({ skill, onClose }: { skill: Skill; onClose: () => void }) {
         exit={{ opacity: 0, scale: 0.96, y: 16, transition: { duration: 0.22, ease: "easeIn" } }}
         transition={{ type: "spring", stiffness: 260, damping: 26 }}
         onClick={(e) => e.stopPropagation()}
-        className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#141416] shadow-2xl shadow-black/70 sm:rounded-3xl"
+        className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#0c162c] shadow-2xl shadow-black/70 sm:rounded-3xl"
       >
         <button
           onClick={onClose}
@@ -621,7 +621,7 @@ function SkillModal({ skill, onClose }: { skill: Skill; onClose: () => void }) {
           <FiX className="transition-transform duration-300 group-hover/close:rotate-90" />
         </button>
 
-        <div className="modal-scroll max-h-[88vh] overflow-y-auto overscroll-contain sm:max-h-[85vh]">
+        <div data-lenis-prevent className="modal-scroll max-h-[88vh] overflow-y-auto overscroll-contain sm:max-h-[85vh]">
           <div aria-hidden className={`h-1.5 w-full bg-gradient-to-r ${skill.iconBg}`} />
 
           <div className="relative border-b border-white/10 p-5 sm:p-7 md:p-8">
@@ -662,7 +662,7 @@ function SkillModal({ skill, onClose }: { skill: Skill; onClose: () => void }) {
                 href={skill.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-press btn-shine group/link inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(225,29,46,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
+                className="btn-press btn-shine group/link inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(47,123,255,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
               >
                 <FiExternalLink className="transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />{" "}
                 Visit Official Site
@@ -676,7 +676,7 @@ function SkillModal({ skill, onClose }: { skill: Skill; onClose: () => void }) {
                 <motion.div key={i} {...lightboxItem(3 + i)} className="relative pl-4 sm:pl-5">
                   <span
                     aria-hidden
-                    className="absolute left-0 top-[0.35rem] h-5 w-1 rounded-full bg-gradient-to-b from-sky-400 to-cyan-400 shadow-[0_0_10px_-2px_rgba(225,29,46,0.9)]"
+                    className="absolute left-0 top-[0.35rem] h-5 w-1 rounded-full bg-gradient-to-b from-sky-400 to-cyan-400 shadow-[0_0_10px_-2px_rgba(47,123,255,0.9)]"
                   />
                   <h4 className="text-sm font-semibold leading-snug text-sky-200 sm:text-[0.95rem]">
                     {s.heading}

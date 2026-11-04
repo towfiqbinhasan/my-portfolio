@@ -69,7 +69,7 @@ function SectionTitle({ title, accent }: { title: string; accent: string }) {
       transition={{ duration: 0.6, ease }}
       className="mb-6 flex items-center gap-3 text-xl font-bold tracking-tight sm:mb-8 sm:text-2xl"
     >
-      <span className="h-7 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-b from-sky-500 to-cyan-400 shadow-[0_0_14px_-2px_rgba(225,29,46,0.8)] sm:h-8 sm:w-2" />
+      <span className="h-7 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-b from-sky-500 to-cyan-400 shadow-[0_0_14px_-2px_rgba(47,123,255,0.8)] sm:h-8 sm:w-2" />
       {title}{" "}
       <span className="bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">
         {accent}
@@ -101,7 +101,7 @@ function ConferenceCard({
           />
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/15 to-transparent"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050b1a] via-[#050b1a]/15 to-transparent"
           />
           <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-sky-200 ring-1 ring-white/10 backdrop-blur">
             <FiAward className="transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110" />{" "}
@@ -128,7 +128,7 @@ function ConferenceCard({
                 e.stopPropagation();
                 onClick();
               }}
-              className="btn-press btn-shine group/cta inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(225,29,46,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
+              className="btn-press btn-shine group/cta inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(47,123,255,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
             >
               <FiEye className="transition-transform duration-300 group-hover/cta:scale-110" />{" "}
               View Details
@@ -178,7 +178,7 @@ function ConferenceModal({
         exit={{ opacity: 0, scale: 0.96, y: 16, transition: { duration: 0.22, ease: "easeIn" } }}
         transition={{ type: "spring", stiffness: 260, damping: 26 }}
         onClick={(e) => e.stopPropagation()}
-        className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#141416] shadow-2xl shadow-black/70 sm:rounded-3xl"
+        className="modal-rim relative my-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#0c162c] shadow-2xl shadow-black/70 sm:rounded-3xl"
       >
         <button
           onClick={onClose}
@@ -188,7 +188,7 @@ function ConferenceModal({
           <FiX className="transition-transform duration-300 group-hover/close:rotate-90" />
         </button>
 
-        <div className="modal-scroll max-h-[88vh] overflow-y-auto overscroll-contain sm:max-h-[85vh]">
+        <div data-lenis-prevent className="modal-scroll max-h-[88vh] overflow-y-auto overscroll-contain sm:max-h-[85vh]">
           {/* Certificate */}
           <div className="relative">
             <ModalGallery
@@ -240,7 +240,7 @@ function ConferenceModal({
                 <a
                   href={paper.paperPdf}
                   target="_blank"
-                  className="btn-press btn-shine group/cta inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(225,29,46,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
+                  className="btn-press btn-shine group/cta inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2.5 text-xs font-medium text-white shadow-[0_0_20px_-6px_rgba(47,123,255,0.9)] hover:opacity-90 sm:px-5 sm:text-sm"
                 >
                   <FiFileText className="transition-transform duration-300 group-hover/cta:scale-110" />{" "}
                   View Paper
