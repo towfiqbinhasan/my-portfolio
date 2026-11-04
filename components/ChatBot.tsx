@@ -4,6 +4,7 @@ import { usePublicPathname } from "@/lib/useSiteMode";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { FiMessageCircle, FiX, FiSend, FiRefreshCw, FiChevronDown } from "react-icons/fi";
+import ChatMarkdown from "@/components/ChatMarkdown";
 import { HiSparkles } from "react-icons/hi2";
 
 type Message = {
@@ -325,11 +326,12 @@ export default function ChatBot() {
                   <div
                     className={
                       msg.role === "user"
-                        ? "max-w-[78%] rounded-2xl rounded-br-md bg-gradient-to-br from-sky-500 to-cyan-400 px-4 py-2.5 text-sm leading-relaxed text-white shadow-lg shadow-sky-500/20"
-                        : "max-w-[80%] whitespace-pre-wrap rounded-2xl rounded-bl-md border border-white/10 bg-white/[0.06] px-4 py-2.5 text-sm leading-relaxed text-gray-200"
+                        ? "min-w-0 max-w-[78%] break-words rounded-2xl rounded-br-md bg-gradient-to-br from-sky-500 to-cyan-400 px-4 py-2.5 text-sm leading-relaxed text-white shadow-lg shadow-sky-500/20 [overflow-wrap:anywhere]"
+                        : "min-w-0 max-w-[80%] break-words rounded-2xl rounded-bl-md border border-white/10 bg-white/[0.06] px-4 py-2.5 text-sm leading-relaxed text-gray-200 [overflow-wrap:anywhere]"
                     }
                   >
-                    {msg.content}
+                    {/* Replies use light Markdown (bold, lists, links); long links wrap instead of overflowing */}
+                    {msg.role === "assistant" ? <ChatMarkdown text={msg.content} /> : msg.content}
                     {msg.typing && (
                       <motion.span
                         animate={{ opacity: [0, 1, 0] }}
