@@ -170,7 +170,7 @@ export default function About() {
         scrollTrigger: { trigger: stage.current, start: "top 70%", once: true },
       });
       build(tl, false);
-      tl.timeScale(1.6);
+      tl.timeScale(2.2);
     });
 
     // Portrait tilts toward the pointer
@@ -321,7 +321,7 @@ export default function About() {
             </div>
 
             {/* Stats */}
-            <div className="mt-5 grid grid-cols-4 gap-2 sm:gap-3">
+            <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3 md:grid-cols-2 lg:grid-cols-4">
               {STATS.map((s) => (
                 <div
                   key={s.label}

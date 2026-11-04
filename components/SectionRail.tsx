@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ScrollTrigger } from "@/lib/gsap";
 
-const LABELS: Record<string, string> = {
+export const LABELS: Record<string, string> = {
   hero: "Intro",
   about: "About",
   qualification: "Education",
