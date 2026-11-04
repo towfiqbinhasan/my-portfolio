@@ -257,7 +257,7 @@ export default function Hero() {
         Portfolio<span className="text-sky-500/40 [-webkit-text-stroke:0]">.</span>
       </div>
 
-      <div ref={content} className="relative mx-auto grid max-w-[1560px] origin-top will-change-transform items-center gap-10 px-4 py-10 sm:px-6 md:px-10 lg:min-h-[calc(100vh-5rem)] lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-4 lg:py-14">
+      <div ref={content} className="relative mx-auto grid max-w-[1560px] origin-top will-change-transform items-center gap-6 px-4 pb-8 pt-4 sm:gap-10 sm:px-6 sm:py-10 md:px-10 lg:min-h-[calc(100vh-5rem)] lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-4 lg:py-14">
         {/* ---------- Left: copy ---------- */}
         <div className="order-2 min-w-0 lg:order-1">
           {/* Status + role chips. On phones they wrap: status on its own line, roles flow below it.
@@ -401,7 +401,7 @@ export default function Hero() {
           </motion.p>
 
           {/* Actions */}
-          <motion.div {...fadeUp(0.7, ready)} className="mt-8 flex flex-wrap items-center gap-4">
+          <motion.div {...fadeUp(0.7, ready)} className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-4">
             <Link
               href="/projects"
               className="btn-press btn-shine group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-sky-600 to-cyan-600 px-7 py-3.5 text-base font-semibold text-white shadow-[0_0_18px_-6px_rgba(79,195,255,0.45)] hover:from-sky-500 hover:to-cyan-500 hover:shadow-[0_0_28px_-4px_rgba(79,195,255,0.7)]"
@@ -452,7 +452,7 @@ export default function Hero() {
             ))}
           </motion.div>
 
-          <div className="mt-10 space-y-5">
+          <div className="mt-8 space-y-4 sm:mt-10 sm:space-y-5">
             <InfoStrip items={stackRow} delay={0.85} ready={ready} />
             <InfoStrip items={mlRow} delay={1} ready={ready} />
           </div>
@@ -483,10 +483,10 @@ export default function Hero() {
 
           {/* Cube. The cursor mode covers the whole area (glow included): the scaled-down,
               tilted cube spills past its own box, so its edges would otherwise miss it. */}
-          <div data-cursor-mode="rotate" className="relative h-[228px] w-[228px] shrink-0 xs:h-[266px] xs:w-[266px] md:h-[300px] md:w-[300px] xl:h-[266px] xl:w-[266px] 2xl:h-[330px] 2xl:w-[330px]">
+          <div data-cursor-mode="rotate" className="relative h-[196px] w-[196px] shrink-0 xs:h-[266px] xs:w-[266px] md:h-[300px] md:w-[300px] xl:h-[266px] xl:w-[266px] 2xl:h-[330px] 2xl:w-[330px]">
             {/* Blue glow behind the cube */}
             <div aria-hidden className="absolute -inset-10 rounded-full bg-blue-600/25 blur-3xl" />
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-[0.6] xs:scale-[0.7] md:scale-[0.79] xl:scale-[0.7] 2xl:scale-[0.87]">
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-[0.52] xs:scale-[0.7] md:scale-[0.79] xl:scale-[0.7] 2xl:scale-[0.87]">
               <RubikCube />
             </div>
           </div>

@@ -362,9 +362,11 @@ function Timeline({ children }: { children: ReactNode }) {
           scrollTrigger: { trigger: root.current, start: "top 75%", end: "bottom 60%", scrub: true },
         }
       );
+      // Phones: a short slide, so cards entering from the right never stick out past the screen
+      const shift = window.matchMedia("(max-width: 767px)").matches ? 24 : 80;
       gsap.utils.toArray<HTMLElement>(".timeline-item", root.current).forEach((item, i) => {
         gsap.from(item, {
-          x: i % 2 ? 80 : -80,
+          x: i % 2 ? shift : -shift,
           rotation: i % 2 ? 4 : -4,
           autoAlpha: 0,
           duration: 1,
@@ -377,7 +379,7 @@ function Timeline({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <div ref={root} className="relative space-y-6 md:space-y-10">
+    <div ref={root} className="relative space-y-6 overflow-x-clip md:space-y-10">
       <span aria-hidden className="absolute bottom-0 left-4 top-0 w-px bg-white/10 md:left-1/2" />
       <span
         aria-hidden

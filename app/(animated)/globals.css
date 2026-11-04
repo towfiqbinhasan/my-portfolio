@@ -95,6 +95,14 @@
 }
 
 
+/* Nothing may widen the page sideways. `hidden` on body alone isn't enough on phones:
+   mobile browsers still grow the page to fit anything poking out and zoom the whole site out.
+   `clip` (unlike `hidden`) doesn't create a scroll container, so sticky/pinned parts still work. */
+html,
+body {
+  overflow-x: clip;
+}
+
 /* Native smooth scrolling only when Lenis isn't running (it fights Lenis' own easing) */
 html:not(.lenis-smooth) {
   scroll-behavior: smooth;
@@ -392,7 +400,6 @@ body {
   -webkit-tap-highlight-color: transparent;
   color: #f4f4f5;
   font-family: var(--font-body), "Inter", system-ui, sans-serif;
-  overflow-x: hidden;
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Ccircle cx='11' cy='11' r='4' fill='%23e11d2e'/%3E%3Ccircle cx='11' cy='11' r='9.5' fill='none' stroke='%23e11d2e' stroke-opacity='.55'/%3E%3C/svg%3E") 11 11, auto;
 }
 
