@@ -77,11 +77,10 @@ function Cubie({ x, y, z }: Coord) {
             <skill.icon
               className="cube-icon relative z-[1]"
               size={34}
-              strokeWidth={2.4}
               style={{
                 color: skill.color,
                 opacity: 0.9 + face.shade * 0.1,
-                filter: `drop-shadow(0 0 12px ${skill.color}b3)`,
+                filter: `drop-shadow(0 0 6px ${skill.color}66)`,
               }}
             />
             <span
