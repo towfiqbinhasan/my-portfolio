@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { usePublicPathname } from "@/lib/useSiteMode";
 import { LABELS } from "@/components/SectionRail";
+import { sfx } from "@/lib/sfx";
 
 /*
  * Animation mode, every page: the content "generates" itself as it comes into view.
@@ -174,6 +175,7 @@ export default function GenerateLayer() {
             if (now - last < 45) return; // fresh noise ~20 times a second, not every frame
             last = now;
             write(false);
+            sfx.decode();
           },
           onComplete: () => write(true),
         })
@@ -202,6 +204,7 @@ export default function GenerateLayer() {
           waitingImgs.delete(img);
           img.classList.remove("gen-img-wait");
           img.classList.add("gen-img");
+          sfx.scan();
           const unit = unitOf(img);
           timers.push(
             setTimeout(() => {
@@ -210,7 +213,9 @@ export default function GenerateLayer() {
             }, 1500)
           );
         }),
-      { rootMargin: "0px 0px -6% 0px", threshold: 0.1 }
+      // Threshold 0: Chrome counts the image's own clip-path (it starts fully clipped), so its
+      // visible ratio stays 0 and any higher threshold would never fire (stuck in modals).
+      { rootMargin: "0px 0px -6% 0px", threshold: 0 }
     );
 
     /* ---------- cards ---------- */
@@ -234,6 +239,7 @@ export default function GenerateLayer() {
           overlay.className = "gen-scan";
           overlay.setAttribute("aria-hidden", "true");
           host.appendChild(overlay);
+          sfx.scan();
           timers.push(
             setTimeout(() => {
               overlay.remove();
@@ -354,7 +360,7 @@ export default function GenerateLayer() {
     let frame = 0;
     const observer = new MutationObserver((records) => {
       const added = records.some((r) =>
-        Array.from(r.addedNodes).some((n) => !(n instanceof HTMLElement && n.classList.contains("gen-scan")))
+        Array.from(r.addedNodes).some((n) => !(n instanceof HTMLElement && n.matches(".gen-scan, .hk-lock, .hk-frame")))
       );
       if (!added) return;
       cancelAnimationFrame(frame);

@@ -8,6 +8,7 @@ import ButtonEffects from "@/components/ButtonEffects";
 import MotionLayer from "@/components/MotionLayer";
 import TextReveal from "@/components/TextReveal";
 import GenerateLayer from "@/components/GenerateLayer";
+import HackLayer from "@/components/HackLayer";
 import SiteWorld from "@/components/SiteWorld";
 import { Toaster } from "react-hot-toast";
 import { serif, display, heading, body, script } from "@/lib/fonts";
@@ -32,6 +33,7 @@ export default function RootLayout({
        <MotionLayer />
        <TextReveal />
        <GenerateLayer />
+       <HackLayer />
        <SiteWorld />
   <Navbar />
   <Toaster

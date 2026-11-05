@@ -340,7 +340,7 @@ export default function Hero() {
           </div>
 
           {/* Headline: the greeting slides up out of a mask, then the name builds itself in 3D */}
-          <h1 className="mt-7 leading-[0.92]">
+          <h1 data-sfx="name" className="mt-7 leading-[0.92]">
             <span className="block overflow-hidden pb-1">
               <motion.span
                 className="font-script block -rotate-2 text-[clamp(2rem,5vw,3.2rem)] text-sky-500"

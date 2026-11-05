@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import SoundToggle from "@/components/SoundToggle";
 import ModeToggle from "@/components/ModeToggle";
 import Link from "next/link";
 import { usePublicPathname } from "@/lib/useSiteMode";
@@ -104,6 +105,7 @@ export default function Navbar() {
       window.location.reload();
     }
   }}
+  data-sfx="name"
   className="flex items-center gap-2 group flex-shrink-0 whitespace-nowrap"
 >
   <div className="relative w-9 h-9 rounded-full overflow-hidden shadow-lg shadow-sky-500/30 ring-2 ring-transparent group-hover:ring-sky-400/60 group-hover:scale-110 group-hover:rotate-[360deg] transition-all duration-700 flex-shrink-0">
@@ -121,7 +123,7 @@ export default function Navbar() {
 </Link>
 
         <div
-          className="hidden md:flex items-center gap-1 text-sm ml-auto relative"
+          className="hidden xl:flex items-center gap-0.5 text-sm ml-auto relative"
           data-cursor-tabs
           onMouseLeave={() => setHovered(null)}
         >
@@ -139,8 +141,8 @@ export default function Navbar() {
                   onMouseEnter={() => setHovered(link.path)}
                   className={
                     isActive
-                      ? "relative block px-3 lg:px-4 py-2 rounded-full transition whitespace-nowrap text-white"
-                      : "relative block px-3 lg:px-4 py-2 rounded-full transition whitespace-nowrap text-gray-400 hover:text-white"
+                      ? "relative block px-2.5 py-2 rounded-full transition whitespace-nowrap text-white"
+                      : "relative block px-2.5 py-2 rounded-full transition whitespace-nowrap text-gray-400 hover:text-white"
                   }
                 >
                   {/* Hover highlight glides from link to link */}
@@ -172,8 +174,8 @@ export default function Navbar() {
             onClick={() => setMoreOpen(!moreOpen)}
             className={
               isMoreActive
-                ? "relative flex items-center gap-1 px-3 lg:px-4 py-2 rounded-full transition text-white"
-                : "relative flex items-center gap-1 px-3 lg:px-4 py-2 rounded-full transition text-gray-400 hover:text-white"
+                ? "relative flex items-center gap-1 px-2.5 py-2 rounded-full transition text-white"
+                : "relative flex items-center gap-1 px-2.5 py-2 rounded-full transition text-gray-400 hover:text-white"
             }
           >
             {hovered === "more" && !isMoreActive && (
@@ -256,11 +258,13 @@ export default function Navbar() {
           </AnimatePresence>
         </div>
 
-        {/* Normal | Animation style switch (mobile: pushed right, next to the menu button) */}
-        <ModeToggle current="animated" className="ml-auto md:ml-3" />
+        {/* Normal | Animation style switch (below xl: pushed right, next to the menu button) */}
+        <ModeToggle current="animated" className="ml-auto xl:ml-3" />
+        {/* Sound effects for the animations (off by default) */}
+        <SoundToggle className="ml-2" />
 
         <button
-          className="md:hidden ml-2 relative w-10 h-10 flex items-center justify-center text-2xl rounded-full hover:bg-white/10 transition flex-shrink-0"
+          className="xl:hidden ml-2 relative w-10 h-10 flex items-center justify-center text-2xl rounded-full hover:bg-white/10 transition flex-shrink-0"
           onClick={() => setOpen(!open)}
         >
           <AnimatePresence mode="wait">
@@ -296,7 +300,7 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden overflow-hidden border-t border-white/10 max-h-[70vh] overflow-y-auto"
+            className="xl:hidden overflow-hidden border-t border-white/10 max-h-[70vh] overflow-y-auto"
           >
             <div className="flex flex-col gap-1 px-6 py-4">
               {allLinks.map((link, i) => {
