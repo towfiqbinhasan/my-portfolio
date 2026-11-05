@@ -392,6 +392,41 @@ export const sfx = {
       glass(o, tone(1, 3), t + 0.45, 0.03, 2.2);
     }),
 
+  /** Electric interference burst ("jir-jir"): a flickering, fizzing hum like a failing tube light */
+  zzt: (dur = 0.4) =>
+    play("zzt", 400, (o) => {
+      const { a } = o;
+      const t = a.currentTime;
+      electric(o, t, dur, 0.28, false);
+      // A tube-light hum and a fizz of noise, both switching on and off together
+      const flicker = a.createGain();
+      flicker.gain.setValueAtTime(0, t);
+      for (let s = 0; s < dur; s += 0.015 + Math.random() * 0.02) flicker.gain.setValueAtTime(Math.random() < 0.35 ? 0 : 0.4 + Math.random() * 0.6, t + s);
+      flicker.gain.setValueAtTime(0, t + dur);
+      flicker.connect(shape(a, o.wet, 0.14, 0.01, dur, t));
+      const hum = a.createOscillator();
+      hum.type = "triangle";
+      hum.frequency.value = theme.hum * 8;
+      const humBand = a.createBiquadFilter();
+      humBand.type = "bandpass";
+      humBand.frequency.value = theme.hum * 8;
+      humBand.Q.value = 0.7;
+      hum.connect(humBand).connect(flicker);
+      const fizz = a.createBufferSource();
+      fizz.buffer = noiseBuf;
+      const fizzBand = a.createBiquadFilter();
+      fizzBand.type = "bandpass";
+      fizzBand.frequency.value = 3200;
+      fizzBand.Q.value = 0.8;
+      const fizzLevel = a.createGain();
+      fizzLevel.gain.value = 0.5;
+      fizz.connect(fizzBand).connect(fizzLevel).connect(flicker);
+      hum.start(t);
+      fizz.start(t, Math.random() * 2);
+      hum.stop(t + dur + 0.1);
+      fizz.stop(t + dur + 0.1);
+    }),
+
   /** Fast scrolling: rushing air with a crackle in it, louder the faster you go (0 to 1) */
   setStatic: (level: number) => {
     if (!enabled || !ctx || !wet || ctx.state !== "running") {

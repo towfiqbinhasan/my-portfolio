@@ -15,7 +15,9 @@ import { sfx } from "@/lib/sfx";
  *   Cards: corner brackets snap onto each card as it scrolls in, an arc sparks along its top
  *     edge, and a "TARGET ✓" readout shows.
  *   Screen: faint CRT scanlines and vignette; fast scrolling tears the picture with a blue band
- *     and lightning arcs across the screen.
+ *     and lightning arcs across the screen. Every few seconds, even at rest, a burst of electric
+ *     interference ("jir-jir") flickers in front: a band of blue static with jittering streaks,
+ *     an arc crawling along a screen edge and a spray of sparks.
  *   Very wide screens: a memory-address gutter on the left that runs with the scroll.
  *   Sound (when the navbar's sound button is on): each step above has its own effect, see lib/sfx.
  *
@@ -138,6 +140,7 @@ export default function HackLayer() {
   const screen = useRef<HTMLDivElement>(null);
   const gutter = useRef<HTMLDivElement>(null);
   const arcs = useRef<HTMLCanvasElement>(null);
+  const band = useRef<HTMLDivElement>(null);
 
   /* ---------- sections ---------- */
   useEffect(() => {
@@ -476,6 +479,86 @@ export default function HackLayer() {
       },
     });
 
+    // "Jir-jir": every few seconds a short burst of electric interference flickers in front
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    let burstTimer: ReturnType<typeof setTimeout> | undefined;
+    const spark = (x: number, y: number) => {
+      if (!g) return;
+      g.save();
+      g.globalCompositeOperation = "lighter";
+      g.fillStyle = "#dbeafe";
+      g.shadowColor = "#3b82f6";
+      g.shadowBlur = 8;
+      for (let i = 0; i < 6; i++) {
+        g.beginPath();
+        g.arc(x + (Math.random() - 0.5) * 60, y + (Math.random() - 0.5) * 60, 0.6 + Math.random() * 1.6, 0, Math.PI * 2);
+        g.fill();
+      }
+      g.restore();
+    };
+    const crawl = () => {
+      if (!g || !canvas) return;
+      const { width: w, height: h } = canvas;
+      const len = 120 + Math.random() * 260;
+      // Pick an edge and let an arc run along it, hugging the screen border
+      const edges: [P, P][] = [
+        [[Math.random() * w, 2], [0, 4]],
+        [[Math.random() * w, h - 2], [0, h - 4]],
+        [[2, Math.random() * h], [4, 0]],
+        [[w - 2, Math.random() * h], [w - 4, 0]],
+      ];
+      const [from, axis] = edges[(Math.random() * 4) | 0];
+      const to: P = axis[0] === 0 ? [from[0] + (Math.random() < 0.5 ? -len : len), axis[1]] : [axis[0], from[1] + (Math.random() < 0.5 ? -len : len)];
+      drawBolt(g, from, to, 34, 0.9, true);
+      spark(to[0], to[1]);
+    };
+    const streaks = (top: number, height: number) => {
+      if (!g || !canvas) return;
+      g.save();
+      g.globalCompositeOperation = "lighter";
+      g.shadowColor = "#3b82f6";
+      g.shadowBlur = 6;
+      for (let i = 0; i < 5 + Math.random() * 4; i++) {
+        const y = top + Math.random() * height;
+        const x = Math.random() * canvas.width * 0.8;
+        g.strokeStyle = `rgba(147,197,253,${0.4 + Math.random() * 0.5})`;
+        g.lineWidth = Math.random() < 0.3 ? 2 : 1;
+        g.beginPath();
+        g.moveTo(x, y);
+        g.lineTo(x + 80 + Math.random() * 520, y);
+        g.stroke();
+      }
+      g.restore();
+    };
+    const burst = () => {
+      const b = band.current;
+      if (!document.hidden && g && canvas && b) {
+        const dur = 250 + Math.random() * 350;
+        const end = performance.now() + dur;
+        const top = Math.random() * canvas.height * 0.8;
+        const height = canvas.height * (0.05 + Math.random() * 0.14);
+        Object.assign(b.style, { top: `${top}px`, height: `${height}px` });
+        s.dataset.burst = "true";
+        sfx.zzt(dur / 1000);
+        const frame = () => {
+          if (performance.now() > end) {
+            s.dataset.burst = "false";
+            return;
+          }
+          b.style.transform = `translateX(${(Math.random() - 0.5) * 24}px) scaleY(${0.6 + Math.random() * 0.8})`;
+          streaks(top, height);
+          if (Math.random() < 0.6) crawl();
+          glowing = 10; // the tick below fades it all out again
+          burstTimer = setTimeout(frame, 40 + Math.random() * 30);
+        };
+        frame();
+        burstTimer = setTimeout(burst, dur + (mobile ? 5000 : 2500) + Math.random() * 4000);
+        return;
+      }
+      burstTimer = setTimeout(burst, 3000);
+    };
+    burstTimer = setTimeout(burst, 3500);
+
     const tick = () => {
       // The tear follows how fast you scroll, and fades out once you stop
       velocity *= 0.86;
@@ -513,6 +596,8 @@ export default function HackLayer() {
     return () => {
       gsap.ticker.remove(tick);
       trigger.kill();
+      clearTimeout(burstTimer);
+      s.dataset.burst = "false";
       window.removeEventListener("resize", size);
       if (g && canvas) g.clearRect(0, 0, canvas.width, canvas.height);
       s.dataset.on = "false";
@@ -523,6 +608,7 @@ export default function HackLayer() {
     <div ref={screen} data-on="false" aria-hidden className="hk-screen">
       <div className="hk-scanlines" />
       <div className="hk-tear" />
+      <div ref={band} className="hk-static" />
       <canvas ref={arcs} className="hk-arcs" />
       <div ref={gutter} className="hk-gutter">
         {Array.from({ length: 14 }, (_, i) => (
