@@ -249,14 +249,6 @@ export default function Hero() {
         }}
       />
 
-      {/* Giant outlined word sitting behind the portrait, poster style */}
-      <div
-        aria-hidden
-        className="text-outline pointer-events-none absolute right-4 mix-blend-difference top-1/2 hidden -translate-y-1/2 select-none font-[family-name:var(--font-heading)] text-[clamp(6rem,12vw,14rem)] uppercase leading-none lg:block"
-      >
-        Portfolio<span className="text-sky-500/40 [-webkit-text-stroke:0]">.</span>
-      </div>
-
       <div ref={content} className="relative mx-auto grid max-w-[1560px] origin-top will-change-transform items-center gap-6 px-4 pb-8 pt-4 sm:gap-10 sm:px-6 sm:py-10 md:px-10 lg:min-h-[calc(100vh-5rem)] lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-4 lg:py-14">
         {/* ---------- Left: copy ---------- */}
         <div className="order-2 min-w-0 lg:order-1">

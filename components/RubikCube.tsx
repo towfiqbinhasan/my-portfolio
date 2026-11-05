@@ -67,7 +67,8 @@ function Cubie({ x, y, z }: Coord) {
               {
                 transform: face.transform,
                 backfaceVisibility: "hidden",
-                backgroundImage: `radial-gradient(circle at 50% 38%, ${skill.color}2e 0%, transparent 62%), ${base}`,
+                backgroundImage: `radial-gradient(circle at 50% 38%, ${skill.color}4d 0%, transparent 66%), ${base}`,
+                boxShadow: `inset 0 0 0 1.5px ${skill.color}55, inset 0 1px 0 rgba(255,255,255,0.12)`,
                 "--c": skill.color,
                 "--d": `${delay}s`,
               } as CSSProperties
@@ -75,16 +76,17 @@ function Cubie({ x, y, z }: Coord) {
           >
             <skill.icon
               className="cube-icon relative z-[1]"
-              size={30}
+              size={34}
+              strokeWidth={2.4}
               style={{
                 color: skill.color,
-                opacity: 0.75 + face.shade * 0.25,
-                filter: `drop-shadow(0 0 10px ${skill.color}80)`,
+                opacity: 0.9 + face.shade * 0.1,
+                filter: `drop-shadow(0 0 12px ${skill.color}b3)`,
               }}
             />
             <span
-              className="relative z-[1] text-[9px] font-semibold tracking-wide text-neutral-200 whitespace-nowrap"
-              style={{ opacity: 0.65 + face.shade * 0.35 }}
+              className="relative z-[1] text-[10px] font-extrabold tracking-wide text-white whitespace-nowrap"
+              style={{ opacity: 0.85 + face.shade * 0.15, textShadow: "0 1px 3px rgba(0,0,0,0.8)" }}
             >
               {skill.name}
             </span>
